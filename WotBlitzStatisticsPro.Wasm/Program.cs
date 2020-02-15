@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Blazor.Hosting;
 
 namespace WotBlitzStatisticsPro.UI.Wasm
 {
-    public class Program
+    public static class Program
 	{
         public static void Main(string[] args)
         {
