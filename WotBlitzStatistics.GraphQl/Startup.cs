@@ -37,7 +37,7 @@ namespace WotBlitzStatistics.GraphQl
 				// enable the authorization middleware.
 				.AddAuthorizeDirectiveType()
 
-				.AddQueryType<WotBlitzStatisticsQueryType>()
+				.AddQueryType<WotBlitzStatisticsQuery>()
 				//.AddMutationType<MutationType>()
 				//.AddSubscriptionType<SubscriptionType>()
 				.AddType<PlayerAccountInfo>()
