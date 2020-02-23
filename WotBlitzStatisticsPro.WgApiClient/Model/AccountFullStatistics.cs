@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WotBlitzStatisticsPro.WgApiClient.Model
 {
@@ -86,13 +83,13 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		public long? MaxXpTankId { get; set; }
 
 		///<summary>
-		/// Totla shots count
+		/// Total shots count
 		///</summary>
 		[JsonProperty("shots")]
 		public long? Shots { get; set; }
 
 		///<summary>
-		/// Totla count of spotted vehicles
+		/// Total count of spotted vehicles
 		///</summary>
 		[JsonProperty("spotted")]
 		public long? Spotted { get; set; }

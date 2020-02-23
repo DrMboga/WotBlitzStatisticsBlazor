@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WotBlitzStatistics.GraphQl.ObjectTypes;
 using WotBlitzStatistics.GraphQl.Query;
-using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.WgApiClient;
+using WotBlitzStatisticsPro.WgApiClient.Model;
 
 namespace WotBlitzStatistics.GraphQl
 {
@@ -40,10 +41,10 @@ namespace WotBlitzStatistics.GraphQl
 				.AddQueryType<WotBlitzStatisticsQuery>()
 				//.AddMutationType<MutationType>()
 				//.AddSubscriptionType<SubscriptionType>()
-				.AddType<PlayerAccountInfo>()
-				.AddType<PlayerAchievementInfo>()
-				.AddType<PlayerTankInfo>()
-				.AddEnumType<MarkOfMastery>()
+				.AddType<PlayerAccountInfoObjectType>()
+				.AddType<AccountStatistics>()
+				.AddType<AccountFullStatistics>()
+				//.AddEnumType<MarkOfMastery>()
 				.Create());
 		}
 
