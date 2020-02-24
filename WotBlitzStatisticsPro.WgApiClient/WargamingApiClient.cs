@@ -8,6 +8,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
 {
 	public class WargamingApiClient : WagramingApiClientBase, IWargamingApiClient
 	{
+		// ToDo: AddLogging
 		public WargamingApiClient(
 			HttpClient httpClient,
 			IWargamingApiSettings wargamingApiSettings) : base(httpClient, wargamingApiSettings)
@@ -29,8 +30,24 @@ namespace WotBlitzStatisticsPro.WgApiClient
 				realmType,
 				language,
 				"account/info/",
-				$"account_id={accountId}");
+				$"account_id={accountId}").ConfigureAwait(false);
 			return account[accountId.ToString()];
+		}
+
+		public async Task<ClanAccountInfo> GetPlayerClanInfo(long accountId,
+			RealmType realmType = RealmType.Ru,
+			RequestLanguage language = RequestLanguage.En)
+		{
+			var clanInfo = await GetFromBlitzApi<Dictionary<string, ClanAccountInfo>>(
+				realmType,
+				language,
+				"clans/accountinfo/",
+				$"account_id={accountId}").ConfigureAwait(false);
+			if (clanInfo.ContainsKey(accountId.ToString()))
+			{
+				return clanInfo[accountId.ToString()];
+			}
+			return null;
 		}
 	}
 }
