@@ -10,7 +10,7 @@ namespace WotBlitzStatistics.GraphQl.ObjectTypes
 		protected override void Configure(IObjectTypeDescriptor<AccountInfo> descriptor)
 		{
 			descriptor.Field(a => a.Private).Ignore();
-			descriptor.Field("clanInfo")
+			descriptor.Field("accountClanInfo")
 				//.Argument("accountId", a => a.Type<NonNullType<LongType>>())
 				//.Type<ClanAccountInfo>()
 				.Resolver(c => c.Service<IWargamingApiClient>()

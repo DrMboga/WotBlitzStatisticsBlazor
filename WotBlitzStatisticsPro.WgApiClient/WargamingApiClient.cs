@@ -49,5 +49,24 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			}
 			return null;
 		}
+
+        public async Task<ClanInfo> GetClanInfo(
+            long clanId, 
+            RealmType realmType = RealmType.Ru, 
+            RequestLanguage language = RequestLanguage.En)
+        {
+			// https://api.wotblitz.ru/wotb/clans/info/?application_id=adc1387489cf9fc8d9a1d85dbd27763d&clan_id=40493
+			var clanInfo = await GetFromBlitzApi<Dictionary<string, ClanInfo>>(
+                realmType,
+                language,
+				"clans/info/",
+                $"clan_id={clanId}").ConfigureAwait(false);
+            if (clanInfo.ContainsKey(clanId.ToString()))
+            {
+                return clanInfo[clanId.ToString()];
+            }
+            return null;
+		}
+
 	}
 }

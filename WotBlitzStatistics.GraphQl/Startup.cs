@@ -45,6 +45,7 @@ namespace WotBlitzStatistics.GraphQl
 				.AddType<AccountStatistics>()
 				.AddType<AccountFullStatistics>()
 				.AddType<PlayerClanInfoObjectType>()
+				.AddType<ClanInfoObjectType>()
 				//.AddEnumType<MarkOfMastery>()
 				.Create());
 		}
