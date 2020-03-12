@@ -30,6 +30,9 @@ namespace WotBlitzStatistics.GraphQl
 			services.AddSingleton<IWargamingApiSettings>(wgApiConfig);
 			services.AddHttpClient<IWargamingApiClient, WargamingApiClient>();
 
+            // this enables you to use DataLoader in your resolvers.
+            services.AddDataLoaderRegistry();
+
 			// Add GraphQL Services
 			services.AddGraphQL(sp => SchemaBuilder.New()
 				.AddServices(sp)

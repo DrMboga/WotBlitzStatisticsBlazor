@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.5" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="10.3.5" />
-    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.3.5" />
-    <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="10.3.5" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.6" />
+    <PackageReference Include="HotChocolate.AspNetCore.Abstractions" Version="10.3.6" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="10.3.6" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.3.6" />
+    <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="10.3.6" />
+    <PackageReference Include="HotChocolate.Types.Filters" Version="10.3.6" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
