@@ -55,7 +55,6 @@ namespace WotBlitzStatisticsPro.WgApiClient
             RealmType realmType = RealmType.Ru, 
             RequestLanguage language = RequestLanguage.En)
         {
-			// https://api.wotblitz.ru/wotb/clans/info/?application_id=adc1387489cf9fc8d9a1d85dbd27763d&clan_id=40493
 			var clanInfo = await GetFromBlitzApi<Dictionary<string, ClanInfo>>(
                 realmType,
                 language,
@@ -67,6 +66,8 @@ namespace WotBlitzStatisticsPro.WgApiClient
             }
             return null;
 		}
+
+		// https://api.wotblitz.ru/wotb/encyclopedia/achievements/?application_id=adc1387489cf9fc8d9a1d85dbd27763d
 
 	}
 }

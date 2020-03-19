@@ -1,6 +1,7 @@
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Voyager;
+using HotChocolate.DataLoader;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,8 +31,10 @@ namespace WotBlitzStatistics.GraphQl
 			services.AddSingleton<IWargamingApiSettings>(wgApiConfig);
 			services.AddHttpClient<IWargamingApiClient, WargamingApiClient>();
 
-            // this enables you to use DataLoader in your resolvers.
-            services.AddDataLoaderRegistry();
+			// Global data loader - caches data between requests
+			//services.AddSingleton<IDataLoaderRegistry, DataLoaderRegistry>();
+			// this enables you to use DataLoader in your resolvers.
+			services.AddDataLoaderRegistry();
 
 			// Add GraphQL Services
 			services.AddGraphQL(sp => SchemaBuilder.New()
