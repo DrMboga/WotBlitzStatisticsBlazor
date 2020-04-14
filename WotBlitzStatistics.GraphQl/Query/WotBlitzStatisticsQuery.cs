@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.WgApiClient;
-using WotBlitzStatisticsPro.WgApiClient.Model;
 
 namespace WotBlitzStatistics.GraphQl.Query
 {
@@ -14,9 +14,22 @@ namespace WotBlitzStatistics.GraphQl.Query
             _wargamingApiClient = wargamingApiClient;
         }
 
-        public Task<AccountInfo> GetPlayerInfo(long accountId)
+        //public Task<AccountInfo> GetPlayerInfo(long accountId)
+        //{
+        //    return _wargamingApiClient.GetPlayerAccountInfo(accountId);
+        //}
+
+        public async Task<AccountsSearchResponse> FindAccounts(string accountNick)
         {
-            return _wargamingApiClient.GetPlayerAccountInfo(accountId);
+            var response = await _wargamingApiClient.FindAccounts(accountNick);
+            // ToDo: Use auto mapper
+            var result = new AccountsSearchResponse
+            {
+                AccountsCount = response.Count,
+                Accounts = new List<AccountsSearchResponseItem>()
+            };
+            response.ForEach(r => result.Accounts.Add(new AccountsSearchResponseItem {AccountId = r.AccountId.Value, Nickname = r.Nickname}));
+            return result;
         }
     }
 }

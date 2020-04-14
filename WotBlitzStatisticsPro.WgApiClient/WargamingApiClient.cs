@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WotBlitzStatisticsPro.WgApiClient.Model;
@@ -8,19 +7,24 @@ namespace WotBlitzStatisticsPro.WgApiClient
 {
 	public class WargamingApiClient : WagramingApiClientBase, IWargamingApiClient
 	{
-		// ToDo: AddLogging
 		public WargamingApiClient(
 			HttpClient httpClient,
 			IWargamingApiSettings wargamingApiSettings) : base(httpClient, wargamingApiSettings)
 		{
 		}
 
-		public Task<Dictionary<long, string>> FindAccounts(string nickName,
+		public async Task<List<WotAccountListResponse>> FindAccounts(string nickName,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En)
 		{
-			throw new NotImplementedException();
-		}
+            return await GetFromBlitzApi<List<WotAccountListResponse>>(
+                realmType,
+                language,
+				"account/list/",
+                $"search={nickName}").ConfigureAwait(false);
+        }
+
+		// https://api.wotblitz.ru/wotb/clans/list/?application_id=adc1387489cf9fc8d9a1d85dbd27763d&search=xxx
 
 		public async Task<AccountInfo> GetPlayerAccountInfo(long accountId,
 			RealmType realmType = RealmType.Ru,

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WotBlitzStatisticsPro.Common\WotBlitzStatisticsPro.Common.csproj" />
     <ProjectReference Include="..\WotBlitzStatisticsPro.WgApiClient\WotBlitzStatisticsPro.WgApiClient.csproj" />
   </ItemGroup>
 

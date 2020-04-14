@@ -6,7 +6,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
 {
 	public interface IWargamingApiClient
 	{
-		Task<Dictionary<long, string>> FindAccounts(string nickName,
+		Task<List<WotAccountListResponse>> FindAccounts(string nickName,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En);
 

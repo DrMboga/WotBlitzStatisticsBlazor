@@ -32,7 +32,9 @@ namespace WotBlitzStatistics.GraphQl
 			services.AddHttpClient<IWargamingApiClient, WargamingApiClient>();
 
 			// Global data loader - caches data between requests
+			// ToDo: cause nullreference exception
 			//services.AddSingleton<IDataLoaderRegistry, DataLoaderRegistry>();
+			
 			// this enables you to use DataLoader in your resolvers.
 			services.AddDataLoaderRegistry();
 
@@ -47,11 +49,8 @@ namespace WotBlitzStatistics.GraphQl
 				.AddQueryType<WotBlitzStatisticsQuery>()
 				//.AddMutationType<MutationType>()
 				//.AddSubscriptionType<SubscriptionType>()
-				.AddType<PlayerAccountInfoObjectType>()
-				.AddType<AccountStatistics>()
-				.AddType<AccountFullStatistics>()
-				.AddType<PlayerClanInfoObjectType>()
-				.AddType<ClanInfoObjectType>()
+				.AddType<AccountsSearchItemObjectType>()
+				.AddType<AccountsSearchObjectType>()
 				//.AddEnumType<MarkOfMastery>()
 				.Create());
 		}
