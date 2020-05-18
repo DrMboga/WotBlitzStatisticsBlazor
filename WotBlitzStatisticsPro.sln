@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.UI", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.UI.Server", "WotBlitzStatisticsPro.UI.Server\WotBlitzStatisticsPro.UI.Server.csproj", "{132C4637-1C92-4A8E-BD26-CEC0EFA9D05A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotBlitzStatisticsPro.Common", "WotBlitzStatisticsPro.Common\WotBlitzStatisticsPro.Common.csproj", "{2802CC24-35D6-48CE-9BC4-7080F9335C88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.Common", "WotBlitzStatisticsPro.Common\WotBlitzStatisticsPro.Common.csproj", "{2802CC24-35D6-48CE-9BC4-7080F9335C88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotBlitzStatisticsPro.UI.Wasm", "WotBlitzStatisticsPro.Wasm\WotBlitzStatisticsPro.UI.Wasm.csproj", "{57E96A78-BDA4-4023-9965-EC755C68D033}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.UI.Wasm", "WotBlitzStatisticsPro.Wasm\WotBlitzStatisticsPro.UI.Wasm.csproj", "{57E96A78-BDA4-4023-9965-EC755C68D033}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotBlitzStatistics.GraphQl", "WotBlitzStatistics.GraphQl\WotBlitzStatistics.GraphQl.csproj", "{9B268E2D-38A5-4755-BAEC-BAF1DC7DCEC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatistics.GraphQl", "WotBlitzStatistics.GraphQl\WotBlitzStatistics.GraphQl.csproj", "{9B268E2D-38A5-4755-BAEC-BAF1DC7DCEC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotBlitzStatisticsPro.WgApiClient", "WotBlitzStatisticsPro.WgApiClient\WotBlitzStatisticsPro.WgApiClient.csproj", "{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.WgApiClient", "WotBlitzStatisticsPro.WgApiClient\WotBlitzStatisticsPro.WgApiClient.csproj", "{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotBlitzStatistics.Logic", "WotBlitzStatistics.Logic\WotBlitzStatistics.Logic.csproj", "{0E04D1C0-DFB9-4BD3-B540-DD207358850C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E04D1C0-DFB9-4BD3-B540-DD207358850C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E04D1C0-DFB9-4BD3-B540-DD207358850C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E04D1C0-DFB9-4BD3-B540-DD207358850C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E04D1C0-DFB9-4BD3-B540-DD207358850C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

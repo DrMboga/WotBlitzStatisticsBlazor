@@ -1,35 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using WotBlitzStatistics.Logic;
 using WotBlitzStatisticsPro.Common.Model;
-using WotBlitzStatisticsPro.WgApiClient;
+using WotBlitzStatisticsPro.WgApiClient.Model;
 
 namespace WotBlitzStatistics.GraphQl.Query
 {
 	public class WotBlitzStatisticsQuery
 	{
-        private readonly IWargamingApiClient _wargamingApiClient;
+        private readonly IWargamingSearch _wargamingSearcher;
 
-        public WotBlitzStatisticsQuery(IWargamingApiClient wargamingApiClient)
+        public WotBlitzStatisticsQuery(IWargamingSearch wargamingSearcher)
         {
-            _wargamingApiClient = wargamingApiClient;
+            _wargamingSearcher = wargamingSearcher;
         }
 
         //public Task<AccountInfo> GetPlayerInfo(long accountId)
         //{
-        //    return _wargamingApiClient.GetPlayerAccountInfo(accountId);
+        //    return _wargamingSearcher.GetPlayerAccountInfo(accountId);
         //}
 
-        public async Task<AccountsSearchResponse> FindAccounts(string accountNick)
+        public Task<AccountsSearchResponse> FindAccounts(
+            string accountNick, 
+            RealmType? realmType,
+            RequestLanguage? language)
         {
-            var response = await _wargamingApiClient.FindAccounts(accountNick);
-            // ToDo: Use auto mapper
-            var result = new AccountsSearchResponse
-            {
-                AccountsCount = response.Count,
-                Accounts = new List<AccountsSearchResponseItem>()
-            };
-            response.ForEach(r => result.Accounts.Add(new AccountsSearchResponseItem {AccountId = r.AccountId.Value, Nickname = r.Nickname}));
-            return result;
+            return _wargamingSearcher.FindAccounts(accountNick, realmType ?? RealmType.Ru, language ?? RequestLanguage.En);
         }
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WotBlitzStatistics.GraphQl.ObjectTypes;
 using WotBlitzStatistics.GraphQl.Query;
+using WotBlitzStatistics.Logic;
+using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.WgApiClient;
 using WotBlitzStatisticsPro.WgApiClient.Model;
 
@@ -29,7 +31,7 @@ namespace WotBlitzStatistics.GraphQl
 			Configuration.GetSection("WargamingApi").Bind(wgApiConfig);
 
 			services.AddSingleton<IWargamingApiSettings>(wgApiConfig);
-			services.AddHttpClient<IWargamingApiClient, WargamingApiClient>();
+            WotBlitzStatisticsLogicInstaller.ConfigureServices(services);
 
 			// Global data loader - caches data between requests
 			// ToDo: cause nullreference exception
@@ -51,7 +53,9 @@ namespace WotBlitzStatistics.GraphQl
 				//.AddSubscriptionType<SubscriptionType>()
 				.AddType<AccountsSearchItemObjectType>()
 				.AddType<AccountsSearchObjectType>()
-				//.AddEnumType<MarkOfMastery>()
+				.AddEnumType<MarkOfMastery>()
+				.AddEnumType<RealmType>()
+				.AddEnumType<RequestLanguage>()
 				.Create());
 		}
 
