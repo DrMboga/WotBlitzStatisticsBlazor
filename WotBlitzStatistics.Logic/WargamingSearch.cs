@@ -30,5 +30,18 @@ namespace WotBlitzStatistics.Logic
                 Accounts = _mapper.Map<List<WotAccountListResponse>, List<AccountsSearchResponseItem>>(response)
             };
         }
+
+        public async Task<ClanSearchResponse> FindClans(
+            string searchString, 
+            RealmType realmType, 
+            RequestLanguage language)
+        {
+            var response = await _wargamingApiClient.FindClans(searchString, realmType, language);
+            return new ClanSearchResponse
+            {
+                ClansCount = response.Count,
+                Clans = _mapper.Map<List<WotClanListResponse>, List<ClanSearchResponseItem>>(response)
+            };
+        }
     }
 }

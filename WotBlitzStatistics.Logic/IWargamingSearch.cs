@@ -10,5 +10,10 @@ namespace WotBlitzStatistics.Logic
             string accountNick, 
             RealmType realmType,
             RequestLanguage language);
+
+        Task<ClanSearchResponse> FindClans(
+            string searchString, 
+            RealmType realmType,
+            RequestLanguage language);
     }
 }

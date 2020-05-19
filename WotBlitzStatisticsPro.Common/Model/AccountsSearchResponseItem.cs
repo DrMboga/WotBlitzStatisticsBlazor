@@ -1,5 +1,8 @@
 ﻿namespace WotBlitzStatisticsPro.Common.Model
 {
+    /// <summary>
+    /// Account search result item
+    /// </summary>
     public class AccountsSearchResponseItem
     {
         ///<summary>

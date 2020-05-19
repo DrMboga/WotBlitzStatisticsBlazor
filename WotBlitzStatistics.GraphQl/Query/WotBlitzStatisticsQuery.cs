@@ -19,12 +19,34 @@ namespace WotBlitzStatistics.GraphQl.Query
         //    return _wargamingSearcher.GetPlayerAccountInfo(accountId);
         //}
 
+        /// <summary>
+        /// Finds Wargaming accounts by nick
+        /// </summary>
+        /// <param name="accountNick">Search string.</param>
+        /// <param name="realmType">Wargaming Realm.</param>
+        /// <param name="language">Language for the output data.</param>
+        /// <returns></returns>
         public Task<AccountsSearchResponse> FindAccounts(
             string accountNick, 
             RealmType? realmType,
             RequestLanguage? language)
         {
             return _wargamingSearcher.FindAccounts(accountNick, realmType ?? RealmType.Ru, language ?? RequestLanguage.En);
+        }
+
+        /// <summary>
+        /// Finds clans by search string
+        /// </summary>
+        /// <param name="searchString">Search string.</param>
+        /// <param name="realmType">Wargaming Realm.</param>
+        /// <param name="language">Language for the output data.</param>
+        /// <returns></returns>
+        public Task<ClanSearchResponse> FindClans(
+            string searchString, 
+            RealmType? realmType,
+            RequestLanguage? language)
+        {
+            return _wargamingSearcher.FindClans(searchString, realmType ?? RealmType.Ru, language ?? RequestLanguage.En);
         }
     }
 }

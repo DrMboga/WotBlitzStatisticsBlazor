@@ -10,6 +10,10 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En);
 
+		Task<List<WotClanListResponse>> FindClans(string searchString,
+			RealmType realmType = RealmType.Ru,
+			RequestLanguage language = RequestLanguage.En);
+
 		Task<AccountInfo> GetPlayerAccountInfo(long accountId,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En);

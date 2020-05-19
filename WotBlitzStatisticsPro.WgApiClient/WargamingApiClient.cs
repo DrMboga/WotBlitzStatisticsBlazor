@@ -24,7 +24,17 @@ namespace WotBlitzStatisticsPro.WgApiClient
                 $"search={nickName}").ConfigureAwait(false);
         }
 
-		// https://api.wotblitz.ru/wotb/clans/list/?application_id=adc1387489cf9fc8d9a1d85dbd27763d&search=xxx
+        public async Task<List<WotClanListResponse>> FindClans(string searchString, 
+            RealmType realmType = RealmType.Ru, 
+            RequestLanguage language = RequestLanguage.En)
+        {
+            return await GetFromBlitzApi<List<WotClanListResponse>>(
+                realmType,
+                language,
+				"clans/list/",
+                $"search={searchString}").ConfigureAwait(false);
+
+		}
 
 		public async Task<AccountInfo> GetPlayerAccountInfo(long accountId,
 			RealmType realmType = RealmType.Ru,
