@@ -7,6 +7,9 @@ namespace WotBlitzStatistics.GraphQl.Query
 {
 	public class WotBlitzStatisticsQuery
 	{
+        // 571050560 - mboga Eu
+        // 90277267 - Mboga Ru
+
         private readonly IWargamingSearch _wargamingSearcher;
 
         public WotBlitzStatisticsQuery(IWargamingSearch wargamingSearcher)

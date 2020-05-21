@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WotBlitzStatistics.GraphQl.Mutation;
 using WotBlitzStatistics.GraphQl.ObjectTypes;
 using WotBlitzStatistics.GraphQl.Query;
 using WotBlitzStatistics.Logic;
@@ -49,7 +50,7 @@ namespace WotBlitzStatistics.GraphQl
 				.AddAuthorizeDirectiveType()
 
 				.AddQueryType<WotBlitzStatisticsQuery>()
-				//.AddMutationType<MutationType>()
+                .AddMutationType<WotBlitzStatisticsMutation>()
 				//.AddSubscriptionType<SubscriptionType>()
 				.AddType<AccountsSearchItemObjectType>()
 				.AddType<AccountsSearchObjectType>()
