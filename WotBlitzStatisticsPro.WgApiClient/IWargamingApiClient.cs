@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.WgApiClient.Model;
 
 namespace WotBlitzStatisticsPro.WgApiClient

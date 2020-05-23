@@ -3,19 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.UI", "WotBlitzStatisticsPro.UI\WotBlitzStatisticsPro.UI.csproj", "{402DB12D-11B4-4D61-AFDE-52173653F14F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.UI.Server", "WotBlitzStatisticsPro.UI.Server\WotBlitzStatisticsPro.UI.Server.csproj", "{132C4637-1C92-4A8E-BD26-CEC0EFA9D05A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.Common", "WotBlitzStatisticsPro.Common\WotBlitzStatisticsPro.Common.csproj", "{2802CC24-35D6-48CE-9BC4-7080F9335C88}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.UI.Wasm", "WotBlitzStatisticsPro.Wasm\WotBlitzStatisticsPro.UI.Wasm.csproj", "{57E96A78-BDA4-4023-9965-EC755C68D033}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatistics.GraphQl", "WotBlitzStatistics.GraphQl\WotBlitzStatistics.GraphQl.csproj", "{9B268E2D-38A5-4755-BAEC-BAF1DC7DCEC7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.WgApiClient", "WotBlitzStatisticsPro.WgApiClient\WotBlitzStatisticsPro.WgApiClient.csproj", "{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotBlitzStatistics.Logic", "WotBlitzStatistics.Logic\WotBlitzStatistics.Logic.csproj", "{0E04D1C0-DFB9-4BD3-B540-DD207358850C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{5095AE8F-F1D4-4BC0-95FD-B3DB0D3AED15}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.Logic", "WotBlitzStatisticsPro.Logic\WotBlitzStatisticsPro.Logic.csproj", "{A79103B3-4F04-4090-803E-B7AABFCC93B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.GraphQl", "WotBlitzStatisticsPro.GraphQl\WotBlitzStatisticsPro.GraphQl.csproj", "{921E0CBA-5696-4BB3-A547-78F599B1479B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,37 +19,29 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{402DB12D-11B4-4D61-AFDE-52173653F14F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{402DB12D-11B4-4D61-AFDE-52173653F14F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{402DB12D-11B4-4D61-AFDE-52173653F14F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{402DB12D-11B4-4D61-AFDE-52173653F14F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{132C4637-1C92-4A8E-BD26-CEC0EFA9D05A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{132C4637-1C92-4A8E-BD26-CEC0EFA9D05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{132C4637-1C92-4A8E-BD26-CEC0EFA9D05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{132C4637-1C92-4A8E-BD26-CEC0EFA9D05A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2802CC24-35D6-48CE-9BC4-7080F9335C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2802CC24-35D6-48CE-9BC4-7080F9335C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2802CC24-35D6-48CE-9BC4-7080F9335C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2802CC24-35D6-48CE-9BC4-7080F9335C88}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57E96A78-BDA4-4023-9965-EC755C68D033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57E96A78-BDA4-4023-9965-EC755C68D033}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57E96A78-BDA4-4023-9965-EC755C68D033}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57E96A78-BDA4-4023-9965-EC755C68D033}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B268E2D-38A5-4755-BAEC-BAF1DC7DCEC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B268E2D-38A5-4755-BAEC-BAF1DC7DCEC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B268E2D-38A5-4755-BAEC-BAF1DC7DCEC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B268E2D-38A5-4755-BAEC-BAF1DC7DCEC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E04D1C0-DFB9-4BD3-B540-DD207358850C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E04D1C0-DFB9-4BD3-B540-DD207358850C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E04D1C0-DFB9-4BD3-B540-DD207358850C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E04D1C0-DFB9-4BD3-B540-DD207358850C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A79103B3-4F04-4090-803E-B7AABFCC93B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A79103B3-4F04-4090-803E-B7AABFCC93B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A79103B3-4F04-4090-803E-B7AABFCC93B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A79103B3-4F04-4090-803E-B7AABFCC93B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{921E0CBA-5696-4BB3-A547-78F599B1479B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{921E0CBA-5696-4BB3-A547-78F599B1479B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{921E0CBA-5696-4BB3-A547-78F599B1479B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{921E0CBA-5696-4BB3-A547-78F599B1479B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515} = {5095AE8F-F1D4-4BC0-95FD-B3DB0D3AED15}
+		{A79103B3-4F04-4090-803E-B7AABFCC93B1} = {5095AE8F-F1D4-4BC0-95FD-B3DB0D3AED15}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {295179CC-53B9-4A2F-8051-A6B033EED16E}
