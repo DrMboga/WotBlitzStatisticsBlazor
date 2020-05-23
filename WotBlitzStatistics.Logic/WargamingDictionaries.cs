@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common.Model;
 
 namespace WotBlitzStatistics.Logic
@@ -7,6 +8,8 @@ namespace WotBlitzStatistics.Logic
     {
         public Task<UpdateDictionariesResponseItem[]> UpdateDictionaries(UpdateDictionariesRequest updateDictionariesRequest)
         {
+            var response = new List<UpdateDictionariesResponseItem>();
+            // ToDo: Make factory
             if ((updateDictionariesRequest.DictionaryTypes & DictionaryType.StaticDictionaries) != 0)
             {
                 // Update static 
@@ -19,7 +22,8 @@ namespace WotBlitzStatistics.Logic
             {
                 // Update vehicles 
             }
-            throw new System.NotImplementedException();
+
+            return Task.FromResult(response.ToArray());
         }
     }
 }
