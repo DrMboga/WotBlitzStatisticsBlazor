@@ -1,29 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common.Model;
+using WotBlitzStatisticsPro.Logic.Dictionaries;
 
 namespace WotBlitzStatisticsPro.Logic
 {
     public class WargamingDictionaries: IWargamingDictionaries
     {
-        public Task<UpdateDictionariesResponseItem[]> UpdateDictionaries(UpdateDictionariesRequest updateDictionariesRequest)
+        private readonly DictionariesUpdaterResolver _dictionaryUpdaterFactoryMethod;
+
+        public WargamingDictionaries(DictionariesUpdaterResolver dictionaryUpdaterFactoryMethod)
+        {
+            _dictionaryUpdaterFactoryMethod = dictionaryUpdaterFactoryMethod;
+        }
+        
+        public async Task<UpdateDictionariesResponseItem[]> UpdateDictionaries(UpdateDictionariesRequest updateDictionariesRequest)
         {
             var response = new List<UpdateDictionariesResponseItem>();
-            // ToDo: Make factory
-            if ((updateDictionariesRequest.DictionaryTypes & DictionaryType.StaticDictionaries) != 0)
+
+            foreach (var dictionaryType in (DictionaryType[])Enum.GetValues(typeof(DictionaryType)))
             {
-                // Update static 
-            }
-            if ((updateDictionariesRequest.DictionaryTypes & DictionaryType.Achievements) != 0)
-            {
-                // Update achievements 
-            }
-            if ((updateDictionariesRequest.DictionaryTypes & DictionaryType.Vehicles) != 0)
-            {
-                // Update vehicles 
+                if ((updateDictionariesRequest.DictionaryTypes & dictionaryType) != 0)
+                {
+                    var dictionaryUpdater = _dictionaryUpdaterFactoryMethod(dictionaryType);
+                    response.Add(await dictionaryUpdater.Update());
+                }
             }
 
-            return Task.FromResult(response.ToArray());
+            return response.ToArray();
         }
     }
 }

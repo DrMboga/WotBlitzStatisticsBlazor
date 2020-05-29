@@ -7,15 +7,18 @@ using WotBlitzStatisticsPro.WgApiClient.Model;
 
 namespace WotBlitzStatisticsPro.WgApiClient
 {
-	public class WargamingApiClient : WagramingApiClientBase, IWargamingApiClient
-	{
+	public class WargamingApiClient : WagramingApiClientBase, 
+        IWargamingApiClient,
+        IWargamingDictionariesApiClient
+    {
 		public WargamingApiClient(
 			HttpClient httpClient,
 			IWargamingApiSettings wargamingApiSettings) : base(httpClient, wargamingApiSettings)
 		{
 		}
 
-		public async Task<List<WotAccountListResponse>> FindAccounts(string nickName,
+        #region Search methods
+        public async Task<List<WotAccountListResponse>> FindAccounts(string nickName,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En)
 		{
@@ -37,8 +40,40 @@ namespace WotBlitzStatisticsPro.WgApiClient
                 $"search={searchString}").ConfigureAwait(false);
 
 		}
+        #endregion
 
-		public async Task<AccountInfo> GetPlayerAccountInfo(long accountId,
+        #region Encyclopedia methods
+
+        public async Task<(
+            WotEncyclopediaInfoResponse,
+            WotClanMembersDictionaryResponse)> GetStaticDictionariesAsync(
+                RealmType realmType = RealmType.Ru,
+                RequestLanguage language = RequestLanguage.En)
+        {
+            var encyclopedia = await GetFromBlitzApi<WotEncyclopediaInfoResponse>(
+                realmType,
+                language,
+                "encyclopedia/info/"
+            ).ConfigureAwait(false);
+
+
+            var clanGlossaryResponse = await GetFromBlitzApi<WotClanMembersDictionaryResponse>(
+                realmType,
+                language,
+                "clans/glossary/");
+
+            return (encyclopedia, clanGlossaryResponse);
+        }
+
+
+        #endregion
+
+
+
+
+
+
+        public async Task<AccountInfo> GetPlayerAccountInfo(long accountId,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En)
 		{
@@ -83,7 +118,10 @@ namespace WotBlitzStatisticsPro.WgApiClient
             return null;
 		}
 
-		// https://api.wotblitz.ru/wotb/encyclopedia/achievements/?application_id=adc1387489cf9fc8d9a1d85dbd27763d
+        // https://api.wotblitz.ru/wotb/encyclopedia/achievements/?application_id=adc1387489cf9fc8d9a1d85dbd27763d
 
-	}
+
+
+
+    }
 }
