@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using WotBlitzStatisticsPro.Common.Dictionaries;
 using WotBlitzStatisticsPro.Common.Model;
+using WotBlitzStatisticsPro.DataAccess;
 using WotBlitzStatisticsPro.WgApiClient;
 using WotBlitzStatisticsPro.WgApiClient.Model;
 
@@ -13,13 +14,16 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
     public class StaticDictionariesUpdater : IDictionaryUpdater
     {
         private readonly IWargamingDictionariesApiClient _wargamingDictionariesApiClient;
+        private readonly IDictionariesDataAccessor _dataAccessor;
         private readonly IMapper _mapper;
 
         public StaticDictionariesUpdater(
             IWargamingDictionariesApiClient wargamingDictionariesApiClient,
+            IDictionariesDataAccessor dataAccessor,
             IMapper mapper)
         {
             _wargamingDictionariesApiClient = wargamingDictionariesApiClient;
+            _dataAccessor = dataAccessor;
             _mapper = mapper;
         }
         public async Task<UpdateDictionariesResponseItem> Update()
@@ -31,11 +35,20 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
                 clanRoles,
                 achievementsSections) = await GetAndMapDictionaries();
 
-            // ToDo: Save dictionary to Mongo
+            await _dataAccessor.UpdateLanguages(languages);
+            await _dataAccessor.UpdateNations(nations);
+            await _dataAccessor.UpdateVehicleTypes(vehicleTypes);
+            await _dataAccessor.UpdateClanRoles(clanRoles);
+            await _dataAccessor.UpdateAchievementsSections(achievementsSections);
 
             // ToDo: create unit tests
 
-            throw new System.NotImplementedException();
+            return new UpdateDictionariesResponseItem
+            {
+                DictionaryType = DictionaryType.StaticDictionaries,
+                Description =
+                    $"Updated {languages.Count} items in Languages dictionary; {nations.Count} items in Nations dictionary; {vehicleTypes.Count} items in VehicleTypes dictionary; {clanRoles.Count} items in ClanRoles dictionary; {achievementsSections.Count} items in AchievementsSections dictionary"
+            };
         }
 
         private async Task<(
@@ -86,12 +99,13 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
                 {
                     destinationItem = new NationDictionary
                     {
-                        NationId = source.Key, NationNames = new Dictionary<RequestLanguage, string>()
+                        NationId = source.Key, NationNames = new List<LocalizableString>()
                     };
                     destinationDictionary.Add(destinationItem);
                 }
 
-                destinationItem.NationNames[requestLanguage] = source.Value;
+                destinationItem.NationNames.Add(
+                    new LocalizableString {Language = requestLanguage, Value = source.Value});
             }
         }
 
@@ -107,12 +121,13 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
                 {
                     destinationItem = new VehicleTypeDictionary
                     {
-                        VehicleTypeId = source.Key, VehicleTypeNames = new Dictionary<RequestLanguage, string>()
+                        VehicleTypeId = source.Key, VehicleTypeNames = new List<LocalizableString>()
                     };
                     destinationDictionary.Add(destinationItem);
                 }
 
-                destinationItem.VehicleTypeNames[requestLanguage] = source.Value;
+                destinationItem.VehicleTypeNames.Add(
+                    new LocalizableString { Language = requestLanguage, Value = source.Value });
             }
         }
 
@@ -128,12 +143,13 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
                 {
                     destinationItem = new ClanRoleDictionary
                     {
-                        ClanRoleId = source.Key, ClanRoleNames = new Dictionary<RequestLanguage, string>()
+                        ClanRoleId = source.Key, ClanRoleNames = new List<LocalizableString>()
                     };
                     destinationDictionary.Add(destinationItem);
                 }
 
-                destinationItem.ClanRoleNames[requestLanguage] = source.Value;
+                destinationItem.ClanRoleNames.Add(
+                    new LocalizableString { Language = requestLanguage, Value = source.Value });
             }
         }
 
@@ -152,12 +168,13 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
                     {
                         AchievementSectionId = section.Key,
                         Order = Convert.ToInt32(section.Value.Order),
-                        AchievementSectionNames = new Dictionary<RequestLanguage, string>()
+                        AchievementSectionNames = new List<LocalizableString>()
                     };
                     destinationDictionary.Add(destinationItem);
                 }
 
-                destinationItem.AchievementSectionNames[requestLanguage] = section.Value.Name;
+                destinationItem.AchievementSectionNames.Add(
+                    new LocalizableString { Language = requestLanguage, Value = section.Value.Name });
             }
         }
     }

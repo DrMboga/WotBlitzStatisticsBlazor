@@ -24,7 +24,10 @@ namespace WotBlitzStatisticsPro.Logic
                 if ((updateDictionariesRequest.DictionaryTypes & dictionaryType) != 0)
                 {
                     var dictionaryUpdater = _dictionaryUpdaterFactoryMethod(dictionaryType);
-                    response.Add(await dictionaryUpdater.Update());
+                    if (dictionaryUpdater != null)
+                    {
+                        response.Add(await dictionaryUpdater.Update());
+                    }
                 }
             }
 

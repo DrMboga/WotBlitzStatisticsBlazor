@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using WotBlitzStatisticsPro.Common.Model;
 
 namespace WotBlitzStatisticsPro.Common.Dictionaries
 {
@@ -16,6 +15,6 @@ namespace WotBlitzStatisticsPro.Common.Dictionaries
         /// <summary>
         /// Localized clan role names
         /// </summary>
-        public Dictionary<RequestLanguage, string> ClanRoleNames { get; set; }
+        public List<LocalizableString> ClanRoleNames { get; set; }
     }
 }

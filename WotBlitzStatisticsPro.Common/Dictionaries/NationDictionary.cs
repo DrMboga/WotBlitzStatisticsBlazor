@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using WotBlitzStatisticsPro.Common.Model;
 
 namespace WotBlitzStatisticsPro.Common.Dictionaries
 {
@@ -16,6 +15,6 @@ namespace WotBlitzStatisticsPro.Common.Dictionaries
         /// <summary>
         /// Nation
         /// </summary>
-        public Dictionary<RequestLanguage, string> NationNames { get; set; }
+        public List<LocalizableString> NationNames { get; set; }
     }
 }

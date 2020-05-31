@@ -29,7 +29,11 @@ namespace WotBlitzStatisticsPro.GraphQl
 			var wgApiConfig = new WargamingApiSettings();
 			Configuration.GetSection("WargamingApi").Bind(wgApiConfig);
 
+			var mongoConfig = new MongoSettings();
+			Configuration.GetSection("Mongo").Bind(mongoConfig);
+
 			services.AddSingleton<IWargamingApiSettings>(wgApiConfig);
+            services.AddSingleton<IMongoSettings>(mongoConfig);
             WotBlitzStatisticsLogicInstaller.ConfigureServices(services);
 
 			// Global data loader - caches data between requests

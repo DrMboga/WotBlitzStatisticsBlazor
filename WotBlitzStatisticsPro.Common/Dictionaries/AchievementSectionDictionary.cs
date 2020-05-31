@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using WotBlitzStatisticsPro.Common.Model;
 
 namespace WotBlitzStatisticsPro.Common.Dictionaries
 {
@@ -21,7 +20,7 @@ namespace WotBlitzStatisticsPro.Common.Dictionaries
         /// <summary>
         /// Localized section names
         /// </summary>
-        public Dictionary<RequestLanguage, string> AchievementSectionNames { get; set; }
+        public List<LocalizableString> AchievementSectionNames { get; set; }
 
     }
 }
