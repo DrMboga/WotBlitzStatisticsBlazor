@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.Graph
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotBlitzStatisticsPro.DataAccess", "WotBlitzStatisticsPro.DataAccess\WotBlitzStatisticsPro.DataAccess.csproj", "{19B1EDE4-1B83-49E2-A666-6CFE3A4A732E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotBlitzStatisticsPro.Tests", "WotBlitzStatisticsPro.Tests\WotBlitzStatisticsPro.Tests.csproj", "{551C3088-C6EA-45E1-A665-7C924C8407EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{19B1EDE4-1B83-49E2-A666-6CFE3A4A732E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19B1EDE4-1B83-49E2-A666-6CFE3A4A732E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19B1EDE4-1B83-49E2-A666-6CFE3A4A732E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{551C3088-C6EA-45E1-A665-7C924C8407EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{551C3088-C6EA-45E1-A665-7C924C8407EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{551C3088-C6EA-45E1-A665-7C924C8407EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{551C3088-C6EA-45E1-A665-7C924C8407EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{E1AB7997-C2A1-433B-A4F5-F8E9C4B73515} = {5095AE8F-F1D4-4BC0-95FD-B3DB0D3AED15}
 		{A79103B3-4F04-4090-803E-B7AABFCC93B1} = {5095AE8F-F1D4-4BC0-95FD-B3DB0D3AED15}
 		{19B1EDE4-1B83-49E2-A666-6CFE3A4A732E} = {5095AE8F-F1D4-4BC0-95FD-B3DB0D3AED15}
+		{551C3088-C6EA-45E1-A665-7C924C8407EB} = {5095AE8F-F1D4-4BC0-95FD-B3DB0D3AED15}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {295179CC-53B9-4A2F-8051-A6B033EED16E}

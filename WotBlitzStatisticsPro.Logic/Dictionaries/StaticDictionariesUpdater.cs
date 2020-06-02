@@ -17,6 +17,12 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
         private readonly IDictionariesDataAccessor _dataAccessor;
         private readonly IMapper _mapper;
 
+        [Obsolete("Parameter-less constructor only for unit tests")]
+        public StaticDictionariesUpdater()
+        {
+            
+        }
+
         public StaticDictionariesUpdater(
             IWargamingDictionariesApiClient wargamingDictionariesApiClient,
             IDictionariesDataAccessor dataAccessor,
@@ -26,7 +32,7 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
             _dataAccessor = dataAccessor;
             _mapper = mapper;
         }
-        public async Task<UpdateDictionariesResponseItem> Update()
+        public virtual async Task<UpdateDictionariesResponseItem> Update()
         {
             var (
                 languages,
@@ -40,8 +46,6 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
             await _dataAccessor.UpdateVehicleTypes(vehicleTypes);
             await _dataAccessor.UpdateClanRoles(clanRoles);
             await _dataAccessor.UpdateAchievementsSections(achievementsSections);
-
-            // ToDo: create unit tests
 
             return new UpdateDictionariesResponseItem
             {

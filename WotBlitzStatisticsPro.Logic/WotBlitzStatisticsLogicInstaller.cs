@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using WotBlitzStatisticsPro.Common.Model;
@@ -6,6 +7,7 @@ using WotBlitzStatisticsPro.DataAccess;
 using WotBlitzStatisticsPro.Logic.Dictionaries;
 using WotBlitzStatisticsPro.WgApiClient;
 
+[assembly: InternalsVisibleTo("WotBlitzStatisticsPro.Tests")]
 namespace WotBlitzStatisticsPro.Logic
 {
     public static class WotBlitzStatisticsLogicInstaller
@@ -29,6 +31,11 @@ namespace WotBlitzStatisticsPro.Logic
             services.AddTransient<AchievementsDictionaryUpdater>();
             services.AddTransient<VehiclesDictionaryUpdater>();
 
+            RegisterFactoryMethod(services);
+        }
+
+        internal static void RegisterFactoryMethod(IServiceCollection services)
+        {
             services.AddTransient<DictionariesUpdaterResolver>(serviceProvider => dictionaryType =>
             {
                 switch (dictionaryType)
