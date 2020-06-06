@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using WotBlitzStatisticsPro.Common.Dictionaries;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess;
 using WotBlitzStatisticsPro.WgApiClient;
+using WotBlitzStatisticsPro.WgApiClient.Model;
 
 namespace WotBlitzStatisticsPro.Logic.Dictionaries
 {
@@ -26,9 +30,71 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
             _mapper = mapper;
         }
 
-        public virtual Task<UpdateDictionariesResponseItem> Update()
+        public virtual async Task<UpdateDictionariesResponseItem> Update()
         {
-            throw new System.NotImplementedException();
+            var achievementDictionary = await GetAndMapAchievementsDictionary();
+
+           await _dataAccessor.UpdateAchievements(achievementDictionary);
+
+            return new UpdateDictionariesResponseItem
+            {
+                DictionaryType = DictionaryType.Achievements,
+                Description = $"Got and saved {achievementDictionary.Count} achievement dictionary items"
+            };
+        }
+
+        private async Task<List<AchievementDictionary>> GetAndMapAchievementsDictionary()
+        {
+            var defaultRealmType = RealmType.Eu;
+
+            var achievements = new List<AchievementDictionary>();
+
+            foreach (var requestLanguage in (RequestLanguage[])Enum.GetValues(typeof(RequestLanguage)))
+            {
+                var wgAchievements =
+                    await _wargamingDictionariesApiClient.GetAchievementsDictionary(defaultRealmType, requestLanguage);
+                foreach (var wgAchievement in wgAchievements)
+                {
+                    var mappedAchievement =
+                        achievements.FirstOrDefault(a => a.AchievementId == wgAchievement.AchievementId);
+                    if (mappedAchievement == null)
+                    {
+                        mappedAchievement =
+                            _mapper.Map<WotEncyclopediaAchievementsResponse, AchievementDictionary>(wgAchievement);
+                        achievements.Add(mappedAchievement);
+                    }
+                    mappedAchievement.Name.Add(new LocalizableString { Language = requestLanguage, Value = wgAchievement.Name });
+                    mappedAchievement.Condition.Add(new LocalizableString { Language = requestLanguage, Value = wgAchievement.Condition });
+                    mappedAchievement.Description.Add(new LocalizableString { Language = requestLanguage, Value = wgAchievement.Description });
+                    mappedAchievement.HeroInfo.Add(new LocalizableString { Language = requestLanguage, Value = wgAchievement.HeroInfo });
+
+                    if (wgAchievement.Options != null)
+                    {
+                        if (mappedAchievement.Options == null)
+                        {
+                            mappedAchievement.Options = new List<AchievementOption>();
+                        }
+
+                        foreach (var wgAchievementOption in wgAchievement.Options)
+                        {
+                            // image is the only unique identifier
+                            var mappedOption =
+                                mappedAchievement.Options.FirstOrDefault(o => o.Image == wgAchievementOption.Image);
+                            if (mappedOption == null)
+                            {
+                                mappedOption =
+                                    _mapper.Map<WotEncyclopediaAchievementsOptions, AchievementOption>(
+                                        wgAchievementOption);
+                                mappedAchievement.Options.Add(mappedOption);
+                            }
+                            mappedOption.Name.Add(new LocalizableString { Language = requestLanguage, Value = wgAchievement.Name });
+                            mappedOption.Description.Add(new LocalizableString { Language = requestLanguage, Value = wgAchievement.Description });
+                        }
+                    }
+                }
+            }
+
+            return achievements;
         }
     }
 }

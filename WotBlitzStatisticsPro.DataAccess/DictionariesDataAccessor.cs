@@ -13,6 +13,7 @@ namespace WotBlitzStatisticsPro.DataAccess
         private const string VehicleTypesCollectionName = "dictionary-vehicle-types";
         private const string ClanRolesCollectionName = "dictionary-clan-roles";
         private const string AchievementsSectionsCollectionName = "dictionary-achievements-sections";
+        private const string AchievementsCollectionName = "dictionary-achievements";
 
         private readonly IMongoDatabase _database;
 
@@ -61,6 +62,15 @@ namespace WotBlitzStatisticsPro.DataAccess
 
             await dbAchievementSections.DeleteManyAsync(Builders<AchievementSectionDictionary>.Filter.Empty);
             await dbAchievementSections.InsertManyAsync(achievementSections);
+        }
+
+        public async Task UpdateAchievements(List<AchievementDictionary> achievementDictionary)
+        {
+            var dbAchievementSections =
+                _database.GetCollection<AchievementDictionary>(AchievementsCollectionName);
+
+            await dbAchievementSections.DeleteManyAsync(Builders<AchievementDictionary>.Filter.Empty);
+            await dbAchievementSections.InsertManyAsync(achievementDictionary);
         }
     }
 }

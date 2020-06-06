@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common;
@@ -65,6 +66,15 @@ namespace WotBlitzStatisticsPro.WgApiClient
             return (encyclopedia, clanGlossaryResponse);
         }
 
+        public async Task<List<WotEncyclopediaAchievementsResponse>> GetAchievementsDictionary(RealmType realmType = RealmType.Ru, RequestLanguage language = RequestLanguage.En)
+        {
+            var response = await GetFromBlitzApi<Dictionary<string, WotEncyclopediaAchievementsResponse>>(
+                realmType,
+                language,
+                "encyclopedia/achievements/").ConfigureAwait(false);
+
+            return response.Values.ToList();
+        }
 
         #endregion
 

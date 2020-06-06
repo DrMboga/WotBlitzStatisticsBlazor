@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.WgApiClient.Model;
 
@@ -9,6 +10,10 @@ namespace WotBlitzStatisticsPro.WgApiClient
         Task<(
             WotEncyclopediaInfoResponse,
             WotClanMembersDictionaryResponse)> GetStaticDictionariesAsync(
+            RealmType realmType = RealmType.Ru,
+            RequestLanguage language = RequestLanguage.En);
+
+        Task<List<WotEncyclopediaAchievementsResponse>> GetAchievementsDictionary(
             RealmType realmType = RealmType.Ru,
             RequestLanguage language = RequestLanguage.En);
     }

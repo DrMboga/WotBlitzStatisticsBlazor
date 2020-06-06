@@ -15,5 +15,7 @@ namespace WotBlitzStatisticsPro.DataAccess
         Task UpdateClanRoles(List<ClanRoleDictionary> clanRoles);
 
         Task UpdateAchievementsSections(List<AchievementSectionDictionary> achievementSections);
+
+        Task UpdateAchievements(List<AchievementDictionary> achievementDictionary);
     }
 }
