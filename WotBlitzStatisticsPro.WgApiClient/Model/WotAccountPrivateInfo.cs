@@ -2,7 +2,7 @@
 
 namespace WotBlitzStatisticsPro.WgApiClient.Model
 {
-	public class AccountPrivateInfo
+	public class WotAccountPrivateInfo
 	{
 		///<summary>
 		/// Account ban info
@@ -57,13 +57,13 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		///Дополнительное поле.
 		///</summary>
 		[JsonProperty("grouped_contacts")]
-		public AccountPrivateInfoGroupedContacts GroupedContacts { get; set; }
+		public WotAccountPrivateInfoGroupedContacts GroupedContacts { get; set; }
 
 		///<summary>
 		///Ограничения аккаунта
 		///</summary>
 		[JsonProperty("restrictions")]
-		public AccountPrivateInfoRestrictions Restrictions { get; set; }
+		public WotAccountPrivateInfoRestrictions Restrictions { get; set; }
 
 	}
 }

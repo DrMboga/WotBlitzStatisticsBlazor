@@ -2,7 +2,7 @@
 
 namespace WotBlitzStatisticsPro.WgApiClient.Model
 {
-	public class AccountFullStatistics
+	public class WotAccountFullStatistics
 	{
 		///<summary>
 		/// Battles count

@@ -2,7 +2,7 @@
 
 namespace WotBlitzStatisticsPro.WgApiClient.Model
 {
-	public class AccountInfo
+	public class WotAccountInfo
 	{
 		///<summary>
 		/// Player account identifier
@@ -38,12 +38,12 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Private account data
 		///</summary>
 		[JsonProperty("private")]
-		public AccountPrivateInfo Private { get; set; }
+		public WotAccountPrivateInfo Private { get; set; }
 
 		///<summary>
 		/// Player's statistics
 		///</summary>
 		[JsonProperty("statistics")]
-		public AccountStatistics Statistics { get; set; }
+		public WotAccountStatistics Statistics { get; set; }
 	}
 }

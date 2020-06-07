@@ -2,7 +2,7 @@
 
 namespace WotBlitzStatisticsPro.WgApiClient.Model
 {
-	public class AccountPrivateInfoRestrictions
+	public class WotAccountPrivateInfoRestrictions
 	{
 		///<summary>
 		/// Clan chat ban time

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WotBlitzStatisticsPro.WgApiClient.Model
 {
-	public class AccountStatistics
+	public class WotAccountStatistics
 	{
 		///<summary>
 		/// Amount of destroyed by player tanks.
@@ -15,6 +15,6 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Full player's statistics
 		///</summary>
 		[JsonProperty("all")]
-		public AccountFullStatistics All { get; set; }
+		public WotAccountFullStatistics All { get; set; }
 	}
 }

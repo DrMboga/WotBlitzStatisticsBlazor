@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WotBlitzStatisticsPro.WgApiClient.Model
 {
-	public class AccountPrivateInfoGroupedContacts
+	public class WotAccountPrivateInfoGroupedContacts
 	{
 		///<summary>
 		/// Blocked accountIds

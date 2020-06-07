@@ -15,7 +15,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En);
 
-		Task<AccountInfo> GetPlayerAccountInfo(long accountId,
+		Task<WotAccountInfo> GetPlayerAccountInfo(long accountId,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En);
 

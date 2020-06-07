@@ -93,11 +93,11 @@ namespace WotBlitzStatisticsPro.WgApiClient
 
 
 
-        public async Task<AccountInfo> GetPlayerAccountInfo(long accountId,
+        public async Task<WotAccountInfo> GetPlayerAccountInfo(long accountId,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En)
 		{
-			var account = await GetFromBlitzApi<Dictionary<string, AccountInfo>>(
+			var account = await GetFromBlitzApi<Dictionary<string, WotAccountInfo>>(
 				realmType,
 				language,
 				"account/info/",
