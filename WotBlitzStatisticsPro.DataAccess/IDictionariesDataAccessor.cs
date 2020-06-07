@@ -17,5 +17,7 @@ namespace WotBlitzStatisticsPro.DataAccess
         Task UpdateAchievementsSections(List<AchievementSectionDictionary> achievementSections);
 
         Task UpdateAchievements(List<AchievementDictionary> achievementDictionary);
+
+        Task UpdateVehicles(List<VehiclesDictionary> vehiclesDictionary);
     }
 }

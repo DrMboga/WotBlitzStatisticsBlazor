@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using WotBlitzStatisticsPro.Common.Dictionaries;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess;
 using WotBlitzStatisticsPro.WgApiClient;
+using WotBlitzStatisticsPro.WgApiClient.Model;
 
 namespace WotBlitzStatisticsPro.Logic.Dictionaries
 {
@@ -16,19 +20,58 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
         [Obsolete("Parameter-less constructor only for unit tests")]
         public VehiclesDictionaryUpdater()
         {
-            
+
         }
 
-        public VehiclesDictionaryUpdater(IWargamingDictionariesApiClient wargamingDictionariesApiClient, IDictionariesDataAccessor dataAccessor, IMapper mapper)
+        public VehiclesDictionaryUpdater(IWargamingDictionariesApiClient wargamingDictionariesApiClient,
+            IDictionariesDataAccessor dataAccessor, IMapper mapper)
         {
             _wargamingDictionariesApiClient = wargamingDictionariesApiClient;
             _dataAccessor = dataAccessor;
             _mapper = mapper;
         }
 
-        public virtual Task<UpdateDictionariesResponseItem> Update()
+        public virtual async Task<UpdateDictionariesResponseItem> Update()
         {
-            throw new System.NotImplementedException();
+            var vehiclesDictionary = await GetAndMapVehiclesDictionary();
+
+            await _dataAccessor.UpdateVehicles(vehiclesDictionary);
+
+            return new UpdateDictionariesResponseItem
+            {
+                DictionaryType = DictionaryType.Vehicles,
+                Description = $"Got and saved {vehiclesDictionary.Count} vehicles dictionary items"
+            };
+
         }
+
+        private async Task<List<VehiclesDictionary>> GetAndMapVehiclesDictionary()
+        {
+            var defaultRealmType = RealmType.Eu;
+
+            var vehicles = new List<VehiclesDictionary>();
+
+            foreach (var requestLanguage in (RequestLanguage[]) Enum.GetValues(typeof(RequestLanguage)))
+            {
+                var wgVehicles =
+                    await _wargamingDictionariesApiClient.GetVehicles(defaultRealmType, requestLanguage);
+
+                foreach (var wgVehicle in wgVehicles)
+                {
+                    var mappedVehicle = vehicles.FirstOrDefault(v => v.TankId == wgVehicle.TankId);
+                    if (mappedVehicle == null)
+                    {
+                        mappedVehicle = _mapper.Map<WotEncyclopediaVehiclesResponse, VehiclesDictionary>(wgVehicle);
+                        vehicles.Add(mappedVehicle);
+                    }
+                    mappedVehicle.Name.Add(new LocalizableString {Language = requestLanguage, Value = wgVehicle.Name});
+                    mappedVehicle.Description.Add(new LocalizableString {Language = requestLanguage, Value = wgVehicle.Description});
+                }
+
+            }
+
+            return vehicles;
+        }
+
     }
 }

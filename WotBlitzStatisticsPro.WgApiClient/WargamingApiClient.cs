@@ -76,6 +76,16 @@ namespace WotBlitzStatisticsPro.WgApiClient
             return response.Values.ToList();
         }
 
+        public async Task<List<WotEncyclopediaVehiclesResponse>> GetVehicles(RealmType realmType = RealmType.Ru, RequestLanguage language = RequestLanguage.En)
+        {
+            var response = await GetFromBlitzApi<Dictionary<string, WotEncyclopediaVehiclesResponse>>(
+                realmType,
+                language,
+                "encyclopedia/vehicles/").ConfigureAwait(false);
+
+            return response.Values.ToList();
+        }
+
         #endregion
 
 
