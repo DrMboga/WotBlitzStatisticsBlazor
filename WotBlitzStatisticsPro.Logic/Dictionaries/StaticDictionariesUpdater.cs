@@ -6,6 +6,7 @@ using AutoMapper;
 using WotBlitzStatisticsPro.Common.Dictionaries;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess;
+using WotBlitzStatisticsPro.DataAccess.Model;
 using WotBlitzStatisticsPro.WgApiClient;
 using WotBlitzStatisticsPro.WgApiClient.Model;
 
@@ -56,19 +57,19 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
         }
 
         private async Task<(
-            List<LanguageDictionary>,
-            List<NationDictionary>,
-            List<VehicleTypeDictionary>,
-            List<ClanRoleDictionary>,
-            List<AchievementSectionDictionary>)> GetAndMapDictionaries()
+            List<ILanguageDictionary>,
+            List<INationDictionary>,
+            List<IVehicleTypeDictionary>,
+            List<IClanRoleDictionary>,
+            List<IAchievementSectionDictionary>)> GetAndMapDictionaries()
         {
             var defaultRealmType = RealmType.Eu;
 
-            List<LanguageDictionary> languages = null;
-            var nations = new List<NationDictionary>();
-            var vehicleTypes = new List<VehicleTypeDictionary>();
-            var clanRoles = new List<ClanRoleDictionary>();
-            var achievementsSections = new List<AchievementSectionDictionary>();
+            List<ILanguageDictionary> languages = null;
+            var nations = new List<INationDictionary>();
+            var vehicleTypes = new List<IVehicleTypeDictionary>();
+            var clanRoles = new List<IClanRoleDictionary>();
+            var achievementsSections = new List<IAchievementSectionDictionary>();
 
             foreach (var requestLanguage in (RequestLanguage[])Enum.GetValues(typeof(RequestLanguage)))
             {
@@ -79,7 +80,7 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
                 {
                     languages =
                         _mapper.Map<Dictionary<string, string>, List<LanguageDictionary>>(wotEncyclopediaInfoResponse
-                            .Languages);
+                            .Languages).Cast<ILanguageDictionary>().ToList();
                 }
 
                 MapVehicleNations(requestLanguage, wotEncyclopediaInfoResponse.VehicleNations, nations);
@@ -94,7 +95,7 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
         private void MapVehicleNations(
             RequestLanguage requestLanguage,
             Dictionary<string, string> sourceDictionary,
-            List<NationDictionary> destinationDictionary)
+            List<INationDictionary> destinationDictionary)
         {
             foreach (var source in sourceDictionary)
             {
@@ -116,7 +117,7 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
         private void MapVehicleTypes(
             RequestLanguage requestLanguage,
             Dictionary<string, string> sourceDictionary,
-            List<VehicleTypeDictionary> destinationDictionary)
+            List<IVehicleTypeDictionary> destinationDictionary)
         {
             foreach (var source in sourceDictionary)
             {
@@ -138,7 +139,7 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
         private void MapClanRoles(
             RequestLanguage requestLanguage,
             Dictionary<string, string> sourceDictionary,
-            List<ClanRoleDictionary> destinationDictionary)
+            List<IClanRoleDictionary> destinationDictionary)
         {
             foreach (var source in sourceDictionary)
             {
@@ -160,7 +161,7 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
         private void MapAchievementsSections(
             RequestLanguage requestLanguage,
             Dictionary<string, WotEncyclopediaInfoAchievementSection> sourceSections,
-            List<AchievementSectionDictionary> destinationDictionary)
+            List<IAchievementSectionDictionary> destinationDictionary)
         {
             foreach (var section in sourceSections)
             {

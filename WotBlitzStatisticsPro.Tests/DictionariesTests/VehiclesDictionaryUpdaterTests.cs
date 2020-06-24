@@ -80,10 +80,10 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
         [Test]
         public async Task ShouldSaveAppropriateVehiclesDictionary()
         {
-            List<VehiclesDictionary> targetVehicleDictionary = null;
+            List<IVehiclesDictionary> targetVehicleDictionary = null;
             _dataAccessorMock
-                .Setup(d => d.UpdateVehicles(It.IsAny<List<VehiclesDictionary>>()))
-                .Callback((List<VehiclesDictionary> dictionary) => targetVehicleDictionary = dictionary);
+                .Setup(d => d.UpdateVehicles(It.IsAny<List<IVehiclesDictionary>>()))
+                .Callback((List<IVehiclesDictionary> dictionary) => targetVehicleDictionary = dictionary);
 
             await _vehiclesDictionariesUpdater.Update();
 

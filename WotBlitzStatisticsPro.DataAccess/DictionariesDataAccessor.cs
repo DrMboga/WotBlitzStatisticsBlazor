@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.Common.Dictionaries;
+using WotBlitzStatisticsPro.DataAccess.Model;
 
 namespace WotBlitzStatisticsPro.DataAccess
 {
@@ -24,63 +26,70 @@ namespace WotBlitzStatisticsPro.DataAccess
             _database = client.GetDatabase(settings.DatabaseName);
         }
 
-        public async Task UpdateLanguages(List<LanguageDictionary> languages)
+        public async Task UpdateLanguages(List<ILanguageDictionary> languages)
         {
-            var dbLanguages = _database.GetCollection<LanguageDictionary>(LanguagesCollectionName);
+            var dbLanguages = _database.GetCollection<ILanguageDictionary>(LanguagesCollectionName);
 
-            await dbLanguages.DeleteManyAsync(Builders<LanguageDictionary>.Filter.Empty);
+            await dbLanguages.DeleteManyAsync(Builders<ILanguageDictionary>.Filter.Empty);
             await dbLanguages.InsertManyAsync(languages);
         }
 
-        public async Task UpdateNations(List<NationDictionary> nations)
+        public async Task UpdateNations(List<INationDictionary> nations)
         {
-            var dbNations = _database.GetCollection<NationDictionary>(NationsCollectionName);
+            var dbNations = _database.GetCollection<INationDictionary>(NationsCollectionName);
 
-            await dbNations.DeleteManyAsync(Builders<NationDictionary>.Filter.Empty);
+            await dbNations.DeleteManyAsync(Builders<INationDictionary>.Filter.Empty);
             await dbNations.InsertManyAsync(nations);
         }
 
-        public async Task UpdateVehicleTypes(List<VehicleTypeDictionary> vehicleTypes)
+        public async Task UpdateVehicleTypes(List<IVehicleTypeDictionary> vehicleTypes)
         {
-            var dbVehicleTypes = _database.GetCollection<VehicleTypeDictionary>(VehicleTypesCollectionName);
+            var dbVehicleTypes = _database.GetCollection<IVehicleTypeDictionary>(VehicleTypesCollectionName);
 
-            await dbVehicleTypes.DeleteManyAsync(Builders<VehicleTypeDictionary>.Filter.Empty);
+            await dbVehicleTypes.DeleteManyAsync(Builders<IVehicleTypeDictionary>.Filter.Empty);
             await dbVehicleTypes.InsertManyAsync(vehicleTypes);
         }
 
-        public async Task UpdateClanRoles(List<ClanRoleDictionary> clanRoles)
+        public async Task UpdateClanRoles(List<IClanRoleDictionary> clanRoles)
         {
-            var dbClanRoles = _database.GetCollection<ClanRoleDictionary>(ClanRolesCollectionName);
+            var dbClanRoles = _database.GetCollection<IClanRoleDictionary>(ClanRolesCollectionName);
 
-            await dbClanRoles.DeleteManyAsync(Builders<ClanRoleDictionary>.Filter.Empty);
+            await dbClanRoles.DeleteManyAsync(Builders<IClanRoleDictionary>.Filter.Empty);
             await dbClanRoles.InsertManyAsync(clanRoles);
         }
 
-        public async Task UpdateAchievementsSections(List<AchievementSectionDictionary> achievementSections)
+        public async Task UpdateAchievementsSections(List<IAchievementSectionDictionary> achievementSections)
         {
             var dbAchievementSections =
-                _database.GetCollection<AchievementSectionDictionary>(AchievementsSectionsCollectionName);
+                _database.GetCollection<IAchievementSectionDictionary>(AchievementsSectionsCollectionName);
 
-            await dbAchievementSections.DeleteManyAsync(Builders<AchievementSectionDictionary>.Filter.Empty);
+            await dbAchievementSections.DeleteManyAsync(Builders<IAchievementSectionDictionary>.Filter.Empty);
             await dbAchievementSections.InsertManyAsync(achievementSections);
         }
 
-        public async Task UpdateAchievements(List<AchievementDictionary> achievementDictionary)
+        public async Task UpdateAchievements(List<IAchievementDictionary> achievementDictionary)
         {
             var dbAchievementSections =
-                _database.GetCollection<AchievementDictionary>(AchievementsCollectionName);
+                _database.GetCollection<IAchievementDictionary>(AchievementsCollectionName);
 
-            await dbAchievementSections.DeleteManyAsync(Builders<AchievementDictionary>.Filter.Empty);
+            await dbAchievementSections.DeleteManyAsync(Builders<IAchievementDictionary>.Filter.Empty);
             await dbAchievementSections.InsertManyAsync(achievementDictionary);
         }
 
-        public async Task UpdateVehicles(List<VehiclesDictionary> vehiclesDictionary)
+        public async Task UpdateVehicles(List<IVehiclesDictionary> vehiclesDictionary)
         {
             var dbVehicles =
-                _database.GetCollection<VehiclesDictionary>(VehiclesCollectionName);
+                _database.GetCollection<IVehiclesDictionary>(VehiclesCollectionName);
 
-            await dbVehicles.DeleteManyAsync(Builders<VehiclesDictionary>.Filter.Empty);
+            await dbVehicles.DeleteManyAsync(Builders<IVehiclesDictionary>.Filter.Empty);
             await dbVehicles.InsertManyAsync(vehiclesDictionary);
+        }
+
+        public async Task<List<ILanguageDictionary>> ReadLanguages()
+        {
+            var collection = await _database.GetCollection<ILanguageDictionary>(LanguagesCollectionName)
+                .FindAsync(Builders<ILanguageDictionary>.Filter.Empty);
+            return collection.ToList();
         }
     }
 }

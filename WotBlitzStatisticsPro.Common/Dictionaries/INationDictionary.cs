@@ -5,16 +5,16 @@ namespace WotBlitzStatisticsPro.Common.Dictionaries
     /// <summary>
     /// Tanks nations dictionary item
     /// </summary>
-    public class NationDictionary
+    public interface INationDictionary
     {
         /// <summary>
         /// Nation id
         /// </summary>
-        public string NationId { get; set; }
+        string NationId { get; set; }
 
         /// <summary>
         /// Nation
         /// </summary>
-        public List<LocalizableString> NationNames { get; set; }
+        List<LocalizableString> NationNames { get; set; }
     }
 }

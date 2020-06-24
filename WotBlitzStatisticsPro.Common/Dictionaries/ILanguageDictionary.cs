@@ -3,17 +3,17 @@
     /// <summary>
     /// Languages available
     /// </summary>
-    public class LanguageDictionary
+    public interface ILanguageDictionary
     {
         /// <summary>
         /// Language id
         /// </summary>
-        public string LanguageId { get; set; }
+        string LanguageId { get; set; }
 
         /// <summary>
         /// Language
         /// </summary>
-        public string LanguageName { get; set; }
+        string LanguageName { get; set; }
 
     }
 }

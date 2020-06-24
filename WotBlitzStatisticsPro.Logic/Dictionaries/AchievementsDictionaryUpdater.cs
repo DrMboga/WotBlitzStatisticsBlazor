@@ -6,6 +6,7 @@ using AutoMapper;
 using WotBlitzStatisticsPro.Common.Dictionaries;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess;
+using WotBlitzStatisticsPro.DataAccess.Model;
 using WotBlitzStatisticsPro.WgApiClient;
 using WotBlitzStatisticsPro.WgApiClient.Model;
 
@@ -43,11 +44,11 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
             };
         }
 
-        private async Task<List<AchievementDictionary>> GetAndMapAchievementsDictionary()
+        private async Task<List<IAchievementDictionary>> GetAndMapAchievementsDictionary()
         {
             var defaultRealmType = RealmType.Eu;
 
-            var achievements = new List<AchievementDictionary>();
+            var achievements = new List<IAchievementDictionary>();
 
             foreach (var requestLanguage in (RequestLanguage[])Enum.GetValues(typeof(RequestLanguage)))
             {

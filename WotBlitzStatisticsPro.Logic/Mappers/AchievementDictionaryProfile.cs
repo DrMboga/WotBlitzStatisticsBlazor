@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using WotBlitzStatisticsPro.Common.Dictionaries;
+using WotBlitzStatisticsPro.DataAccess.Model;
 using WotBlitzStatisticsPro.WgApiClient.Model;
 
 namespace WotBlitzStatisticsPro.Logic.Mappers

@@ -82,10 +82,10 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
         [Test]
         public async Task ShouldSaveAppropriateLanguagesDictionary()
         {
-            List<LanguageDictionary> languageDictionary = null;
+            List<ILanguageDictionary> languageDictionary = null;
             _dataAccessorMock
-                .Setup(d => d.UpdateLanguages(It.IsAny<List<LanguageDictionary>>()))
-                .Callback((List<LanguageDictionary> dictionary) => languageDictionary = dictionary);
+                .Setup(d => d.UpdateLanguages(It.IsAny<List<ILanguageDictionary>>()))
+                .Callback((List<ILanguageDictionary> dictionary) => languageDictionary = dictionary);
 
             await _staticDictionariesUpdater.Update();
 
@@ -104,10 +104,10 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
         [Test]
         public async Task ShouldSaveAppropriateNationsDictionary()
         {
-            List<NationDictionary> nations = null;
+            List<INationDictionary> nations = null;
             _dataAccessorMock
-                .Setup(d => d.UpdateNations(It.IsAny<List<NationDictionary>>()))
-                .Callback((List<NationDictionary> dictionary) => nations = dictionary);
+                .Setup(d => d.UpdateNations(It.IsAny<List<INationDictionary>>()))
+                .Callback((List<INationDictionary> dictionary) => nations = dictionary);
 
             await _staticDictionariesUpdater.Update();
 
@@ -132,10 +132,10 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
         [Test]
         public async Task ShouldSaveAppropriateVehicleTypesDictionary()
         {
-            List<VehicleTypeDictionary> vehicleTypes = null;
+            List<IVehicleTypeDictionary> vehicleTypes = null;
             _dataAccessorMock
-                .Setup(d => d.UpdateVehicleTypes(It.IsAny<List<VehicleTypeDictionary>>()))
-                .Callback((List<VehicleTypeDictionary> dictionary) => vehicleTypes = dictionary);
+                .Setup(d => d.UpdateVehicleTypes(It.IsAny<List<IVehicleTypeDictionary>>()))
+                .Callback((List<IVehicleTypeDictionary> dictionary) => vehicleTypes = dictionary);
 
             await _staticDictionariesUpdater.Update();
 
@@ -160,10 +160,10 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
         [Test]
         public async Task ShouldSaveAppropriateClanRolesDictionary()
         {
-            List<ClanRoleDictionary> clanRoles = null;
+            List<IClanRoleDictionary> clanRoles = null;
             _dataAccessorMock
-                .Setup(d => d.UpdateClanRoles(It.IsAny<List<ClanRoleDictionary>>()))
-                .Callback((List<ClanRoleDictionary> dictionary) => clanRoles = dictionary);
+                .Setup(d => d.UpdateClanRoles(It.IsAny<List<IClanRoleDictionary>>()))
+                .Callback((List<IClanRoleDictionary> dictionary) => clanRoles = dictionary);
 
             await _staticDictionariesUpdater.Update();
 
@@ -188,10 +188,10 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
         [Test]
         public async Task ShouldSaveAppropriateAchievementsSectionsDictionary()
         {
-            List<AchievementSectionDictionary> achievementsSections = null;
+            List<IAchievementSectionDictionary> achievementsSections = null;
             _dataAccessorMock
-                .Setup(d => d.UpdateAchievementsSections(It.IsAny<List<AchievementSectionDictionary>>()))
-                .Callback((List<AchievementSectionDictionary> dictionary) => achievementsSections = dictionary);
+                .Setup(d => d.UpdateAchievementsSections(It.IsAny<List<IAchievementSectionDictionary>>()))
+                .Callback((List<IAchievementSectionDictionary> dictionary) => achievementsSections = dictionary);
 
             await _staticDictionariesUpdater.Update();
 

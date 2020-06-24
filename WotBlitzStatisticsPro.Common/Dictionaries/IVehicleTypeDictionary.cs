@@ -5,17 +5,17 @@ namespace WotBlitzStatisticsPro.Common.Dictionaries
     /// <summary>
     /// Vehicle type dictionary item
     /// </summary>
-    public class VehicleTypeDictionary
+    public interface IVehicleTypeDictionary
     {
         /// <summary>
         /// Vehicle type id
         /// </summary>
-        public string VehicleTypeId { get; set; }
+        string VehicleTypeId { get; set; }
 
         /// <summary>
         /// Vehicle type localized name
         /// </summary>
-        public List<LocalizableString> VehicleTypeNames { get; set; }
+        List<LocalizableString> VehicleTypeNames { get; set; }
 
     }
 }

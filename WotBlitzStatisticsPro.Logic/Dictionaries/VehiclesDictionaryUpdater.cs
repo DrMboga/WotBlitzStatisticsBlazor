@@ -6,6 +6,7 @@ using AutoMapper;
 using WotBlitzStatisticsPro.Common.Dictionaries;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess;
+using WotBlitzStatisticsPro.DataAccess.Model;
 using WotBlitzStatisticsPro.WgApiClient;
 using WotBlitzStatisticsPro.WgApiClient.Model;
 
@@ -45,11 +46,11 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
 
         }
 
-        private async Task<List<VehiclesDictionary>> GetAndMapVehiclesDictionary()
+        private async Task<List<IVehiclesDictionary>> GetAndMapVehiclesDictionary()
         {
             var defaultRealmType = RealmType.Eu;
 
-            var vehicles = new List<VehiclesDictionary>();
+            var vehicles = new List<IVehiclesDictionary>();
 
             foreach (var requestLanguage in (RequestLanguage[]) Enum.GetValues(typeof(RequestLanguage)))
             {

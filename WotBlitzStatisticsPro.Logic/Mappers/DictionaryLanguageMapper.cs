@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using WotBlitzStatisticsPro.Common.Dictionaries;
+using WotBlitzStatisticsPro.DataAccess.Model;
 
 namespace WotBlitzStatisticsPro.Logic.Mappers
 {

@@ -80,10 +80,10 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
         [Test]
         public async Task ShouldSaveAppropriateAchievementsDictionary()
         {
-            List<AchievementDictionary> targetAchievementDictionaries = null;
+            List<IAchievementDictionary> targetAchievementDictionaries = null;
             _dataAccessorMock
-                .Setup(d => d.UpdateAchievements(It.IsAny<List<AchievementDictionary>>()))
-                .Callback((List<AchievementDictionary> dictionary) => targetAchievementDictionaries = dictionary);
+                .Setup(d => d.UpdateAchievements(It.IsAny<List<IAchievementDictionary>>()))
+                .Callback((List<IAchievementDictionary> dictionary) => targetAchievementDictionaries = dictionary);
 
             await _achievementDictionariesUpdater.Update();
 

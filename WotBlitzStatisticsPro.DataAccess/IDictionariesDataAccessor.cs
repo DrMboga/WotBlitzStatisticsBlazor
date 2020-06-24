@@ -6,18 +6,20 @@ namespace WotBlitzStatisticsPro.DataAccess
 {
     public interface IDictionariesDataAccessor
     {
-        Task UpdateLanguages(List<LanguageDictionary> languages);
+        Task UpdateLanguages(List<ILanguageDictionary> languages);
 
-        Task UpdateNations(List<NationDictionary> nations);
+        Task UpdateNations(List<INationDictionary> nations);
 
-        Task UpdateVehicleTypes(List<VehicleTypeDictionary> vehicleTypes);
+        Task UpdateVehicleTypes(List<IVehicleTypeDictionary> vehicleTypes);
 
-        Task UpdateClanRoles(List<ClanRoleDictionary> clanRoles);
+        Task UpdateClanRoles(List<IClanRoleDictionary> clanRoles);
 
-        Task UpdateAchievementsSections(List<AchievementSectionDictionary> achievementSections);
+        Task UpdateAchievementsSections(List<IAchievementSectionDictionary> achievementSections);
 
-        Task UpdateAchievements(List<AchievementDictionary> achievementDictionary);
+        Task UpdateAchievements(List<IAchievementDictionary> achievementDictionary);
 
-        Task UpdateVehicles(List<VehiclesDictionary> vehiclesDictionary);
+        Task UpdateVehicles(List<IVehiclesDictionary> vehiclesDictionary);
+
+        Task<List<ILanguageDictionary>> ReadLanguages();
     }
 }
