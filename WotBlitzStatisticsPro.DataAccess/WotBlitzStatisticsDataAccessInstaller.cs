@@ -7,6 +7,7 @@ namespace WotBlitzStatisticsPro.DataAccess
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IDictionariesDataAccessor, DictionariesDataAccessor>();
+            services.AddTransient<IWargamingAccountDataAccessor, WargamingAccountDataAccessor>();
         }
 
     }

@@ -10,10 +10,13 @@ namespace WotBlitzStatisticsPro.GraphQl.Mutation
     public class WotBlitzStatisticsMutation
     {
         private readonly IWargamingDictionaries _wargamingDictionaries;
+        private readonly IWargamingAccounts _wargamingAccounts;
 
-        public WotBlitzStatisticsMutation(IWargamingDictionaries wargamingDictionaries)
+        public WotBlitzStatisticsMutation(IWargamingDictionaries wargamingDictionaries,
+            IWargamingAccounts wargamingAccounts)
         {
             _wargamingDictionaries = wargamingDictionaries;
+            _wargamingAccounts = wargamingAccounts;
         }
 
         /// <summary>
@@ -25,6 +28,18 @@ namespace WotBlitzStatisticsPro.GraphQl.Mutation
             UpdateDictionariesRequest updateDictionariesRequest)
         {
             return _wargamingDictionaries.UpdateDictionaries(updateDictionariesRequest);
+        }
+
+        /// <summary>
+        /// Gathers all account information
+        /// </summary>
+        /// <param name="realmType">Account region</param>
+        /// <param name="accountId">AccountId</param>
+        /// <param name="requestLanguage">Request language</param>
+        /// <returns></returns>
+        public Task<bool> GatherAccountInformation(RealmType realmType, long accountId, RequestLanguage requestLanguage)
+        {
+            return _wargamingAccounts.GatherAccountInformation(realmType, accountId, requestLanguage);
         }
     }
 }

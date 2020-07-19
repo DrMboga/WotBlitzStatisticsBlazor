@@ -36,7 +36,7 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
             serviceProvider.AddSingleton(_achievementsDictionaryUpdaterMock.Object);
             serviceProvider.AddSingleton(_vehiclesDictionaryUpdaterMock.Object);
 
-            WotBlitzStatisticsLogicInstaller.RegisterFactoryMethod(serviceProvider);
+            WotBlitzStatisticsLogicInstaller.RegisterDictionariesFactoryMethod(serviceProvider);
 
             var services = serviceProvider.BuildServiceProvider();
 
