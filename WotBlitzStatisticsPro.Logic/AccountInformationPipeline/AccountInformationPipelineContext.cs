@@ -1,4 +1,5 @@
 ﻿using WotBlitzStatisticsPro.Common.Model;
+using WotBlitzStatisticsPro.DataAccess.Model.Accounts;
 
 namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
 {
@@ -18,6 +19,10 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
         public long AccountId { get; }
         public RealmType RealmType { get; }
         public RequestLanguage RequestLanguage { get; }
+
+        public AccountInfo AccountInfo { get; set; }
+
+        public AccountInfoHistory AccountInfoHistory { get; set; }
 
     }
 }

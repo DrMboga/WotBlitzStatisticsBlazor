@@ -8,19 +8,19 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Player account identifier
 		///</summary>
 		[JsonProperty("account_id")]
-		public long? AccountId { get; set; }
+		public long AccountId { get; set; }
 
 		///<summary>
 		/// Account creation date
 		///</summary>
 		[JsonProperty("created_at")]
-		public int? CreatedAt { get; set; }
+		public int CreatedAt { get; set; }
 
 		///<summary>
 		/// Last battle time
 		///</summary>
 		[JsonProperty("last_battle_time")]
-		public int? LastBattleTime { get; set; }
+		public int LastBattleTime { get; set; }
 
 		///<summary>
 		/// Player's nick
@@ -32,7 +32,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Player information update date
 		///</summary>
 		[JsonProperty("updated_at")]
-		public int? UpdatedAt { get; set; }
+		public int UpdatedAt { get; set; }
 
 		///<summary>
 		/// Private account data
