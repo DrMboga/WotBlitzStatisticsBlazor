@@ -10,7 +10,8 @@ namespace WotBlitzStatisticsPro.WgApiClient
 {
 	public class WargamingApiClient : WagramingApiClientBase, 
         IWargamingApiClient,
-        IWargamingDictionariesApiClient
+        IWargamingDictionariesApiClient,
+        IWargamingTanksApiClient
     {
 		public WargamingApiClient(
 			HttpClient httpClient,
@@ -141,7 +142,21 @@ namespace WotBlitzStatisticsPro.WgApiClient
         // https://api.wotblitz.ru/wotb/encyclopedia/achievements/?application_id=adc1387489cf9fc8d9a1d85dbd27763d
 
 
+        #region Tanks methods
 
+        public async Task<List<WotAccountTanksStatistics>> GetPlayerAccountTanksInfo(
+            long accountId, 
+            RealmType realmType = RealmType.Ru,
+            RequestLanguage language = RequestLanguage.En)
+        {
+            var tanks = await GetFromBlitzApi<Dictionary<string, List<WotAccountTanksStatistics>>>(
+                realmType,
+                language,
+                "tanks/stats/",
+                $"account_id={accountId}").ConfigureAwait(false);
+            return tanks[accountId.ToString()];
+        }
 
+        #endregion
     }
 }

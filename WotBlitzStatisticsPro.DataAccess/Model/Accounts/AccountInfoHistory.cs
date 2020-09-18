@@ -73,7 +73,7 @@
 		public long? MaxXp { get; set; }
 
 		///<summary>
-		/// Tank Id which created max experiense per battle
+		/// Tank Id which created max experience per battle
 		///</summary>
 		public long? MaxXpTankId { get; set; }
 
@@ -93,7 +93,7 @@
 		public long? SurvivedBattles { get; set; }
 
 		///<summary>
-		/// Total count of suvived and winned battles
+		/// Total count of survived and winned battles
 		///</summary>
 		public long? WinAndSurvived { get; set; }
 

@@ -24,6 +24,7 @@ namespace WotBlitzStatisticsPro.Logic
             services.AddAutoMapper(typeof(WotBlitzStatisticsLogicInstaller));
             services.AddHttpClient<IWargamingApiClient, WargamingApiClient>();
             services.AddHttpClient<IWargamingDictionariesApiClient, WargamingApiClient>();
+            services.AddHttpClient<IWargamingTanksApiClient, WargamingApiClient>();
             services.AddTransient<IWargamingSearch, WargamingSearch>();
             services.AddTransient<IWargamingDictionaries, WargamingDictionaries>();
             services.AddTransient<IWargamingAccounts, WargamingAccounts>();
