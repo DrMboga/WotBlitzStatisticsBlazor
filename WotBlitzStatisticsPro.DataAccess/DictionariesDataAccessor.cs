@@ -91,5 +91,15 @@ namespace WotBlitzStatisticsPro.DataAccess
                 .FindAsync(Builders<ILanguageDictionary>.Filter.Empty);
             return collection.ToList();
         }
+
+        public async Task<Dictionary<long, int>> GetTankTires(long[] tankIds)
+        {
+            var collection = await _database.GetCollection<VehiclesDictionary>(VehiclesCollectionName)
+                .Find(Builders<VehiclesDictionary>.Filter.In(v => v.TankId, tankIds))
+                .Project(v => new { TankId = v.TankId, Tier = v.Tier })
+                .ToListAsync();
+
+            return collection.ToDictionary(k => k.TankId, v => v.Tier);
+        }
     }
 }

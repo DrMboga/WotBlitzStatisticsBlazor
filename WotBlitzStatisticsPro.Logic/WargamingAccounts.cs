@@ -22,6 +22,7 @@ namespace WotBlitzStatisticsPro.Logic
 
             pipeline.AddOperation<GetAccountInfoOperation>()
                 .AddOperation<GetTanksInfoOperation>()
+                .AddOperation<CalculateStatisticsOperation>()
                 ;
             // ToDo: add other operations
 

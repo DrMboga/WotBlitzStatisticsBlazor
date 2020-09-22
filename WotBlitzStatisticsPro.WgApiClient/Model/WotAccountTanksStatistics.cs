@@ -19,7 +19,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// Last battle
         ///</summary>
         [JsonProperty("last_battle_time")]
-        private int LastBattleTime { get; set; }
+        public int LastBattleTime { get; set; }
 
         [JsonProperty("in_garage")]
         public bool? InGarage { get; set; }

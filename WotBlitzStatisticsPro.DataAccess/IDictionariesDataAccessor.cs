@@ -21,5 +21,7 @@ namespace WotBlitzStatisticsPro.DataAccess
         Task UpdateVehicles(List<IVehiclesDictionary> vehiclesDictionary);
 
         Task<List<ILanguageDictionary>> ReadLanguages();
+
+        Task<Dictionary<long, int>> GetTankTires(long[] tankIds);
     }
 }

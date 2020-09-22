@@ -1,4 +1,5 @@
-﻿using WotBlitzStatisticsPro.Common.Model;
+﻿using System.Collections.Generic;
+using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess.Model.Accounts;
 
 namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
@@ -23,6 +24,10 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
         public AccountInfo AccountInfo { get; set; }
 
         public AccountInfoHistory AccountInfoHistory { get; set; }
+
+        public List<TankInfo> Tanks { get; set; }
+
+        public Dictionary<long, TankInfoHistory> TanksHistory { get; set; }
 
     }
 }
