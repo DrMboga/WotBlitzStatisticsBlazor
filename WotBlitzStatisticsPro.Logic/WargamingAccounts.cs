@@ -15,7 +15,7 @@ namespace WotBlitzStatisticsPro.Logic
             _operationFactory = operationFactory;
         }
 
-        public async Task<bool> GatherAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage)
+        public async Task<AccountInfoResponse> GatherAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage)
         {
             var context = new AccountInformationPipelineContext(accountId, realm, requestLanguage);
             var pipeline = new Pipeline<AccountInformationPipelineContext>(_operationFactory);
@@ -23,6 +23,7 @@ namespace WotBlitzStatisticsPro.Logic
             pipeline.AddOperation<GetAccountInfoOperation>()
                 .AddOperation<GetTanksInfoOperation>()
                 .AddOperation<CalculateStatisticsOperation>()
+                .AddOperation<BuildAccountInfoResponseOperation>()
                 ;
             // ToDo: add other operations
 
@@ -32,7 +33,7 @@ namespace WotBlitzStatisticsPro.Logic
 
             // ToDo: return context response
 
-            return true;
+            return context.Response;
         }
     }
 }

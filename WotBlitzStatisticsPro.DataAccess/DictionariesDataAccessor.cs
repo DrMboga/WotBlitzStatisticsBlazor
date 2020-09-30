@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.Common.Dictionaries;
+using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess.Model;
 
 namespace WotBlitzStatisticsPro.DataAccess
@@ -100,6 +101,43 @@ namespace WotBlitzStatisticsPro.DataAccess
                 .ToListAsync();
 
             return collection.ToDictionary(k => k.TankId, v => v.Tier);
+        }
+
+        public async Task<Dictionary<long, IVehiclesDictionary>> GetVehicles(long[] tankIds)
+        {
+            var collection = await _database.GetCollection<VehiclesDictionary>(VehiclesCollectionName)
+                .Find(Builders<VehiclesDictionary>.Filter.In(v => v.TankId, tankIds))
+                .ToListAsync();
+
+            return collection.ToDictionary(k => k.TankId, v => v as IVehiclesDictionary);
+        }
+
+        public async Task<Dictionary<string, string>> GetNations(RequestLanguage language)
+        {
+            var collection = await _database.GetCollection<NationDictionary>(NationsCollectionName)
+                .Find(Builders<NationDictionary>.Filter.Empty)
+                .Project(n => new
+                {
+                    nationId = n.NationId,
+                    nationValue = n.NationNames.First(v => v.Language == language).Value
+                })
+                .ToListAsync();
+
+            return collection.ToDictionary(n => n.nationId, n => n.nationValue);
+        }
+
+        public async Task<Dictionary<string, string>> GetTankTypes(RequestLanguage language)
+        {
+            var collection = await _database.GetCollection<VehicleTypeDictionary>(VehicleTypesCollectionName)
+                .Find(Builders<VehicleTypeDictionary>.Filter.Empty)
+                .Project(n => new
+                {
+                    typeId = n.VehicleTypeId,
+                    typeValue = n.VehicleTypeNames.First(v => v.Language == language).Value
+                })
+                .ToListAsync();
+
+            return collection.ToDictionary(n => n.typeId, n => n.typeValue);
         }
     }
 }

@@ -29,5 +29,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
 
         public Dictionary<long, TankInfoHistory> TanksHistory { get; set; }
 
+        public AccountInfoResponse Response { get; set; }
+
     }
 }

@@ -154,7 +154,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
                 language,
                 "tanks/stats/",
                 $"account_id={accountId}").ConfigureAwait(false);
-            return tanks[accountId.ToString()];
+            return tanks[accountId.ToString()] ?? new List<WotAccountTanksStatistics>();
         }
 
         #endregion

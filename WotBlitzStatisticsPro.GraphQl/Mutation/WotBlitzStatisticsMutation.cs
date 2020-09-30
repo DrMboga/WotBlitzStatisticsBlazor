@@ -37,7 +37,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Mutation
         /// <param name="accountId">AccountId</param>
         /// <param name="requestLanguage">Request language</param>
         /// <returns></returns>
-        public Task<bool> GatherAccountInformation(RealmType realmType, long accountId, RequestLanguage requestLanguage)
+        public Task<AccountInfoResponse> GatherAccountInformation(RealmType realmType, long accountId, RequestLanguage requestLanguage)
         {
             return _wargamingAccounts.GatherAccountInformation(realmType, accountId, requestLanguage);
         }

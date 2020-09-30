@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common.Dictionaries;
+using WotBlitzStatisticsPro.Common.Model;
 
 namespace WotBlitzStatisticsPro.DataAccess
 {
@@ -23,5 +24,11 @@ namespace WotBlitzStatisticsPro.DataAccess
         Task<List<ILanguageDictionary>> ReadLanguages();
 
         Task<Dictionary<long, int>> GetTankTires(long[] tankIds);
+
+        Task<Dictionary<long, IVehiclesDictionary>> GetVehicles(long[] tankIds);
+
+        Task<Dictionary<string, string>> GetNations(RequestLanguage language);
+
+        Task<Dictionary<string, string>> GetTankTypes(RequestLanguage language);
     }
 }

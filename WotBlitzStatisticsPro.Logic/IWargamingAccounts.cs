@@ -5,6 +5,6 @@ namespace WotBlitzStatisticsPro.Logic
 {
     public interface IWargamingAccounts
     {
-        Task<bool> GatherAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage);
+        Task<AccountInfoResponse> GatherAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage);
     }
 }
