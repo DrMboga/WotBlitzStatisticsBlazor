@@ -25,13 +25,30 @@ namespace WotBlitzStatisticsPro.Logic
                 .AddOperation<CalculateStatisticsOperation>()
                 .AddOperation<BuildAccountInfoResponseOperation>()
                 ;
-            // ToDo: add other operations
 
             await pipeline.Build()
                 .Invoke(context, null)
                 .ConfigureAwait(false);
 
-            // ToDo: return context response
+            return context.Response;
+        }
+
+        public async Task<AccountInfoResponse> GatherAndSaveAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage)
+        {
+            var context = new AccountInformationPipelineContext(accountId, realm, requestLanguage);
+            var pipeline = new Pipeline<AccountInformationPipelineContext>(_operationFactory);
+
+            pipeline.AddOperation<GetAccountInfoOperation>()
+                // ToDo: add operation for reading AccountFrom DB
+                .AddOperation<GetTanksInfoOperation>()
+                .AddOperation<CalculateStatisticsOperation>()
+                // ToDo: add operation for save info into DB
+                .AddOperation<BuildAccountInfoResponseOperation>()
+                ;
+
+            await pipeline.Build()
+                .Invoke(context, null)
+                .ConfigureAwait(false);
 
             return context.Response;
         }

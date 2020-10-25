@@ -10,10 +10,13 @@ namespace WotBlitzStatisticsPro.GraphQl.Query
         // 90277267 - Mboga Ru
 
         private readonly IWargamingSearch _wargamingSearcher;
+        private readonly IWargamingAccounts _wargamingAccounts;
 
-        public WotBlitzStatisticsQuery(IWargamingSearch wargamingSearcher)
+        public WotBlitzStatisticsQuery(IWargamingSearch wargamingSearcher,
+            IWargamingAccounts wargamingAccounts)
         {
             _wargamingSearcher = wargamingSearcher;
+            _wargamingAccounts = wargamingAccounts;
         }
 
         //public Task<AccountInfo> GetPlayerInfo(long accountId)
@@ -49,6 +52,21 @@ namespace WotBlitzStatisticsPro.GraphQl.Query
             RequestLanguage? language)
         {
             return _wargamingSearcher.FindClans(searchString, realmType ?? RealmType.Ru, language ?? RequestLanguage.En);
+        }
+
+        /// <summary>
+        /// Gathers all account information
+        /// </summary>
+        /// <param name="realmType">Account region</param>
+        /// <param name="accountId">AccountId</param>
+        /// <param name="requestLanguage">Request language</param>
+        public Task<AccountInfoResponse> AccountInfo(
+            long accountId,
+            RealmType? realmType,
+            RequestLanguage? requestLanguage
+        )
+        {
+            return _wargamingAccounts.GatherAccountInformation(realmType ?? RealmType.Ru, accountId, requestLanguage ?? RequestLanguage.En);
         }
     }
 }
