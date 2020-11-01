@@ -39,7 +39,8 @@ namespace WotBlitzStatisticsPro.Logic
             var pipeline = new Pipeline<AccountInformationPipelineContext>(_operationFactory);
 
             pipeline.AddOperation<GetAccountInfoOperation>()
-                // ToDo: add operation for reading AccountFrom DB
+                .AddOperation<ReadAccountInfoFromDbOperation>()
+                .AddOperation<CheckLAstBattleDateOperation>()
                 .AddOperation<GetTanksInfoOperation>()
                 .AddOperation<CalculateStatisticsOperation>()
                 // ToDo: add operation for save info into DB

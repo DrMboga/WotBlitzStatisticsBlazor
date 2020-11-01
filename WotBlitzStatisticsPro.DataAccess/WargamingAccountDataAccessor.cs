@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using System.Threading.Tasks;
+using MongoDB.Driver;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.DataAccess.Model.Accounts;
 
@@ -63,6 +64,11 @@ namespace WotBlitzStatisticsPro.DataAccess
                 .CreateOne(tankInfoHistoryIndexModel);
         }
 
-        // ToDo: Read account
+        public async Task<AccountInfo> ReadAccountInfo(long accountId)
+        {
+            var account = await _database.GetCollection<AccountInfo>(AccountInfoCollectionName)
+                .FindAsync(Builders<AccountInfo>.Filter.Where(a => a.AccountId == accountId));
+            return account.FirstOrDefault();
+        }
     }
 }

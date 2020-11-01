@@ -31,5 +31,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
 
         public AccountInfoResponse Response { get; set; }
 
+        public AccountInfo DbAccountInfo { get; set; }
+
     }
 }

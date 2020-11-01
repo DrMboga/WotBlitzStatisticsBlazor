@@ -60,6 +60,8 @@ namespace WotBlitzStatisticsPro.Logic
         private static void ConfigureOperationsFactory(IServiceCollection services)
         {
             services.AddTransient<GetAccountInfoOperation>();
+            services.AddTransient<ReadAccountInfoFromDbOperation>();
+            services.AddTransient<CheckLAstBattleDateOperation>();
             services.AddTransient<GetTanksInfoOperation>();
             services.AddTransient<CalculateStatisticsOperation>();
             services.AddTransient<BuildAccountInfoResponseOperation>();
