@@ -40,7 +40,7 @@ namespace WotBlitzStatisticsPro.Logic
 
             pipeline.AddOperation<GetAccountInfoOperation>()
                 .AddOperation<ReadAccountInfoFromDbOperation>()
-                .AddOperation<CheckLAstBattleDateOperation>()
+                .AddOperation<CheckLastBattleDateOperation>()
                 .AddOperation<GetTanksInfoOperation>()
                 .AddOperation<CalculateStatisticsOperation>()
                 // ToDo: add operation for save info into DB

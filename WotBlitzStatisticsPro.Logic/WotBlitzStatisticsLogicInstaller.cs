@@ -61,7 +61,7 @@ namespace WotBlitzStatisticsPro.Logic
         {
             services.AddTransient<GetAccountInfoOperation>();
             services.AddTransient<ReadAccountInfoFromDbOperation>();
-            services.AddTransient<CheckLAstBattleDateOperation>();
+            services.AddTransient<CheckLastBattleDateOperation>();
             services.AddTransient<GetTanksInfoOperation>();
             services.AddTransient<CalculateStatisticsOperation>();
             services.AddTransient<BuildAccountInfoResponseOperation>();
