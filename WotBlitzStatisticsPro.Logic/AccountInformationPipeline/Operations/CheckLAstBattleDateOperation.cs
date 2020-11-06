@@ -17,7 +17,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
         public Task Invoke(AccountInformationPipelineContext context, Func<AccountInformationPipelineContext, Task> next)
         {
             if (context.DbAccountInfo == null ||
-                context.DbAccountInfo.LastBattleTime >= context.AccountInfo.LastBattleTime)
+                context.DbAccountInfo.LastBattleTime < context.AccountInfo.LastBattleTime)
             {
                 return next.Invoke(context);
             }

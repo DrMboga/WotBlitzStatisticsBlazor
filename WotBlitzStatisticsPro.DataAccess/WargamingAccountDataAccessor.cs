@@ -32,36 +32,36 @@ namespace WotBlitzStatisticsPro.DataAccess
             _database.GetCollection<AccountInfo>(AccountInfoCollectionName).Indexes
                 .CreateMany(new[] {accountInfoRealmIndexModel, accountInfoLastBattleTimeIndexModel});
 
-            // AccountInfoHistory AccountId+LastBattleTime
-            var accountInfoHistoryBuilder = Builders<AccountInfoHistory>.IndexKeys;
-            var accountInfoHistoryIndexModel = new CreateIndexModel<AccountInfoHistory>(
-                accountInfoHistoryBuilder.Combine(
-                    Builders<AccountInfoHistory>.IndexKeys.Ascending(h => h.AccountId),
-                    Builders<AccountInfoHistory>.IndexKeys.Ascending(h => h.LastBattleTime)));
-            _database.GetCollection<AccountInfoHistory>(AccountInfoHistoryCollectionName).Indexes
-                .CreateOne(accountInfoHistoryIndexModel);
+            //// AccountInfoHistory AccountId+LastBattleTime
+            //var accountInfoHistoryBuilder = Builders<AccountInfoHistory>.IndexKeys;
+            //var accountInfoHistoryIndexModel = new CreateIndexModel<AccountInfoHistory>(
+            //    accountInfoHistoryBuilder.Combine(
+            //        Builders<AccountInfoHistory>.IndexKeys.Ascending(h => h.AccountId),
+            //        Builders<AccountInfoHistory>.IndexKeys.Ascending(h => h.LastBattleTime)));
+            //_database.GetCollection<AccountInfoHistory>(AccountInfoHistoryCollectionName).Indexes
+            //    .CreateOne(accountInfoHistoryIndexModel);
 
-            // TankInfo AccountId+TankId, LastBattleTime
-            var tankInfoBuilder = Builders<TankInfo>.IndexKeys;
-            var tankInfoIndexModel = new CreateIndexModel<TankInfo>(
-                tankInfoBuilder.Combine(
-                    Builders<TankInfo>.IndexKeys.Ascending(h => h.AccountId),
-                    Builders<TankInfo>.IndexKeys.Ascending(h => h.TankId)));
-            var tankInfoLastBattleTimeIndexModel =
-                new CreateIndexModel<TankInfo>(tankInfoBuilder.Ascending(t => t.LastBattleTime));
-            _database.GetCollection<TankInfo>(TankInfoCollectionName).Indexes
-                .CreateMany(new[] {tankInfoIndexModel, tankInfoLastBattleTimeIndexModel});
+            //// TankInfo AccountId+TankId, LastBattleTime
+            //var tankInfoBuilder = Builders<TankInfo>.IndexKeys;
+            //var tankInfoIndexModel = new CreateIndexModel<TankInfo>(
+            //    tankInfoBuilder.Combine(
+            //        Builders<TankInfo>.IndexKeys.Ascending(h => h.AccountId),
+            //        Builders<TankInfo>.IndexKeys.Ascending(h => h.TankId)));
+            //var tankInfoLastBattleTimeIndexModel =
+            //    new CreateIndexModel<TankInfo>(tankInfoBuilder.Ascending(t => t.LastBattleTime));
+            //_database.GetCollection<TankInfo>(TankInfoCollectionName).Indexes
+            //    .CreateMany(new[] {tankInfoIndexModel, tankInfoLastBattleTimeIndexModel});
 
 
-            // TankInfoHistory AccountId+TankId+LastBattleTime
-            var tankInfoHistoryBuilder = Builders<TankInfoHistory>.IndexKeys;
-            var tankInfoHistoryIndexModel = new CreateIndexModel<TankInfoHistory>(
-                tankInfoHistoryBuilder.Combine(
-                    Builders<TankInfoHistory>.IndexKeys.Ascending(h => h.AccountId),
-                    Builders<TankInfoHistory>.IndexKeys.Ascending(h => h.TankId),
-                    Builders<TankInfoHistory>.IndexKeys.Ascending(h => h.LastBattleTime)));
-            _database.GetCollection<TankInfoHistory>(TankInfoHistoryCollectionName).Indexes
-                .CreateOne(tankInfoHistoryIndexModel);
+            //// TankInfoHistory AccountId+TankId+LastBattleTime
+            //var tankInfoHistoryBuilder = Builders<TankInfoHistory>.IndexKeys;
+            //var tankInfoHistoryIndexModel = new CreateIndexModel<TankInfoHistory>(
+            //    tankInfoHistoryBuilder.Combine(
+            //        Builders<TankInfoHistory>.IndexKeys.Ascending(h => h.AccountId),
+            //        Builders<TankInfoHistory>.IndexKeys.Ascending(h => h.TankId),
+            //        Builders<TankInfoHistory>.IndexKeys.Ascending(h => h.LastBattleTime)));
+            //_database.GetCollection<TankInfoHistory>(TankInfoHistoryCollectionName).Indexes
+            //    .CreateOne(tankInfoHistoryIndexModel);
         }
 
         public async Task<AccountInfo> ReadAccountInfo(long accountId)
@@ -69,6 +69,45 @@ namespace WotBlitzStatisticsPro.DataAccess
             var account = await _database.GetCollection<AccountInfo>(AccountInfoCollectionName)
                 .FindAsync(Builders<AccountInfo>.Filter.Where(a => a.AccountId == accountId));
             return account.FirstOrDefault();
+        }
+
+        public async Task<TankInfo> ReadTankInfo(long accountId, long tankId)
+        {
+            var tank = await _database.GetCollection<TankInfo>(TankInfoCollectionName)
+                .FindAsync(Builders<TankInfo>.Filter.Where(t => t.TankInfoId == new TankInfoKey(accountId, tankId)));
+            return tank.FirstOrDefault();
+        }
+
+        public Task AddOurUpdateAccountInfo(AccountInfo accountInfo)
+        {
+            return _database.GetCollection<AccountInfo>(AccountInfoCollectionName)
+                .ReplaceOneAsync(
+                    Builders<AccountInfo>.Filter.Where(a => a.AccountId == accountInfo.AccountId),
+                    accountInfo,
+                    new ReplaceOptions {IsUpsert = true}
+                );
+        }
+
+        public Task AddAccountInfoHistory(AccountInfoHistory accountInfoHistory)
+        {
+            return _database.GetCollection<AccountInfoHistory>(AccountInfoHistoryCollectionName)
+                .InsertOneAsync(accountInfoHistory);
+        }
+
+        public Task AddOrUpdateTankInfo(TankInfo tankInfo)
+        {
+            return _database.GetCollection<TankInfo>(TankInfoCollectionName)
+                .ReplaceOneAsync(
+                    Builders<TankInfo>.Filter.Where(t => t.TankInfoId == new TankInfoKey(tankInfo.AccountId, tankInfo.TankId)),
+                    tankInfo,
+                    new ReplaceOptions { IsUpsert = true }
+                );
+        }
+
+        public Task AddTankInfoHistory(TankInfoHistory tankInfoHistory)
+        {
+            return _database.GetCollection<TankInfoHistory>(TankInfoHistoryCollectionName)
+                .InsertOneAsync(tankInfoHistory);
         }
     }
 }

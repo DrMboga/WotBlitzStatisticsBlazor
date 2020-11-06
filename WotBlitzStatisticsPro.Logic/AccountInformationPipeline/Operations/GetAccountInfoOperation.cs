@@ -30,10 +30,8 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
             context.AccountInfo = _mapper.Map<WotAccountInfo, AccountInfo>(accountInfo);
             context.AccountInfo.Realm = context.RealmType;
 
-            context.AccountInfoHistory =
-                _mapper.Map<WotAccountFullStatistics, AccountInfoHistory>(accountInfo.Statistics.All);
-            context.AccountInfoHistory.AccountId = context.AccountId;
-            context.AccountInfoHistory.LastBattleTime = context.AccountInfo.LastBattleTime;
+            context.AccountInfoHistory = new AccountInfoHistory(context.AccountId, context.AccountInfo.LastBattleTime);
+            _mapper.Map(accountInfo.Statistics.All, context.AccountInfoHistory);
 
             await next.Invoke(context);
         }

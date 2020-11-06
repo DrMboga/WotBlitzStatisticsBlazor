@@ -1,18 +1,34 @@
-﻿using WotBlitzStatisticsPro.Common.Model;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using WotBlitzStatisticsPro.Common.Model;
 
 namespace WotBlitzStatisticsPro.DataAccess.Model.Accounts
 {
     public class TankInfo
     {
+        public TankInfo()
+        {
+            
+        }
+
+        public TankInfo(long accountId, long tankId)
+        {
+            TankInfoId = new TankInfoKey(accountId, tankId);
+        }
+
+        [BsonId]
+        public TankInfoKey TankInfoId { get; set; }
+
         ///<summary>
         /// Player account identifier
         ///</summary>
-        public long AccountId { get; set; }
+        [BsonIgnore]
+        public long AccountId => TankInfoId.AccountId;
 
         ///<summary>
         /// Tank identifier
         ///</summary>
-        public long TankId { get; set; }
+        [BsonIgnore]
+        public long TankId => TankInfoId.TankId;
 
 
         public int BattleLifeTimeInSeconds { get; set; }

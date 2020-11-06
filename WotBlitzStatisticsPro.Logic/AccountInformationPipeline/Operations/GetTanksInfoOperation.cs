@@ -32,11 +32,11 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
 
             tanksInfo.ForEach(tank =>
             {
-                context.Tanks.Add(_mapper.Map<WotAccountTanksStatistics, TankInfo>(tank));
-                var stat = _mapper.Map<WotAccountTanksFullStatistics, TankInfoHistory>(tank.All);
-                stat.AccountId = tank.AccountId;
-                stat.TankId = tank.TankId;
-                stat.LastBattleTime = tank.LastBattleTime;
+                var tankInfo = new TankInfo(tank.AccountId, tank.TankId);
+                _mapper.Map(tank, tankInfo);
+                context.Tanks.Add(tankInfo);
+                var stat = new TankInfoHistory(tank.AccountId, tank.TankId, tank.LastBattleTime);
+                _mapper.Map(tank.All, stat);
                 context.TanksHistory[stat.TankId] = stat;
             });
 
