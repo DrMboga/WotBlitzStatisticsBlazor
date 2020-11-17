@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic;
 
@@ -67,6 +68,24 @@ namespace WotBlitzStatisticsPro.GraphQl.Query
         )
         {
             return _wargamingAccounts.GatherAccountInformation(realmType ?? RealmType.Ru, accountId, requestLanguage ?? RequestLanguage.En);
+        }
+
+        /// <summary>
+        /// Account statistics history for period since "startDate"
+        /// </summary>
+        /// <param name="accountId">AccountId</param>
+        /// <param name="startDate">Date from history started</param>
+        /// <param name="realmType">Account region</param>
+        /// <param name="requestLanguage">Request language</param>
+        /// <returns></returns>
+        public Task<AccountInfoHistoryResponse> AccountInfoHistory(
+            long accountId,
+            DateTime startDate,
+            RealmType? realmType,
+            RequestLanguage? requestLanguage)
+        {
+            return _wargamingAccounts.GetAccountInfoHistory(realmType ?? RealmType.Ru, accountId, startDate,
+                requestLanguage ?? RequestLanguage.En);
         }
     }
 }

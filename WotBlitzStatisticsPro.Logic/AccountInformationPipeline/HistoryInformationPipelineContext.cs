@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using WotBlitzStatisticsPro.Common.Model;
+﻿using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess.Model.Accounts;
 
 namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
 {
-    public class AccountInformationPipelineContext: IDatabasePipelineContext
+    public class HistoryInformationPipelineContext: IDatabasePipelineContext
     {
-        public AccountInformationPipelineContext(
+        public HistoryInformationPipelineContext(
             long accountId,
             RealmType realmType,
             RequestLanguage requestLanguage)
@@ -21,17 +20,9 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
         public RealmType RealmType { get; }
         public RequestLanguage RequestLanguage { get; }
 
-        public AccountInfo AccountInfo { get; set; }
-
-        public AccountInfoHistory AccountInfoHistory { get; set; }
-
-        public List<TankInfo> Tanks { get; set; }
-
-        public Dictionary<long, TankInfoHistory> TanksHistory { get; set; }
-
-        public AccountInfoResponse Response { get; set; }
-
         public AccountInfo DbAccountInfo { get; set; }
 
+
+        public AccountInfoHistoryResponse Response { get; set; }
     }
 }

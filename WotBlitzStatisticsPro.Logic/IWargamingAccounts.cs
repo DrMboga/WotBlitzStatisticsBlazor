@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common.Model;
 
 namespace WotBlitzStatisticsPro.Logic
@@ -8,5 +9,8 @@ namespace WotBlitzStatisticsPro.Logic
         Task<AccountInfoResponse> GatherAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage);
 
         Task<AccountInfoResponse> GatherAndSaveAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage);
+
+        Task<AccountInfoHistoryResponse> GetAccountInfoHistory(RealmType realm, long accountId, DateTime startDate,
+            RequestLanguage requestLanguage);
     }
 }

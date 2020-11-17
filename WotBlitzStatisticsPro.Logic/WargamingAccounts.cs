@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations;
@@ -46,6 +47,28 @@ namespace WotBlitzStatisticsPro.Logic
                 .AddOperation<SaveAccountAndTanksOperation>()
                 .AddOperation<BuildAccountInfoResponseOperation>()
                 ;
+
+            await pipeline.Build()
+                .Invoke(context, null)
+                .ConfigureAwait(false);
+
+            return context.Response;
+        }
+
+        public async Task<AccountInfoHistoryResponse> GetAccountInfoHistory(RealmType realm, long accountId, DateTime startDate, RequestLanguage requestLanguage)
+        {
+            var context = new HistoryInformationPipelineContext(accountId, realm, requestLanguage);
+            var pipeline = new Pipeline<HistoryInformationPipelineContext>(_operationFactory);
+
+            //pipeline.AddOperation<ReadAccountInfoFromDbOperation>()
+
+            // ToDo:
+            // 1. First read account info from DB operation
+            // 2. Read account history from DB at the startDate !Array SortedByDate! operation
+            // 3. Fill the OverallAccountStatistics
+            // PeriodAccountStatistics
+            // PeriodDifference
+            // StatisticsHistory
 
             await pipeline.Build()
                 .Invoke(context, null)

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WotBlitzStatisticsPro.DataAccess.Model.Accounts;
 
 namespace WotBlitzStatisticsPro.DataAccess
@@ -16,5 +17,9 @@ namespace WotBlitzStatisticsPro.DataAccess
         Task AddOrUpdateTankInfo(TankInfo tankInfo);
 
         Task AddTankInfoHistory(TankInfoHistory tankInfoHistory);
+
+        Task<IEnumerable<AccountInfoHistory>> GetAccountHistory(long accountId, int lastBattleSince);
+
+        Task<IEnumerable<TankInfoHistory>> GetTankHistory(long accountId, long tankId, int lastBattleSince);
     }
 }

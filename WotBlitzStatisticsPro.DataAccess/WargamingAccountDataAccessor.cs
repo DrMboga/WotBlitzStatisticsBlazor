@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MongoDB.Driver;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.DataAccess.Model.Accounts;
@@ -108,6 +109,16 @@ namespace WotBlitzStatisticsPro.DataAccess
         {
             return _database.GetCollection<TankInfoHistory>(TankInfoHistoryCollectionName)
                 .InsertOneAsync(tankInfoHistory);
+        }
+
+        public Task<IEnumerable<AccountInfoHistory>> GetAccountHistory(long accountId, int lastBattleSince)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IEnumerable<TankInfoHistory>> GetTankHistory(long accountId, long tankId, int lastBattleSince)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
