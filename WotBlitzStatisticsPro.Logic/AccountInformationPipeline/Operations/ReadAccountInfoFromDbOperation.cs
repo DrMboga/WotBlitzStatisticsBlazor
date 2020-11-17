@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using WotBlitzStatisticsPro.DataAccess;
+using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.OperationContext;
 using WotBlitzStatisticsPro.Logic.Pipeline;
 
 namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
 {
-    public class ReadAccountInfoFromDbOperation : IOperation<AccountInformationPipelineContext>
+    public class ReadAccountInfoFromDbOperation : IOperation<IOperationContext>
     {
         private readonly IWargamingAccountDataAccessor _accountDataAccessor;
 
@@ -14,9 +15,11 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
             _accountDataAccessor = accountDataAccessor;
         }
 
-        public async Task Invoke(AccountInformationPipelineContext context, Func<AccountInformationPipelineContext, Task> next)
+        public async Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
         {
-            context.DbAccountInfo = await _accountDataAccessor.ReadAccountInfo(context.AccountId);
+            var contextData = context.Get<IDatabasePipelineContextData>();
+
+            contextData.DbAccountInfo = await _accountDataAccessor.ReadAccountInfo(context.Request.AccountId);
             await next.Invoke(context);
         }
     }

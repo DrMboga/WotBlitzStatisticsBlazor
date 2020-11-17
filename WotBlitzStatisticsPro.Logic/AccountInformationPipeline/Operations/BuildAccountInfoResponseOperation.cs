@@ -8,11 +8,12 @@ using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess;
 using WotBlitzStatisticsPro.DataAccess.Model;
 using WotBlitzStatisticsPro.DataAccess.Model.Accounts;
+using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.OperationContext;
 using WotBlitzStatisticsPro.Logic.Pipeline;
 
 namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
 {
-    public class BuildAccountInfoResponseOperation : IOperation<AccountInformationPipelineContext>
+    public class BuildAccountInfoResponseOperation : IOperation<IOperationContext>
     {
         private readonly IMapper _mapper;
         private readonly IDictionariesDataAccessor _dictionariesDataAccessor;
@@ -23,26 +24,28 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
             _dictionariesDataAccessor = dictionariesDataAccessor;
         }
 
-        public async Task Invoke(AccountInformationPipelineContext context, Func<AccountInformationPipelineContext, Task> next)
+        public async Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
         {
-            context.Response = _mapper.Map<AccountInfo, AccountInfoResponse>(context.AccountInfo);
-            context.Response = _mapper.Map(context.AccountInfoHistory, context.Response);
+            var contextData = context.Get<AccountInformationPipelineContextData>();
 
-            var tankIds = context.Tanks.Select(t => t.TankId).ToArray();
+            contextData.Response = _mapper.Map<AccountInfo, AccountInfoResponse>(contextData.AccountInfo);
+            contextData.Response = _mapper.Map(contextData.AccountInfoHistory, contextData.Response);
+
+            var tankIds = contextData.Tanks.Select(t => t.TankId).ToArray();
             var vehicles = await _dictionariesDataAccessor.GetVehicles(tankIds);
 
-            var nations = await _dictionariesDataAccessor.GetNations(context.RequestLanguage);
-            var tankTypes = await _dictionariesDataAccessor.GetTankTypes(context.RequestLanguage);
+            var nations = await _dictionariesDataAccessor.GetNations(context.Request.RequestLanguage);
+            var tankTypes = await _dictionariesDataAccessor.GetTankTypes(context.Request.RequestLanguage);
 
-            context.Response.Tanks = _mapper.Map<List<TankInfo>, List<TankInfoResponse>>(context.Tanks);
-            context.Response.Tanks.ForEach(t =>
+            contextData.Response.Tanks = _mapper.Map<List<TankInfo>, List<TankInfoResponse>>(contextData.Tanks);
+            contextData.Response.Tanks.ForEach(t =>
             {
-                t = _mapper.Map(context.TanksHistory[t.TankId], t);
+                t = _mapper.Map(contextData.TanksHistory[t.TankId], t);
                 var vehicle = vehicles.ContainsKey(t.TankId) ? vehicles[t.TankId] : CreateStubVehicle();
                 t = _mapper.Map(vehicle, t,
                     opt =>
                     {
-                        opt.Items["language"] = context.RequestLanguage;
+                        opt.Items["language"] = context.Request.RequestLanguage;
                         opt.AfterMap((src, dest) =>
                         {
                             dest.TankType = tankTypes.ContainsKey(dest.TankTypeId) ? tankTypes[dest.TankTypeId] : "-";

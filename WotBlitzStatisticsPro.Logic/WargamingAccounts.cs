@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline;
+using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.OperationContext;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations;
 using WotBlitzStatisticsPro.Logic.Pipeline;
 
@@ -18,8 +19,10 @@ namespace WotBlitzStatisticsPro.Logic
 
         public async Task<AccountInfoResponse> GatherAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage)
         {
-            var context = new AccountInformationPipelineContext(accountId, realm, requestLanguage);
-            var pipeline = new Pipeline<AccountInformationPipelineContext>(_operationFactory);
+            var contextData = new AccountInformationPipelineContextData();
+            var context = new OperationContext(new AccountRequest(accountId, realm, requestLanguage));
+            context.AddOrReplace(contextData);
+            var pipeline = new Pipeline<IOperationContext>(_operationFactory);
 
             pipeline.AddOperation<GetAccountInfoOperation>()
                 .AddOperation<GetTanksInfoOperation>()
@@ -31,13 +34,15 @@ namespace WotBlitzStatisticsPro.Logic
                 .Invoke(context, null)
                 .ConfigureAwait(false);
 
-            return context.Response;
+            return contextData.Response;
         }
 
         public async Task<AccountInfoResponse> GatherAndSaveAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage)
         {
-            var context = new AccountInformationPipelineContext(accountId, realm, requestLanguage);
-            var pipeline = new Pipeline<AccountInformationPipelineContext>(_operationFactory);
+            var contextData = new AccountInformationPipelineContextData();
+            var context = new OperationContext(new AccountRequest(accountId, realm, requestLanguage));
+            context.AddOrReplace(contextData);
+            var pipeline = new Pipeline<IOperationContext>(_operationFactory);
 
             pipeline.AddOperation<GetAccountInfoOperation>()
                 .AddOperation<ReadAccountInfoFromDbOperation>()
@@ -52,29 +57,32 @@ namespace WotBlitzStatisticsPro.Logic
                 .Invoke(context, null)
                 .ConfigureAwait(false);
 
-            return context.Response;
+            return contextData.Response;
         }
 
         public async Task<AccountInfoHistoryResponse> GetAccountInfoHistory(RealmType realm, long accountId, DateTime startDate, RequestLanguage requestLanguage)
         {
-            var context = new HistoryInformationPipelineContext(accountId, realm, requestLanguage);
-            var pipeline = new Pipeline<HistoryInformationPipelineContext>(_operationFactory);
-
-            //pipeline.AddOperation<ReadAccountInfoFromDbOperation>()
+            var contextData = new HistoryInformationPipelineContextData();
+            var context = new OperationContext(new AccountRequest(accountId, realm, requestLanguage));
+            context.AddOrReplace(contextData);
+            var pipeline = new Pipeline<IOperationContext>(_operationFactory);
 
             // ToDo:
             // 1. First read account info from DB operation
-            // 2. Read account history from DB at the startDate !Array SortedByDate! operation
-            // 3. Fill the OverallAccountStatistics
-            // PeriodAccountStatistics
-            // PeriodDifference
-            // StatisticsHistory
+            pipeline.AddOperation<ReadAccountInfoFromDbOperation>()
+
+                // 2. Read account history from DB at the startDate !Array SortedByDate! operation
+                // 3. Fill the OverallAccountStatistics
+                // PeriodAccountStatistics
+                // PeriodDifference
+                // StatisticsHistory
+                ;
 
             await pipeline.Build()
                 .Invoke(context, null)
                 .ConfigureAwait(false);
 
-            return context.Response;
+            return contextData.Response;
         }
     }
 }

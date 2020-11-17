@@ -1,8 +1,9 @@
 ﻿using WotBlitzStatisticsPro.DataAccess.Model.Accounts;
+using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.OperationContext;
 
 namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
 {
-    public interface IDatabasePipelineContext: IAccountPipelineContext
+    public interface IDatabasePipelineContextData
     {
         AccountInfo DbAccountInfo { get; set; }
     }
