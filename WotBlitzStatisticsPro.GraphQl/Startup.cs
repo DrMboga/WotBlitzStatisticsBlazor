@@ -1,6 +1,3 @@
-using HotChocolate;
-using HotChocolate.AspNetCore;
-using HotChocolate.AspNetCore.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -36,39 +33,27 @@ namespace WotBlitzStatisticsPro.GraphQl
             services.AddSingleton<IMongoSettings>(mongoConfig);
             WotBlitzStatisticsLogicInstaller.ConfigureServices(services);
 
-			// Global data loader - caches data between requests
-			// ToDo: cause nullreference exception
-			//services.AddSingleton<IDataLoaderRegistry, DataLoaderRegistry>();
-			
-			// this enables you to use DataLoader in your resolvers.
-			services.AddDataLoaderRegistry();
 
 			// Add GraphQL Services
-			services.AddGraphQL(sp => SchemaBuilder.New()
-				.AddServices(sp)
-
-				// Adds the authorize directive and
-				// enable the authorization middleware.
-				.AddAuthorizeDirectiveType()
-
-				.AddQueryType<WotBlitzStatisticsQuery>()
+            services.AddGraphQLServer()
+                .AddQueryType<WotBlitzStatisticsQuery>()
                 .AddMutationType<WotBlitzStatisticsMutation>()
-				//.AddSubscriptionType<SubscriptionType>()
-				.AddType<AccountsSearchItemObjectType>()
-				.AddType<AccountsSearchObjectType>()
-				.AddEnumType<MarkOfMastery>()
-				.AddEnumType<RealmType>()
-				.AddEnumType<RequestLanguage>()
-				.Create());
+                .AddType<AccountsSearchItemObjectType>()
+                .AddType<AccountsSearchObjectType>()
+                .AddEnumType<MarkOfMastery>()
+                .AddEnumType<RealmType>()
+                .AddEnumType<RequestLanguage>();
+
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			app
-				.UseGraphQL("/graphql")
-				.UsePlayground("/graphql")
-				.UseVoyager("/graphql")
-				;
+                .UseRouting()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapGraphQL();
+                });
 		}
 	}
 }
