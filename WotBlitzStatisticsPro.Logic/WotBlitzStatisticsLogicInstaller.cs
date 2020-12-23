@@ -66,6 +66,13 @@ namespace WotBlitzStatisticsPro.Logic
             services.AddTransient<CalculateStatisticsOperation>();
             services.AddTransient<BuildAccountInfoResponseOperation>();
             services.AddTransient<SaveAccountAndTanksOperation>();
+            services.AddTransient<ReadAccountInfoHistoryFromDbOperation>();
+            services.AddTransient<CheckIfHistoryIsEmptyOperation>();
+            services.AddTransient<FillOverallStatisticsOperation>();
+            services.AddTransient<FillPeriodStatisticsOperation>();
+            services.AddTransient<FillPeriodDifferenceOperation>();
+            services.AddTransient<FillStatisticsDifferenceOperation>();
+            services.AddTransient<FillAccountInfoHistoryResponse>();
 
             services.AddTransient<IOperationFactory>(serviceProvider =>
                 new ServiceProviderOperationFactory(serviceProvider));

@@ -62,20 +62,19 @@ namespace WotBlitzStatisticsPro.Logic
 
         public async Task<AccountInfoHistoryResponse> GetAccountInfoHistory(RealmType realm, long accountId, DateTime startDate, RequestLanguage requestLanguage)
         {
-            var contextData = new HistoryInformationPipelineContextData();
+            var contextData = new AccountHistoryInformationPipelineContextData(startDate);
             var context = new OperationContext(new AccountRequest(accountId, realm, requestLanguage));
             context.AddOrReplace(contextData);
             var pipeline = new Pipeline<IOperationContext>(_operationFactory);
 
-            // ToDo:
-            // 1. First read account info from DB operation
             pipeline.AddOperation<ReadAccountInfoFromDbOperation>()
-
-                // 2. Read account history from DB at the startDate !Array SortedByDate! operation
-                // 3. Fill the OverallAccountStatistics
-                // PeriodAccountStatistics
-                // PeriodDifference
-                // StatisticsHistory
+                .AddOperation<ReadAccountInfoHistoryFromDbOperation>()
+                .AddOperation<CheckIfHistoryIsEmptyOperation>()
+                .AddOperation<FillOverallStatisticsOperation>()
+                .AddOperation<FillPeriodStatisticsOperation>()
+                .AddOperation<FillPeriodDifferenceOperation>()
+                .AddOperation<FillStatisticsDifferenceOperation>()
+                .AddOperation<FillAccountInfoHistoryResponse>()
                 ;
 
             await pipeline.Build()

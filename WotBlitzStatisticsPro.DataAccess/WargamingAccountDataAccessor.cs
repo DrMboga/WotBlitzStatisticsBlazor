@@ -111,14 +111,24 @@ namespace WotBlitzStatisticsPro.DataAccess
                 .InsertOneAsync(tankInfoHistory);
         }
 
-        public Task<IEnumerable<AccountInfoHistory>> GetAccountHistory(long accountId, int lastBattleSince)
+        public async Task<IEnumerable<AccountInfoHistory>> GetAccountHistory(long accountId, int lastBattleSince)
         {
-            throw new System.NotImplementedException();
+            var history = await _database.GetCollection<AccountInfoHistory>(AccountInfoHistoryCollectionName)
+                .FindAsync(Builders<AccountInfoHistory>.Filter.Where(a =>
+                    a.AccountInfoHistoryId.AccountId == accountId && a.AccountInfoHistoryId.LastBattleTime >= lastBattleSince), 
+                    new FindOptions<AccountInfoHistory> { Sort = Builders<AccountInfoHistory>.Sort.Descending(h => h.AccountInfoHistoryId.LastBattleTime)});
+            return history.ToList();
         }
 
-        public Task<IEnumerable<TankInfoHistory>> GetTankHistory(long accountId, long tankId, int lastBattleSince)
+        public async Task<IEnumerable<TankInfoHistory>> GetTankHistory(long accountId, long tankId, int lastBattleSince)
         {
-            throw new System.NotImplementedException();
+            var history = await _database.GetCollection<TankInfoHistory>(TankInfoHistoryCollectionName)
+                .FindAsync(
+                    Builders<TankInfoHistory>.Filter.Where(t =>
+                        t.TankInfoHistoryId.AccountId == accountId && t.TankId == tankId && t.TankInfoHistoryId.LastBattleTime >= lastBattleSince),
+                    new FindOptions<TankInfoHistory>
+                        {Sort = Builders<TankInfoHistory>.Sort.Descending(h => h.TankInfoHistoryId.LastBattleTime)});
+            return history.ToList();
         }
     }
 }

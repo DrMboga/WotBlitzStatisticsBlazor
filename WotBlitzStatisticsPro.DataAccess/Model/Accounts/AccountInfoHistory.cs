@@ -1,9 +1,10 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using WotBlitzStatisticsPro.Common.Model;
 
 namespace WotBlitzStatisticsPro.DataAccess.Model.Accounts
 {
-    public class AccountInfoHistory
-    {
+    public class AccountInfoHistory: IStatistics
+	{
         public AccountInfoHistory(long accountId, int lastBattleTime)
         {
             AccountInfoHistoryId = new AccountInfoHistoryKey(accountId, lastBattleTime);
