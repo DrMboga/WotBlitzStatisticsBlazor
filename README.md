@@ -80,6 +80,25 @@ To use this mongo instance in application, use this connection string in ```apps
 }
 ```
 
+### Backup and restore database using mongodump/mongorestore
+
+[Mongudump/mongorestore documentation](https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/)
+
+To backup or restore database, donwnload mongo database tools for Windows [here](https://www.mongodb.com/try/download/database-tools). You can unzip tools somewhere and add path to them in environment variables.
+
+1. To backup for example `WotBlitzStatisticsPro` database from `localhost` with port 27017, execute this command:
+
+```bash
+mongodump --host=localhost --port=27017 --username=root --password="[YOUR PASSWORD]" --out=backup/mongodump-2020-12-27 --db=WotBlitzStatisticsPro --authenticationDatabase=admin
+```
+
+2. To restore `WotBlitzStatisticsPro` to `localhost` with port 27017, execute this command:
+
+```bash
+mongorestore --host=localhost --port=27017 --username=root --password="[YOUR PASSWORD]" --authenticationDatabase=admin mongodump-2020-12-27
+```
+
+
 ### Hosting solution (k8s)
 (Coming soon)
 
