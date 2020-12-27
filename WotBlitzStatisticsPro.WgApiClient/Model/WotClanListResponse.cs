@@ -14,13 +14,13 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// Clan Tag
         ///</summary>
         [JsonProperty("tag")]
-        public string Tag { get; set; }
+        public string? Tag { get; set; }
 
         ///<summary>
         /// Clan Name
         ///</summary>
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         ///<summary>
         /// Clan created at. (UNIX Epoch time)

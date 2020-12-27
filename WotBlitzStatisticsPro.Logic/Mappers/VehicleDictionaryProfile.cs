@@ -22,13 +22,13 @@ namespace WotBlitzStatisticsPro.Logic.Mappers
                 .ForMember(d => d.Tier,
                     o => o.MapFrom(s => s.Tier))
                 .ForMember(d => d.PreviewImage,
-                    o => o.MapFrom(s => s.Images["preview"]))
+                    o => o.MapFrom(s => s.Images == null ? string.Empty : s.Images["preview"]))
                 .ForMember(d => d.NormalImage,
-                    o => o.MapFrom(s => s.Images["normal"]))
+                    o => o.MapFrom(s => s.Images == null ? string.Empty : s.Images["normal"]))
                 .ForMember(d => d.PriceCredit,
-                    o => o.MapFrom(s => s.Cost["price_credit"]))
+                    o => o.MapFrom(s => s.Cost == null ? string.Empty : s.Cost["price_credit"]))
                 .ForMember(d => d.PriceGold,
-                    o => o.MapFrom(s => s.Cost["price_gold"]))
+                    o => o.MapFrom(s => s.Cost == null ? string.Empty : s.Cost["price_gold"]))
                 .ForMember(d => d.NexTanksInTree,
                     o =>
                         o.MapFrom(s => s.NextTanks))

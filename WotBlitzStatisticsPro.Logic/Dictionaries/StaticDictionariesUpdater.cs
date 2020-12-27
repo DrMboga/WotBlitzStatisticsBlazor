@@ -21,7 +21,9 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
         [Obsolete("Parameter-less constructor only for unit tests")]
         public StaticDictionariesUpdater()
         {
-            
+            _wargamingDictionariesApiClient = null!;
+            _dataAccessor = null!;
+            _mapper = null!;
         }
 
         public StaticDictionariesUpdater(
@@ -42,30 +44,45 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
                 clanRoles,
                 achievementsSections) = await GetAndMapDictionaries();
 
-            await _dataAccessor.UpdateLanguages(languages);
-            await _dataAccessor.UpdateNations(nations);
-            await _dataAccessor.UpdateVehicleTypes(vehicleTypes);
-            await _dataAccessor.UpdateClanRoles(clanRoles);
-            await _dataAccessor.UpdateAchievementsSections(achievementsSections);
+            if(languages != null)
+            {
+                await _dataAccessor.UpdateLanguages(languages);
+            }
+            if(nations != null)
+            {
+                await _dataAccessor.UpdateNations(nations);
+            }
+            if(vehicleTypes != null)
+            {
+                await _dataAccessor.UpdateVehicleTypes(vehicleTypes);
+            }
+            if(clanRoles != null)
+            {
+                await _dataAccessor.UpdateClanRoles(clanRoles);
+            }
+            if(achievementsSections != null)
+            {
+                await _dataAccessor.UpdateAchievementsSections(achievementsSections);
+            }
 
             return new UpdateDictionariesResponseItem
             {
                 DictionaryType = DictionaryType.StaticDictionaries,
                 Description =
-                    $"Updated {languages.Count} items in Languages dictionary; {nations.Count} items in Nations dictionary; {vehicleTypes.Count} items in VehicleTypes dictionary; {clanRoles.Count} items in ClanRoles dictionary; {achievementsSections.Count} items in AchievementsSections dictionary"
+                    $"Updated {languages?.Count} items in Languages dictionary; {nations?.Count} items in Nations dictionary; {vehicleTypes?.Count} items in VehicleTypes dictionary; {clanRoles?.Count} items in ClanRoles dictionary; {achievementsSections?.Count} items in AchievementsSections dictionary"
             };
         }
 
         private async Task<(
-            List<ILanguageDictionary>,
-            List<INationDictionary>,
-            List<IVehicleTypeDictionary>,
-            List<IClanRoleDictionary>,
-            List<IAchievementSectionDictionary>)> GetAndMapDictionaries()
+            List<ILanguageDictionary>?,
+            List<INationDictionary>?,
+            List<IVehicleTypeDictionary>?,
+            List<IClanRoleDictionary>?,
+            List<IAchievementSectionDictionary>?)> GetAndMapDictionaries()
         {
             var defaultRealmType = RealmType.Eu;
 
-            List<ILanguageDictionary> languages = null;
+            List<ILanguageDictionary>? languages = null;
             var nations = new List<INationDictionary>();
             var vehicleTypes = new List<IVehicleTypeDictionary>();
             var clanRoles = new List<IClanRoleDictionary>();
@@ -76,17 +93,14 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
                 var (wotEncyclopediaInfoResponse, wotClanMembersDictionaryResponse) =
                     await _wargamingDictionariesApiClient.GetStaticDictionariesAsync(defaultRealmType, requestLanguage);
 
-                if (languages == null)
-                {
-                    languages =
-                        _mapper.Map<Dictionary<string, string>, List<LanguageDictionary>>(wotEncyclopediaInfoResponse
-                            .Languages).Cast<ILanguageDictionary>().ToList();
-                }
+                if (wotEncyclopediaInfoResponse?.Languages != null)
+                    languages ??= _mapper
+                        .Map<Dictionary<string, string>, List<LanguageDictionary>>(wotEncyclopediaInfoResponse.Languages).Cast<ILanguageDictionary>().ToList();
 
-                MapVehicleNations(requestLanguage, wotEncyclopediaInfoResponse.VehicleNations, nations);
-                MapVehicleTypes(requestLanguage, wotEncyclopediaInfoResponse.VehicleTypes, vehicleTypes);
-                MapClanRoles(requestLanguage, wotClanMembersDictionaryResponse.ClanRoles, clanRoles);
-                MapAchievementsSections(requestLanguage, wotEncyclopediaInfoResponse.AchievementSections, achievementsSections);
+                MapVehicleNations(requestLanguage, wotEncyclopediaInfoResponse?.VehicleNations, nations);
+                MapVehicleTypes(requestLanguage, wotEncyclopediaInfoResponse?.VehicleTypes, vehicleTypes);
+                MapClanRoles(requestLanguage, wotClanMembersDictionaryResponse?.ClanRoles, clanRoles);
+                MapAchievementsSections(requestLanguage, wotEncyclopediaInfoResponse?.AchievementSections, achievementsSections);
             }
 
             return (languages, nations, vehicleTypes, clanRoles, achievementsSections);
@@ -94,9 +108,13 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
 
         private void MapVehicleNations(
             RequestLanguage requestLanguage,
-            Dictionary<string, string> sourceDictionary,
+            Dictionary<string, string>? sourceDictionary,
             List<INationDictionary> destinationDictionary)
         {
+            if (sourceDictionary == null)
+            {
+                return;
+            }
             foreach (var source in sourceDictionary)
             {
                 var destinationItem = destinationDictionary.FirstOrDefault(d => d.NationId == source.Key);
@@ -116,9 +134,14 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
 
         private void MapVehicleTypes(
             RequestLanguage requestLanguage,
-            Dictionary<string, string> sourceDictionary,
+            Dictionary<string, string>? sourceDictionary,
             List<IVehicleTypeDictionary> destinationDictionary)
         {
+            if (sourceDictionary == null)
+            {
+                return;
+            }
+
             foreach (var source in sourceDictionary)
             {
                 var destinationItem = destinationDictionary.FirstOrDefault(d => d.VehicleTypeId == source.Key);
@@ -138,9 +161,14 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
 
         private void MapClanRoles(
             RequestLanguage requestLanguage,
-            Dictionary<string, string> sourceDictionary,
+            Dictionary<string, string>? sourceDictionary,
             List<IClanRoleDictionary> destinationDictionary)
         {
+            if (sourceDictionary == null)
+            {
+                return;
+            }
+
             foreach (var source in sourceDictionary)
             {
                 var destinationItem = destinationDictionary.FirstOrDefault(d => d.ClanRoleId == source.Key);
@@ -160,9 +188,14 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
 
         private void MapAchievementsSections(
             RequestLanguage requestLanguage,
-            Dictionary<string, WotEncyclopediaInfoAchievementSection> sourceSections,
+            Dictionary<string, WotEncyclopediaInfoAchievementSection>? sourceSections,
             List<IAchievementSectionDictionary> destinationDictionary)
         {
+            if (sourceSections == null)
+            {
+                return;
+            }
+
             foreach (var section in sourceSections)
             {
                 var destinationItem = 

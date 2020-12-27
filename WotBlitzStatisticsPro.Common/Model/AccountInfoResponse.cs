@@ -26,7 +26,7 @@ namespace WotBlitzStatisticsPro.Common.Model
         ///<summary>
         /// Player's nick
         ///</summary>
-        public string Nickname { get; set; }
+        public string? Nickname { get; set; }
 
 		///<summary>
 		/// Battles count
@@ -151,7 +151,7 @@ namespace WotBlitzStatisticsPro.Common.Model
         /// <summary>
         /// All player's tanks
         /// </summary>
-        public List<TankInfoResponse> Tanks { get; set; }
+        public List<TankInfoResponse>? Tanks { get; set; }
 
 	}
 }

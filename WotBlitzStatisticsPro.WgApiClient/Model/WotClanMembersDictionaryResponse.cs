@@ -9,12 +9,12 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// Clan roles list
         /// </summary>
         [JsonProperty("clans_roles")]
-        public Dictionary<string, string> ClanRoles { get; set; }
+        public Dictionary<string, string>? ClanRoles { get; set; }
 
         /// <summary>
         /// Clan settings list
         /// </summary>
         [JsonProperty("settings")]
-        public Dictionary<string, string> Settings { get; set; }
+        public Dictionary<string, string>? Settings { get; set; }
     }
 }

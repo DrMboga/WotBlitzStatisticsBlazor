@@ -11,7 +11,7 @@ namespace WotBlitzStatisticsPro.Logic.Mappers
             CreateMap<WotAccountListResponse, AccountsSearchResponseItem>()
                 .ForMember(
                     d => d.AccountId, 
-                    o => o.MapFrom(s => s.AccountId.Value));
+                    o => o.MapFrom(s => s.AccountId ?? -1));
         }
     }
 }

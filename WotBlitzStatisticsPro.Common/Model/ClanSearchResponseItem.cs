@@ -13,12 +13,12 @@
         ///<summary>
         /// Clan Tag
         ///</summary>
-        public string Tag { get; set; }
+        public string? Tag { get; set; }
 
         ///<summary>
         /// Clan Name
         ///</summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         ///<summary>
         /// Clan created at. (UNIX Epoch time)

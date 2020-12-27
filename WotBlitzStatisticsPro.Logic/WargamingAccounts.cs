@@ -30,11 +30,15 @@ namespace WotBlitzStatisticsPro.Logic
                 .AddOperation<BuildAccountInfoResponseOperation>()
                 ;
 
-            await pipeline.Build()
-                .Invoke(context, null)
-                .ConfigureAwait(false);
+            var firstOperation = pipeline.Build();
+            if (firstOperation != null)
+            {
+                await firstOperation
+                    .Invoke(context, null)
+                    .ConfigureAwait(false);
+            }
 
-            return contextData.Response;
+            return contextData?.Response ?? new AccountInfoResponse();
         }
 
         public async Task<AccountInfoResponse> GatherAndSaveAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage)
@@ -53,11 +57,15 @@ namespace WotBlitzStatisticsPro.Logic
                 .AddOperation<BuildAccountInfoResponseOperation>()
                 ;
 
-            await pipeline.Build()
-                .Invoke(context, null)
-                .ConfigureAwait(false);
+            var firstOperation = pipeline.Build();
+            if (firstOperation != null)
+            {
+                await firstOperation
+                    .Invoke(context, null)
+                    .ConfigureAwait(false);
+            }
 
-            return contextData.Response;
+            return contextData?.Response ?? new AccountInfoResponse();
         }
 
         public async Task<AccountInfoHistoryResponse> GetAccountInfoHistory(RealmType realm, long accountId, DateTime startDate, RequestLanguage requestLanguage)
@@ -77,11 +85,15 @@ namespace WotBlitzStatisticsPro.Logic
                 .AddOperation<FillAccountInfoHistoryResponse>()
                 ;
 
-            await pipeline.Build()
-                .Invoke(context, null)
-                .ConfigureAwait(false);
+            var firstOperation = pipeline.Build();
+            if (firstOperation != null)
+            {
+                await firstOperation
+                    .Invoke(context, null)
+                    .ConfigureAwait(false);
+            }
 
-            return contextData.Response;
+            return contextData?.Response ?? new AccountInfoHistoryResponse();
         }
     }
 }

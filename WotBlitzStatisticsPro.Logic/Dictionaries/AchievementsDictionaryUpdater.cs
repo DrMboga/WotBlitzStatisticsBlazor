@@ -21,7 +21,9 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
         [Obsolete("Parameter-less constructor only for unit tests")]
         public AchievementsDictionaryUpdater()
         {
-            
+            _wargamingDictionariesApiClient = null!;
+            _dataAccessor = null!;
+            _mapper = null!;
         }
 
         public AchievementsDictionaryUpdater(IWargamingDictionariesApiClient wargamingDictionariesApiClient, IDictionariesDataAccessor dataAccessor, IMapper mapper)
@@ -54,6 +56,10 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
             {
                 var wgAchievements =
                     await _wargamingDictionariesApiClient.GetAchievementsDictionary(defaultRealmType, requestLanguage);
+                if (wgAchievements == null)
+                {
+                    continue;
+                }
                 foreach (var wgAchievement in wgAchievements)
                 {
                     var mappedAchievement =
@@ -88,8 +94,8 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
                                         wgAchievementOption);
                                 mappedAchievement.Options.Add(mappedOption);
                             }
-                            mappedOption.Name.Add(new LocalizableString { Language = requestLanguage, Value = wgAchievement.Name });
-                            mappedOption.Description.Add(new LocalizableString { Language = requestLanguage, Value = wgAchievement.Description });
+                            mappedOption.Name?.Add(new LocalizableString { Language = requestLanguage, Value = wgAchievement.Name });
+                            mappedOption.Description?.Add(new LocalizableString { Language = requestLanguage, Value = wgAchievement.Description });
                         }
                     }
                 }

@@ -13,14 +13,14 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
 
         public DateTime LastBattleSince { get; }
 
-        public AccountInfo DbAccountInfo { get; set; }
+        public AccountInfo? DbAccountInfo { get; set; }
 
-        public IStatistics[] History { get; set; }
-        public ShortStatistics OverallStatistics { get; set; }
-        public ShortStatistics PeriodAccountStatistics { get; set; }
-        public StatisticsDifference PeriodDifference { get; set; }
-        public StatisticsDifference[] StatisticsHistory { get; set; }
+        public IStatistics[]? History { get; set; }
+        public ShortStatistics? OverallStatistics { get; set; }
+        public ShortStatistics? PeriodAccountStatistics { get; set; }
+        public StatisticsDifference? PeriodDifference { get; set; }
+        public StatisticsDifference[]? StatisticsHistory { get; set; }
 
-        public AccountInfoHistoryResponse Response { get; set; }
+        public AccountInfoHistoryResponse? Response { get; set; }
     }
 }

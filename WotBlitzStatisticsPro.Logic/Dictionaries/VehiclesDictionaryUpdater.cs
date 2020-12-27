@@ -21,7 +21,9 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
         [Obsolete("Parameter-less constructor only for unit tests")]
         public VehiclesDictionaryUpdater()
         {
-
+            _wargamingDictionariesApiClient = null!;
+            _dataAccessor = null!;
+            _mapper = null!;
         }
 
         public VehiclesDictionaryUpdater(IWargamingDictionariesApiClient wargamingDictionariesApiClient,
@@ -56,6 +58,11 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
             {
                 var wgVehicles =
                     await _wargamingDictionariesApiClient.GetVehicles(defaultRealmType, requestLanguage);
+
+                if (wgVehicles == null)
+                {
+                    continue;
+                }
 
                 foreach (var wgVehicle in wgVehicles)
                 {

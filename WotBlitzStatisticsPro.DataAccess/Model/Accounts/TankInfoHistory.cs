@@ -7,7 +7,7 @@ namespace WotBlitzStatisticsPro.DataAccess.Model.Accounts
 
         public TankInfoHistory()
         {
-            
+            TankInfoHistoryId = new TankInfoHistoryKey();
         }
 
         public TankInfoHistory(long accountId, long tankId, int lastBattleTime)

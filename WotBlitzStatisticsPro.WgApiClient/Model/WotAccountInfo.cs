@@ -26,7 +26,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Player's nick
 		///</summary>
 		[JsonProperty("nickname")]
-		public string Nickname { get; set; }
+		public string? Nickname { get; set; }
 
 		///<summary>
 		/// Player information update date
@@ -38,12 +38,12 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Private account data
 		///</summary>
 		[JsonProperty("private")]
-		public WotAccountPrivateInfo Private { get; set; }
+		public WotAccountPrivateInfo? Private { get; set; }
 
 		///<summary>
 		/// Player's statistics
 		///</summary>
 		[JsonProperty("statistics")]
-		public WotAccountStatistics Statistics { get; set; }
+		public WotAccountStatistics? Statistics { get; set; }
 	}
 }

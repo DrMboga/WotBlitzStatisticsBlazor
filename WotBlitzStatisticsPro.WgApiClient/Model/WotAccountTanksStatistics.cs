@@ -50,10 +50,10 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// Whole statistics
         ///</summary>
         [JsonProperty("all")]
-        public WotAccountTanksFullStatistics All { get; set; }
+        public WotAccountTanksFullStatistics? All { get; set; }
 
         [JsonProperty("frags")]
-        public Dictionary<string, string> Frags { get; set; }
+        public Dictionary<string, string>? Frags { get; set; }
 
 	}
 }

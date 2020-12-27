@@ -20,7 +20,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
 		}
 
         #region Search methods
-        public async Task<List<WotAccountListResponse>> FindAccounts(string nickName,
+        public async Task<List<WotAccountListResponse>?> FindAccounts(string nickName,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En)
 		{
@@ -31,7 +31,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
                 $"search={nickName}").ConfigureAwait(false);
         }
 
-        public async Task<List<WotClanListResponse>> FindClans(string searchString, 
+        public async Task<List<WotClanListResponse>?> FindClans(string searchString, 
             RealmType realmType = RealmType.Ru, 
             RequestLanguage language = RequestLanguage.En)
         {
@@ -47,8 +47,8 @@ namespace WotBlitzStatisticsPro.WgApiClient
         #region Encyclopedia methods
 
         public async Task<(
-            WotEncyclopediaInfoResponse,
-            WotClanMembersDictionaryResponse)> GetStaticDictionariesAsync(
+            WotEncyclopediaInfoResponse?,
+            WotClanMembersDictionaryResponse?)> GetStaticDictionariesAsync(
                 RealmType realmType = RealmType.Ru,
                 RequestLanguage language = RequestLanguage.En)
         {
@@ -67,24 +67,24 @@ namespace WotBlitzStatisticsPro.WgApiClient
             return (encyclopedia, clanGlossaryResponse);
         }
 
-        public async Task<List<WotEncyclopediaAchievementsResponse>> GetAchievementsDictionary(RealmType realmType = RealmType.Ru, RequestLanguage language = RequestLanguage.En)
+        public async Task<List<WotEncyclopediaAchievementsResponse>?> GetAchievementsDictionary(RealmType realmType = RealmType.Ru, RequestLanguage language = RequestLanguage.En)
         {
             var response = await GetFromBlitzApi<Dictionary<string, WotEncyclopediaAchievementsResponse>>(
                 realmType,
                 language,
                 "encyclopedia/achievements/").ConfigureAwait(false);
 
-            return response.Values.ToList();
+            return response?.Values.ToList();
         }
 
-        public async Task<List<WotEncyclopediaVehiclesResponse>> GetVehicles(RealmType realmType = RealmType.Ru, RequestLanguage language = RequestLanguage.En)
+        public async Task<List<WotEncyclopediaVehiclesResponse>?> GetVehicles(RealmType realmType = RealmType.Ru, RequestLanguage language = RequestLanguage.En)
         {
             var response = await GetFromBlitzApi<Dictionary<string, WotEncyclopediaVehiclesResponse>>(
                 realmType,
                 language,
                 "encyclopedia/vehicles/").ConfigureAwait(false);
 
-            return response.Values.ToList();
+            return response?.Values.ToList();
         }
 
         #endregion
@@ -94,7 +94,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
 
 
 
-        public async Task<WotAccountInfo> GetPlayerAccountInfo(long accountId,
+        public async Task<WotAccountInfo?> GetPlayerAccountInfo(long accountId,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En)
 		{
@@ -103,10 +103,10 @@ namespace WotBlitzStatisticsPro.WgApiClient
 				language,
 				"account/info/",
 				$"account_id={accountId}").ConfigureAwait(false);
-			return account[accountId.ToString()];
+			return account?[accountId.ToString()];
 		}
 
-		public async Task<ClanAccountInfo> GetPlayerClanInfo(long accountId,
+		public async Task<ClanAccountInfo?> GetPlayerClanInfo(long accountId,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En)
 		{
@@ -115,14 +115,14 @@ namespace WotBlitzStatisticsPro.WgApiClient
 				language,
 				"clans/accountinfo/",
 				$"account_id={accountId}").ConfigureAwait(false);
-			if (clanInfo.ContainsKey(accountId.ToString()))
+			if (clanInfo != null && clanInfo.ContainsKey(accountId.ToString()))
 			{
 				return clanInfo[accountId.ToString()];
 			}
 			return null;
 		}
 
-        public async Task<ClanInfo> GetClanInfo(
+        public async Task<ClanInfo?> GetClanInfo(
             long clanId, 
             RealmType realmType = RealmType.Ru, 
             RequestLanguage language = RequestLanguage.En)
@@ -132,7 +132,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
                 language,
 				"clans/info/",
                 $"clan_id={clanId}").ConfigureAwait(false);
-            if (clanInfo.ContainsKey(clanId.ToString()))
+            if (clanInfo != null && clanInfo.ContainsKey(clanId.ToString()))
             {
                 return clanInfo[clanId.ToString()];
             }
@@ -144,7 +144,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
 
         #region Tanks methods
 
-        public async Task<List<WotAccountTanksStatistics>> GetPlayerAccountTanksInfo(
+        public async Task<List<WotAccountTanksStatistics>?> GetPlayerAccountTanksInfo(
             long accountId, 
             RealmType realmType = RealmType.Ru,
             RequestLanguage language = RequestLanguage.En)
@@ -154,7 +154,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
                 language,
                 "tanks/stats/",
                 $"account_id={accountId}").ConfigureAwait(false);
-            return tanks[accountId.ToString()] ?? new List<WotAccountTanksStatistics>();
+            return tanks?[accountId.ToString()] ?? new List<WotAccountTanksStatistics>();
         }
 
         #endregion

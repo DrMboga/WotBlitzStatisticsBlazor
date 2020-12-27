@@ -25,14 +25,14 @@ namespace WotBlitzStatisticsPro.DataAccess.Model.Accounts
         ///</summary>
         public long TankId { get; set; }
 
-        public bool Equals(TankInfoKey other)
+        public bool Equals(TankInfoKey? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return AccountId == other.AccountId && TankId == other.TankId;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

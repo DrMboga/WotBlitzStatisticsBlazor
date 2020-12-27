@@ -8,16 +8,16 @@ namespace WotBlitzStatisticsPro.WgApiClient
     public interface IWargamingDictionariesApiClient
     {
         Task<(
-            WotEncyclopediaInfoResponse,
-            WotClanMembersDictionaryResponse)> GetStaticDictionariesAsync(
+            WotEncyclopediaInfoResponse?,
+            WotClanMembersDictionaryResponse?)> GetStaticDictionariesAsync(
             RealmType realmType = RealmType.Ru,
             RequestLanguage language = RequestLanguage.En);
 
-        Task<List<WotEncyclopediaAchievementsResponse>> GetAchievementsDictionary(
+        Task<List<WotEncyclopediaAchievementsResponse>?> GetAchievementsDictionary(
             RealmType realmType = RealmType.Ru,
             RequestLanguage language = RequestLanguage.En);
 
-        Task<List<WotEncyclopediaVehiclesResponse>> GetVehicles(
+        Task<List<WotEncyclopediaVehiclesResponse>?> GetVehicles(
             RealmType realmType = RealmType.Ru,
             RequestLanguage language = RequestLanguage.En);
     }

@@ -17,9 +17,16 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
             _dictionariesDataAccessor = dictionariesDataAccessor;
         }
 
-        public async Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public async Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<AccountInformationPipelineContextData>();
+            if (contextData?.AccountInfo == null ||
+                contextData?.AccountInfoHistory == null ||
+                contextData?.Tanks == null ||
+                contextData?.TanksHistory == null)
+            {
+                return;
+            }
 
             var tankIds = contextData.Tanks.Select(t => t.TankId).ToArray();
             var tankTires = await _dictionariesDataAccessor.GetTankTires(tankIds);
@@ -36,7 +43,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
             contextData.AccountInfoHistory.CalculateMiddleTier(contextData.TanksHistory.Values.ToList(), tankTires);
             contextData.AccountInfoHistory.CalculateWn7();
 
-            await next.Invoke(context);
+            if (next != null) await next.Invoke(context);
         }
     }
 }

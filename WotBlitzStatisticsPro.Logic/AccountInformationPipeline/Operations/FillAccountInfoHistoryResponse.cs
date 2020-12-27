@@ -9,9 +9,14 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
 {
     public class FillAccountInfoHistoryResponse : IOperation<IOperationContext>
     {
-        public Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<AccountHistoryInformationPipelineContextData>();
+
+            if (contextData?.DbAccountInfo == null)
+            {
+                return next != null ? next.Invoke(context) : Task.CompletedTask;
+            }
 
             contextData.Response = new AccountInfoHistoryResponse
             {
@@ -24,7 +29,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
                 OverallAccountStatistics = contextData.OverallStatistics
             };
 
-            return next.Invoke(context);
+            return next != null ? next.Invoke(context) : Task.CompletedTask;
         }
     }
 }

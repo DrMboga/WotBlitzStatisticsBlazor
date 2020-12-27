@@ -18,11 +18,11 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
         }
 
 
-        public Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<IStatisticsPipelineData>();
 
-            if (contextData.History.Length > 1)
+            if (contextData?.History != null && contextData.History.Length > 1)
             {
                 var diff = new AccountInfoHistory(context.Request.AccountId, contextData.History[0].LastBattleTime);
 
@@ -36,7 +36,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
                 contextData.PeriodAccountStatistics = _mapper.Map<IStatistics, ShortStatistics>(diff);
             }
 
-            return next.Invoke(context);
+            return next != null ? next.Invoke(context) : Task.CompletedTask;
         }
     }
 }

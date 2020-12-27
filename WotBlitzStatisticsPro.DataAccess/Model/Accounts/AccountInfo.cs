@@ -1,4 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using MongoDB.Bson.Serialization.Attributes;
 using WotBlitzStatisticsPro.Common.Model;
 
 namespace WotBlitzStatisticsPro.DataAccess.Model.Accounts
@@ -32,7 +35,8 @@ namespace WotBlitzStatisticsPro.DataAccess.Model.Accounts
         ///<summary>
         /// Player's nick
         ///</summary>
-        public string Nickname { get; set; }
+        [Required]
+        public string Nickname { get; set; } = string.Empty;
 
         ///<summary>
         /// Player information update date

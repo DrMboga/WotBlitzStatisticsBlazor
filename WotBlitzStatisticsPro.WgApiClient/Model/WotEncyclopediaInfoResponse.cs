@@ -10,13 +10,13 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// Game client version
         ///</summary>
         [JsonProperty("game_version")]
-        public string GameVersion { get; set; }
+        public string? GameVersion { get; set; }
 
         ///<summary>
         /// List of supported languages
         ///</summary>
         [JsonProperty("languages")]
-        public Dictionary<string, string> Languages { get; set; }
+        public Dictionary<string, string>? Languages { get; set; }
 
         ///<summary>
         /// Encyclopedia last update time
@@ -28,25 +28,25 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// Cru clan role
         ///</summary>
         [JsonProperty("vehicle_crew_roles")]
-        public Dictionary<string, string> VehicleCrewRoles { get; set; }
+        public Dictionary<string, string>? VehicleCrewRoles { get; set; }
 
         ///<summary>
         /// Vehicle nations dictionary
         ///</summary>
         [JsonProperty("vehicle_nations")]
-        public Dictionary<string, string> VehicleNations { get; set; }
+        public Dictionary<string, string>? VehicleNations { get; set; }
 
         ///<summary>
         /// Vehicle types dictionary
         ///</summary>
         [JsonProperty("vehicle_types")]
-        public Dictionary<string, string> VehicleTypes { get; set; }
+        public Dictionary<string, string>? VehicleTypes { get; set; }
 
         ///<summary>
         /// Achievements sections
         ///</summary>
         [JsonProperty("achievement_sections")]
-        public Dictionary<string, WotEncyclopediaInfoAchievementSection> AchievementSections { get; set; }
+        public Dictionary<string, WotEncyclopediaInfoAchievementSection>? AchievementSections { get; set; }
 
 	}
 
@@ -57,7 +57,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// Achievements section name
         ///</summary>
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         ///<summary>
         /// Achievement section order

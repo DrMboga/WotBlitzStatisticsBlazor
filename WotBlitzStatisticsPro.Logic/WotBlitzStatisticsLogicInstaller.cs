@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,17 +44,13 @@ namespace WotBlitzStatisticsPro.Logic
         {
             services.AddTransient<DictionariesUpdaterResolver>(serviceProvider => dictionaryType =>
             {
-                switch (dictionaryType)
+                return dictionaryType switch
                 {
-                    case DictionaryType.StaticDictionaries:
-                        return serviceProvider.GetService<StaticDictionariesUpdater>();
-                    case DictionaryType.Achievements:
-                        return serviceProvider.GetService<AchievementsDictionaryUpdater>();
-                    case DictionaryType.Vehicles:
-                        return serviceProvider.GetService<VehiclesDictionaryUpdater>();
-                    default:
-                        return null;
-                }
+                    DictionaryType.StaticDictionaries => serviceProvider.GetService<StaticDictionariesUpdater>()!,
+                    DictionaryType.Achievements => serviceProvider.GetService<AchievementsDictionaryUpdater>()!,
+                    DictionaryType.Vehicles => serviceProvider.GetService<VehiclesDictionaryUpdater>()!,
+                    _ => throw new ApplicationException($"Unknown dictionary type '{dictionaryType}'")
+                };
             });
         }
 

@@ -150,17 +150,17 @@ namespace WotBlitzStatisticsPro.Common.Model
         /// <summary>
         /// Tank name
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Tank nation dictionary identifier
         /// </summary>
-        public string TankNationId { get; set; }
+        public string? TankNationId { get; set; }
 
         /// <summary>
         /// Localized tank nation name
         /// </summary>
-        public string TankNation { get; set; }
+        public string? TankNation { get; set; }
 
         /// <summary>
         /// Tank tier
@@ -170,12 +170,12 @@ namespace WotBlitzStatisticsPro.Common.Model
         /// <summary>
         /// Tank type dictionary identifier
         /// </summary>
-        public string TankTypeId { get; set; }
+        public string? TankTypeId { get; set; }
 
         /// <summary>
         /// Localized tank type name
         /// </summary>
-        public string TankType { get; set; }
+        public string? TankType { get; set; }
 
         /// <summary>
         /// Is it premium tank or not

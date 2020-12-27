@@ -10,11 +10,11 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
 {
     public class FillStatisticsDifferenceOperation : IOperation<IOperationContext>
     {
-        public Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<IStatisticsPipelineData>();
 
-            if (contextData.History.Length > 1)
+            if (contextData?.History != null && contextData.History.Length > 1)
             {
                 contextData.StatisticsHistory = new StatisticsDifference[contextData.History.Length - 1];
                 for (int i = 1; i < contextData.History.Length; i++)
@@ -24,7 +24,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
                 }
             }
 
-            return next.Invoke(context);
+            return next != null ? next.Invoke(context) : Task.CompletedTask;
         }
     }
 }

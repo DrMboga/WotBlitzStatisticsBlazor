@@ -24,6 +24,12 @@ namespace WotBlitzStatisticsPro.Logic
             RequestLanguage language)
         {
             var response = await _wargamingApiClient.FindAccounts(accountNick, realmType, language);
+
+            if (response == null)
+            {
+                return new AccountsSearchResponse();
+            }
+
             return new AccountsSearchResponse
             {
                 AccountsCount = response.Count,
@@ -37,6 +43,12 @@ namespace WotBlitzStatisticsPro.Logic
             RequestLanguage language)
         {
             var response = await _wargamingApiClient.FindClans(searchString, realmType, language);
+
+            if (response == null)
+            {
+                return new ClanSearchResponse();
+            }
+
             return new ClanSearchResponse
             {
                 ClansCount = response.Count,

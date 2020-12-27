@@ -22,9 +22,17 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
             _logger = logger;
         }
 
-        public async Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public async Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<AccountInformationPipelineContextData>();
+
+            if (contextData?.AccountInfo == null ||
+                contextData?.AccountInfoHistory == null ||
+                contextData?.Tanks == null ||
+                contextData?.TanksHistory == null)
+            {
+                return;
+            }
 
             await _accountDataAccessor.AddOurUpdateAccountInfo(contextData.AccountInfo);
             await _accountDataAccessor.AddAccountInfoHistory(contextData.AccountInfoHistory);
@@ -46,7 +54,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
 
             _logger.LogInformation($"Updated account {contextData.AccountInfo.AccountId} and {tanksCount} tanks: {tankIdsAsString}");
 
-            await next.Invoke(context);
+            if (next != null) await next.Invoke(context);
         }
     }
 }

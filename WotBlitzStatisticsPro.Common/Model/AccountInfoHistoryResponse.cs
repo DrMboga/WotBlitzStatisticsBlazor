@@ -20,26 +20,26 @@ namespace WotBlitzStatisticsPro.Common.Model
         ///<summary>
         /// Player's nick
         ///</summary>
-        public string Nickname { get; set; }
+        public string? Nickname { get; set; }
 
         /// <summary>
         /// Overall statistics since account creation
         /// </summary>
-        public ShortStatistics OverallAccountStatistics { get; set; }
+        public ShortStatistics? OverallAccountStatistics { get; set; }
 
         /// <summary>
         /// Statistics for period
         /// </summary>
-        public ShortStatistics PeriodAccountStatistics { get; set; }
+        public ShortStatistics? PeriodAccountStatistics { get; set; }
 
         /// <summary>
         /// Difference between start and end of the period
         /// </summary>
-        public StatisticsDifference PeriodDifference { get; set; }
+        public StatisticsDifference? PeriodDifference { get; set; }
 
         /// <summary>
         /// The detailed history
         /// </summary>
-        public StatisticsDifference[] StatisticsHistory { get; set; }
+        public StatisticsDifference[]? StatisticsHistory { get; set; }
     }
 }

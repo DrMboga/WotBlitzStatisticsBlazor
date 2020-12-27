@@ -16,11 +16,11 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
         }
 
 
-        public Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<IStatisticsPipelineData>();
 
-            if (contextData.History == null ||
+            if (contextData?.History == null ||
                 contextData.History.Length == 0)
             {
                 _logger.LogInformation(
@@ -28,7 +28,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
                 return Task.CompletedTask;
             }
 
-            return next.Invoke(context);
+            return next != null ? next.Invoke(context) : Task.CompletedTask;
         }
     }
 }

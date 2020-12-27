@@ -14,6 +14,6 @@ namespace WotBlitzStatisticsPro.Common.Model
         /// <summary>
         /// Found accounts list
         /// </summary>
-        public ICollection<AccountsSearchResponseItem> Accounts { get; set; }
+        public ICollection<AccountsSearchResponseItem>? Accounts { get; set; }
     }
 }

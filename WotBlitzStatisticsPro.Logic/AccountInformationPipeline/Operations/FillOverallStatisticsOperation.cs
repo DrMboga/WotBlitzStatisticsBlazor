@@ -17,13 +17,16 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
         }
 
 
-        public Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<IStatisticsPipelineData>();
 
-            contextData.OverallStatistics = _mapper.Map<IStatistics, ShortStatistics>(contextData.History[0]);
+            if(contextData?.History != null)
+            {
+                contextData.OverallStatistics = _mapper.Map<IStatistics, ShortStatistics>(contextData.History[0]);
+            }
 
-            return next.Invoke(context);
+            return next != null ? next.Invoke(context) : Task.CompletedTask;
         }
     }
 }

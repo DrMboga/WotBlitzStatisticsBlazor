@@ -15,6 +15,6 @@ namespace WotBlitzStatisticsPro.Common.Dictionaries
         /// <summary>
         /// Localizable string.
         /// </summary>
-        public string Value { get; set; }
+        public string? Value { get; set; }
     }
 }

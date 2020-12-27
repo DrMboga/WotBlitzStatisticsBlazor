@@ -11,7 +11,7 @@ namespace WotBlitzStatisticsPro.Logic.Mappers
             CreateMap<WotClanListResponse, ClanSearchResponseItem>()
                 .ForMember(
                     d => d.ClanId,
-                    o => o.MapFrom(s => s.ClanId.Value));
+                    o => o.MapFrom(s => s.ClanId ?? -1));
 
         }
     }

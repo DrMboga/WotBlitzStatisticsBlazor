@@ -75,22 +75,22 @@ namespace WotBlitzStatisticsPro.Common.Dictionaries
         ///<summary>
         /// Engines id list
         ///</summary>
-        int[] Engines { get; set; }
+        int[]? Engines { get; set; }
 
 		///<summary>
 		/// Guns id list
 		///</summary>
-		int[] Guns { get; set; }
+		int[]? Guns { get; set; }
 
 		///<summary>
 		/// List of compatible suspensions
 		///</summary>
-		int[] Suspensions { get; set; }
+		int[]? Suspensions { get; set; }
 
 		///<summary>
 		/// List of compatible turrets ids
 		///</summary>
-		int[] Turrets { get; set; }
+		int[]? Turrets { get; set; }
 
 	}
 }

@@ -15,32 +15,32 @@ namespace WotBlitzStatisticsPro.Common.Model
         ///<summary>
         /// Difference in Battles count
         ///</summary>
-        public StatisticsDifferenceItem<long> Battles { get; set; }
+        public StatisticsDifferenceItem<long>? Battles { get; set; }
 
         /// <summary>
         /// Difference in Average tier
         /// </summary>
-        public StatisticsDifferenceItem<double> AvgTier { get; set; }
+        public StatisticsDifferenceItem<double>? AvgTier { get; set; }
 
         /// <summary>
         /// Difference in Wn7 coefficient
         /// </summary>
-        public StatisticsDifferenceItem<double> Wn7 { get; set; }
+        public StatisticsDifferenceItem<double>? Wn7 { get; set; }
 
         /// <summary>
         /// Difference in Player's win rate
         /// </summary>
-        public StatisticsDifferenceItem<decimal> WinRate { get; set; }
+        public StatisticsDifferenceItem<decimal>? WinRate { get; set; }
 
         /// <summary>
         /// Difference in Player's average damage
         /// </summary>
-        public StatisticsDifferenceItem<decimal> AvgDamage { get; set; }
+        public StatisticsDifferenceItem<decimal>? AvgDamage { get; set; }
 
         /// <summary>
         /// Difference in Player's average XP
         /// </summary>
-        public StatisticsDifferenceItem<decimal> AvgXp { get; set; }
+        public StatisticsDifferenceItem<decimal>? AvgXp { get; set; }
 
     }
 }

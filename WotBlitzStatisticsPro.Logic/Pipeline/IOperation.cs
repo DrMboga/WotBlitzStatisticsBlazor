@@ -13,6 +13,6 @@ namespace WotBlitzStatisticsPro.Logic.Pipeline
         /// </summary>
         /// <param name="context">Pipeline context</param>
         /// <param name="next">Next operation</param>
-        Task Invoke(TContext context, Func<TContext, Task> next);
+        Task Invoke(TContext context, Func<TContext, Task>? next);
     }
 }

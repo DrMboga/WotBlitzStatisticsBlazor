@@ -2,7 +2,7 @@
 {
     public class OperationContext : IOperationContext
     {
-        private object _contextData;
+        private object? _contextData;
 
 
         public OperationContext(AccountRequest request)
@@ -21,7 +21,7 @@
         {
             _contextData ??= default(TContextData);
 
-            return (TContextData)_contextData;
+            return (TContextData)_contextData!;
         }
     }
 }

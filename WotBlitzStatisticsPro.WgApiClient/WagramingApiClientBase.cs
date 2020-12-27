@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -36,11 +37,11 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			_wotApiUrls[RealmType.Asia] = "https://api.worldoftanks.asia/wot/";
 		}
 
-		protected async Task<T> GetFromBlitzApi<T>(
+		protected async Task<T?> GetFromBlitzApi<T>(
 			RealmType realmType,
 			RequestLanguage language,
 			string method,
-			params string[] queryParameters)
+			params string[] queryParameters) where T: class
 		{
 			string uri = GetUri(realmType, language, method, queryParameters);
 
@@ -52,18 +53,20 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			var responseString = await response.Content.ReadAsStringAsync();
 
 			var responseBody = JsonConvert.DeserializeObject<ResponseBody<T>>(responseString);
-			if (responseBody.Status == "ok")
-			{
-				return responseBody.Data;
-			}
-			if (responseBody.Status == "error")
-			{
-				var error = responseBody.Error;
-				var message = $"Field:{error.Field}  Message:{error.Message}  Value:{error.Value}  Code:{error.Code}";
-				throw new ArgumentException(message);
-			}
-			return default(T);
-		}
+			switch (responseBody.Status)
+            {
+                case "ok":
+                    return responseBody.Data;
+                case "error":
+                {
+                    var error = responseBody.Error;
+                    var message = $"Field:{(error?.Field ?? "undefined")}  Message:{(error?.Message ?? "undefined")}  Value:{(error?.Value ?? "undefined")}  Code:{(error?.Code ?? "undefined")}";
+                    throw new ArgumentException(message);
+                }
+                default:
+                    throw new ArgumentException($"Unexpected response body status '{responseBody.Status}'");
+            }
+        }
 
 		private string GetUri(RealmType realmType, RequestLanguage language, string method, string[] queryParameters)
 		{

@@ -14,6 +14,6 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// Player nick
         ///</summary>
         [JsonProperty("nickname")]
-        public string Nickname { get; set; }
+        public string? Nickname { get; set; }
 	}
 }

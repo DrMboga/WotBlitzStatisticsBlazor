@@ -8,7 +8,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Account ban info
 		///</summary>
 		[JsonProperty("ban_info")]
-		public string BanInfo { get; set; }
+		public string? BanInfo { get; set; }
 
 		///<summary>
 		/// Account ban expiration date
@@ -47,23 +47,22 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		public bool IsPremium { get; set; }
 
 		///<summary>
-		/// Premium accunt expiration time
+		/// Premium account expiration time
 		///</summary>
 		[JsonProperty("premium_expires_at")]
 		private int? PremiumExpiresAt { get; set; }
 
 		///<summary>
-		///Группы контактов.
-		///Дополнительное поле.
+		/// Group of contacts.
 		///</summary>
 		[JsonProperty("grouped_contacts")]
-		public WotAccountPrivateInfoGroupedContacts GroupedContacts { get; set; }
+		public WotAccountPrivateInfoGroupedContacts? GroupedContacts { get; set; }
 
 		///<summary>
-		///Ограничения аккаунта
+		/// Account restrictions
 		///</summary>
 		[JsonProperty("restrictions")]
-		public WotAccountPrivateInfoRestrictions Restrictions { get; set; }
+		public WotAccountPrivateInfoRestrictions? Restrictions { get; set; }
 
 	}
 }

@@ -7,7 +7,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
 {
     public interface IWargamingTanksApiClient
     {
-        Task<List<WotAccountTanksStatistics>> GetPlayerAccountTanksInfo(long accountId,
+        Task<List<WotAccountTanksStatistics>?> GetPlayerAccountTanksInfo(long accountId,
             RealmType realmType = RealmType.Ru,
             RequestLanguage language = RequestLanguage.En);
     }

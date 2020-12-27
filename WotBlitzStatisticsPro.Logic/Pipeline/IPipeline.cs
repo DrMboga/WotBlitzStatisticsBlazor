@@ -9,7 +9,7 @@
         /// Builds the pipeline.
         /// </summary>
         /// <returns>First operation in pipeline.</returns>
-        IOperation<TContext> Build();
+        IOperation<TContext>? Build();
 
         /// <summary>
         /// Adds operation type to the pipeline

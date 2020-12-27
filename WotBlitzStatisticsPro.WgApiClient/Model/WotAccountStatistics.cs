@@ -9,12 +9,12 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Amount of destroyed by player tanks.
 		///</summary>
 		[JsonProperty("frags")]
-		public Dictionary<string, string> Frags { get; set; }
+		public Dictionary<string, string>? Frags { get; set; }
 
 		///<summary>
 		/// Full player's statistics
 		///</summary>
 		[JsonProperty("all")]
-		public WotAccountFullStatistics All { get; set; }
+		public WotAccountFullStatistics? All { get; set; }
 	}
 }

@@ -15,12 +15,12 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
             _accountDataAccessor = accountDataAccessor;
         }
 
-        public async Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public async Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<IDatabasePipelineContextData>();
 
             contextData.DbAccountInfo = await _accountDataAccessor.ReadAccountInfo(context.Request.AccountId);
-            await next.Invoke(context);
+            if (next != null) await next.Invoke(context);
         }
     }
 }

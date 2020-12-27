@@ -5,6 +5,6 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
 {
     public interface IDatabasePipelineContextData
     {
-        AccountInfo DbAccountInfo { get; set; }
+        AccountInfo? DbAccountInfo { get; set; }
     }
 }

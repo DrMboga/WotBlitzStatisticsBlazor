@@ -13,6 +13,6 @@
         ///<summary>
         /// Player nick
         ///</summary>
-        public string Nickname { get; set; }
+        public string? Nickname { get; set; }
     }
 }

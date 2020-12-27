@@ -7,7 +7,7 @@ namespace WotBlitzStatisticsPro.DataAccess.Model.Accounts
     {
         public TankInfo()
         {
-            
+            TankInfoId = new TankInfoKey();
         }
 
         public TankInfo(long accountId, long tankId)

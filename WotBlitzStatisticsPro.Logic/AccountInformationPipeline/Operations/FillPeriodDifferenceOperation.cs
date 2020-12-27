@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.OperationContext;
 using WotBlitzStatisticsPro.Logic.Calculations;
@@ -10,11 +9,11 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
 {
     public class FillPeriodDifferenceOperation : IOperation<IOperationContext>
     {
-        public Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<IStatisticsPipelineData>();
 
-            if (contextData.History.Length > 1)
+            if (contextData?.History != null && contextData.History.Length > 1)
             {
                 contextData.PeriodDifference = new StatisticsDifference();
                 var historyLastIndex = contextData.History.Length - 1;
@@ -22,7 +21,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
                 contextData.PeriodDifference.FillDifference(contextData.History[0], contextData.History[historyLastIndex]);
             }
 
-            return next.Invoke(context);
+            return next != null ? next.Invoke(context) : Task.CompletedTask;
         }
     }
 }

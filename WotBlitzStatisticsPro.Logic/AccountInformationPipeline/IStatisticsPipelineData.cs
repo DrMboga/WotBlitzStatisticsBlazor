@@ -4,15 +4,15 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
 {
     public interface IStatisticsPipelineData
     {
-        IStatistics[] History { get; set; }
+        IStatistics[]? History { get; set; }
 
-        ShortStatistics OverallStatistics { get; set; }
+        ShortStatistics? OverallStatistics { get; set; }
 
-        public ShortStatistics PeriodAccountStatistics { get; set; }
+        public ShortStatistics? PeriodAccountStatistics { get; set; }
 
-        public StatisticsDifference PeriodDifference { get; set; }
+        public StatisticsDifference? PeriodDifference { get; set; }
 
-        public StatisticsDifference[] StatisticsHistory { get; set; }
+        public StatisticsDifference[]? StatisticsHistory { get; set; }
 
     }
 }

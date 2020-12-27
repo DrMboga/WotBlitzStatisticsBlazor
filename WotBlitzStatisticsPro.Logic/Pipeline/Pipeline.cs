@@ -14,7 +14,7 @@ namespace WotBlitzStatisticsPro.Logic.Pipeline
             _operationFactory = operationFactory;
         }
 
-        public IOperation<TContext> Build()
+        public IOperation<TContext>? Build()
         {
             var allOperationTypes = _operations.ToArray();
             var lastOperationType = allOperationTypes.LastOrDefault();

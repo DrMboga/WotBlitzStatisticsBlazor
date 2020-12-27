@@ -19,14 +19,14 @@ namespace WotBlitzStatisticsPro.DataAccess.Model.Accounts
 
         public int LastBattleTime { get; set; }
 
-        public bool Equals(AccountInfoHistoryKey other)
+        public bool Equals(AccountInfoHistoryKey? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return AccountId == other.AccountId && LastBattleTime == other.LastBattleTime;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

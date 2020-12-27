@@ -13,7 +13,7 @@ namespace WotBlitzStatisticsPro.Logic.Pipeline
 
         public IOperation<TContext> Create<TContext>(Type operationType)
         {
-            return _serviceProvider.GetService(operationType) as IOperation<TContext>;
+            return (_serviceProvider.GetService(operationType) as IOperation<TContext>)!;
         }
     }
 }

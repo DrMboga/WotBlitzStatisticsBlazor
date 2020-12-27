@@ -15,16 +15,16 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
             _logger = logger;
         }
 
-        public Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<AccountInformationPipelineContextData>();
 
             if (contextData.DbAccountInfo == null ||
-                contextData.DbAccountInfo.LastBattleTime < contextData.AccountInfo.LastBattleTime)
+                contextData.DbAccountInfo.LastBattleTime < contextData.AccountInfo?.LastBattleTime)
             {
-                return next.Invoke(context);
+                if (next != null) return next.Invoke(context);
             }
-            _logger.LogInformation($"Exiting without saving. Db LastBattleTime: {contextData.DbAccountInfo.LastBattleTime}, WG LastBattleTime: {contextData.AccountInfo.LastBattleTime}");
+            _logger.LogInformation($"Exiting without saving. Db LastBattleTime: {contextData.DbAccountInfo?.LastBattleTime}, WG LastBattleTime: {contextData.AccountInfo?.LastBattleTime}");
             return Task.CompletedTask;
         }
     }

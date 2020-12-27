@@ -14,7 +14,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Account nick
 		///</summary>
 		[JsonProperty("account_name")]
-		public string AccountName { get; set; }
+		public string? AccountName { get; set; }
 
 		///<summary>
 		/// ClanId
@@ -32,7 +32,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Player clan role
 		///</summary>
 		[JsonProperty("role")]
-		public string Role { get; set; }
+		public string? Role { get; set; }
 
 	}
 }

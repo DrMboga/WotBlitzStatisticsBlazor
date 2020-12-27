@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using WotBlitzStatisticsPro.Common.Dictionaries;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess;
@@ -17,16 +18,30 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
     {
         private readonly IMapper _mapper;
         private readonly IDictionariesDataAccessor _dictionariesDataAccessor;
+        private readonly ILogger<BuildAccountInfoResponseOperation> _logger;
 
-        public BuildAccountInfoResponseOperation(IMapper mapper, IDictionariesDataAccessor dictionariesDataAccessor)
+        public BuildAccountInfoResponseOperation(
+            IMapper mapper, 
+            IDictionariesDataAccessor dictionariesDataAccessor,
+            ILogger<BuildAccountInfoResponseOperation> logger)
         {
             _mapper = mapper;
             _dictionariesDataAccessor = dictionariesDataAccessor;
+            _logger = logger;
         }
 
-        public async Task Invoke(IOperationContext context, Func<IOperationContext, Task> next)
+        public async Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<AccountInformationPipelineContextData>();
+
+            if (contextData?.AccountInfo == null
+                || contextData?.Tanks == null
+                || contextData?.TanksHistory == null)
+            {
+                _logger.LogInformation(
+                    $"contextData or AccountInfo or Tanks or TanksHistory is null");
+                return;
+            }
 
             contextData.Response = _mapper.Map<AccountInfo, AccountInfoResponse>(contextData.AccountInfo);
             contextData.Response = _mapper.Map(contextData.AccountInfoHistory, contextData.Response);
@@ -48,13 +63,23 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
                         opt.Items["language"] = context.Request.RequestLanguage;
                         opt.AfterMap((src, dest) =>
                         {
-                            dest.TankType = tankTypes.ContainsKey(dest.TankTypeId) ? tankTypes[dest.TankTypeId] : "-";
-                            dest.TankNation = nations.ContainsKey(dest.TankNationId) ? nations[dest.TankNationId] : "-";
+                            if(dest?.TankTypeId != null)
+                            {
+                                dest.TankType = tankTypes.ContainsKey(dest.TankTypeId)
+                                    ? tankTypes[dest.TankTypeId]
+                                    : "-";
+                            }
+                            if(dest?.TankNationId != null)
+                            {
+                                dest.TankNation = nations.ContainsKey(dest.TankNationId)
+                                    ? nations[dest.TankNationId]
+                                    : "-";
+                            }
                         });
                     });
             });
 
-            await next.Invoke(context);
+            if (next != null) await next.Invoke(context);
         }
 
         private static IVehiclesDictionary CreateStubVehicle()

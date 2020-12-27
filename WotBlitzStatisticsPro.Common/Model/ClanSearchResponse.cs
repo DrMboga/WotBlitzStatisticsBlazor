@@ -14,6 +14,6 @@ namespace WotBlitzStatisticsPro.Common.Model
         /// <summary>
         /// List of clans
         /// </summary>
-        public ICollection<ClanSearchResponseItem> Clans { get; set; }
+        public ICollection<ClanSearchResponseItem>? Clans { get; set; }
     }
 }

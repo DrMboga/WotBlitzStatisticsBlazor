@@ -22,7 +22,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Clan color in HEX #RRGGBB
 		///</summary>
 		[JsonProperty("color")]
-		public string Color { get; set; }
+		public string? Color { get; set; }
 
 		///<summary>
 		/// Date of clan creation
@@ -40,25 +40,25 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Clan creator nick
 		///</summary>
 		[JsonProperty("creator_name")]
-		public string CreatorName { get; set; }
+		public string? CreatorName { get; set; }
 
 		///<summary>
 		/// Clan description
 		///</summary>
 		[JsonProperty("description")]
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		///<summary>
 		/// Html Clan description 
 		///</summary>
 		[JsonProperty("description_html")]
-		public string DescriptionHtml { get; set; }
+		public string? DescriptionHtml { get; set; }
 
 		///<summary>
 		/// Is clan deleted. Actual info about deleted clan only in fields: clan_id, is_clan_disbanded, updated_at.
 		///</summary>
 		[JsonProperty("is_clan_disbanded")]
-		public bool IsClanDisbanded { get; set; }
+		public bool? IsClanDisbanded { get; set; }
 
 		///<summary>
 		/// Clan commander accountId
@@ -70,7 +70,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Clan commander nick
 		///</summary>
 		[JsonProperty("leader_name")]
-		public string LeaderName { get; set; }
+		public string? LeaderName { get; set; }
 
 		///<summary>
 		/// Clan members count
@@ -82,25 +82,25 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Clan motto
 		///</summary>
 		[JsonProperty("motto")]
-		public string Motto { get; set; }
+		public string? Motto { get; set; }
 
 		///<summary>
 		/// Clan name
 		///</summary>
 		[JsonProperty("name")]
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		///<summary>
 		/// Renamed clan name
 		///</summary>
 		[JsonProperty("old_name")]
-		public string OldName { get; set; }
+		public string? OldName { get; set; }
 
 		///<summary>
 		/// Renamed clan tag
 		///</summary>
 		[JsonProperty("old_tag")]
-		public string OldTag { get; set; }
+		public string? OldTag { get; set; }
 
 		///<summary>
 		/// Clan renaming time in UTC
@@ -112,7 +112,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Clan tag
 		///</summary>
 		[JsonProperty("tag")]
-		public string Tag { get; set; }
+		public string? Tag { get; set; }
 
 		///<summary>
 		/// Clan info updated at
@@ -124,19 +124,19 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
 		/// Clan emblems info
 		///</summary>
 		[JsonProperty("emblems")]
-		public WgnClansInfoEmblems Emblems { get; set; }
+		public WgnClansInfoEmblems? Emblems { get; set; }
 
 		///<summary>
 		/// Clan members information. Depends on members_key field in request.
 		///</summary>
 		[JsonProperty("members")]
-		public WgnClansInfoMembers Members { get; set; }
+		public WgnClansInfoMembers? Members { get; set; }
 
 		///<summary>
 		/// Private clan info
 		///</summary>
 		[JsonProperty("private")]
-		public WgnClansInfoPrivate Private { get; set; }
+		public WgnClansInfoPrivate? Private { get; set; }
 	}
 
     public class WgnClansInfoEmblems
@@ -145,31 +145,31 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// 195x195 px Icons list
         ///</summary>
         [JsonProperty("x195")]
-        public Dictionary<string, string> X195 { get; set; }
+        public Dictionary<string, string>? X195 { get; set; }
 
 		///<summary>
 		/// 24x24 px Icons list
 		///</summary>
 		[JsonProperty("x24")]
-        public Dictionary<string, string> X24 { get; set; }
+        public Dictionary<string, string>? X24 { get; set; }
 
 		///<summary>
 		/// 256x256 px Icons list
 		///</summary>
 		[JsonProperty("x256")]
-        public Dictionary<string, string> X256 { get; set; }
+        public Dictionary<string, string>? X256 { get; set; }
 
 		///<summary>
 		///  32x32 px Icons list
 		///</summary>
 		[JsonProperty("x32")]
-        public Dictionary<string, string> X32 { get; set; }
+        public Dictionary<string, string>? X32 { get; set; }
 
 		///<summary>
 		/// 64x64 px Icons list
 		///</summary>
 		[JsonProperty("x64")]
-        public Dictionary<string, string> X64 { get; set; }
+        public Dictionary<string, string>? X64 { get; set; }
 	}
 
     public class WgnClansInfoMembers
@@ -184,7 +184,7 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// Clan member nick
         ///</summary>
         [JsonProperty("account_name")]
-        public string AccountName { get; set; }
+        public string? AccountName { get; set; }
 
         ///<summary>
         /// Date of joining the clan
@@ -196,19 +196,19 @@ namespace WotBlitzStatisticsPro.WgApiClient.Model
         /// Clan member role
         ///</summary>
         [JsonProperty("role")]
-        public string Role { get; set; }
+        public string? Role { get; set; }
 
         ///<summary>
         /// Localized member role
         ///</summary>
         [JsonProperty("role_i18n")]
-        public string RoleI18n { get; set; }
+        public string? RoleI18n { get; set; }
 	}
 
     public class WgnClansInfoPrivate
     {
         [JsonProperty("online_members")]
-        public int[] OnlineMembers { get; set; }
+        public int[]? OnlineMembers { get; set; }
 
         [JsonProperty("treasury")]
         public long? Treasury { get; set; }
