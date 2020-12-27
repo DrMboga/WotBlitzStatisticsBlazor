@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using WotBlitzStatisticsPro.Common.Model;
@@ -40,7 +41,8 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
 
             var services = serviceProvider.BuildServiceProvider();
 
-            _wargamingDictionaries = new WargamingDictionaries(services.GetService<DictionariesUpdaterResolver>());
+            _wargamingDictionaries = new WargamingDictionaries(services.GetService<DictionariesUpdaterResolver>(),
+                (new Mock<ILogger<WargamingDictionaries>>()).Object);
         }
 
         [Test]

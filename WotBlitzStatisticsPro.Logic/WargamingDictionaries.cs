@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic.Dictionaries;
 
@@ -9,26 +10,36 @@ namespace WotBlitzStatisticsPro.Logic
     public class WargamingDictionaries: IWargamingDictionaries
     {
         private readonly DictionariesUpdaterResolver _dictionaryUpdaterFactoryMethod;
+        private readonly ILogger<WargamingDictionaries> _logger;
 
-        public WargamingDictionaries(DictionariesUpdaterResolver dictionaryUpdaterFactoryMethod)
+        public WargamingDictionaries(DictionariesUpdaterResolver dictionaryUpdaterFactoryMethod, ILogger<WargamingDictionaries> logger)
         {
             _dictionaryUpdaterFactoryMethod = dictionaryUpdaterFactoryMethod;
+            _logger = logger;
         }
         
         public async Task<UpdateDictionariesResponseItem[]> UpdateDictionaries(UpdateDictionariesRequest updateDictionariesRequest)
         {
             var response = new List<UpdateDictionariesResponseItem>();
 
-            foreach (var dictionaryType in (DictionaryType[])Enum.GetValues(typeof(DictionaryType)))
+            try
             {
-                if ((updateDictionariesRequest.DictionaryTypes & dictionaryType) != 0)
+                foreach (var dictionaryType in (DictionaryType[]) Enum.GetValues(typeof(DictionaryType)))
                 {
-                    var dictionaryUpdater = _dictionaryUpdaterFactoryMethod(dictionaryType);
-                    if (dictionaryUpdater != null)
+                    if ((updateDictionariesRequest.DictionaryTypes & dictionaryType) != 0)
                     {
-                        response.Add(await dictionaryUpdater.Update());
+                        var dictionaryUpdater = _dictionaryUpdaterFactoryMethod(dictionaryType);
+                        if (dictionaryUpdater != null)
+                        {
+                            response.Add(await dictionaryUpdater.Update());
+                        }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "UpdateDictionaries error");
+                throw;
             }
 
             return response.ToArray();

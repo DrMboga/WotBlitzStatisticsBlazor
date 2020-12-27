@@ -16,17 +16,17 @@ namespace WotBlitzStatisticsPro.Common.Model
         ///<summary>
         /// Account creation date
         ///</summary>
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = new DateTime(1970, 1, 1);
 
         ///<summary>
         /// Last battle time
         ///</summary>
-        public DateTime LastBattleTime { get; set; }
+        public DateTime LastBattleTime { get; set; } = new DateTime(1970, 1, 1);
 
-        ///<summary>
-        /// Player's nick
-        ///</summary>
-        public string? Nickname { get; set; }
+		///<summary>
+		/// Player's nick
+		///</summary>
+		public string? Nickname { get; set; }
 
 		///<summary>
 		/// Battles count

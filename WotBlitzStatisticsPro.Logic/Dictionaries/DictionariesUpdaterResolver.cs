@@ -7,6 +7,6 @@ namespace WotBlitzStatisticsPro.Logic.Dictionaries
     /// </summary>
     /// <param name="dictionaryType">Dictionary type for resolving service.</param>
     /// <returns>Updater service.</returns>
-    public delegate IDictionaryUpdater DictionariesUpdaterResolver(DictionaryType dictionaryType);
+    public delegate IDictionaryUpdater? DictionariesUpdaterResolver(DictionaryType dictionaryType);
 
 }

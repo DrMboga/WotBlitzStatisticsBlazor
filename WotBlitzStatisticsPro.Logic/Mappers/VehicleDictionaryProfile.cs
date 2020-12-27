@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using WotBlitzStatisticsPro.Common.Dictionaries;
 using WotBlitzStatisticsPro.DataAccess.Model;
@@ -26,9 +27,9 @@ namespace WotBlitzStatisticsPro.Logic.Mappers
                 .ForMember(d => d.NormalImage,
                     o => o.MapFrom(s => s.Images == null ? string.Empty : s.Images["normal"]))
                 .ForMember(d => d.PriceCredit,
-                    o => o.MapFrom(s => s.Cost == null ? string.Empty : s.Cost["price_credit"]))
+                    o => o.MapFrom(s => s.Cost == null ? decimal.Zero : Convert.ToDecimal(s.Cost["price_credit"])))
                 .ForMember(d => d.PriceGold,
-                    o => o.MapFrom(s => s.Cost == null ? string.Empty : s.Cost["price_gold"]))
+                    o => o.MapFrom(s => s.Cost == null ? decimal.Zero : Convert.ToDecimal(s.Cost["price_gold"])))
                 .ForMember(d => d.NexTanksInTree,
                     o =>
                         o.MapFrom(s => s.NextTanks))

@@ -49,7 +49,7 @@ namespace WotBlitzStatisticsPro.Logic
                     DictionaryType.StaticDictionaries => serviceProvider.GetService<StaticDictionariesUpdater>()!,
                     DictionaryType.Achievements => serviceProvider.GetService<AchievementsDictionaryUpdater>()!,
                     DictionaryType.Vehicles => serviceProvider.GetService<VehiclesDictionaryUpdater>()!,
-                    _ => throw new ApplicationException($"Unknown dictionary type '{dictionaryType}'")
+                    _ => null
                 };
             });
         }
