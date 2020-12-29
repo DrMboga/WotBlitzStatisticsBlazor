@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace WotBlitzStatisticsPro.WgApiClient
 {
-	internal class ResponseBody<T> where T: class
+	public class ResponseBody<T> where T: class
 	{
 		[JsonProperty("status")]
 		public string? Status { get; set; }
@@ -19,13 +17,13 @@ namespace WotBlitzStatisticsPro.WgApiClient
 		public Error? Error { get; set; }
 	}
 
-	internal class Meta
+	public class Meta
 	{
 		[JsonProperty("count")]
 		public int Count { get; set; }
 	}
 
-	internal class Error
+	public class Error
 	{
 		[JsonProperty("field")]
 		public string? Field { get; set; }

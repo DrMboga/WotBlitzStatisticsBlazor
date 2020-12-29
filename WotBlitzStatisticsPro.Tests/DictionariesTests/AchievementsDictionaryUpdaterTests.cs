@@ -115,7 +115,7 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
 
                 if (_achievementsInfoResponseEn[i].Options == null)
                 {
-                    targetAchievementDictionaries[i].Options.Should().BeNull();
+                    targetAchievementDictionaries[i].Options.Should().BeEmpty();
                 }
                 else
                 {
