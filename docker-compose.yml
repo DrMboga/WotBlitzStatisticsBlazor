@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  web:
+    image: "mike/wot-blitz-statistics-pro:latest"
+    ports:
+      - "8000:80"
+    container_name: "wot-blitz-statististics-web"
+    environment: 
+      - WargamingApi:ApplicationId=${WARGAMING_APPLICATION_ID}
+      - Mongo:ConnectionString=${MONGO_CONNECTION_STRING}
+      - Mongo:DatabaseName=${MONGO_DATABASE_NAME}
+    depends_on:
+      - mongo
+    restart: always
+  mongo:
+    image: mongo
+    ports:
+     - "27027:27017"
+    container_name: "wot-blitz-statistics-mongo"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${DB_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - "blitz_mongodblvolume:/data/db"
+
+volumes:
+  blitz_mongodblvolume:
