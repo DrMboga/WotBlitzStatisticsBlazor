@@ -16,7 +16,7 @@ namespace WotBlitzStatisticsPro.Logic.Calculations
             {
                 if (tankTires.ContainsKey(tank.TankId) && tank.Battles > 0)
                 {
-                    x += tankTires[tank.TankId] * tank.Battles;
+                    x += tankTires[tank.TankId] * tank.Battles.DoubleValue();
                 }
             }
             if (account.Battles > 0)

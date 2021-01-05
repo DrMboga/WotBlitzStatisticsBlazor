@@ -26,13 +26,18 @@ namespace WotBlitzStatisticsPro.Logic.Calculations
 
 		public static void CalculateWn7(this TankInfoHistory tank, double tier)
 		{
-			double avdFrags = (double) tank.Frags / tank.Battles;
-            double avgDamage = (double)tank.DamageDealt / tank.Battles;
-            double avgSpot = (double)tank.Spotted / tank.Battles;
-            double avgDef = (double)tank.DroppedCapturePoints / tank.Battles;
-            double winRate = (100d * (double) tank.Wins / tank.Battles); // - 48;
+            if (!tank.Battles.HasValue)
+            {
+                return;
+            }
 
-			tank.Wn7 = CalculateWn7(tank.Battles, tier, avdFrags, avgDamage, avgSpot, avgDef, winRate);
+			double avdFrags = (double) tank.Frags.DoubleValue() / tank.Battles.DoubleValue();
+            double avgDamage = (double)tank.DamageDealt.DoubleValue() / tank.Battles.DoubleValue();
+            double avgSpot = (double)tank.Spotted.DoubleValue() / tank.Battles.DoubleValue();
+            double avgDef = (double)tank.DroppedCapturePoints.DoubleValue() / tank.Battles.DoubleValue();
+            double winRate = (100d * (double) tank.Wins.DoubleValue() / tank.Battles.DoubleValue()); // - 48;
+
+			tank.Wn7 = CalculateWn7(tank.Battles.Value, tier, avdFrags, avgDamage, avgSpot, avgDef, winRate);
 		}
 
 		public static void CalculateWn7(this AccountInfoHistory account)

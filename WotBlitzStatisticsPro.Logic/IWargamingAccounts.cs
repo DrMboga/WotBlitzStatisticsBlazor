@@ -12,5 +12,8 @@ namespace WotBlitzStatisticsPro.Logic
 
         Task<AccountInfoHistoryResponse> GetAccountInfoHistory(RealmType realm, long accountId, DateTime startDate,
             RequestLanguage requestLanguage);
+
+        Task<TankInfoHistoryResponse> GetTankInfoHistory(RealmType realm, long accountId, long tankId, DateTime startDate,
+            RequestLanguage requestLanguage);
     }
 }

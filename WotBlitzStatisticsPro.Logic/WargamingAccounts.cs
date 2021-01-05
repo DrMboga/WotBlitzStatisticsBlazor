@@ -126,5 +126,41 @@ namespace WotBlitzStatisticsPro.Logic
             }
             return contextData?.Response ?? new AccountInfoHistoryResponse();
         }
+
+        public async Task<TankInfoHistoryResponse> GetTankInfoHistory(RealmType realm, long accountId, long tankId, DateTime startDate,
+            RequestLanguage requestLanguage)
+        {
+            var contextData = new TankHistoryInformationContextData(startDate, tankId);
+            try
+            {
+                var context = new OperationContext(new AccountRequest(accountId, realm, requestLanguage));
+                context.AddOrReplace(contextData);
+                var pipeline = new Pipeline<IOperationContext>(_operationFactory);
+
+                pipeline.AddOperation<ReadTankInfoFromDbOperation>()
+                    .AddOperation<ReadTankHistoryFromDbOperation>()
+                    .AddOperation<CheckIfHistoryIsEmptyOperation>()
+                    .AddOperation<FillOverallStatisticsOperation>()
+                    .AddOperation<FillPeriodStatisticsOperation>()
+                    .AddOperation<FillPeriodDifferenceOperation>()
+                    .AddOperation<FillStatisticsDifferenceOperation>()
+                    .AddOperation<FillTankHistoryResponseOperation>()
+                    ;
+
+                var firstOperation = pipeline.Build();
+                if (firstOperation != null)
+                {
+                    await firstOperation
+                        .Invoke(context, null)
+                        .ConfigureAwait(false);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "GetAccountInfoHistory error");
+                throw;
+            }
+            return contextData?.Response ?? new TankInfoHistoryResponse();
+        }
     }
 }

@@ -20,11 +20,6 @@ namespace WotBlitzStatisticsPro.GraphQl.Query
             _wargamingAccounts = wargamingAccounts;
         }
 
-        //public Task<AccountInfo> GetPlayerInfo(long accountId)
-        //{
-        //    return _wargamingSearcher.GetPlayerAccountInfo(accountId);
-        //}
-
         /// <summary>
         /// Finds Wargaming accounts by nick
         /// </summary>
@@ -85,6 +80,26 @@ namespace WotBlitzStatisticsPro.GraphQl.Query
             RequestLanguage? requestLanguage)
         {
             return _wargamingAccounts.GetAccountInfoHistory(realmType ?? RealmType.Ru, accountId, startDate,
+                requestLanguage ?? RequestLanguage.En);
+        }
+
+        /// <summary>
+        /// Tank statistics history for period since "startDate"
+        /// </summary>
+        /// <param name="accountId">AccountId</param>
+        /// <param name="tankId">TankId</param>
+        /// <param name="startDate">Date from history started</param>
+        /// <param name="realmType">Account region</param>
+        /// <param name="requestLanguage">Request language</param>
+        /// <returns></returns>
+        public Task<TankInfoHistoryResponse> TankInfoHistory(
+            long accountId,
+            long tankId,
+            DateTime startDate,
+            RealmType? realmType,
+            RequestLanguage? requestLanguage)
+        {
+            return _wargamingAccounts.GetTankInfoHistory(realmType ?? RealmType.Ru, accountId, tankId, startDate,
                 requestLanguage ?? RequestLanguage.En);
         }
     }

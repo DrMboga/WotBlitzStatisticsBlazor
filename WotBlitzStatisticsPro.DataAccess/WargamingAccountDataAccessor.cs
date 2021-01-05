@@ -125,7 +125,7 @@ namespace WotBlitzStatisticsPro.DataAccess
             var history = await _database.GetCollection<TankInfoHistory>(TankInfoHistoryCollectionName)
                 .FindAsync(
                     Builders<TankInfoHistory>.Filter.Where(t =>
-                        t.TankInfoHistoryId.AccountId == accountId && t.TankId == tankId && t.TankInfoHistoryId.LastBattleTime >= lastBattleSince),
+                        t.TankInfoHistoryId.AccountId == accountId && t.TankInfoHistoryId.TankId == tankId && t.TankInfoHistoryId.LastBattleTime >= lastBattleSince),
                     new FindOptions<TankInfoHistory>
                         {Sort = Builders<TankInfoHistory>.Sort.Descending(h => h.TankInfoHistoryId.LastBattleTime)});
             return history.ToList();

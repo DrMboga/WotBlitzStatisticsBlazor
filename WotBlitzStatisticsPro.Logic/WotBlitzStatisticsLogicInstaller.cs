@@ -70,6 +70,9 @@ namespace WotBlitzStatisticsPro.Logic
             services.AddTransient<FillPeriodDifferenceOperation>();
             services.AddTransient<FillStatisticsDifferenceOperation>();
             services.AddTransient<FillAccountInfoHistoryResponse>();
+            services.AddTransient<ReadTankInfoFromDbOperation>();
+            services.AddTransient<ReadTankHistoryFromDbOperation>();
+            services.AddTransient<FillTankHistoryResponseOperation>();
 
             services.AddTransient<IOperationFactory>(serviceProvider =>
                 new ServiceProviderOperationFactory(serviceProvider));
