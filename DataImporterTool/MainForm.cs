@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -17,6 +18,11 @@ namespace DataImporterTool
             btnAddAsAccounts.Click += BtnAddAsAccounts_Click;
             btnAddAsTanks.Click += BtnAddAsTanks_Click;
             btnStartImport.Click += BtnStartImport_Click;
+
+            lstSqlAccounts.ValueMember = "Key";
+            lstSqlAccounts.DisplayMember = "Value";
+            btnFetchData.Click += BtnFetchData_Click;
+            btnImportSqlAccounts.Click += BtnImportSqlAccounts_Click;
         }
 
         public string MongoDbConnectionString
@@ -37,6 +43,12 @@ namespace DataImporterTool
             set => statusImportLabel.Text = value;
         }
 
+        public string SqlConnectionString
+        {
+            get => txtSqlConnectionString.Text;
+            set => txtSqlConnectionString.Text = value;
+        }
+
         public event Action OpenJsonFolderClick;
 
         public event Action<string[]> AddFilesAsAccountsInfoList;
@@ -44,6 +56,10 @@ namespace DataImporterTool
         public event Action<string[]> AddFilesAsTanksInfoList;
 
         public event Action StartJsonConvert;
+
+        public event Action FetchSqlAccounts;
+
+        public event Action<long[]> StartSqlImport;
 
         public void ShowJsonFiles(string[] allJsonFiles)
         {
@@ -75,6 +91,11 @@ namespace DataImporterTool
             statusImportProgressBar.Value = percentage;
         }
 
+        public void ShowSqlAccounts(Dictionary<long, string> accounts)
+        {
+            lstSqlAccounts.DataSource = new BindingSource(accounts, null);
+        }
+
         private void BtnOpenFolder_Click(object sender, EventArgs e)
         {
             OpenJsonFolderClick?.Invoke();
@@ -101,6 +122,18 @@ namespace DataImporterTool
         private void BtnStartImport_Click(object sender, EventArgs e)
         {
             StartJsonConvert?.Invoke();
+        }
+
+        private void BtnFetchData_Click(object sender, EventArgs e)
+        {
+            FetchSqlAccounts?.Invoke();
+        }
+
+        private void BtnImportSqlAccounts_Click(object sender, EventArgs e)
+        {
+            var selectedAccounts = lstSqlAccounts.SelectedItems.Cast<KeyValuePair<long, string>>().Select(i => i.Key)
+                .ToArray();
+            StartSqlImport?.Invoke(selectedAccounts);
         }
     }
 }

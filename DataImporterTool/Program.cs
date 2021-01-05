@@ -20,6 +20,7 @@ namespace DataImporterTool
 
             var serviceProvider = new ServiceCollection()
                 .AddSingleton<JsonFilesImporter>()
+                .AddSingleton<SqlImporter>()
                 .AddSingleton<IDialogService, DialogService>()
                 .AddSingleton<IMainFormView, MainForm>()
                 .AddSingleton<MainFormPresenter>()

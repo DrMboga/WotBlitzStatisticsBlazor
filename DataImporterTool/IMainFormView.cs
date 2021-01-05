@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DataImporterTool
 {
@@ -9,6 +10,8 @@ namespace DataImporterTool
         string JsonFolderPath { get; set; }
 
         string StatusInformation { get; set; }
+
+        public string SqlConnectionString { get; set; }
 
         void ShowJsonFiles(string[] allJsonFiles);
 
@@ -22,6 +25,8 @@ namespace DataImporterTool
 
         void SetProcessPercentage(int percentage);
 
+        void ShowSqlAccounts(Dictionary<long, string> accounts);
+
         event Action OpenJsonFolderClick;
 
         event Action<string[]> AddFilesAsAccountsInfoList;
@@ -29,5 +34,9 @@ namespace DataImporterTool
         event Action<string[]> AddFilesAsTanksInfoList;
 
         event Action StartJsonConvert;
+
+        event Action FetchSqlAccounts;
+
+        event Action<long[]> StartSqlImport;
     }
 }

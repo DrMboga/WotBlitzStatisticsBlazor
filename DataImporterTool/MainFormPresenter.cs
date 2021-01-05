@@ -11,6 +11,7 @@ namespace DataImporterTool
     {
         private readonly IDialogService _dialogService;
         private readonly JsonFilesImporter _jsonFilesImporter;
+        private readonly SqlImporter _sqlImporter;
 
         private string[] _selectedFileAsAccounts = null;
         private string[] _selectedFileAsTanks = null;
@@ -18,15 +19,19 @@ namespace DataImporterTool
         public MainFormPresenter(
             IMainFormView view,
             IDialogService dialogService,
-            JsonFilesImporter jsonFilesImporter)
+            JsonFilesImporter jsonFilesImporter,
+            SqlImporter sqlImporter)
         {
             _dialogService = dialogService;
             _jsonFilesImporter = jsonFilesImporter;
+            _sqlImporter = sqlImporter;
             View = view;
             View.OpenJsonFolderClick += OpenJsonFolder;
             View.AddFilesAsAccountsInfoList += AddFilesAsAccountsInfoList;
             View.AddFilesAsTanksInfoList += AddFilesAsTanksInfoList;
             View.StartJsonConvert += StartJsonConvert;
+            View.FetchSqlAccounts += FetchSqlAccounts;
+            View.StartSqlImport += StartSqlImport;
         }
 
         public IMainFormView View { get; }
@@ -98,8 +103,8 @@ namespace DataImporterTool
             View.ClearLog();
             View.SetProcessPercentage(0);
 
-            var progress = new Progress<ImportProgress>();
-            progress.ProgressChanged += ProgressChanged;
+            var progress = new Progress<FileImportProgress>();
+            progress.ProgressChanged += FileImportProgressChanged;
 
             await _jsonFilesImporter.Import(View.MongoDbConnectionString,
                 View.JsonFolderPath,
@@ -108,10 +113,63 @@ namespace DataImporterTool
                 progress);
         }
 
-        private void ProgressChanged(object sender, ImportProgress e)
+        private void FileImportProgressChanged(object sender, FileImportProgress e)
         {
             View.StatusInformation = $"{e.FilesConverted} files converted ({e.Progress}%)";
             View.AppendLogRow($"Converted: '{e.AccountFileConverted}' - '{e.TankFileConverted}': '{e.AccountName}', {e.BattlesCount} battles, '{e.LastBattle.ToShortDateString()}', {e.TanksCount} tanks");
+            View.SetProcessPercentage(e.Progress);
+        }
+
+        private async void FetchSqlAccounts()
+        {
+            if (string.IsNullOrWhiteSpace(View.SqlConnectionString))
+            {
+                _dialogService.ShowWarning("Empty SQL connection string!");
+                return;
+            }
+
+            View.ClearLog();
+            View.AppendLogRow("Start fetching account from SQL...");
+
+            var accounts = await _sqlImporter.FetchAllAccounts(View.SqlConnectionString);
+            if(accounts != null)
+            {
+                View.ShowSqlAccounts(accounts);
+            }
+            View.AppendLogRow($"Found {accounts?.Count ?? 0} accounts");
+        }
+
+        private async void StartSqlImport(long[] accounts)
+        {
+            if (accounts == null || accounts.Length == 0)
+            {
+                _dialogService.ShowWarning("Please select at least one account");
+                return;
+            }
+            if (string.IsNullOrEmpty(View.MongoDbConnectionString))
+            {
+                _dialogService.ShowWarning("MongoDB connection string is empty!");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(View.SqlConnectionString))
+            {
+                _dialogService.ShowWarning("Empty SQL connection string!");
+                return;
+            }
+
+            var progress = new Progress<ImportProgress>();
+            progress.ProgressChanged += SqlImport_ProgressChanged;
+
+            View.ClearLog();
+            View.SetProcessPercentage(0);
+
+            await _sqlImporter.StartImport(View.MongoDbConnectionString, View.SqlConnectionString, accounts, progress);
+        }
+
+        private void SqlImport_ProgressChanged(object sender, ImportProgress e)
+        {
+            View.StatusInformation = $"{e.Progress}% Converted";
+            View.AppendLogRow($"Imported: '{e.AccountName}', {e.BattlesCount} battles, '{e.LastBattle.ToShortDateString()}', {e.TanksCount} tanks");
             View.SetProcessPercentage(e.Progress);
         }
     }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +33,7 @@ namespace DataImporterTool.Importer
             string folderPath, 
             string[] accountsFiles, 
             string[] tankFiles, 
-            IProgress<ImportProgress> progress)
+            IProgress<FileImportProgress> progress)
         {
             if (accountsFiles == null || tankFiles == null || accountsFiles.Length == 0 || accountsFiles.Length != tankFiles.Length)
             {
@@ -49,7 +48,7 @@ namespace DataImporterTool.Importer
                     Path.Combine(folderPath, accountsFiles[i]),
                     Path.Combine(folderPath, tankFiles[i]));
 
-                var p = new ImportProgress
+                var p = new FileImportProgress
                 {
                     Progress = 100 * (i+1) / accountsFiles.Length,
                     TankFileConverted = tankFiles[i],

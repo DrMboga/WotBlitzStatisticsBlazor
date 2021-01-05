@@ -46,6 +46,12 @@ namespace DataImporterTool
             this.btnOpenFolder = new System.Windows.Forms.Button();
             this.txtJsonFolder = new System.Windows.Forms.TextBox();
             this.tabPgSqlImport = new System.Windows.Forms.TabPage();
+            this.btnImportSqlAccounts = new System.Windows.Forms.Button();
+            this.lstSqlAccounts = new System.Windows.Forms.ListBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnFetchData = new System.Windows.Forms.Button();
+            this.txtSqlConnectionString = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusImportLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusImportProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -55,6 +61,7 @@ namespace DataImporterTool
             this.tabImportType.SuspendLayout();
             this.tabPgFileImport.SuspendLayout();
             this.grpFolder.SuspendLayout();
+            this.tabPgSqlImport.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -233,6 +240,12 @@ namespace DataImporterTool
             // 
             // tabPgSqlImport
             // 
+            this.tabPgSqlImport.Controls.Add(this.btnImportSqlAccounts);
+            this.tabPgSqlImport.Controls.Add(this.lstSqlAccounts);
+            this.tabPgSqlImport.Controls.Add(this.label5);
+            this.tabPgSqlImport.Controls.Add(this.btnFetchData);
+            this.tabPgSqlImport.Controls.Add(this.txtSqlConnectionString);
+            this.tabPgSqlImport.Controls.Add(this.label4);
             this.tabPgSqlImport.Location = new System.Drawing.Point(4, 24);
             this.tabPgSqlImport.Name = "tabPgSqlImport";
             this.tabPgSqlImport.Padding = new System.Windows.Forms.Padding(3);
@@ -240,6 +253,62 @@ namespace DataImporterTool
             this.tabPgSqlImport.TabIndex = 1;
             this.tabPgSqlImport.Text = "Import from Sql database";
             this.tabPgSqlImport.UseVisualStyleBackColor = true;
+            // 
+            // btnImportSqlAccounts
+            // 
+            this.btnImportSqlAccounts.Location = new System.Drawing.Point(691, 112);
+            this.btnImportSqlAccounts.Name = "btnImportSqlAccounts";
+            this.btnImportSqlAccounts.Size = new System.Drawing.Size(126, 56);
+            this.btnImportSqlAccounts.TabIndex = 5;
+            this.btnImportSqlAccounts.Text = "Import selected accounts";
+            this.btnImportSqlAccounts.UseVisualStyleBackColor = true;
+            // 
+            // lstSqlAccounts
+            // 
+            this.lstSqlAccounts.FormattingEnabled = true;
+            this.lstSqlAccounts.ItemHeight = 15;
+            this.lstSqlAccounts.Location = new System.Drawing.Point(10, 60);
+            this.lstSqlAccounts.Name = "lstSqlAccounts";
+            this.lstSqlAccounts.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstSqlAccounts.Size = new System.Drawing.Size(674, 184);
+            this.lstSqlAccounts.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(10, 41);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 15);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Accounts";
+            // 
+            // btnFetchData
+            // 
+            this.btnFetchData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFetchData.Location = new System.Drawing.Point(691, 6);
+            this.btnFetchData.Name = "btnFetchData";
+            this.btnFetchData.Size = new System.Drawing.Size(126, 23);
+            this.btnFetchData.TabIndex = 2;
+            this.btnFetchData.Text = "Fetch Data";
+            this.btnFetchData.UseVisualStyleBackColor = true;
+            // 
+            // txtSqlConnectionString
+            // 
+            this.txtSqlConnectionString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSqlConnectionString.Location = new System.Drawing.Point(146, 7);
+            this.txtSqlConnectionString.Name = "txtSqlConnectionString";
+            this.txtSqlConnectionString.Size = new System.Drawing.Size(538, 23);
+            this.txtSqlConnectionString.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(10, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(130, 15);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "SQL connection string: ";
             // 
             // statusStrip
             // 
@@ -271,6 +340,7 @@ namespace DataImporterTool
             this.txtIpmortLog.Multiline = true;
             this.txtIpmortLog.Name = "txtIpmortLog";
             this.txtIpmortLog.ReadOnly = true;
+            this.txtIpmortLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtIpmortLog.Size = new System.Drawing.Size(825, 170);
             this.txtIpmortLog.TabIndex = 3;
             // 
@@ -300,6 +370,8 @@ namespace DataImporterTool
             this.tabPgFileImport.PerformLayout();
             this.grpFolder.ResumeLayout(false);
             this.grpFolder.PerformLayout();
+            this.tabPgSqlImport.ResumeLayout(false);
+            this.tabPgSqlImport.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -331,6 +403,12 @@ namespace DataImporterTool
         private System.Windows.Forms.ListBox lstTanks;
         private System.Windows.Forms.ListBox lstAccounts;
         private System.Windows.Forms.Button btnStartImport;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnFetchData;
+        private System.Windows.Forms.TextBox txtSqlConnectionString;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnImportSqlAccounts;
+        private System.Windows.Forms.ListBox lstSqlAccounts;
     }
 }
 
