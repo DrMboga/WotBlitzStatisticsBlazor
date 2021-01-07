@@ -19,7 +19,15 @@ spec:
       containers:
       - env:
         - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: wot-blitz-statistics-secret
+              key: MONGO_INITDB_ROOT_PASSWORD
         - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: wot-blitz-statistics-secret
+              key: MONGO_INITDB_ROOT_USERNAME
         image: mongo
         imagePullPolicy: ""
         name: wot-blitz-statistics-mongo

@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    image: "mike/wot-blitz-statistics-pro:latest"
+    image: "mike/wot-blitz-statistics-pro:v1"
     ports:
       - "8000:80"
     container_name: "wot-blitz-statististics-web"

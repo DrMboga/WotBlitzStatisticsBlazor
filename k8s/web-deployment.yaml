@@ -18,8 +18,20 @@ spec:
       containers:
       - env:
         - name: Mongo__ConnectionString
+          valueFrom:
+            secretKeyRef:
+              name: wot-blitz-statistics-secret
+              key: Mongo__ConnectionString
         - name: Mongo__DatabaseName
+          valueFrom:
+            secretKeyRef:
+              name: wot-blitz-statistics-secret
+              key: Mongo__DatabaseName
         - name: WargamingApi__ApplicationId
+          valueFrom:
+            secretKeyRef:
+              name: wot-blitz-statistics-secret
+              key: WargamingApi__ApplicationId
         image: mike/wot-blitz-statistics-pro:v1
         imagePullPolicy: ""
         name: wot-blitz-statististics-web

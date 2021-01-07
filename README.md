@@ -7,10 +7,10 @@ Detailed player &amp; tank statistics and history for [World of Tanks: Blitz](ht
 
 ## Technologies used:
 
-- Backend - GraphQL API based on .Net core 3 Web server ([GraphQL HotChocolate](https://hotchocolate.io/) + MongoDB)
+- Backend - GraphQL API based on .NET 5.0 Web server ([GraphQL HotChocolate](https://hotchocolate.io/) + MongoDB)
 - Frontent - Blazor WebAssembly (coming soon)
 
-### Local MongoDB Installation for debugging ([Docker desktop for Windows](https://www.docker.com/products/docker-desktop))
+## Local MongoDB Installation for debugging ([Docker desktop for Windows](https://www.docker.com/products/docker-desktop))
 For the developing and debugging purposes, you have to istall MongoDB locally on your dev machine and run it as a service. Alternatively, if you have istalled [Docker desktop for Windows](https://www.docker.com/products/docker-desktop), you can deploy MongoDB inside the container. To do so, create an empty folder and make 2 files there: ```docker-compose.yml``` and ```.env```. Second one will contain sensitive data. 
 
 <details>
@@ -80,7 +80,7 @@ To use this mongo instance in application, use this connection string in ```apps
 }
 ```
 
-### Backup and restore database using mongodump/mongorestore
+## Backup and restore database using mongodump/mongorestore
 
 [Mongudump/mongorestore documentation](https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/)
 
@@ -98,9 +98,68 @@ mongodump --host=localhost --port=27017 --username=root --password="[YOUR PASSWO
 mongorestore --host=localhost --port=27017 --username=root --password="[YOUR PASSWORD]" --authenticationDatabase=admin mongodump-2020-12-27
 ```
 
+## Deploying solution using docker-compose
 
-### Hosting solution (k8s)
-(Coming soon)
+1. First, build container image to have it locally:
+
+```bash
+- docker build -t mike/wot-blitz-statistics-pro:v1 .
+```
+
+2. Create environment file `.env` and fill the values in it (without square brackets):
+
+```env
+WARGAMING_APPLICATION_ID=[your_application_id]
+MONGO_CONNECTION_STRING=mongodb://[your_db_user]:[your_db_password]@mongo:27017/?authSource=admin
+MONGO_DATABASE_NAME=WotBlitzStatisticsPro
+DB_USERNAME=[your_db_user]
+DB_PASSWORD=[your_db_password]
+```
+
+3. Deploy application, using command:
+
+```bash
+docker-compose up -d
+```
+
+4. Navigate to http://localhost:8000 (or http://localhost:8000/graphql/ for GraphQl playground)
+
+5. Do delete the deployment, use command:
+
+```bash
+docker-compose down
+```
+
+## Deploying solution using Kubernetes and kubectl
+
+1. First, build container image to have it locally:
+
+```bash
+- docker build -t mike/wot-blitz-statistics-pro:v1 .
+```
+
+2. Create a k8s `secret` and fill the values in it (without square brackets), using command:
+
+```bash
+kubectl create secret generic wot-blitz-statistics-secret --from-literal='MONGO_INITDB_ROOT_PASSWORD=[your_db_password]' --from-literal='MONGO_INITDB_ROOT_USERNAME=[your_db_user]' --from-literal='Mongo__ConnectionString=mongodb://[your_db_user]:[your_db_password]@wot-blitz-statistics-pro-app-mongo-service:27027/?authSource=admin' --from-literal='Mongo__DatabaseName=WotBlitzStatisticsPro' --from-literal='WargamingApi__ApplicationId=[your_application_id]'
+```
+
+3. Deploy application, using command:
+
+```bash
+kubectl apply -f k8s
+```
+
+4. Navigate to http://localhost:8040 (or http://localhost:8040/graphql/ for GraphQl playground)
+
+5. Do delete the deployment, use command:
+
+```bash
+kubectl delete -f k8s
+```
+
+
+
 
 ## Contact me:
 [dr.mboga@yahoo.com](mailto:dr.mboga@yahoo.com)
