@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: wot-blitz-statistics-web
+  name: wot-blitz-statistics-pro-app-web-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wot-blitz-statistics-web
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: wot-blitz-statistics-web
+    spec:
+      containers:
+      - env:
+        - name: Mongo__ConnectionString
+        - name: Mongo__DatabaseName
+        - name: WargamingApi__ApplicationId
+        image: mike/wot-blitz-statistics-pro:v1
+        imagePullPolicy: ""
+        name: wot-blitz-statististics-web
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
