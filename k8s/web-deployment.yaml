@@ -33,6 +33,21 @@ spec:
               name: wot-blitz-statistics-secret
               key: WargamingApi__ApplicationId
         image: mike/wot-blitz-statistics-pro:v1
+        livenessProbe:
+          httpGet:
+            path: /health/self
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          timeoutSeconds: 1
+          failureThreshold: 3
+        startupProbe:
+          httpGet:
+            path: /health/startup
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          failureThreshold: 30
         imagePullPolicy: ""
         name: wot-blitz-statististics-web
         ports:

@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.GraphQl.Mutation;
@@ -33,9 +35,12 @@ namespace WotBlitzStatisticsPro.GraphQl
             services.AddSingleton<IMongoSettings>(mongoConfig);
             WotBlitzStatisticsLogicInstaller.ConfigureServices(services);
 
+            services.AddHealthChecks()
+                .AddCheck("self", () => HealthCheckResult.Healthy())
+				.AddMongoDb(mongoConfig.ConnectionString, tags: new[] { "services" });
 
 			// Add GraphQL Services
-            services.AddGraphQLServer()
+			services.AddGraphQLServer()
                 .AddQueryType<WotBlitzStatisticsQuery>()
                 .AddMutationType<WotBlitzStatisticsMutation>()
                 .AddType<AccountsSearchItemObjectType>()
@@ -53,7 +58,15 @@ namespace WotBlitzStatisticsPro.GraphQl
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapGraphQL();
-                });
+                    endpoints.MapHealthChecks("/health/self", new HealthCheckOptions
+                    {
+                        Predicate = r => r.Tags.Contains("self")
+                    });
+                    endpoints.MapHealthChecks("/health/startup", new HealthCheckOptions
+                    {
+                        Predicate = r => r.Tags.Contains("services")
+                    });
+				});
 		}
 	}
 }

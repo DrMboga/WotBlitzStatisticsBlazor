@@ -12,3 +12,6 @@ spec:
   - name: "8040"
     port: 8040
     targetPort: 80
+  - name: "443"
+    port: 443
+    targetPort: 443
