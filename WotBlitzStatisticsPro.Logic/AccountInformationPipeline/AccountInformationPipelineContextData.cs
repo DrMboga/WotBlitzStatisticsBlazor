@@ -18,5 +18,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline
 
         public AccountInfo? DbAccountInfo { get; set; }
 
+        // ToDo: In the future, there should be the way to skip some operations in the pipe. Now we use this dummy flag...
+        public bool NeedToSaveData { get; set; }
     }
 }

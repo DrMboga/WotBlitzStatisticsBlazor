@@ -26,6 +26,13 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
         {
             var contextData = context.Get<AccountInformationPipelineContextData>();
 
+            if (!contextData.NeedToSaveData)
+            {
+                _logger.LogInformation($"Proceeding without saving. Db LastBattleTime: {contextData.DbAccountInfo?.LastBattleTime}, WG LastBattleTime: {contextData.AccountInfo?.LastBattleTime}");
+                if (next != null) await next.Invoke(context);
+                return;
+            }
+
             if (contextData?.AccountInfo == null ||
                 contextData?.AccountInfoHistory == null ||
                 contextData?.Tanks == null ||

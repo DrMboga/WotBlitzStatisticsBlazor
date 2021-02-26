@@ -19,13 +19,10 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
         {
             var contextData = context.Get<AccountInformationPipelineContextData>();
 
-            if (contextData.DbAccountInfo == null ||
-                contextData.DbAccountInfo.LastBattleTime < contextData.AccountInfo?.LastBattleTime)
-            {
-                if (next != null) return next.Invoke(context);
-            }
-            _logger.LogInformation($"Exiting without saving. Db LastBattleTime: {contextData.DbAccountInfo?.LastBattleTime}, WG LastBattleTime: {contextData.AccountInfo?.LastBattleTime}");
-            return Task.CompletedTask;
+            contextData.NeedToSaveData = contextData.DbAccountInfo == null ||
+                                         contextData.DbAccountInfo.LastBattleTime <
+                                         contextData.AccountInfo?.LastBattleTime;
+            return next != null ? next.Invoke(context) : Task.CompletedTask;
         }
     }
 }

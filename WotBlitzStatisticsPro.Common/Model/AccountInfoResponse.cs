@@ -149,9 +149,19 @@ namespace WotBlitzStatisticsPro.Common.Model
         public decimal AvgXp => Battles == 0 ? 0m : (decimal)Xp / Battles;
 
         /// <summary>
-        /// All player's tanks
+        /// Damage coefficient
         /// </summary>
-        public List<TankInfoResponse>? Tanks { get; set; }
+        public decimal DamageCoefficient => DamageReceived == 0 ? 0m : (decimal) DamageDealt / DamageReceived;
+
+        /// <summary>
+        /// Rate of survival
+        /// </summary>
+        public decimal SurvivalRate => Battles == 0 ? 0m : (decimal) 100 * SurvivedBattles / Battles;
+
+		/// <summary>
+		/// All player's tanks
+		/// </summary>
+		public List<TankInfoResponse>? Tanks { get; set; }
 
 	}
 }
