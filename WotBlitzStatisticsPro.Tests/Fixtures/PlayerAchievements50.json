@@ -1,0 +1,70 @@
+{
+    "status": "ok",
+    "meta": {
+        "count": 1
+    },
+    "data": {
+        "571050560": {
+            "achievements": {
+                "medalCarius": 2,
+                "medalHalonen": 1,
+                "armorPiercer": 1,
+                "medalEkins": 2,
+                "cadet": 1,
+                "markOfMasteryII": 626,
+                "firstBlood": 1,
+                "heroesOfRassenay": 1,
+                "medalKay": 2,
+                "firstVictory": 1,
+                "markOfMasteryI": 170,
+                "defender": 10,
+                "markOfMasteryIII": 1057,
+                "medalLeClerc": 3,
+                "supporter": 344,
+                "steelwall": 73,
+                "medalLehvaslaiho": 15,
+                "medalAbrams": 2,
+                "medalPoppel": 2,
+                "medalSupremacy": 3,
+                "mainGun": 214,
+                "kamikaze": 1,
+                "sinai": 3,
+                "warrior": 141,
+                "titleSniper": 1,
+                "huntsman": 4,
+                "camper": 6,
+                "scout": 84,
+                "beasthunter": 4,
+                "markOfMastery": 40,
+                "ironMan": 16,
+                "tankExpert3": 1,
+                "tankExpert2": 1,
+                "medalRadleyWalters": 25,
+                "tankExpert6": 1,
+                "medalLavrinenko": 2,
+                "medalOskin": 2,
+                "medalKolobanov": 1,
+                "sturdy": 28,
+                "medalLafayettePool": 2,
+                "handOfDeath": 1,
+                "diehard": 1,
+                "evileye": 41,
+                "medalKnispel": 1
+            },
+            "max_series": {
+                "armorPiercer": 134,
+                "punisher": 0,
+                "titleSniper": 216,
+                "invincible": 3,
+                "tankExpert": 332,
+                "medalKay": 913,
+                "diehard": 10,
+                "beasthunter": 468,
+                "handOfDeath": 4,
+                "jointVictory": 0,
+                "sinai": 311,
+                "pattonValley": 4
+            }
+        }
+    }
+}

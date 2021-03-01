@@ -1,0 +1,61 @@
+{
+    "status": "ok",
+    "meta": {
+        "count": 1
+    },
+    "data": {
+        "571050560": {
+            "statistics": {
+                "clan": {
+                    "spotted": 0,
+                    "max_frags_tank_id": 0,
+                    "hits": 0,
+                    "frags": 0,
+                    "max_xp": 0,
+                    "max_xp_tank_id": 0,
+                    "wins": 0,
+                    "losses": 0,
+                    "capture_points": 0,
+                    "battles": 0,
+                    "damage_dealt": 0,
+                    "damage_received": 0,
+                    "max_frags": 0,
+                    "shots": 0,
+                    "frags8p": 0,
+                    "xp": 0,
+                    "win_and_survived": 0,
+                    "survived_battles": 0,
+                    "dropped_capture_points": 0
+                },
+                "all": {
+                    "spotted": 6960,
+                    "max_frags_tank_id": 9249,
+                    "hits": 33400,
+                    "frags": 4023,
+                    "max_xp": 2307,
+                    "max_xp_tank_id": 64801,
+                    "wins": 2522,
+                    "losses": 1797,
+                    "capture_points": 1123,
+                    "battles": 4350,
+                    "damage_dealt": 6471089,
+                    "damage_received": 4879220,
+                    "max_frags": 7,
+                    "shots": 38400,
+                    "frags8p": 1527,
+                    "xp": 3904931,
+                    "win_and_survived": 1467,
+                    "survived_battles": 1494,
+                    "dropped_capture_points": 3304
+                },
+                "frags": null
+            },
+            "account_id": 571050560,
+            "created_at": 1589961923,
+            "updated_at": 1609163016,
+            "private": null,
+            "last_battle_time": 1609162559,
+            "nickname": "mboga"
+        }
+    }
+}

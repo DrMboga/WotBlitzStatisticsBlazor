@@ -21,4 +21,9 @@
     <ProjectReference Include="..\WotBlitzStatisticsPro.Logic\WotBlitzStatisticsPro.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Fixtures\" />
+    <Folder Include="OperationStepsTests\" />
+  </ItemGroup>
+
 </Project>
