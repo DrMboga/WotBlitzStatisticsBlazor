@@ -38,7 +38,7 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
             var accountInfoSerialized = JsonConvert.SerializeObject(_contextData.DbAccountInfo);
 
             var expectedAccountInfo =
-                await File.ReadAllTextAsync($"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\MappedAccountInfo.json");
+                await File.ReadAllTextAsync(GetFixturePath("MappedAccountInfo.json"));
             accountInfoSerialized.Should().Be(expectedAccountInfo);
         }
 

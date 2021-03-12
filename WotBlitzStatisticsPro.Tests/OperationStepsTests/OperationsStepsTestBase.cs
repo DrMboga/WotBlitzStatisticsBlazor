@@ -63,10 +63,10 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
             var settingsMock = new Mock<IWargamingApiSettings>();
             settingsMock.SetupGet(s => s.ApplicationId).Returns(ApplicationId);
 
-            var playerInfoFilePath = $"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\PlayerInfo50.json";
-            var tanksInfoFilePath = $"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\TanksInfo50.json";
-            var playerAchievementsFilePath = $"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\PlayerAchievements50.json";
-            var tanksAchievementsFilePath = $"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\TanksAchievemnts50.json";
+            var playerInfoFilePath = GetFixturePath("PlayerInfo50.json");
+            var tanksInfoFilePath = GetFixturePath("TanksInfo50.json");
+            var playerAchievementsFilePath = GetFixturePath("PlayerAchievements50.json");
+            var tanksAchievementsFilePath = GetFixturePath("TanksAchievemnts50.json");
 
             var playerInfoRequestUrl = $"https://api.wotblitz.eu/wotb/account/info/?application_id={ApplicationId}&language=en&account_id={AccountId}";
             var playerInfoResponse = new HttpResponseMessage
@@ -105,7 +105,7 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
 
         protected void InitDataAccessors()
         {
-            var tankopediaFile = File.ReadAllText($"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\Tankopedia.json");
+            var tankopediaFile = File.ReadAllText(GetFixturePath("Tankopedia.json"));
             var vehicles = JsonConvert.DeserializeObject<List<VehiclesDictionary>>(tankopediaFile);
 
             var tankTires = vehicles.Select(v => new {TankId = v.TankId, Tier = v.Tier})
@@ -122,9 +122,9 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
 
         protected void FillAccountAndTanks(AccountInformationPipelineContextData contextData)
         {
-            var mappedAccountInfoHistory = File.ReadAllText($"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\MappedAccountHistory.json");
-            var mappedTanks = File.ReadAllText($"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\MappedTanks.json");
-            var mappedTanksHistory = File.ReadAllText($"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\MappedTanksHistory.json");
+            var mappedAccountInfoHistory = File.ReadAllText(GetFixturePath("MappedAccountHistory.json"));
+            var mappedTanks = File.ReadAllText(GetFixturePath("MappedTanks.json"));
+            var mappedTanksHistory = File.ReadAllText(GetFixturePath("MappedTanksHistory.json"));
 
             contextData.AccountInfo = GetAccountInfoFromFixture();
             contextData.AccountInfoHistory =
@@ -137,9 +137,13 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
 
         protected AccountInfo GetAccountInfoFromFixture()
         {
-            var mappedAccountInfo = File.ReadAllText($"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\MappedAccountInfo.json");
+            var mappedAccountInfo = File.ReadAllText(GetFixturePath("MappedAccountInfo.json"));
             return JsonConvert.DeserializeObject<AccountInfo>(mappedAccountInfo);
         }
 
+        protected string GetFixturePath(string fixtureFileName)
+        {
+            return Path.Combine(TestContext.CurrentContext.TestDirectory, "Fixtures", fixtureFileName);
+        }
     }
 }

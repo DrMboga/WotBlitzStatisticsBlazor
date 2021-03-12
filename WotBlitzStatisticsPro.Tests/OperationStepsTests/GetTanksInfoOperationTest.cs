@@ -45,10 +45,10 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
             var tanksHistorySerialized = JsonConvert.SerializeObject(_contextData.TanksHistory);
 
             var expectedTanksInfo =
-                await File.ReadAllTextAsync($"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\MappedTanks.json");
+                await File.ReadAllTextAsync(GetFixturePath("MappedTanks.json"));
             tanksSerialized.Should().Be(expectedTanksInfo);
             var expectedTanksHistory =
-                await File.ReadAllTextAsync($"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\MappedTanksHistory.json");
+                await File.ReadAllTextAsync(GetFixturePath("MappedTanksHistory.json"));
             tanksHistorySerialized.Should().Be(expectedTanksHistory);
         }
 

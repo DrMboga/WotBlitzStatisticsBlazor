@@ -46,10 +46,10 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
             var accountInfoHistorySerialized = JsonConvert.SerializeObject(_contextData.AccountInfoHistory);
 
             var expectedAccountInfo =
-                await File.ReadAllTextAsync($"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\MappedAccountInfo.json");
+                await File.ReadAllTextAsync(GetFixturePath("MappedAccountInfo.json"));
             accountInfoSerialized.Should().Be(expectedAccountInfo);
             var expectedAccountInfoHistory =
-                await File.ReadAllTextAsync($"{TestContext.CurrentContext.TestDirectory}\\Fixtures\\MappedAccountHistory.json");
+                await File.ReadAllTextAsync(GetFixturePath("MappedAccountHistory.json"));
             accountInfoHistorySerialized.Should().Be(expectedAccountInfoHistory);
         }
     }
