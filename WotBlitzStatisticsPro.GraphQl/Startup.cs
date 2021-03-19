@@ -9,6 +9,7 @@ using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.GraphQl.Mutation;
 using WotBlitzStatisticsPro.GraphQl.ObjectTypes;
 using WotBlitzStatisticsPro.GraphQl.Query;
+using WotBlitzStatisticsPro.GraphQl.Resolvers;
 using WotBlitzStatisticsPro.Logic;
 
 namespace WotBlitzStatisticsPro.GraphQl
@@ -41,7 +42,9 @@ namespace WotBlitzStatisticsPro.GraphQl
 
 			// Add GraphQL Services
 			services.AddGraphQLServer()
-                .AddQueryType<WotBlitzStatisticsQuery>()
+                .AddQueryType(d => d.Name("Query"))
+                    .AddType<WotBlitzStatisticsQuery>()
+                    .AddType<AccountInfoResolver>()
                 .AddMutationType<WotBlitzStatisticsMutation>()
                 .AddType<AccountsSearchItemObjectType>()
                 .AddType<AccountsSearchObjectType>()

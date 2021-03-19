@@ -163,5 +163,10 @@ namespace WotBlitzStatisticsPro.Common.Model
 		/// </summary>
 		public List<TankInfoResponse>? Tanks { get; set; }
 
+		/// <summary>
+		/// Clan info
+		/// </summary>
+        public ClanInfoResponse? ClanInfo { get; set; }
+
 	}
 }

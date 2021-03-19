@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HotChocolate.Types;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic;
 
 namespace WotBlitzStatisticsPro.GraphQl.Query
 {
+    [ExtendObjectType(Name = "Query")]
 	public class WotBlitzStatisticsQuery
 	{
         // 571050560 - mboga Eu

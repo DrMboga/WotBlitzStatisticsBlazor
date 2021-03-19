@@ -29,6 +29,7 @@ namespace WotBlitzStatisticsPro.Logic
             services.AddTransient<IWargamingSearch, WargamingSearch>();
             services.AddTransient<IWargamingDictionaries, WargamingDictionaries>();
             services.AddTransient<IWargamingAccounts, WargamingAccounts>();
+            services.AddTransient<IWargamingClans, WargamingClans>();
         }
 
         private static void ConfigureDictionariesFactory(IServiceCollection services)
