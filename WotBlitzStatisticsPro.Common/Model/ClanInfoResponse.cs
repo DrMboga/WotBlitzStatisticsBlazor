@@ -91,6 +91,6 @@ namespace WotBlitzStatisticsPro.Common.Model
 		///<summary>
 		/// Clan info updated at
 		///</summary>
-		public int? UpdatedAt { get; set; }
+		public DateTime? UpdatedAt { get; set; }
 	}
 }

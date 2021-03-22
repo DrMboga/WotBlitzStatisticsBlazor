@@ -139,5 +139,19 @@ namespace WotBlitzStatisticsPro.DataAccess
 
             return collection.ToDictionary(n => n.typeId, n => n.typeValue);
         }
+
+        public async Task<Dictionary<string, string>> GetClanRoles(RequestLanguage language)
+        {
+            var collection = await _database.GetCollection<ClanRoleDictionary>(ClanRolesCollectionName)
+                .Find(Builders<ClanRoleDictionary>.Filter.Empty)
+                .Project(n => new
+                {
+                    ClanRoleId = n.ClanRoleId,
+                    ClanRoleValueValue = n.ClanRoleNames.First(v => v.Language == language).Value
+                })
+                .ToListAsync();
+
+            return collection.ToDictionary(n => n.ClanRoleId, n => n.ClanRoleValueValue);
+        }
     }
 }

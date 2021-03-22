@@ -30,5 +30,7 @@ namespace WotBlitzStatisticsPro.DataAccess
         Task<Dictionary<string, string>> GetNations(RequestLanguage language);
 
         Task<Dictionary<string, string>> GetTankTypes(RequestLanguage language);
+
+        Task<Dictionary<string, string>> GetClanRoles(RequestLanguage language);
     }
 }
