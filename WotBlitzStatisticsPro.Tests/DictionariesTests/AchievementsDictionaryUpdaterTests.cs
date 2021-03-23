@@ -39,8 +39,7 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
 
             // Real mapper instance
             var configurationExp = new MapperConfigurationExpression();
-            configurationExp.AddProfile<AchievementDictionaryProfile>();
-            configurationExp.AddProfile<AchievementOptionProfile>();
+            configurationExp.AddProfile<AchievementsProfile>();
             var mapperConfiguration = new MapperConfiguration(configurationExp);
             IMapper mapper = new Mapper(mapperConfiguration);
 

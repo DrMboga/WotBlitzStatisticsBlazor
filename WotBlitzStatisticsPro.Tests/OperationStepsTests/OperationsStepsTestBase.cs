@@ -44,8 +44,7 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
                 cfg.AddProfile<AccountInfoProfile>();
                 cfg.AddProfile<AccountInfoStatisticsProfile>();
                 cfg.AddProfile<AccountSearchResponseProfile>();
-                cfg.AddProfile<AchievementDictionaryProfile>();
-                cfg.AddProfile<AchievementOptionProfile>();
+                cfg.AddProfile<AchievementsProfile>();
                 cfg.AddProfile<ClanSearchResponseProfile>();
                 cfg.AddProfile<DictionaryLanguageMapper>();
                 cfg.AddProfile<ShortStatisticsProfile>();
