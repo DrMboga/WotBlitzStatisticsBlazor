@@ -18,9 +18,14 @@ namespace WotBlitzStatisticsPro.Common.Model
         public DateTime JoinedAt { get; set; } = new DateTime(1970, 1, 1);
 
         ///<summary>
-        /// Player clan role
+        /// Player clan role ID
         ///</summary>
         public string? Role { get; set; }
+
+        ///<summary>
+        /// Player clan role
+        ///</summary>
+        public string RoleLocalized { get; set; }
 
 
         /// <summary>

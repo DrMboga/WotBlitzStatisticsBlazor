@@ -45,6 +45,7 @@ namespace WotBlitzStatisticsPro.GraphQl
                 .AddQueryType(d => d.Name("Query"))
                     .AddType<WotBlitzStatisticsQuery>()
                     .AddType<AccountInfoResolver>()
+                    .AddType<WotBlitzAchievementsQuery>()
                 .AddMutationType<WotBlitzStatisticsMutation>()
                 .AddType<AccountsSearchItemObjectType>()
                 .AddType<AccountsSearchObjectType>()

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
-using WotBlitzStatisticsPro.Common.Dictionaries;
 using WotBlitzStatisticsPro.Common.Model;
-using WotBlitzStatisticsPro.DataAccess.Model;
 using WotBlitzStatisticsPro.WgApiClient.Model;
 using WotBlitzStatisticsPro.Logic.Calculations;
 
@@ -18,7 +15,7 @@ namespace WotBlitzStatisticsPro.Logic.Mappers
             CreateMap<ClanAccountInfo, ClanInfoResponse>()
                 .ForMember(d => d.JoinedAt,
                     o => o.MapFrom(s => s.JoinedAt.HasValue ? s.JoinedAt.Value.ToDateTime() : new DateTime(1970, 1, 1)))
-                .ForMember(d => d.Role, 
+                .ForMember(d => d.RoleLocalized, 
                     o => o.MapFrom((src, dest, destMember, context) =>
                     {
                         var dictionary = context.Items["roles"] as Dictionary<string, string>;

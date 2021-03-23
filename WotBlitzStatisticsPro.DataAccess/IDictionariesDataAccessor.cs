@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common.Dictionaries;
 using WotBlitzStatisticsPro.Common.Model;
+using WotBlitzStatisticsPro.DataAccess.Model;
 
 namespace WotBlitzStatisticsPro.DataAccess
 {
@@ -32,5 +33,9 @@ namespace WotBlitzStatisticsPro.DataAccess
         Task<Dictionary<string, string>> GetTankTypes(RequestLanguage language);
 
         Task<Dictionary<string, string>> GetClanRoles(RequestLanguage language);
+
+        Task<List<AchievementSectionDictionary>> GetAchievementSections();
+
+        Task<Dictionary<string, AchievementDictionary>> GetAchievements(string[] achievementIds);
     }
 }

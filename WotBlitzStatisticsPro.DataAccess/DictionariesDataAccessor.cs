@@ -153,5 +153,21 @@ namespace WotBlitzStatisticsPro.DataAccess
 
             return collection.ToDictionary(n => n.ClanRoleId, n => n.ClanRoleValueValue);
         }
+
+        public async Task<List<AchievementSectionDictionary>> GetAchievementSections()
+        {
+            var collection = await _database.GetCollection<AchievementSectionDictionary>(AchievementsSectionsCollectionName)
+                .FindAsync(Builders<AchievementSectionDictionary>.Filter.Empty);
+            return collection.ToList();
+        }
+
+        public async Task<Dictionary<string, AchievementDictionary>> GetAchievements(string[] achievementIds)
+        {
+            var collection = await _database.GetCollection<AchievementDictionary>(AchievementsCollectionName)
+                .Find(Builders<AchievementDictionary>.Filter.In(v => v.AchievementId, achievementIds))
+                .ToListAsync();
+
+            return collection.ToDictionary(a => a.AchievementId, a => a);
+        }
     }
 }

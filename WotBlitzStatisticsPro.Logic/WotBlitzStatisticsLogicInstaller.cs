@@ -26,10 +26,12 @@ namespace WotBlitzStatisticsPro.Logic
             services.AddHttpClient<IWargamingApiClient, WargamingApiClient>();
             services.AddHttpClient<IWargamingDictionariesApiClient, WargamingApiClient>();
             services.AddHttpClient<IWargamingTanksApiClient, WargamingApiClient>();
+            services.AddHttpClient<IWargamingAchievementsApiClient, WargamingAchievementsApiClient>();
             services.AddTransient<IWargamingSearch, WargamingSearch>();
             services.AddTransient<IWargamingDictionaries, WargamingDictionaries>();
             services.AddTransient<IWargamingAccounts, WargamingAccounts>();
             services.AddTransient<IWargamingClans, WargamingClans>();
+            services.AddTransient<IWargamingAchievements, WargamingAchievements>();
         }
 
         private static void ConfigureDictionariesFactory(IServiceCollection services)
