@@ -29,7 +29,7 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
         public async Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var accountInfo = await 
-                _wargamingApi.GetPlayerAccountInfo(context.Request.AccountId, context.Request.RealmType, context.Request.RequestLanguage);
+                _wargamingApi.GetPlayerAccountInfo(context.Request.AccountId, context.Request.RealmType, context.Request.RequestLanguage, context.Request.AuthenticationToken);
 
             if (accountInfo == null)
             {

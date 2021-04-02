@@ -94,15 +94,24 @@ namespace WotBlitzStatisticsPro.WgApiClient
 
 
 
-        public async Task<WotAccountInfo?> GetPlayerAccountInfo(long accountId,
+        public async Task<WotAccountInfo?> GetPlayerAccountInfo(
+            long accountId,
 			RealmType realmType = RealmType.Ru,
-			RequestLanguage language = RequestLanguage.En)
+			RequestLanguage language = RequestLanguage.En,
+            string? authenticationToken = null)
 		{
-			var account = await GetFromBlitzApi<Dictionary<string, WotAccountInfo>>(
-				realmType,
-				language,
-				"account/info/",
-				$"account_id={accountId}").ConfigureAwait(false);
+			var account = authenticationToken == null 
+                ? await GetFromBlitzApi<Dictionary<string, WotAccountInfo>>(
+                    realmType,
+                    language,
+                    "account/info/",
+                    $"account_id={accountId}").ConfigureAwait(false)
+                : await GetFromBlitzApi<Dictionary<string, WotAccountInfo>>(
+				    realmType,
+				    language,
+				    "account/info/",
+				    $"account_id={accountId}",
+                    $"access_token={authenticationToken}").ConfigureAwait(false);
 			return account?[accountId.ToString()];
 		}
 

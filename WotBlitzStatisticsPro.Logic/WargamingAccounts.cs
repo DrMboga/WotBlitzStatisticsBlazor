@@ -20,7 +20,9 @@ namespace WotBlitzStatisticsPro.Logic
             _logger = logger;
         }
 
-        public async Task<AccountInfoResponse> GatherAccountInformation(RealmType realm, long accountId,
+        public async Task<AccountInfoResponse> GatherAccountInformation(
+            RealmType realm, 
+            long accountId,
             RequestLanguage requestLanguage)
         {
             var contextData = new AccountInformationPipelineContextData();
@@ -56,13 +58,17 @@ namespace WotBlitzStatisticsPro.Logic
             return contextData?.Response ?? new AccountInfoResponse();
         }
 
-        public async Task<AccountInfoResponse> GatherAndSaveAccountInformation(RealmType realm, long accountId, RequestLanguage requestLanguage)
+        public async Task<AccountInfoResponse> GatherAndSaveAccountInformation(
+            RealmType realm, 
+            long accountId, 
+            RequestLanguage requestLanguage,
+            string wargamingToken)
         {
             var contextData = new AccountInformationPipelineContextData();
             try
             {
 
-                var context = new OperationContext(new AccountRequest(accountId, realm, requestLanguage));
+                var context = new OperationContext(new AccountRequest(accountId, realm, requestLanguage, wargamingToken));
                 context.AddOrReplace(contextData);
                 var pipeline = new Pipeline<IOperationContext>(_operationFactory);
 

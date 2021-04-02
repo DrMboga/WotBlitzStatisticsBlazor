@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Types;
 using WotBlitzStatisticsPro.Common.Model;
@@ -40,10 +41,15 @@ namespace WotBlitzStatisticsPro.GraphQl.Mutation
         /// <param name="realmType">Account region</param>
         /// <param name="accountId">AccountId</param>
         /// <param name="requestLanguage">Request language</param>
+        /// <param name="wgToken">Wargaming authentication token</param>
         /// <returns></returns>
-        public Task<AccountInfoResponse> GatherAccountInformation(RealmType realmType, long accountId, RequestLanguage requestLanguage)
+        public Task<AccountInfoResponse> GatherAccountInformation(
+            RealmType realmType, 
+            long accountId, 
+            RequestLanguage requestLanguage,
+            [GlobalState("WgToken")] string wgToken)
         {
-            return _wargamingAccounts.GatherAndSaveAccountInformation(realmType, accountId, requestLanguage);
+            return _wargamingAccounts.GatherAndSaveAccountInformation(realmType, accountId, requestLanguage, wgToken);
         }
     }
 }

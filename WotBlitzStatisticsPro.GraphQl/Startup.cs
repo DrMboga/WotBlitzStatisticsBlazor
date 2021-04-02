@@ -94,7 +94,16 @@ namespace WotBlitzStatisticsPro.GraphQl
                 .AddHttpRequestInterceptor(
                     (context, executor, builder, ct) =>
                     {
-                        // your code
+                        // Get WgAccessToken from header and push it into context
+                        if (context.Request.Headers.ContainsKey("WargamingToken"))
+                        {
+                            var token = context.Request.Headers["WargamingToken"];
+                            if (token.Count == 1)
+                            {
+                                builder.SetProperty("WgToken", token[0]);
+                            }
+                        }
+
                         return ValueTask.CompletedTask;
                     })
                 ;
