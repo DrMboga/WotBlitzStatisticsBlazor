@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using HotChocolate.AspNetCore.Authorization;
+using HotChocolate.Types;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic;
 
@@ -7,6 +9,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Mutation
     /// <summary>
     /// WotBlitzStatistics Mutations
     /// </summary>
+    [ExtendObjectType(Name = "Mutation")]
     public class WotBlitzStatisticsMutation
     {
         private readonly IWargamingDictionaries _wargamingDictionaries;
@@ -24,6 +27,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Mutation
         /// </summary>
         /// <param name="updateDictionariesRequest">Determines what dictionaries should be updated.</param>
         /// <returns>Information about what was updated.</returns>
+        [Authorize(Policy = "GithubMbogaOnly")]
         public Task<UpdateDictionariesResponseItem[]> UpdateDictionaries(
             UpdateDictionariesRequest updateDictionariesRequest)
         {
