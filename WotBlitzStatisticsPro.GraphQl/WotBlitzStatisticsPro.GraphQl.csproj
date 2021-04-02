@@ -14,12 +14,14 @@
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.0.6" />
     <PackageReference Include="HotChocolate.Types.Filters" Version="11.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.4" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.10.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.10.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WotBlitzStatisticsPro.Blazor\WotBlitzStatisticsPro.Blazor.csproj" />
     <ProjectReference Include="..\WotBlitzStatisticsPro.Common\WotBlitzStatisticsPro.Common.csproj" />
     <ProjectReference Include="..\WotBlitzStatisticsPro.Logic\WotBlitzStatisticsPro.Logic.csproj" />
   </ItemGroup>

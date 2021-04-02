@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.DataA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.Tests", "WotBlitzStatisticsPro.Tests\WotBlitzStatisticsPro.Tests.csproj", "{551C3088-C6EA-45E1-A665-7C924C8407EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotBlitzStatisticsPro.Blazor", "WotBlitzStatisticsPro.Blazor\WotBlitzStatisticsPro.Blazor.csproj", "{3A27736F-B5DD-4310-A013-2BB65C975104}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{551C3088-C6EA-45E1-A665-7C924C8407EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{551C3088-C6EA-45E1-A665-7C924C8407EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{551C3088-C6EA-45E1-A665-7C924C8407EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A27736F-B5DD-4310-A013-2BB65C975104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A27736F-B5DD-4310-A013-2BB65C975104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A27736F-B5DD-4310-A013-2BB65C975104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A27736F-B5DD-4310-A013-2BB65C975104}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
