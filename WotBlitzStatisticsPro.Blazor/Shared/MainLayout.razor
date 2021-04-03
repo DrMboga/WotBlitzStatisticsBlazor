@@ -1,13 +1,63 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+    <RadzenDialog />
 
-    <div class="main">
-        <div class="content px-4">
-            @Body
+<RadzenHeader>
+    <ChildContent>
+        <div class="row justify-content-start align-items-center">
+            <div class="col-6 d-flex align-items-center">
+                <RadzenSidebarToggle Click="@(args => { sidebarExpanded = !sidebarExpanded; bodyExpanded = !bodyExpanded; })">
+                </RadzenSidebarToggle>
+                <RadzenLabel Text="WOT Blitz statistics">
+                </RadzenLabel>
+            </div>
         </div>
-    </div>
+    </ChildContent>
+</RadzenHeader>
+<div style="width:100%">
+    <RadzenBody @ref="@body0" @bind-Expanded="@bodyExpanded">
+        <ChildContent>
+            <RadzenContentContainer Name="main">
+                @Body
+            </RadzenContentContainer>
+        </ChildContent>
+    </RadzenBody>
 </div>
+<RadzenSidebar @ref="@sidebar0" @bind-Expanded="@sidebarExpanded">
+    <ChildContent>
+        <NavMenu />
+    </ChildContent>
+</RadzenSidebar>
+<RadzenFooter>
+    <ChildContent>
+        <RadzenLabel Text="WOT Blitz statistics, Copyright &copy; 2021">
+        </RadzenLabel>
+        <RadzenLink Text="[source]" Path="https://github.com/DrMboga/WotBlitzStatisticsBlazor" Target="_blank" Style="margin-left:5px;vertical-align:bottom;" />
+    </ChildContent>
+</RadzenFooter>
+
+@code {
+    RadzenSidebar sidebar0;
+    RadzenBody body0;
+    bool sidebarExpanded = false;
+    bool bodyExpanded = true;
+
+    protected override void OnInitialized()
+    {
+        @*if (httpContextAccessor != null && httpContextAccessor.HttpContext != null &&
+            httpContextAccessor.HttpContext.Request != null && httpContextAccessor.HttpContext.Request.Headers.ContainsKey("User-Agent"))
+        {
+            var userAgent = httpContextAccessor.HttpContext.Request.Headers["User-Agent"].FirstOrDefault();
+            if (!string.IsNullOrEmpty(userAgent))
+            {
+                if (userAgent.Contains("iPhone") || userAgent.Contains("Android") || userAgent.Contains("Googlebot"))
+                {
+                    sidebarExpanded = false;
+                    bodyExpanded = true;
+                }
+            }
+        }*@
+
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+    }
+}
