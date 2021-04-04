@@ -3,7 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using MediatR;
 using Radzen;
+using WotBlitzStatisticsPro.Blazor.Services;
 
 namespace WotBlitzStatisticsPro.Blazor
 {
@@ -17,6 +19,9 @@ namespace WotBlitzStatisticsPro.Blazor
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddScoped<DialogService>();
+            builder.Services.AddScoped<ISearchDialogService, SearchDialogService>();
+
+            builder.Services.AddMediatR(typeof(Program));
 
             await builder.Build().RunAsync();
         }

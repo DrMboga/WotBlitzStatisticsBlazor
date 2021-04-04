@@ -1,6 +1,8 @@
-﻿<div>
-    <RadzenPanelMenu >
-        <RadzenPanelMenuItem Text="Home" Icon="home" Path="/"></RadzenPanelMenuItem>
-        <RadzenPanelMenuItem Text="Counter" Icon="add_circle" Path="counter"></RadzenPanelMenuItem>
+﻿@inherits NavMenuBase
+<div>
+    <RadzenPanelMenu Click="@(MenuClicked)">
+        <RadzenPanelMenuItem Text="Home" Icon="home"></RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Text="Search player" Icon="person_search"></RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Text="Search clan" Icon="screen_search_desktop"></RadzenPanelMenuItem>
     </RadzenPanelMenu>
 </div>
