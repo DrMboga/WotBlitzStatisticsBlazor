@@ -8,7 +8,7 @@ Detailed player &amp; tank statistics and history for [World of Tanks: Blitz](ht
 ## Technologies used:
 
 - Backend - GraphQL API based on .NET 5.0 Web server ([GraphQL HotChocolate](https://hotchocolate.io/) + MongoDB)
-- Frontent - Blazor WebAssembly (coming soon)
+- Frontent - Blazor WebAssembly + [Radzen components](https://blazor.radzen.com/)
 
 ## Local MongoDB Installation for debugging ([Docker desktop for Windows](https://www.docker.com/products/docker-desktop))
 For the developing and debugging purposes, you have to istall MongoDB locally on your dev machine and run it as a service. Alternatively, if you have istalled [Docker desktop for Windows](https://www.docker.com/products/docker-desktop), you can deploy MongoDB inside the container. To do so, create an empty folder and make 2 files there: ```docker-compose.yml``` and ```.env```. Second one will contain sensitive data. 

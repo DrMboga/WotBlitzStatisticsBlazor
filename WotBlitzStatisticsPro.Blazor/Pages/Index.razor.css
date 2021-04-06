@@ -1,0 +1,17 @@
+﻿.splash {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.splash-content {
+    background-image: url('/Berlin.png');
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 375px;
+    height: 667px;
+}
+

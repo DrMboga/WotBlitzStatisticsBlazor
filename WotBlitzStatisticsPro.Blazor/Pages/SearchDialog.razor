@@ -1,8 +1,4 @@
-﻿@using WotBlitzStatisticsPro.Blazor.Model
+﻿@inherits SearchDialogTypeBase
 <h3>SearchDialog</h3>
 @DialogType
-
-@code {
-    [Parameter]
-    public DialogType DialogType { get; set; }
-}
+<RadzenButton Click=@(args => OnClick()) Text="Ok" Style="margin-bottom: 20px; width: 150px" />

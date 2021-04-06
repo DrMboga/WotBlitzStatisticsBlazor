@@ -1,6 +1,25 @@
 ﻿@page "/"
+@using MediatR
+@using WotBlitzStatisticsPro.Blazor.Messages
+@using WotBlitzStatisticsPro.Blazor.Model
+@inject IMediator Mediator
+<div class="splash">
+    <div class="splash-content">
+        <RadzenLabel Text="Welcome to WOT Blitz statistics application!" Style="margin: 30px 0px 100px 0px"></RadzenLabel>
 
-<h1>Hello, world!</h1>
+        <RadzenButton Click=@(async args => { await Mediator.Publish(new LoginToWgMessage()); })
+                      Icon="vpn_key"
+                      Text="Login with WG.net ID"
+                      Style="width: 250px; margin: 30px" />
+        <RadzenButton Click=@(async args => { await Mediator.Publish(new OpenSearchDialogMessage(DialogType.FindPlayer)); })
+                      Icon="person_search"
+                      Text="Search player"
+                      Style="width: 250px; margin: 30px" />
+        <RadzenButton Click=@(async args => { await Mediator.Publish(new OpenSearchDialogMessage(DialogType.FindClan)); })
+                      Icon="screen_search_desktop"
+                      Text="Search clan"
+                      Style="width: 250px; margin: 30px" />
 
-Welcome to your new app.
+    </div>
+</div>
 

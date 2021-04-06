@@ -23,6 +23,8 @@ namespace WotBlitzStatisticsPro.Blazor
 
             builder.Services.AddMediatR(typeof(Program));
 
+            builder.Services.AddSingleton<NavigationMessagesInterceptor>();
+
             await builder.Build().RunAsync();
         }
     }

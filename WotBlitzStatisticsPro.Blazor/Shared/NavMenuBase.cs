@@ -30,6 +30,9 @@ namespace WotBlitzStatisticsPro.Blazor.Shared
                 case "Home":
                     NavManager.NavigateTo("/");
                     break;
+                case "Login with WG.net ID":
+                    await Mediator.Publish(new LoginToWgMessage());
+                    break;
                 case "Search player":
                     await Mediator.Publish(new OpenSearchDialogMessage(DialogType.FindPlayer));
                     //await SearchDialogService.OpenSearchDialog(DialogType.FindPlayer);
