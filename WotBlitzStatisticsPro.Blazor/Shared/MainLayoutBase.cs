@@ -1,7 +1,13 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
+using MediatR;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using Radzen;
 using Radzen.Blazor;
+using WotBlitzStatisticsPro.Blazor.Messages;
 
 namespace WotBlitzStatisticsPro.Blazor.Shared
 {
@@ -10,10 +16,32 @@ namespace WotBlitzStatisticsPro.Blazor.Shared
         [Inject]
         private DialogService DialogService { get; set; }
 
+        [Inject]
+        private IMediator Mediator { get; set; }
+
         public RadzenSidebar Sidebar0;
         public RadzenBody Body0;
         public bool SidebarExpanded { get; set; } = false;
         public bool BodyExpanded { get; set; } = true;
+
+        public Dictionary<string, CultureInfo> CultureInfos { get; set; } = new()
+        {
+            { "en-US", new CultureInfo("en-US", false)},
+            { "ru-RU", new CultureInfo("ru-RU", false)},
+            { "de-DE", new CultureInfo("de-DE", false)}
+        };
+
+        public CultureInfo CurrentCultureInfo 
+        { 
+            get => CultureInfo.CurrentCulture;
+            set
+            {
+                if (CultureInfo.CurrentCulture != value)
+                {
+                    Mediator.Publish(new ChangeCurrentCultureMessage(value.Name));
+                }
+            }
+        }
 
         protected override void OnInitialized()
         {
@@ -31,14 +59,20 @@ namespace WotBlitzStatisticsPro.Blazor.Shared
             //    }
             //}
             
-
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
         }
 
         public void InvertSideBar()
         {
             SidebarExpanded = !SidebarExpanded; 
             BodyExpanded = !BodyExpanded;
+        }
+
+        public void LanguageSelected(RadzenSplitButtonItem item)
+        {
+            if (item != null)
+            {
+                CurrentCultureInfo = CultureInfos[item.Value];
+            }
         }
     }
 }

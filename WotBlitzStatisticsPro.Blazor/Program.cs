@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.JSInterop;
 using Radzen;
+using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Services;
 
 namespace WotBlitzStatisticsPro.Blazor
@@ -15,6 +18,7 @@ namespace WotBlitzStatisticsPro.Blazor
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
+            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
@@ -24,8 +28,20 @@ namespace WotBlitzStatisticsPro.Blazor
             builder.Services.AddMediatR(typeof(Program));
 
             builder.Services.AddSingleton<NavigationMessagesInterceptor>();
+            builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 
-            await builder.Build().RunAsync();
+            var host = builder.Build();
+            // Reading Current Culture from LocalStorage
+            var localStorageService = host.Services.GetRequiredService<ILocalStorageService>();
+            var settings = await localStorageService.GetItemAsync<UserSettings>(UserSettings.UserSettingsLocalStorageKey);
+            if (settings != null)
+            {
+                var culture = new CultureInfo(settings.Culture);
+                CultureInfo.DefaultThreadCurrentCulture = culture;
+                CultureInfo.DefaultThreadCurrentUICulture = culture;
+            }
+
+            await host.RunAsync();
         }
     }
 }

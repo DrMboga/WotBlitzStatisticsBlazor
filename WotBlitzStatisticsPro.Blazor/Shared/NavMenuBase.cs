@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Radzen;
 using WotBlitzStatisticsPro.Blazor.Messages;
 using WotBlitzStatisticsPro.Blazor.Model;
@@ -19,6 +20,10 @@ namespace WotBlitzStatisticsPro.Blazor.Shared
         [Inject]
         public ISearchDialogService SearchDialogService { get; set; }
 
+        [Inject]
+        private IStringLocalizer<App> Localizer { get; set; }
+
+
         [Parameter]
         public EventCallback CloseSideBar { get; set; }
 
@@ -27,17 +32,17 @@ namespace WotBlitzStatisticsPro.Blazor.Shared
             await CloseSideBar.InvokeAsync();
             switch (menuItem.Text)
             {
-                case "Home":
+                case var _ when(Localizer.GetString("Home")) == menuItem.Text:
                     NavManager.NavigateTo("/");
                     break;
-                case "Login with WG.net ID":
+                case var _ when (Localizer.GetString("Login with WG.net ID")) == menuItem.Text:
                     await Mediator.Publish(new LoginToWgMessage());
                     break;
-                case "Search player":
+                case var _ when (Localizer.GetString("Search player")) == menuItem.Text:
                     await Mediator.Publish(new OpenSearchDialogMessage(DialogType.FindPlayer));
                     //await SearchDialogService.OpenSearchDialog(DialogType.FindPlayer);
                     break;
-                case "Search clan":
+                case var _ when (Localizer.GetString("Search clan")) == menuItem.Text:
                     await Mediator.Publish(new OpenSearchDialogMessage(DialogType.FindClan));
                     break;
             }

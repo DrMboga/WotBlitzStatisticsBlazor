@@ -11,6 +11,16 @@
                 <RadzenLabel Text="WOT Blitz statistics">
                 </RadzenLabel>
             </div>
+            <div class="col-6 d-flex align-items-center justify-content-end">
+                <RadzenSplitButton Click=@(LanguageSelected) Icon="language" Text="@CurrentCultureInfo.NativeName" Style="margin:0 .5rem">
+                    <ChildContent>
+                        @foreach (var ci in CultureInfos)
+                        {
+                            <RadzenSplitButtonItem Text="@ci.Value.DisplayName" Value="@ci.Key" />
+                        }
+                    </ChildContent>
+                </RadzenSplitButton>
+            </div>
         </div>
     </ChildContent>
 </RadzenHeader>
