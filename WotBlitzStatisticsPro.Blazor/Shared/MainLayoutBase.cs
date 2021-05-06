@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Threading;
 using MediatR;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
 using Radzen;
 using Radzen.Blazor;
 using WotBlitzStatisticsPro.Blazor.Messages;
@@ -13,9 +10,6 @@ namespace WotBlitzStatisticsPro.Blazor.Shared
 {
     public class MainLayoutBase: LayoutComponentBase
     {
-        [Inject]
-        private DialogService DialogService { get; set; }
-
         [Inject]
         private IMediator Mediator { get; set; }
 
