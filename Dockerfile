@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 WORKDIR /src
 COPY ["WotBlitzStatisticsPro.GraphQl/WotBlitzStatisticsPro.GraphQl.csproj", "WotBlitzStatisticsPro.GraphQl/"]
+COPY ["WotBlitzStatisticsPro.Blazor/WotBlitzStatisticsPro.Blazor.csproj", "WotBlitzStatisticsPro.Blazor/"]
 COPY ["WotBlitzStatisticsPro.Logic/WotBlitzStatisticsPro.Logic.csproj", "WotBlitzStatisticsPro.Logic/"]
 COPY ["WotBlitzStatisticsPro.DataAccess/WotBlitzStatisticsPro.DataAccess.csproj", "WotBlitzStatisticsPro.DataAccess/"]
 COPY ["WotBlitzStatisticsPro.Common/WotBlitzStatisticsPro.Common.csproj", "WotBlitzStatisticsPro.Common/"]
