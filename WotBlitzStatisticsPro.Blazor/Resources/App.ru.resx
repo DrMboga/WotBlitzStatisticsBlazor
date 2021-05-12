@@ -123,6 +123,9 @@
   <data name="Login with WG.net ID" xml:space="preserve">
     <value>Войти с WG.net ID</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
   <data name="Search clan" xml:space="preserve">
     <value>Поиск клана</value>
   </data>

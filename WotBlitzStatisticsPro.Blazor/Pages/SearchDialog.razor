@@ -1,4 +1,16 @@
-﻿@inherits SearchDialogTypeBase
-<h3>SearchDialog</h3>
-@DialogType
-<RadzenButton Click=@(args => OnClick()) Text="Ok" Style="margin-bottom: 20px; width: 150px" />
+﻿@using WotBlitzStatisticsPro.Blazor.Model
+@inherits SearchDialogTypeBase
+<!--Realm type selection-->
+<RadzenTextBox Placeholder=@($"{Localizer["Search"]}...") Change=@OnSearchTextChange Style="width: 100%;" />
+
+<RadzenListBox 
+    @bind-Value=@CurrentValue 
+     Data=@FilteredList 
+     ValueProperty="ItemId"
+     Style="height:335px; width: 100%; margin-top: 10px;">
+    <Template>
+        <!--ToDo: Create new component that will show nick[clan] {WinRate with color}, {battles count with translatable word "battles"}. And another component for Clans-->
+        @(((SearchItem) context).ItemName) | accountId: @(((SearchItem) context).ItemId)
+    </Template>
+</RadzenListBox>
+<RadzenButton Click=@(args => OnOkButtonClick()) Text="Ok" Style="margin: 10px auto 10px auto; display: block; width: 150px; " />
