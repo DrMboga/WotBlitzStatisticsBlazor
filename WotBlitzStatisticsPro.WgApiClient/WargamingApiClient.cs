@@ -115,7 +115,19 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			return account?[accountId.ToString()];
 		}
 
-		public async Task<ClanAccountInfo?> GetPlayerClanInfo(long accountId,
+        public async Task<List<WotAccountInfo>?> GetShortPlayerAccountsInfo(long[] accountIds, RealmType realmType = RealmType.Ru,
+            RequestLanguage language = RequestLanguage.En, string? authenticationToken = null)
+        {
+            var accounts = await GetFromBlitzApi<Dictionary<string, WotAccountInfo>>(
+                realmType,
+                language,
+                "account/info/",
+                $"account_id={string.Join(',', accountIds)}&fields=account_id,nickname,last_battle_time,statistics.all.battles,statistics.all.wins").ConfigureAwait(false);
+
+            return accounts?.Values.ToList();
+        }
+
+        public async Task<ClanAccountInfo?> GetPlayerClanInfo(long accountId,
 			RealmType realmType = RealmType.Ru,
 			RequestLanguage language = RequestLanguage.En)
 		{
@@ -148,8 +160,27 @@ namespace WotBlitzStatisticsPro.WgApiClient
             return null;
 		}
 
-        // https://api.wotblitz.ru/wotb/encyclopedia/achievements/?application_id=adc1387489cf9fc8d9a1d85dbd27763d
+        public async Task<List<ClanAccountInfo>?> GetBulkPlayerClans(long[] accountIds, RealmType realmType = RealmType.Ru,
+            RequestLanguage language = RequestLanguage.En)
+        {
+            var clanInfo = await GetFromBlitzApi<Dictionary<string, ClanAccountInfo>>(
+                realmType,
+                language,
+                "clans/accountinfo/",
+                $"account_id={string.Join(',', accountIds)}&fields=account_id,clan_id,account_name").ConfigureAwait(false);
+            return clanInfo?.Values.Where(c => c != null).ToList();
+        }
 
+        public async Task<List<ClanInfo>?> GetShortClansInfo(long[] clanIds, RealmType realmType = RealmType.Ru,
+            RequestLanguage language = RequestLanguage.En)
+        {
+            var clanInfo = await GetFromBlitzApi<Dictionary<string, ClanInfo>>(
+                realmType,
+                language,
+                "clans/info/",
+                $"clan_id={string.Join(',', clanIds)}&fields=clan_id,tag").ConfigureAwait(false);
+            return clanInfo?.Values.ToList();
+        }
 
         #region Tanks methods
 
