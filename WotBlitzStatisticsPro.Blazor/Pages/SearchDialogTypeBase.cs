@@ -33,6 +33,8 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         public long CurrentValue { get; set; }
 
+        public bool ComponentBusy { get; set; } = false;
+
         public async Task OnSearchTextChange(string value)
         {
             if (DialogType == DialogType.FindPlayer && value.Length < 3)
@@ -41,9 +43,8 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             }
 
             FilteredList.Clear();
+            ComponentBusy = true;
             await InvokeAsync(StateHasChanged);
-
-            // ToDo: Add busy cursor
 
             // ToDo: Move this call to a service
             var accounts =
@@ -58,8 +59,10 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
                 }
 
-                await InvokeAsync(StateHasChanged);
             }
+
+            ComponentBusy = false;
+            await InvokeAsync(StateHasChanged);
         }
 
         public async Task OnOkButtonClick()

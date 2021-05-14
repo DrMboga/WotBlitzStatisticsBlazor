@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -30,11 +31,10 @@ namespace WotBlitzStatisticsPro.Blazor
             builder.Services.AddSingleton<NavigationMessagesInterceptor>();
             builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 
-            // ToDo: Find out URL
             // StrawberryShake GraphQL Client
             builder.Services
                 .AddWotBlitzStatisticsProClient()
-                .ConfigureHttpClient(client => client.BaseAddress = new Uri($"https://localhost:5001/graphql/"));
+                .ConfigureHttpClient(client => client.BaseAddress = new Uri($"{builder.HostEnvironment.BaseAddress}graphql/"));
 
 
             var host = builder.Build();
