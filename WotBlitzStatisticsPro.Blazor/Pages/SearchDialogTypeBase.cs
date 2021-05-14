@@ -50,26 +50,6 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         }
 
-        public async Task OnLoadSearchData(LoadDataArgs args)
-        {
-            if (DialogType == DialogType.FindPlayer && args.Filter.Length < 3)
-            {
-                return;
-            }
-
-            FilteredList.Clear();
-            await InvokeAsync(StateHasChanged);
-
-            // ToDo: Call GraphQL Backend CurrentRealmType + args.Filter
-            await Task.Delay(1000);
-            for (int i = 0; i < 15; i++)
-            {
-                FilteredList.Add(new SearchItem(i, $"Item number {i}"));
-            }
-
-            await InvokeAsync(StateHasChanged);
-        }
-
         public async Task OnOkButtonClick()
         {
             if (CurrentValue > 0)
