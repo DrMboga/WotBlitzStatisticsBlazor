@@ -1,0 +1,19 @@
+﻿query findAccounts(
+    $accountNick: String!, 
+    $realmType: RealmType!,
+    $language: RequestLanguage!) {
+  findAccounts(
+    accountNick: $accountNick, 
+    realmType: $realmType, 
+    language: $language) {
+    accountsCount
+    accounts {
+      accountId
+      nickname
+      clanTag
+      lastBattle
+      battlesCount
+      winRate
+    }
+  }
+}

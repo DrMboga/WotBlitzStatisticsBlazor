@@ -30,6 +30,13 @@ namespace WotBlitzStatisticsPro.Blazor
             builder.Services.AddSingleton<NavigationMessagesInterceptor>();
             builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 
+            // ToDo: Find out URL
+            // StrawberryShake GraphQL Client
+            builder.Services
+                .AddWotBlitzStatisticsProClient()
+                .ConfigureHttpClient(client => client.BaseAddress = new Uri($"https://localhost:5001/graphql/"));
+
+
             var host = builder.Build();
             // Reading Current Culture from LocalStorage
             var localStorageService = host.Services.GetRequiredService<ILocalStorageService>();

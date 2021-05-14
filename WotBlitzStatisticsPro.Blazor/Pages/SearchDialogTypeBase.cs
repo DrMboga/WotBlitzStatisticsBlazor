@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Radzen;
+using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Messages;
 using WotBlitzStatisticsPro.Blazor.Model;
 
@@ -19,6 +20,9 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         [Inject]
         public IStringLocalizer<App> Localizer { get; set; }
+
+        [Inject]
+        public WotBlitzStatisticsProClient WotBlitzStatisticsProClient { get; set; }
 
         [Parameter]
         public DialogType DialogType { get; set; }
@@ -39,15 +43,23 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             FilteredList.Clear();
             await InvokeAsync(StateHasChanged);
 
-            // ToDo: Call GraphQL Backend CurrentRealmType + value
-            await Task.Delay(1000);
-            for (int i = 0; i < 15; i++)
+            // ToDo: Add busy cursor
+
+            // ToDo: Move this call to a service
+            var accounts =
+                await WotBlitzStatisticsProClient.FindAccounts.ExecuteAsync(value, RealmType.Ru, RequestLanguage.En);
+
+            if (accounts?.Data?.FindAccounts?.Accounts != null)
             {
-                FilteredList.Add(new SearchItem(i, $"Item number {i}"));
+
+                foreach (var account in accounts.Data.FindAccounts.Accounts)
+                {
+                    FilteredList.Add(new SearchItem(account.AccountId, $"{account.Nickname} [{account.ClanTag}] | {account.WinRate}%"));
+
+                }
+
+                await InvokeAsync(StateHasChanged);
             }
-
-            await InvokeAsync(StateHasChanged);
-
         }
 
         public async Task OnOkButtonClick()

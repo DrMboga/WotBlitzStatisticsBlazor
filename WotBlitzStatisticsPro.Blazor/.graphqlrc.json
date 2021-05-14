@@ -4,7 +4,7 @@
   "extensions": {
     "strawberryShake": {
         "name": "WotBlitzStatisticsProClient",
-        "namespace": "WotBlitzStatisticsPro.Blazor",
+        "namespace": "WotBlitzStatisticsPro.Blazor.GraphQl",
         "url": "https://localhost:5001/graphql/",
         "dependencyInjection": true,
         "strictSchemaValidation": true,
