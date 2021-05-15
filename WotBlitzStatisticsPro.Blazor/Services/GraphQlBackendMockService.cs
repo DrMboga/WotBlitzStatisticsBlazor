@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using Bogus;
 using Bogus.Extensions;
@@ -9,11 +10,11 @@ namespace WotBlitzStatisticsPro.Blazor.Services
 {
     public class GraphQlBackendMockService: IGraphQlBackendService
     {
-        public async Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(string accountNick, RealmType realmType, RequestLanguage language)
+        public async Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(string accountNick, RealmType realmType)
         {
             var result = new List<IFindPlayers_Players>();
 
-            var faker = new Faker(FakerLanguage(language));
+            var faker = new Faker(FakerLanguage(GetLanguage()));
             var random = faker.Random.Number(10, 80);
 
             for (int i = 0; i < random; i++)
@@ -32,11 +33,11 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             return result;
         }
 
-        public async Task<IReadOnlyList<IFindClans_Clans>?> FindClans(string clanNameOrTag, RealmType realmType, RequestLanguage language)
+        public async Task<IReadOnlyList<IFindClans_Clans>?> FindClans(string clanNameOrTag, RealmType realmType)
         {
             var result = new List<IFindClans_Clans>();
 
-            var faker = new Faker(FakerLanguage(language));
+            var faker = new Faker(FakerLanguage(GetLanguage()));
             var random = faker.Random.Number(10, 80);
 
             for (int i = 0; i < random; i++)
@@ -65,6 +66,21 @@ namespace WotBlitzStatisticsPro.Blazor.Services
                     return "de";
                 default:
                     return "en";
+            }
+        }
+
+        private RequestLanguage GetLanguage()
+        {
+            var culture = CultureInfo.CurrentCulture;
+
+            switch (culture.Name)
+            {
+                case "ru-RU":
+                    return RequestLanguage.Ru;
+                case "de-DE":
+                    return RequestLanguage.De;
+                default:
+                    return RequestLanguage.En;
             }
         }
     }

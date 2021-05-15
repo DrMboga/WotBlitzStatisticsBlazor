@@ -32,7 +32,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         public List<SearchItem> FilteredList { get; set; } = new();
 
-        //public RealmType CurrentRealmType { get; set; } = RealmType.Eu;
+        public RealmType CurrentRealmType { get; set; } = RealmType.Eu;
 
         public long CurrentValue { get; set; }
 
@@ -40,7 +40,6 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         public async Task OnSearchTextChange(string value)
         {
-            var env = Environment.GetEnvironmentVariable("USE_GRAPH_QL_MOCK");
             if (DialogType == DialogType.FindPlayer && value.Length < 3)
             {
                 return;
@@ -52,7 +51,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
             // ToDo: Move this call to a service
             var accounts =
-                await GraphQlBackendService.FindPlayers(value, RealmType.Ru, RequestLanguage.En);
+                await GraphQlBackendService.FindPlayers(value, CurrentRealmType);
 
             if (accounts != null)
             {

@@ -8,12 +8,10 @@ namespace WotBlitzStatisticsPro.Blazor.Services
     {
         Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(
             string accountNick, 
-            RealmType realmType,
-            RequestLanguage language);
+            RealmType realmType);
 
         Task<IReadOnlyList<IFindClans_Clans>?> FindClans(
             string clanNameOrTag, 
-            RealmType realmType,
-            RequestLanguage language);
+            RealmType realmType);
     }
 }

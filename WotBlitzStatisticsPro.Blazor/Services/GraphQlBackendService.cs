@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
 
@@ -13,20 +14,36 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             _client = client;
         }
 
-        public async Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(string accountNick, RealmType realmType, RequestLanguage language)
+        public async Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(string accountNick, RealmType realmType)
         {
             var accounts =
-                await _client.FindPlayers.ExecuteAsync(accountNick, RealmType.Ru, RequestLanguage.En);
+                await _client.FindPlayers.ExecuteAsync(accountNick, realmType, GetLanguage());
 
             return accounts.Data?.Players;
         }
 
-        public async Task<IReadOnlyList<IFindClans_Clans>?> FindClans(string clanNameOrTag, RealmType realmType, RequestLanguage language)
+        public async Task<IReadOnlyList<IFindClans_Clans>?> FindClans(string clanNameOrTag, RealmType realmType)
         {
             var clans =
-                await _client.FindClans.ExecuteAsync(clanNameOrTag, RealmType.Ru, RequestLanguage.En);
+                await _client.FindClans.ExecuteAsync(clanNameOrTag, realmType, GetLanguage());
 
             return clans.Data?.Clans;
         }
+
+        private RequestLanguage GetLanguage()
+        {
+            var culture = CultureInfo.CurrentCulture;
+
+            switch (culture.Name)
+            {
+                case "ru-RU":
+                    return RequestLanguage.Ru;
+                case "de-DE":
+                    return RequestLanguage.De;
+                default:
+                    return RequestLanguage.En;
+            }
+        }
+
     }
 }
