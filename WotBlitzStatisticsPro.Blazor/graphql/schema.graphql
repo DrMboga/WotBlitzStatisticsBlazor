@@ -5,9 +5,9 @@
 
 type Query {
   "Finds Wargaming accounts by nick"
-  findAccounts("Search string." accountNick: String! "Wargaming Realm." realmType: RealmType "Language for the output data." language: RequestLanguage): AccountsSearchResponse!
+  players("Search string." accountNick: String! "Wargaming Realm." realmType: RealmType "Language for the output data." language: RequestLanguage): [AccountsSearchResponseItem!]!
   "Finds clans by search string"
-  findClans("Search string." searchString: String! "Wargaming Realm." realmType: RealmType "Language for the output data." language: RequestLanguage): ClanSearchResponse!
+  clans("Search string." searchString: String! "Wargaming Realm." realmType: RealmType "Language for the output data." language: RequestLanguage): [ClanSearchResponseItem!]
   "Gathers all account information"
   accountInfo("AccountId" accountId: Long! "Account region" realmType: RealmType "Request language" requestLanguage: RequestLanguage): AccountInfoResponse!
   "Account statistics history for period since \"startDate\""
@@ -147,14 +147,6 @@ type AccountsSearchResponseItem {
   battlesCount: Long!
   "Last battle time"
   lastBattle: DateTime!
-}
-
-"Response contains a list of found accounts"
-type AccountsSearchResponse {
-  "Count of found accounts"
-  accountsCount: Int!
-  "Found accounts list"
-  accounts: [AccountsSearchResponseItem!]
 }
 
 enum ApplyPolicy {
@@ -363,14 +355,6 @@ type AccountInfoHistoryResponse {
   periodDifference: StatisticsDifference
   "The detailed history"
   statisticsHistory: [StatisticsDifference!]
-}
-
-"Response with list of found clans"
-type ClanSearchResponse {
-  "Count of clans in the list"
-  clansCount: Int!
-  "List of clans"
-  clans: [ClanSearchResponseItem!]
 }
 
 "Found clans list item"

@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,7 +88,6 @@ namespace WotBlitzStatisticsPro.GraphQl
                     .AddType<WotBlitzStatisticsMutation>()
                     .AddType<AuthenticationMutation>()
                 .AddType<AccountsSearchItemObjectType>()
-                .AddType<AccountsSearchObjectType>()
                 .AddEnumType<MarkOfMastery>()
                 .AddEnumType<RealmType>()
                 .AddEnumType<RequestLanguage>()

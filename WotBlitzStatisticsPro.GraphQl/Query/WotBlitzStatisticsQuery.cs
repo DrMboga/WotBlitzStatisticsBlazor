@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using HotChocolate.Types;
 using WotBlitzStatisticsPro.Common.Model;
@@ -29,7 +30,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Query
         /// <param name="realmType">Wargaming Realm.</param>
         /// <param name="language">Language for the output data.</param>
         /// <returns></returns>
-        public Task<AccountsSearchResponse> FindAccounts(
+        public Task<ICollection<AccountsSearchResponseItem>> Players(
             string accountNick, 
             RealmType? realmType,
             RequestLanguage? language)
@@ -44,7 +45,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Query
         /// <param name="realmType">Wargaming Realm.</param>
         /// <param name="language">Language for the output data.</param>
         /// <returns></returns>
-        public Task<ClanSearchResponse> FindClans(
+        public Task<ICollection<ClanSearchResponseItem>?> Clans(
             string searchString, 
             RealmType? realmType,
             RequestLanguage? language)

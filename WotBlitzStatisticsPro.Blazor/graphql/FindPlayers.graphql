@@ -1,19 +1,16 @@
-﻿query findAccounts(
+﻿query findPlayers(
     $accountNick: String!, 
     $realmType: RealmType!,
     $language: RequestLanguage!) {
-  findAccounts(
+  players(
     accountNick: $accountNick, 
     realmType: $realmType, 
     language: $language) {
-    accountsCount
-    accounts {
       accountId
       nickname
       clanTag
       lastBattle
       battlesCount
       winRate
-    }
   }
 }

@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Radzen;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
+//using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Messages;
 using WotBlitzStatisticsPro.Blazor.Model;
+using WotBlitzStatisticsPro.Blazor.Services;
 
 namespace WotBlitzStatisticsPro.Blazor.Pages
 {
@@ -22,7 +25,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         public IStringLocalizer<App> Localizer { get; set; }
 
         [Inject]
-        public WotBlitzStatisticsProClient WotBlitzStatisticsProClient { get; set; }
+        public IGraphQlBackendService GraphQlBackendService { get; set; }
 
         [Parameter]
         public DialogType DialogType { get; set; }
@@ -37,6 +40,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         public async Task OnSearchTextChange(string value)
         {
+            var env = Environment.GetEnvironmentVariable("USE_GRAPH_QL_MOCK");
             if (DialogType == DialogType.FindPlayer && value.Length < 3)
             {
                 return;
@@ -48,12 +52,12 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
             // ToDo: Move this call to a service
             var accounts =
-                await WotBlitzStatisticsProClient.FindAccounts.ExecuteAsync(value, RealmType.Ru, RequestLanguage.En);
+                await GraphQlBackendService.FindPlayers(value, RealmType.Ru, RequestLanguage.En);
 
-            if (accounts?.Data?.FindAccounts?.Accounts != null)
+            if (accounts != null)
             {
 
-                foreach (var account in accounts.Data.FindAccounts.Accounts)
+                foreach (var account in accounts)
                 {
                     FilteredList.Add(new SearchItem(account.AccountId, $"{account.Nickname} [{account.ClanTag}] | {account.WinRate}%"));
 

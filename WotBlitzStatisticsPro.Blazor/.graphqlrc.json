@@ -9,7 +9,7 @@
         "dependencyInjection": true,
         "strictSchemaValidation": true,
         "hashAlgorithm": "md5",
-        "useSingleFile": true,
+        "useSingleFile": false,
         "requestStrategy": "Default",
         "outputDirectoryName": "Generated",
         "noStore": false,

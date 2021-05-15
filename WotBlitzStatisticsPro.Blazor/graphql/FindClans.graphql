@@ -1,0 +1,15 @@
+query findClans (
+    $searchString: String!, 
+    $realmType: RealmType!,
+    $language: RequestLanguage!) {
+  clans(
+    searchString: $searchString, 
+    realmType: $realmType, 
+    language: $language) {
+      clanId
+      createdAt
+      membersCount
+      name
+      tag
+  }
+}

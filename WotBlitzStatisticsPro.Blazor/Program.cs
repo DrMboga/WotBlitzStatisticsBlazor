@@ -36,6 +36,16 @@ namespace WotBlitzStatisticsPro.Blazor
                 .AddWotBlitzStatisticsProClient()
                 .ConfigureHttpClient(client => client.BaseAddress = new Uri($"{builder.HostEnvironment.BaseAddress}graphql/"));
 
+            // ToDo: Asp Net hosting environment variables don't work here. I don't know why
+            //var useMock = Environment.GetEnvironmentVariable("USE_GRAPH_QL_MOCK");
+            //if (useMock != null && useMock == "true")
+            //{
+                builder.Services.AddTransient<IGraphQlBackendService, GraphQlBackendMockService>();
+            //}
+            //else
+            //{
+            //    builder.Services.AddTransient<IGraphQlBackendService, GraphQlBackendService>();
+            //}
 
             var host = builder.Build();
             // Reading Current Culture from LocalStorage

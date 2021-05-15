@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Bogus;
+using Bogus.Extensions;
+using WotBlitzStatisticsPro.Blazor.GraphQl;
+
+namespace WotBlitzStatisticsPro.Blazor.Services
+{
+    public class GraphQlBackendMockService: IGraphQlBackendService
+    {
+        public async Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(string accountNick, RealmType realmType, RequestLanguage language)
+        {
+            var result = new List<IFindPlayers_Players>();
+
+            var faker = new Faker(FakerLanguage(language));
+            var random = faker.Random.Number(10, 80);
+
+            for (int i = 0; i < random; i++)
+            {
+                result.Add(new FindPlayers_Players_AccountsSearchResponseItem(
+                    faker.Random.Long(100000, 999999),
+                    faker.Name.LastName(),
+                    faker.Lorem.Word().OrNull(faker, 0.8f),
+                    faker.Date.Past(),
+                    faker.Random.Number(10, 20000),
+                    faker.Random.Number(30, 90)));
+            }
+
+            await Task.Delay(1000);
+
+            return result;
+        }
+
+        public async Task<IReadOnlyList<IFindClans_Clans>?> FindClans(string clanNameOrTag, RealmType realmType, RequestLanguage language)
+        {
+            var result = new List<IFindClans_Clans>();
+
+            var faker = new Faker(FakerLanguage(language));
+            var random = faker.Random.Number(10, 80);
+
+            for (int i = 0; i < random; i++)
+            {
+                result.Add(new FindClans_Clans_ClanSearchResponseItem(
+                    faker.Random.Long(100000, 999999),
+                    Convert.ToInt32((faker.Date.Past() - new DateTime(1970, 1, 1)).TotalMilliseconds),
+                    faker.Random.Number(1, 50),
+                    faker.Lorem.Word(),
+                    faker.Lorem.Letter()));
+            }
+
+
+            await Task.Delay(1000);
+
+            return result;
+        }
+
+        private string FakerLanguage(RequestLanguage language)
+        {
+            switch (language)
+            {
+                case RequestLanguage.Ru:
+                    return "ru";
+                case RequestLanguage.De:
+                    return "de";
+                default:
+                    return "en";
+            }
+        }
+    }
+}

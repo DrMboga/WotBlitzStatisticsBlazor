@@ -19,7 +19,7 @@ namespace WotBlitzStatisticsPro.Logic
             _mapper = mapper;
         }
 
-        public async Task<AccountsSearchResponse> FindAccounts(
+        public async Task<ICollection<AccountsSearchResponseItem>?> FindAccounts(
             string accountNick, 
             RealmType realmType,
             RequestLanguage language)
@@ -28,21 +28,17 @@ namespace WotBlitzStatisticsPro.Logic
 
             if (searchResponse == null)
             {
-                return new AccountsSearchResponse();
+                return null;
             }
 
-            var response = new AccountsSearchResponse
-            {
-                AccountsCount = searchResponse.Count,
-                Accounts = _mapper.Map<List<WotAccountListResponse>, List<AccountsSearchResponseItem>>(searchResponse)
-            };
+            var accounts = _mapper.Map<List<WotAccountListResponse>, List<AccountsSearchResponseItem>>(searchResponse);
 
             if (searchResponse.Count > 100)
             {
-                return response;
+                return accounts;
             }
 
-            var accountIds = response.Accounts.Select(a => a.AccountId).ToArray();
+            var accountIds = accounts.Select(a => a.AccountId).ToArray();
 
             var shortAccountInfos =
                 await _wargamingApiClient.GetShortPlayerAccountsInfo(accountIds, realmType, language);
@@ -55,9 +51,9 @@ namespace WotBlitzStatisticsPro.Logic
                     realmType, language);
             }
 
-            for (int i = 0; i < response.Accounts.Count; i++)
+            for (int i = 0; i < accounts.Count; i++)
             {
-                var accountResponse = response.Accounts.ToArray()[i];
+                var accountResponse = accounts.ToArray()[i];
                 var shortAccountInfo = shortAccountInfos?.FirstOrDefault(a => a.AccountId == accountResponse.AccountId);
                 if (shortAccountInfo != null)
                 {
@@ -77,13 +73,12 @@ namespace WotBlitzStatisticsPro.Logic
             }
 
             // Filter WOT Blitz accounts
-            response.Accounts = response.Accounts.Where(a => a.BattlesCount > 0).ToList();
-            response.AccountsCount = response.Accounts.Count;
+            accounts = accounts.Where(a => a.BattlesCount > 0).ToList();
 
-            return response;
+            return accounts;
         }
 
-        public async Task<ClanSearchResponse> FindClans(
+        public async Task<ICollection<ClanSearchResponseItem>?> FindClans(
             string searchString, 
             RealmType realmType, 
             RequestLanguage language)
@@ -92,14 +87,10 @@ namespace WotBlitzStatisticsPro.Logic
 
             if (response == null)
             {
-                return new ClanSearchResponse();
+                return null;
             }
 
-            return new ClanSearchResponse
-            {
-                ClansCount = response.Count,
-                Clans = _mapper.Map<List<WotClanListResponse>, List<ClanSearchResponseItem>>(response)
-            };
+            return _mapper.Map<List<WotClanListResponse>, List<ClanSearchResponseItem>>(response);
         }
     }
 }
