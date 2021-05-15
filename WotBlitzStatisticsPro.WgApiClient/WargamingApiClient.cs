@@ -163,6 +163,10 @@ namespace WotBlitzStatisticsPro.WgApiClient
         public async Task<List<ClanAccountInfo>?> GetBulkPlayerClans(long[] accountIds, RealmType realmType = RealmType.Ru,
             RequestLanguage language = RequestLanguage.En)
         {
+            if (accountIds.Length == 0)
+            {
+                return null;
+            }
             var clanInfo = await GetFromBlitzApi<Dictionary<string, ClanAccountInfo>>(
                 realmType,
                 language,
@@ -174,6 +178,10 @@ namespace WotBlitzStatisticsPro.WgApiClient
         public async Task<List<ClanInfo>?> GetShortClansInfo(long[] clanIds, RealmType realmType = RealmType.Ru,
             RequestLanguage language = RequestLanguage.En)
         {
+            if (clanIds.Length == 0)
+            {
+                return null;
+            }
             var clanInfo = await GetFromBlitzApi<Dictionary<string, ClanInfo>>(
                 realmType,
                 language,

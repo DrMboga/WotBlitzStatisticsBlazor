@@ -30,7 +30,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Query
         /// <param name="realmType">Wargaming Realm.</param>
         /// <param name="language">Language for the output data.</param>
         /// <returns></returns>
-        public Task<ICollection<AccountsSearchResponseItem>> Players(
+        public Task<ICollection<AccountsSearchResponseItem>?> Players(
             string accountNick, 
             RealmType? realmType,
             RequestLanguage? language)

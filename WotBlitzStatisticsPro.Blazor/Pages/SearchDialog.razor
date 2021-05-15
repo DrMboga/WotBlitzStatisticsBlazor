@@ -1,23 +1,34 @@
 ﻿@using WotBlitzStatisticsPro.Blazor.Model
 @inherits SearchDialogTypeBase
-<!--Realm type selection-->
-<RadzenTextBox Placeholder=@($"{Localizer["Search"]}...") Change=@OnSearchTextChange Disabled="@ComponentBusy" Style="width: 100%;" />
-<RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" 
-                   Visible="@ComponentBusy"
-                   Style="width: 100%; margin-top: 10px;" />
-<RadzenListBox 
-    @bind-Value=@CurrentValue 
-     Data=@FilteredList 
-     ValueProperty="ItemId"
-     Style="height:335px; width: 100%; margin-top: 10px;"
-     Visible="@(!ComponentBusy)">
-    <Template>
-        <!--ToDo: Create new component that will show nick[clan] {WinRate with color}, {battles count with translatable word "battles"}. And another component for Clans-->
-        @(((SearchItem) context).ItemName) | accountId: @(((SearchItem) context).ItemId)
-    </Template>
-</RadzenListBox>
-<RadzenButton 
-    Click=@(args => OnOkButtonClick()) 
-    Text="Ok" 
-    Visible="@(!ComponentBusy)"
-    Style="margin: 10px auto 10px auto; display: block; width: 150px; " />
+<div class="row">
+    <div class="col-md-4">
+        <RadzenDropDown @bind-Value=@CurrentRealmType
+                         Data=@Realms
+                         ValueProperty="RealmType"
+                         Style="width: 87px">
+            <Template>
+                <img src="@(((RealmSelector) context).RealmImage)" style="height: 27px"/>
+            </Template>
+        </RadzenDropDown>
+    </div>
+    <div class="col-md-8">
+        <RadzenTextBox Placeholder=@($"{Localizer["Search"]}...") Change=@OnSearchTextChange Disabled="@ComponentBusy" Style="width: 150px;"/>
+    </div>
+</div>
+    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate"
+                       Visible="@ComponentBusy"
+                       Style="width: 100%; margin-top: 10px;" />
+    <RadzenListBox @bind-Value=@CurrentValue
+                   Data=@FilteredList
+                   ValueProperty="ItemId"
+                   Style="height:335px; width: 100%; margin-top: 10px;"
+                   Visible="@(!ComponentBusy)">
+        <Template>
+            <!--ToDo: Create new component that will show nick[clan] {WinRate with color}, {battles count with translatable word "battles"}. And another component for Clans-->
+            @(((SearchItem) context).ItemName) | accountId: @(((SearchItem) context).ItemId)
+        </Template>
+    </RadzenListBox>
+    <RadzenButton Click=@(args => OnOkButtonClick())
+                  Text="Ok"
+                  Visible="@(!ComponentBusy)"
+                  Style="margin: 10px auto 10px auto; display: block; width: 150px; " />

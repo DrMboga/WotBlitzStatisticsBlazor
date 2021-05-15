@@ -21,8 +21,8 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             {
                 result.Add(new FindPlayers_Players_AccountsSearchResponseItem(
                     faker.Random.Long(100000, 999999),
-                    faker.Name.LastName(),
-                    faker.Lorem.Word().OrNull(faker, 0.8f),
+                    faker.Internet.UserName(),
+                    faker.Hacker.Abbreviation().OrNull(faker, 0.6f),
                     faker.Date.Past(),
                     faker.Random.Number(10, 20000),
                     faker.Random.Number(30, 90)));

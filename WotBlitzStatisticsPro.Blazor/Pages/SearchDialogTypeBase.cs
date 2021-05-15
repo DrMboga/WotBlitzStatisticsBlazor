@@ -32,11 +32,25 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         public List<SearchItem> FilteredList { get; set; } = new();
 
+        public List<RealmSelector> Realms { get; set; }
+
         public RealmType CurrentRealmType { get; set; } = RealmType.Eu;
 
         public long CurrentValue { get; set; }
 
         public bool ComponentBusy { get; set; } = false;
+
+        public SearchDialogTypeBase()
+        {
+            Realms = new List<RealmSelector>()
+            {
+                new(RealmType.Eu, "/realm/region.eu.scale-200.png"),
+                new(RealmType.Ru, "/realm/region.ru.scale-200.png"),
+                new(RealmType.Na, "/realm/region.na.scale-200.png"),
+                new(RealmType.Asia, "/realm/region.asia.scale-200.png"),
+            };
+
+        }
 
         public async Task OnSearchTextChange(string value)
         {
