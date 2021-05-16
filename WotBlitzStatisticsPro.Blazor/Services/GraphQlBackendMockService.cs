@@ -44,7 +44,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             {
                 result.Add(new FindClans_Clans_ClanSearchResponseItem(
                     faker.Random.Long(100000, 999999),
-                    Convert.ToInt32((faker.Date.Past() - new DateTime(1970, 1, 1)).TotalMilliseconds),
+                    Convert.ToInt32((faker.Date.Past() - new DateTime(1970, 1, 1)).TotalSeconds),
                     faker.Random.Number(1, 50),
                     faker.Lorem.Word(),
                     faker.Lorem.Letter()));

@@ -29,9 +29,10 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         [Parameter]
         public DialogType DialogType { get; set; }
 
-        public List<SearchItem> FilteredList { get; set; } = new();
-
         public List<RealmSelector> Realms { get; set; }
+
+        public List<IFindPlayers_Players> PlayersList { get; set; } = new();
+        public List<IFindClans_Clans> ClansList { get; set; } = new();
 
         public RealmType CurrentRealmType { get; set; } = RealmType.Eu;
 
@@ -58,22 +59,18 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 return;
             }
 
-            FilteredList.Clear();
             ComponentBusy = true;
+            PlayersList.Clear();
+            ClansList.Clear();
             await InvokeAsync(StateHasChanged);
-
-            var accounts =
-                await GraphQlBackendService.FindPlayers(value, CurrentRealmType);
-
-            if (accounts != null)
+            if (DialogType == DialogType.FindPlayer)
             {
+                await FindPlayers(value);
+            }
 
-                foreach (var account in accounts)
-                {
-                    FilteredList.Add(new SearchItem(account.AccountId, $"{account.Nickname} [{account.ClanTag}] | {account.WinRate}%"));
-
-                }
-
+            if (DialogType == DialogType.FindClan)
+            {
+                await FindClans(value);
             }
 
             ComponentBusy = false;
@@ -84,10 +81,39 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         {
             if (CurrentValue > 0)
             {
-                await Mediator.Publish(new OpenPlayerInfoMessage(CurrentValue, false));
+                if (DialogType == DialogType.FindPlayer)
+                {
+                    await Mediator.Publish(new OpenPlayerInfoMessage(CurrentValue, false));
+                }
+
+                if (DialogType == DialogType.FindClan)
+                {
+                    //await Mediator.Publish(new OpenClanInfoMessage(CurrentValue, false));
+                }
             }
 
             DialogService.Close(true);
+        }
+
+        private async Task FindPlayers(string searchString)
+        {
+            var accounts =
+                await GraphQlBackendService.FindPlayers(searchString, CurrentRealmType);
+            if (accounts != null)
+            {
+                PlayersList = new List<IFindPlayers_Players>(accounts);
+            }
+
+        }
+        
+        private async Task FindClans(string searchString)
+        {
+            var clans =
+                await GraphQlBackendService.FindClans(searchString, CurrentRealmType);
+            if (clans != null)
+            {
+                ClansList = new List<IFindClans_Clans>(clans);
+            }
         }
     }
 }

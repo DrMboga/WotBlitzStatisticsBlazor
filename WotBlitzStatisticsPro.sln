@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.Blazor", "WotBlitzStatisticsPro.Blazor\WotBlitzStatisticsPro.Blazor.csproj", "{3A27736F-B5DD-4310-A013-2BB65C975104}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotBlitzStatisticsPro.Blazor.Tests", "WotBlitzStatisticsPro.Blazor.Tests\WotBlitzStatisticsPro.Blazor.Tests.csproj", "{7969D13E-2148-4608-8500-2DA22947A39C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotBlitzStatisticsPro.Blazor.Tests", "WotBlitzStatisticsPro.Blazor.Tests\WotBlitzStatisticsPro.Blazor.Tests.csproj", "{7969D13E-2148-4608-8500-2DA22947A39C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
