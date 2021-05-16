@@ -1,7 +1,7 @@
 ﻿@using WotBlitzStatisticsPro.Blazor.Model
 @inherits SearchDialogTypeBase
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-4">
         <RadzenDropDown @bind-Value=@CurrentRealmType
                          Data=@Realms
                          ValueProperty="RealmType"
@@ -11,7 +11,7 @@
             </Template>
         </RadzenDropDown>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 col-8">
         <RadzenTextBox Placeholder=@($"{Localizer["Search"]}...") Change=@OnSearchTextChange Disabled="@ComponentBusy" Style="width: 150px;"/>
     </div>
 </div>
@@ -21,7 +21,7 @@
     <RadzenListBox @bind-Value=@CurrentValue
                    Data=@FilteredList
                    ValueProperty="ItemId"
-                   Style="height:335px; width: 100%; margin-top: 10px;"
+                   Style="height:330px; width: 100%; margin-top: 10px;"
                    Visible="@(!ComponentBusy)">
         <Template>
             <!--ToDo: Create new component that will show nick[clan] {WinRate with color}, {battles count with translatable word "battles"}. And another component for Clans-->

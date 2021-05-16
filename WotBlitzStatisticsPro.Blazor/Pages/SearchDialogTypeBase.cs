@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Radzen;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
-//using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Messages;
 using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Services;
@@ -63,7 +62,6 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             ComponentBusy = true;
             await InvokeAsync(StateHasChanged);
 
-            // ToDo: Move this call to a service
             var accounts =
                 await GraphQlBackendService.FindPlayers(value, CurrentRealmType);
 

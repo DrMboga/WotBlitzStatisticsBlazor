@@ -2,6 +2,7 @@ using System;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using HotChocolate;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.Common.Model;
@@ -77,7 +79,6 @@ namespace WotBlitzStatisticsPro.GraphQl
                     };
                 });
 
-
             // Add GraphQL Services
             services.AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
@@ -107,6 +108,10 @@ namespace WotBlitzStatisticsPro.GraphQl
 
                         return ValueTask.CompletedTask;
                     })
+                .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
+                .AddErrorFilter(sp =>
+                    new GraphQlErrorFilter
+                        (sp.GetApplicationService<ILogger<GraphQlErrorFilter>>()))
                 ;
 
             // Blazor

@@ -24,12 +24,14 @@ namespace WotBlitzStatisticsPro.Blazor
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddScoped<DialogService>();
+            builder.Services.AddScoped<NotificationService>();
             builder.Services.AddScoped<ISearchDialogService, SearchDialogService>();
 
             builder.Services.AddMediatR(typeof(Program));
 
             builder.Services.AddSingleton<NavigationMessagesInterceptor>();
             builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
+            builder.Services.AddSingleton<INotificationsService, NotificationsService>();
 
             // StrawberryShake GraphQL Client
             builder.Services

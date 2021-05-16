@@ -13,6 +13,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests
     {
         protected Mock<IMediator> MediatorMock;
         protected Mock<ISearchDialogService> SearchServiceMock;
+        protected Mock<INotificationsService> NotificationsServiceMock;
         protected MockNavigationManager NavigationManagerMock;
 
         [SetUp]
@@ -21,13 +22,16 @@ namespace WotBlitzStatisticsPro.Blazor.Tests
             MediatorMock = new();
             SearchServiceMock = new();
             NavigationManagerMock = new();
+            NotificationsServiceMock = new ();
 
             TestContext = new Bunit.TestContext();
             TestContext.Services.AddSingleton(MediatorMock.Object);
             TestContext.Services.AddLocalization();
 
             TestContext.Services.AddSingleton<DialogService>();
+            TestContext.Services.AddSingleton<NotificationService>();
             TestContext.Services.AddSingleton(SearchServiceMock.Object);
+            TestContext.Services.AddSingleton(NotificationsServiceMock.Object);
 
 
             TestContext.Services.AddSingleton<NavigationManager>(NavigationManagerMock);
