@@ -24,13 +24,39 @@ namespace WotBlitzStatisticsPro.Blazor.Helpers
             return $"{difference.value} {ago}";
         }
 
+        public static string SinceTime(this DateTimeOffset time, IStringLocalizer<App> localizer)
+        {
+            var currentDate = DateTime.Now;
+
+            var difference = ParseTheDifference(currentDate - time);
+            string ago = difference.interval switch
+            {
+                TimeInterval.Year => localizer.GetString("years ago"),
+                TimeInterval.Month => localizer.GetString("months ago"),
+                TimeInterval.Day => localizer.GetString("days ago"),
+                TimeInterval.Hour => localizer.GetString("hours ago"),
+                TimeInterval.Minute => localizer.GetString("minutes ago")
+            };
+
+            return $"{difference.value} {ago}";
+        }
+
         public static (int value, TimeInterval interval) ParseTheDifference(TimeSpan difference)
         {
-            // ToDo: Check hours and mins if Days is 0
+            if (difference.TotalHours < 1)
+            {
+                return (Convert.ToInt32(difference.TotalMinutes), TimeInterval.Minute);
+            }
+
+            if (difference.TotalDays < 1)
+            {
+                return (Convert.ToInt32(difference.TotalHours), TimeInterval.Hour);
+            }
+
             return difference.TotalDays switch
             {
                 >= 365 => (CalculateYears(difference.TotalDays), TimeInterval.Year),
-                (> 30) and (< 365) => (CalculateMonths(difference.TotalDays), TimeInterval.Month),
+                (>= 30) and (< 365) => (CalculateMonths(difference.TotalDays), TimeInterval.Month),
                 _ => (Convert.ToInt32(difference.TotalDays), TimeInterval.Day)
             };
         }

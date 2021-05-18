@@ -126,11 +126,17 @@
   <data name="Home" xml:space="preserve">
     <value>На главную</value>
   </data>
+  <data name="hours ago" xml:space="preserve">
+    <value>часов назад</value>
+  </data>
   <data name="Login with WG.net ID" xml:space="preserve">
     <value>Войти с WG.net ID</value>
   </data>
   <data name="Members" xml:space="preserve">
     <value>Участников</value>
+  </data>
+  <data name="minutes ago" xml:space="preserve">
+    <value>минут назад</value>
   </data>
   <data name="months ago" xml:space="preserve">
     <value>месяцев назад</value>

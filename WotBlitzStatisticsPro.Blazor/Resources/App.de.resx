@@ -126,11 +126,17 @@
   <data name="Home" xml:space="preserve">
     <value>Startseite</value>
   </data>
+  <data name="hours ago" xml:space="preserve">
+    <value>vor Stunden</value>
+  </data>
   <data name="Login with WG.net ID" xml:space="preserve">
     <value>Anmelden mit WG.net-ID</value>
   </data>
   <data name="Members" xml:space="preserve">
     <value>Mitglieder</value>
+  </data>
+  <data name="minutes ago" xml:space="preserve">
+    <value>vor Minuten</value>
   </data>
   <data name="months ago" xml:space="preserve">
     <value>vor Monaten</value>
