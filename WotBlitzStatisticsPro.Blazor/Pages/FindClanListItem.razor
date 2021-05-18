@@ -1,4 +1,5 @@
-﻿@inject IStringLocalizer<App> Localize
+﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@inject IStringLocalizer<App> Localize
 <div class="container">
     <div class="row">
         <div class="col-sm-4 col-4">
@@ -13,7 +14,7 @@
             <span style="font-size: 11px"><img src="/clan/clan.sortby.role.scale-200.png" style="height: 20px" /> @Clan.MembersCount</span>
         </div>
         <div class="col-sm-9 col-9" title="@Localize["Created"]">
-            <span style="font-size: 11px"><img src="/icons/calendar.scale-200.png" style="height: 20px" /> @Clan.CreatedAt</span>
+            <span style="font-size: 11px"><img src="/icons/calendar.scale-200.png" style="height: 20px" /> @Clan.CreatedAt.SinceTime(Localize)</span>
         </div>
     </div>
 </div>

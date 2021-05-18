@@ -120,6 +120,9 @@
   <data name="Created" xml:space="preserve">
     <value>Создан</value>
   </data>
+  <data name="days ago" xml:space="preserve">
+    <value>дней назад</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>На главную</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="Members" xml:space="preserve">
     <value>Участников</value>
+  </data>
+  <data name="months ago" xml:space="preserve">
+    <value>месяцев назад</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
@@ -140,5 +146,8 @@
   </data>
   <data name="Welcome to WOT Blitz statistics application!" xml:space="preserve">
     <value>Добро пожаловать в WOT Blitz statistics!</value>
+  </data>
+  <data name="years ago" xml:space="preserve">
+    <value>лет назад</value>
   </data>
 </root>
