@@ -26,6 +26,9 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         [Inject]
         public IGraphQlBackendService GraphQlBackendService { get; set; }
 
+        [Inject]
+        public ILocalStorageService LocalStorageService { get; set; }
+
         [Parameter]
         public DialogType DialogType { get; set; }
 
@@ -51,6 +54,23 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             };
 
         }
+
+        protected override async Task OnInitializedAsync()
+        {
+            var settings = await LocalStorageService.ReadSettings();
+            CurrentRealmType = settings.RealmType;
+
+            await base.OnInitializedAsync();
+        }
+
+        public async Task OnRealmChanged(object value)
+        {
+            if (value is RealmType realm)
+            {
+                await Mediator.Publish(new ChangeCurrentRealmTypeMessage(realm));
+            }
+        }
+
 
         public async Task OnSearchTextChange(string value)
         {

@@ -5,7 +5,8 @@
         <RadzenDropDown @bind-Value=@CurrentRealmType
                          Data=@Realms
                          ValueProperty="RealmType"
-                         Style="width: 87px">
+                         Style="width: 87px"
+                         Change="@OnRealmChanged">
             <Template>
                 <img src="@(((RealmSelector) context).RealmImage)" style="height: 27px"/>
             </Template>

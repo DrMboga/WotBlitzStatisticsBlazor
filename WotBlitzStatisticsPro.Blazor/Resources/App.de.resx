@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Battles" xml:space="preserve">
+    <value>Schlachten</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>Erstellt</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="hours ago" xml:space="preserve">
     <value>vor Stunden</value>
+  </data>
+  <data name="Last battle" xml:space="preserve">
+    <value>Letzte Schlacht</value>
   </data>
   <data name="Login with WG.net ID" xml:space="preserve">
     <value>Anmelden mit WG.net-ID</value>
@@ -152,6 +158,9 @@
   </data>
   <data name="Welcome to WOT Blitz statistics application!" xml:space="preserve">
     <value>Willkommen bei der WOT Blitz statistics!</value>
+  </data>
+  <data name="Win rate" xml:space="preserve">
+    <value>Gewinnrate</value>
   </data>
   <data name="years ago" xml:space="preserve">
     <value>vor Jahren</value>
