@@ -6,6 +6,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using Moq;
 using NUnit.Framework;
+using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Messages;
 using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Services;
@@ -52,7 +53,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             args.Should().NotBeNull();
             args.Count.Should().Be(2);
             args[0].Should().Be("user-settings");
-            args[1].Should().Be($"{{\"Culture\":\"{cultureName}\"}}");
+            args[1].Should().Be($"{{\"Culture\":\"{cultureName}\",\"RealmType\":{(int)RealmType.Eu}}}");
 
             _navigationManagerMock.NavigationCount.Should().Be(1);
         }
