@@ -1,11 +1,17 @@
 ﻿using System;
+using Microsoft.JSInterop;
 using WotBlitzStatisticsPro.Blazor.Model;
 
 namespace WotBlitzStatisticsPro.Blazor.Services
 {
     public class NotificationsService: INotificationsService
     {
-        // ToDo: Add JSInterop console.log
+        private readonly IJSRuntime _jsRuntime;
+
+        public NotificationsService(IJSRuntime jsRuntime)
+        {
+            _jsRuntime = jsRuntime;
+        }
 
         public NotificationType Type { get; private set; } = NotificationType.Info;
         
@@ -21,6 +27,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             Message = message;
             Summary = summary;
             MessageArrived?.Invoke();
+            _jsRuntime.InvokeVoidAsync("console.log", summary, message);
         }
 
         public void ReportWarning(string summary, string message)
@@ -29,6 +36,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             Message = message;
             Summary = summary;
             MessageArrived?.Invoke();
+            _jsRuntime.InvokeVoidAsync("console.warn", summary, message);
         }
 
         public void ReportError(string summary, string message)
@@ -37,6 +45,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             Message = message;
             Summary = summary;
             MessageArrived?.Invoke();
+            _jsRuntime.InvokeVoidAsync("console.error", summary, message);
         }
     }
 }

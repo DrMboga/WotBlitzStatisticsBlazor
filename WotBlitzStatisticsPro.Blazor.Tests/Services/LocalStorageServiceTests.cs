@@ -58,6 +58,24 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             _navigationManagerMock.NavigationCount.Should().Be(1);
         }
 
+        [Test]
+        public async Task ShouldInvokeJsLocalStorageSetWithAppropriateDataOnChangeCurrentRealm()
+        {
+            var expectedRealm = RealmType.Asia;
+            await _localStorageService.Handle(new ChangeCurrentRealmTypeMessage(expectedRealm), CancellationToken.None);
+
+            _jsRuntimeMock.Invocations.Count.Should().Be(2);
+            var jsInvocations = _jsRuntimeMock.Invocations.ToArray();
+            jsInvocations[0].Identifier.Should().Be("localStorage.getItem");
+            jsInvocations[1].Identifier.Should().Be("localStorage.setItem");
+
+            var args = jsInvocations[1].Arguments;
+            args.Should().NotBeNull();
+            args.Count.Should().Be(2);
+            args[0].Should().Be("user-settings");
+            args[1].Should().Be($"{{\"Culture\":\"en-US\",\"RealmType\":{(int)expectedRealm}}}");
+        }
+
         [TearDown]
         public void TearDown() => _testContext?.Dispose();
 
