@@ -10,6 +10,18 @@ namespace WotBlitzStatisticsPro.Blazor.Services
 {
     public class GraphQlBackendMockService: IGraphQlBackendService
     {
+        private readonly bool _needToWait;
+
+        public GraphQlBackendMockService()
+        {
+            _needToWait = true;
+        }
+
+        public GraphQlBackendMockService(bool needToWait)
+        {
+            _needToWait = needToWait;
+        }
+
         public async Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(string accountNick, RealmType realmType)
         {
             var result = new List<IFindPlayers_Players>();
@@ -28,7 +40,10 @@ namespace WotBlitzStatisticsPro.Blazor.Services
                     faker.Random.Number(30, 90)));
             }
 
-            await Task.Delay(1000);
+            if (_needToWait)
+            {
+                await Task.Delay(1000);
+            }
 
             return result;
         }
@@ -51,7 +66,10 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             }
 
 
-            await Task.Delay(1000);
+            if (_needToWait)
+            {
+                await Task.Delay(1000);
+            }
 
             return result;
         }
