@@ -39,7 +39,12 @@ namespace WotBlitzStatisticsPro.Logic.Mappers
                     o => o.MapFrom(s => string.IsNullOrEmpty(s.TypeId) ? "-" : s.TypeId))
                 .ForMember(d => d.Name,
                     o => o.MapFrom((src, dest, destMember, context) =>
-                        src.Name.FirstOrDefault(l => l.Language == (RequestLanguage) context.Items["language"])?.Value));
+                        src.Name.FirstOrDefault(l => l.Language == (RequestLanguage) context.Items["language"])?.Value))
+                .ForMember(d => d.PreviewImage, 
+                    o => o.MapFrom(s => s.PreviewImage))
+                .ForMember(d => d.NormalImage, 
+                    o => o.MapFrom(s => s.NormalImage))
+                ;
 
         }
     }

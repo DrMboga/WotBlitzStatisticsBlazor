@@ -193,5 +193,16 @@ namespace WotBlitzStatisticsPro.Common.Model
         /// </summary>
         public bool IsPremium { get; set; }
 
+        /// <summary>
+        /// Vehicle preview image
+        /// </summary>
+        public string? PreviewImage { get; set; }
+
+        /// <summary>
+        /// Vehicle normal image
+        /// </summary>
+        public string? NormalImage { get; set; }
+
+
     }
 }
