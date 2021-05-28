@@ -13,5 +13,9 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         Task<IReadOnlyList<IFindClans_Clans>?> FindClans(
             string clanNameOrTag, 
             RealmType realmType);
+
+        Task<IPlayer_AccountInfo> GetPlayerInfo(
+            long accountId,
+            RealmType realmType);
     }
 }

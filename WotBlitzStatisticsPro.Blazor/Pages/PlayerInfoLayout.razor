@@ -1,5 +1,13 @@
 ﻿@page "/player/{AccountId:long}"
+@using WotBlitzStatisticsPro.Blazor.Helpers
 @inherits PlayerInfoLayoutBase
 <h3>PlayerInfoLayout</h3>
 AccountId: @AccountId
 
+@if (AccountInfo != null)
+{
+<p>
+    Player:
+    @AccountInfo.Json()
+</p>
+}

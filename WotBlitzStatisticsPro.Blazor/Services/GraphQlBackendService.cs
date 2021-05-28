@@ -38,6 +38,14 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             return clans.Data?.Clans;
         }
 
+        public async Task<IPlayer_AccountInfo> GetPlayerInfo(long accountId, RealmType realmType)
+        {
+            var playerInfo = await _client.Player.ExecuteAsync(accountId, realmType, GetLanguage());
+            CheckErrors(playerInfo.Errors);
+
+            return playerInfo.Data?.AccountInfo;
+        }
+
         private RequestLanguage GetLanguage()
         {
             var culture = CultureInfo.CurrentCulture;

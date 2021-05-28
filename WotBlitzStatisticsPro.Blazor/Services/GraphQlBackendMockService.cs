@@ -74,6 +74,11 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             return result;
         }
 
+        public Task<IPlayer_AccountInfo> GetPlayerInfo(long accountId, RealmType realmType)
+        {
+            throw new NotImplementedException();
+        }
+
         private string FakerLanguage(RequestLanguage language)
         {
             switch (language)
