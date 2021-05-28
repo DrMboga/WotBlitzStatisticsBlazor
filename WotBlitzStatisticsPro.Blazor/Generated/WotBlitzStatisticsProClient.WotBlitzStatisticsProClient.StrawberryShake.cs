@@ -9,16 +9,16 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
     public partial class WotBlitzStatisticsProClient : global::WotBlitzStatisticsPro.Blazor.GraphQl.IWotBlitzStatisticsProClient
     {
-        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery _findClans;
         private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery _findPlayers;
-        public WotBlitzStatisticsProClient(global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery findClans, global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery findPlayers)
+        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery _findClans;
+        public WotBlitzStatisticsProClient(global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery findPlayers, global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery findClans)
         {
-            _findClans = findClans ?? throw new global::System.ArgumentNullException(nameof(findClans));
             _findPlayers = findPlayers ?? throw new global::System.ArgumentNullException(nameof(findPlayers));
+            _findClans = findClans ?? throw new global::System.ArgumentNullException(nameof(findClans));
         }
 
         public static global::System.String ClientName => "WotBlitzStatisticsProClient";
-        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery FindClans => _findClans;
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery FindPlayers => _findPlayers;
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery FindClans => _findClans;
     }
 }
