@@ -168,5 +168,9 @@ namespace WotBlitzStatisticsPro.Common.Model
 		/// </summary>
         public ClanInfoResponse? ClanInfo { get; set; }
 
-	}
+        /// <summary>
+        /// Account Region and request language
+        /// </summary>
+        public RealmAndLanguage RegionAndLanguage { get; set; } = new(RealmType.Eu, RequestLanguage.En);
+    }
 }

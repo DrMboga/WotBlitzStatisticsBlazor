@@ -1,6 +1,5 @@
 ﻿using HotChocolate.Types;
 using WotBlitzStatisticsPro.Common.Model;
-using WotBlitzStatisticsPro.GraphQl.Helpers;
 using WotBlitzStatisticsPro.Logic;
 
 namespace WotBlitzStatisticsPro.GraphQl.Resolvers
@@ -11,8 +10,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Resolvers
         protected override void Configure(IObjectTypeDescriptor<AccountInfoResponse> descriptor)
         {
             descriptor.Field(t => t.ClanInfo)
-            .Resolver(ctx => ctx.Service<IWargamingClans>().GelClanInfoByAccount(ctx.Parent<AccountInfoResponse>().AccountId, ctx.Operation.ParseOperation()));
-            
+            .Resolver(ctx => ctx.Service<IWargamingClans>().GelClanInfoByAccount(ctx.Parent<AccountInfoResponse>().AccountId, ctx.Parent<AccountInfoResponse>().RegionAndLanguage));
         }
     }
 }
