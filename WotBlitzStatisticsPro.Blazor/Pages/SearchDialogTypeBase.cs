@@ -108,7 +108,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
                 if (DialogType == DialogType.FindClan)
                 {
-                    //await Mediator.Publish(new OpenClanInfoMessage(CurrentValue, false));
+                    await Mediator.Publish(new OpenClanInfoMessage(CurrentValue));
                 }
             }
 
