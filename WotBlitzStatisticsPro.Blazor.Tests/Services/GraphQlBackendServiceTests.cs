@@ -14,6 +14,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
     {
         private Mock<IFindClansQuery> _findClanQueryMock;
         private Mock<IFindPlayersQuery> _findPlayersQueryMock;
+        private Mock<IPlayerQuery> _playerQueryMock;
         private WotBlitzStatisticsProClient _generatedClient;
         private Mock<INotificationsService> _notificationServiceMock;
         private GraphQlBackendService _service;
@@ -33,12 +34,13 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
         {
             _findClanQueryMock = new();
             _findPlayersQueryMock = new();
+            _playerQueryMock = new();
 
             await SetUpFindClans();
             await SetUpFindPlayers();
 
             _generatedClient =
-                new WotBlitzStatisticsProClient(_findClanQueryMock.Object, _findPlayersQueryMock.Object);
+                new WotBlitzStatisticsProClient(_findClanQueryMock.Object, _findPlayersQueryMock.Object, _playerQueryMock.Object);
 
             _notificationServiceMock = new();
 

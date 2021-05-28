@@ -9,8 +9,10 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
     public interface IWotBlitzStatisticsProClient
     {
+        global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery FindClans { get; }
+
         global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery FindPlayers { get; }
 
-        global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery FindClans { get; }
+        global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerQuery Player { get; }
     }
 }
