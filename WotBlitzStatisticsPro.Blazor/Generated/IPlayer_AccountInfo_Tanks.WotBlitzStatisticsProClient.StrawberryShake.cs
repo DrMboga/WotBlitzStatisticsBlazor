@@ -15,29 +15,9 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         public global::System.Int64 TankId { get; }
 
         /// <summary>
-        /// Tank name
+        /// Total time in battle until tank killed
         /// </summary>
-        public global::System.String? Name { get; }
-
-        /// <summary>
-        /// Localized tank nation name
-        /// </summary>
-        public global::System.String? TankNation { get; }
-
-        /// <summary>
-        /// Localized tank type name
-        /// </summary>
-        public global::System.String? TankType { get; }
-
-        /// <summary>
-        /// Tank tier
-        /// </summary>
-        public global::System.Int32 Tier { get; }
-
-        /// <summary>
-        /// Is it premium tank or not
-        /// </summary>
-        public global::System.Boolean IsPremium { get; }
+        public global::System.Int32 BattleLifeTimeInSeconds { get; }
 
         /// <summary>
         /// Last battle
@@ -45,9 +25,99 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         public global::System.DateTimeOffset LastBattleTime { get; }
 
         /// <summary>
+        /// Mark of Mastery
+        /// </summary>
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.MarkOfMastery MarkOfMastery { get; }
+
+        /// <summary>
         /// Battles count
         /// </summary>
         public global::System.Int64 Battles { get; }
+
+        /// <summary>
+        /// Base capture points
+        /// </summary>
+        public global::System.Int64 CapturePoints { get; }
+
+        /// <summary>
+        /// Damage dealt
+        /// </summary>
+        public global::System.Int64 DamageDealt { get; }
+
+        /// <summary>
+        /// Damage received
+        /// </summary>
+        public global::System.Int64 DamageReceived { get; }
+
+        /// <summary>
+        /// Base dropped capture points
+        /// </summary>
+        public global::System.Int64 DroppedCapturePoints { get; }
+
+        /// <summary>
+        /// Frags count
+        /// </summary>
+        public global::System.Int64 Frags { get; }
+
+        /// <summary>
+        /// Frags count after 8 tier
+        /// </summary>
+        public global::System.Int64 Frags8P { get; }
+
+        /// <summary>
+        /// Hits count
+        /// </summary>
+        public global::System.Int64 Hits { get; }
+
+        /// <summary>
+        /// Losses count
+        /// </summary>
+        public global::System.Int64 Losses { get; }
+
+        /// <summary>
+        /// Max frags per battle
+        /// </summary>
+        public global::System.Int64 MaxFrags { get; }
+
+        /// <summary>
+        /// Max XP per battle
+        /// </summary>
+        public global::System.Int64 MaxXp { get; }
+
+        /// <summary>
+        /// Shots count
+        /// </summary>
+        public global::System.Int64 Shots { get; }
+
+        /// <summary>
+        /// Spotted vehicles count
+        /// </summary>
+        public global::System.Int64 Spotted { get; }
+
+        /// <summary>
+        /// Amount of survived battles
+        /// </summary>
+        public global::System.Int64 SurvivedBattles { get; }
+
+        /// <summary>
+        /// Amount of survived and wined battles
+        /// </summary>
+        public global::System.Int64 WinAndSurvived { get; }
+
+        /// <summary>
+        /// Wins count
+        /// </summary>
+        public global::System.Int64 Wins { get; }
+
+        /// <summary>
+        /// Total experience
+        /// </summary>
+        public global::System.Int64 Xp { get; }
+
+        /// <summary>
+        /// Wn7 coefficient
+        /// </summary>
+        public global::System.Double Wn7 { get; }
 
         /// <summary>
         /// Tank's win rate
@@ -65,11 +135,6 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         public global::System.Decimal AvgXp { get; }
 
         /// <summary>
-        /// Average life time in battle until tank is killed.
-        /// </summary>
-        public global::System.Decimal AvgBattleLifeTimeInMinutes { get; }
-
-        /// <summary>
         /// Damage coefficient
         /// </summary>
         public global::System.Decimal DamageCoefficient { get; }
@@ -78,5 +143,55 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         /// Rate of survival
         /// </summary>
         public global::System.Decimal SurvivalRate { get; }
+
+        /// <summary>
+        /// Average life time in battle until tank is killed.
+        /// </summary>
+        public global::System.Decimal AvgBattleLifeTimeInMinutes { get; }
+
+        /// <summary>
+        /// Tank name
+        /// </summary>
+        public global::System.String? Name { get; }
+
+        /// <summary>
+        /// Tank nation dictionary identifier
+        /// </summary>
+        public global::System.String? TankNationId { get; }
+
+        /// <summary>
+        /// Localized tank nation name
+        /// </summary>
+        public global::System.String? TankNation { get; }
+
+        /// <summary>
+        /// Tank tier
+        /// </summary>
+        public global::System.Int32 Tier { get; }
+
+        /// <summary>
+        /// Tank type dictionary identifier
+        /// </summary>
+        public global::System.String? TankTypeId { get; }
+
+        /// <summary>
+        /// Localized tank type name
+        /// </summary>
+        public global::System.String? TankType { get; }
+
+        /// <summary>
+        /// Is it premium tank or not
+        /// </summary>
+        public global::System.Boolean IsPremium { get; }
+
+        /// <summary>
+        /// Vehicle preview image
+        /// </summary>
+        public global::System.String? PreviewImage { get; }
+
+        /// <summary>
+        /// Vehicle normal image
+        /// </summary>
+        public global::System.String? NormalImage { get; }
     }
 }

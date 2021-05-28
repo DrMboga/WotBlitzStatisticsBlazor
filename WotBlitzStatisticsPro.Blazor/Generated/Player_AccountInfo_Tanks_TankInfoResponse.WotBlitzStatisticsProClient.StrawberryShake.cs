@@ -9,22 +9,45 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
     public partial class Player_AccountInfo_Tanks_TankInfoResponse : global::System.IEquatable<Player_AccountInfo_Tanks_TankInfoResponse>, IPlayer_AccountInfo_Tanks_TankInfoResponse
     {
-        public Player_AccountInfo_Tanks_TankInfoResponse(global::System.Int64 tankId, global::System.String? name, global::System.String? tankNation, global::System.String? tankType, global::System.Int32 tier, global::System.Boolean isPremium, global::System.DateTimeOffset lastBattleTime, global::System.Int64 battles, global::System.Decimal winRate, global::System.Decimal avgDamage, global::System.Decimal avgXp, global::System.Decimal avgBattleLifeTimeInMinutes, global::System.Decimal damageCoefficient, global::System.Decimal survivalRate)
+        public Player_AccountInfo_Tanks_TankInfoResponse(global::System.Int64 tankId, global::System.Int32 battleLifeTimeInSeconds, global::System.DateTimeOffset lastBattleTime, global::WotBlitzStatisticsPro.Blazor.GraphQl.MarkOfMastery markOfMastery, global::System.Int64 battles, global::System.Int64 capturePoints, global::System.Int64 damageDealt, global::System.Int64 damageReceived, global::System.Int64 droppedCapturePoints, global::System.Int64 frags, global::System.Int64 frags8P, global::System.Int64 hits, global::System.Int64 losses, global::System.Int64 maxFrags, global::System.Int64 maxXp, global::System.Int64 shots, global::System.Int64 spotted, global::System.Int64 survivedBattles, global::System.Int64 winAndSurvived, global::System.Int64 wins, global::System.Int64 xp, global::System.Double wn7, global::System.Decimal winRate, global::System.Decimal avgDamage, global::System.Decimal avgXp, global::System.Decimal damageCoefficient, global::System.Decimal survivalRate, global::System.Decimal avgBattleLifeTimeInMinutes, global::System.String? name, global::System.String? tankNationId, global::System.String? tankNation, global::System.Int32 tier, global::System.String? tankTypeId, global::System.String? tankType, global::System.Boolean isPremium, global::System.String? previewImage, global::System.String? normalImage)
         {
             TankId = tankId;
-            Name = name;
-            TankNation = tankNation;
-            TankType = tankType;
-            Tier = tier;
-            IsPremium = isPremium;
+            BattleLifeTimeInSeconds = battleLifeTimeInSeconds;
             LastBattleTime = lastBattleTime;
+            MarkOfMastery = markOfMastery;
             Battles = battles;
+            CapturePoints = capturePoints;
+            DamageDealt = damageDealt;
+            DamageReceived = damageReceived;
+            DroppedCapturePoints = droppedCapturePoints;
+            Frags = frags;
+            Frags8P = frags8P;
+            Hits = hits;
+            Losses = losses;
+            MaxFrags = maxFrags;
+            MaxXp = maxXp;
+            Shots = shots;
+            Spotted = spotted;
+            SurvivedBattles = survivedBattles;
+            WinAndSurvived = winAndSurvived;
+            Wins = wins;
+            Xp = xp;
+            Wn7 = wn7;
             WinRate = winRate;
             AvgDamage = avgDamage;
             AvgXp = avgXp;
-            AvgBattleLifeTimeInMinutes = avgBattleLifeTimeInMinutes;
             DamageCoefficient = damageCoefficient;
             SurvivalRate = survivalRate;
+            AvgBattleLifeTimeInMinutes = avgBattleLifeTimeInMinutes;
+            Name = name;
+            TankNationId = tankNationId;
+            TankNation = tankNation;
+            Tier = tier;
+            TankTypeId = tankTypeId;
+            TankType = tankType;
+            IsPremium = isPremium;
+            PreviewImage = previewImage;
+            NormalImage = normalImage;
         }
 
         /// <summary>
@@ -33,29 +56,9 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         public global::System.Int64 TankId { get; }
 
         /// <summary>
-        /// Tank name
+        /// Total time in battle until tank killed
         /// </summary>
-        public global::System.String? Name { get; }
-
-        /// <summary>
-        /// Localized tank nation name
-        /// </summary>
-        public global::System.String? TankNation { get; }
-
-        /// <summary>
-        /// Localized tank type name
-        /// </summary>
-        public global::System.String? TankType { get; }
-
-        /// <summary>
-        /// Tank tier
-        /// </summary>
-        public global::System.Int32 Tier { get; }
-
-        /// <summary>
-        /// Is it premium tank or not
-        /// </summary>
-        public global::System.Boolean IsPremium { get; }
+        public global::System.Int32 BattleLifeTimeInSeconds { get; }
 
         /// <summary>
         /// Last battle
@@ -63,9 +66,99 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         public global::System.DateTimeOffset LastBattleTime { get; }
 
         /// <summary>
+        /// Mark of Mastery
+        /// </summary>
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.MarkOfMastery MarkOfMastery { get; }
+
+        /// <summary>
         /// Battles count
         /// </summary>
         public global::System.Int64 Battles { get; }
+
+        /// <summary>
+        /// Base capture points
+        /// </summary>
+        public global::System.Int64 CapturePoints { get; }
+
+        /// <summary>
+        /// Damage dealt
+        /// </summary>
+        public global::System.Int64 DamageDealt { get; }
+
+        /// <summary>
+        /// Damage received
+        /// </summary>
+        public global::System.Int64 DamageReceived { get; }
+
+        /// <summary>
+        /// Base dropped capture points
+        /// </summary>
+        public global::System.Int64 DroppedCapturePoints { get; }
+
+        /// <summary>
+        /// Frags count
+        /// </summary>
+        public global::System.Int64 Frags { get; }
+
+        /// <summary>
+        /// Frags count after 8 tier
+        /// </summary>
+        public global::System.Int64 Frags8P { get; }
+
+        /// <summary>
+        /// Hits count
+        /// </summary>
+        public global::System.Int64 Hits { get; }
+
+        /// <summary>
+        /// Losses count
+        /// </summary>
+        public global::System.Int64 Losses { get; }
+
+        /// <summary>
+        /// Max frags per battle
+        /// </summary>
+        public global::System.Int64 MaxFrags { get; }
+
+        /// <summary>
+        /// Max XP per battle
+        /// </summary>
+        public global::System.Int64 MaxXp { get; }
+
+        /// <summary>
+        /// Shots count
+        /// </summary>
+        public global::System.Int64 Shots { get; }
+
+        /// <summary>
+        /// Spotted vehicles count
+        /// </summary>
+        public global::System.Int64 Spotted { get; }
+
+        /// <summary>
+        /// Amount of survived battles
+        /// </summary>
+        public global::System.Int64 SurvivedBattles { get; }
+
+        /// <summary>
+        /// Amount of survived and wined battles
+        /// </summary>
+        public global::System.Int64 WinAndSurvived { get; }
+
+        /// <summary>
+        /// Wins count
+        /// </summary>
+        public global::System.Int64 Wins { get; }
+
+        /// <summary>
+        /// Total experience
+        /// </summary>
+        public global::System.Int64 Xp { get; }
+
+        /// <summary>
+        /// Wn7 coefficient
+        /// </summary>
+        public global::System.Double Wn7 { get; }
 
         /// <summary>
         /// Tank's win rate
@@ -83,11 +176,6 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         public global::System.Decimal AvgXp { get; }
 
         /// <summary>
-        /// Average life time in battle until tank is killed.
-        /// </summary>
-        public global::System.Decimal AvgBattleLifeTimeInMinutes { get; }
-
-        /// <summary>
         /// Damage coefficient
         /// </summary>
         public global::System.Decimal DamageCoefficient { get; }
@@ -96,6 +184,56 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         /// Rate of survival
         /// </summary>
         public global::System.Decimal SurvivalRate { get; }
+
+        /// <summary>
+        /// Average life time in battle until tank is killed.
+        /// </summary>
+        public global::System.Decimal AvgBattleLifeTimeInMinutes { get; }
+
+        /// <summary>
+        /// Tank name
+        /// </summary>
+        public global::System.String? Name { get; }
+
+        /// <summary>
+        /// Tank nation dictionary identifier
+        /// </summary>
+        public global::System.String? TankNationId { get; }
+
+        /// <summary>
+        /// Localized tank nation name
+        /// </summary>
+        public global::System.String? TankNation { get; }
+
+        /// <summary>
+        /// Tank tier
+        /// </summary>
+        public global::System.Int32 Tier { get; }
+
+        /// <summary>
+        /// Tank type dictionary identifier
+        /// </summary>
+        public global::System.String? TankTypeId { get; }
+
+        /// <summary>
+        /// Localized tank type name
+        /// </summary>
+        public global::System.String? TankType { get; }
+
+        /// <summary>
+        /// Is it premium tank or not
+        /// </summary>
+        public global::System.Boolean IsPremium { get; }
+
+        /// <summary>
+        /// Vehicle preview image
+        /// </summary>
+        public global::System.String? PreviewImage { get; }
+
+        /// <summary>
+        /// Vehicle normal image
+        /// </summary>
+        public global::System.String? NormalImage { get; }
 
         public virtual global::System.Boolean Equals(Player_AccountInfo_Tanks_TankInfoResponse? other)
         {
@@ -114,7 +252,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
                 return false;
             }
 
-            return (TankId == other.TankId) && ((Name is null && other.Name is null) || Name != null && Name.Equals(other.Name)) && ((TankNation is null && other.TankNation is null) || TankNation != null && TankNation.Equals(other.TankNation)) && ((TankType is null && other.TankType is null) || TankType != null && TankType.Equals(other.TankType)) && Tier == other.Tier && IsPremium == other.IsPremium && LastBattleTime.Equals(other.LastBattleTime) && Battles == other.Battles && WinRate == other.WinRate && AvgDamage == other.AvgDamage && AvgXp == other.AvgXp && AvgBattleLifeTimeInMinutes == other.AvgBattleLifeTimeInMinutes && DamageCoefficient == other.DamageCoefficient && SurvivalRate == other.SurvivalRate;
+            return (TankId == other.TankId) && BattleLifeTimeInSeconds == other.BattleLifeTimeInSeconds && LastBattleTime.Equals(other.LastBattleTime) && MarkOfMastery.Equals(other.MarkOfMastery) && Battles == other.Battles && CapturePoints == other.CapturePoints && DamageDealt == other.DamageDealt && DamageReceived == other.DamageReceived && DroppedCapturePoints == other.DroppedCapturePoints && Frags == other.Frags && Frags8P == other.Frags8P && Hits == other.Hits && Losses == other.Losses && MaxFrags == other.MaxFrags && MaxXp == other.MaxXp && Shots == other.Shots && Spotted == other.Spotted && SurvivedBattles == other.SurvivedBattles && WinAndSurvived == other.WinAndSurvived && Wins == other.Wins && Xp == other.Xp && Wn7 == other.Wn7 && WinRate == other.WinRate && AvgDamage == other.AvgDamage && AvgXp == other.AvgXp && DamageCoefficient == other.DamageCoefficient && SurvivalRate == other.SurvivalRate && AvgBattleLifeTimeInMinutes == other.AvgBattleLifeTimeInMinutes && ((Name is null && other.Name is null) || Name != null && Name.Equals(other.Name)) && ((TankNationId is null && other.TankNationId is null) || TankNationId != null && TankNationId.Equals(other.TankNationId)) && ((TankNation is null && other.TankNation is null) || TankNation != null && TankNation.Equals(other.TankNation)) && Tier == other.Tier && ((TankTypeId is null && other.TankTypeId is null) || TankTypeId != null && TankTypeId.Equals(other.TankTypeId)) && ((TankType is null && other.TankType is null) || TankType != null && TankType.Equals(other.TankType)) && IsPremium == other.IsPremium && ((PreviewImage is null && other.PreviewImage is null) || PreviewImage != null && PreviewImage.Equals(other.PreviewImage)) && ((NormalImage is null && other.NormalImage is null) || NormalImage != null && NormalImage.Equals(other.NormalImage));
         }
 
         public override global::System.Boolean Equals(global::System.Object? obj)
@@ -143,9 +281,41 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
             {
                 int hash = 5;
                 hash ^= 397 * TankId.GetHashCode();
+                hash ^= 397 * BattleLifeTimeInSeconds.GetHashCode();
+                hash ^= 397 * LastBattleTime.GetHashCode();
+                hash ^= 397 * MarkOfMastery.GetHashCode();
+                hash ^= 397 * Battles.GetHashCode();
+                hash ^= 397 * CapturePoints.GetHashCode();
+                hash ^= 397 * DamageDealt.GetHashCode();
+                hash ^= 397 * DamageReceived.GetHashCode();
+                hash ^= 397 * DroppedCapturePoints.GetHashCode();
+                hash ^= 397 * Frags.GetHashCode();
+                hash ^= 397 * Frags8P.GetHashCode();
+                hash ^= 397 * Hits.GetHashCode();
+                hash ^= 397 * Losses.GetHashCode();
+                hash ^= 397 * MaxFrags.GetHashCode();
+                hash ^= 397 * MaxXp.GetHashCode();
+                hash ^= 397 * Shots.GetHashCode();
+                hash ^= 397 * Spotted.GetHashCode();
+                hash ^= 397 * SurvivedBattles.GetHashCode();
+                hash ^= 397 * WinAndSurvived.GetHashCode();
+                hash ^= 397 * Wins.GetHashCode();
+                hash ^= 397 * Xp.GetHashCode();
+                hash ^= 397 * Wn7.GetHashCode();
+                hash ^= 397 * WinRate.GetHashCode();
+                hash ^= 397 * AvgDamage.GetHashCode();
+                hash ^= 397 * AvgXp.GetHashCode();
+                hash ^= 397 * DamageCoefficient.GetHashCode();
+                hash ^= 397 * SurvivalRate.GetHashCode();
+                hash ^= 397 * AvgBattleLifeTimeInMinutes.GetHashCode();
                 if (Name != null)
                 {
                     hash ^= 397 * Name.GetHashCode();
+                }
+
+                if (TankNationId != null)
+                {
+                    hash ^= 397 * TankNationId.GetHashCode();
                 }
 
                 if (TankNation != null)
@@ -153,21 +323,28 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
                     hash ^= 397 * TankNation.GetHashCode();
                 }
 
+                hash ^= 397 * Tier.GetHashCode();
+                if (TankTypeId != null)
+                {
+                    hash ^= 397 * TankTypeId.GetHashCode();
+                }
+
                 if (TankType != null)
                 {
                     hash ^= 397 * TankType.GetHashCode();
                 }
 
-                hash ^= 397 * Tier.GetHashCode();
                 hash ^= 397 * IsPremium.GetHashCode();
-                hash ^= 397 * LastBattleTime.GetHashCode();
-                hash ^= 397 * Battles.GetHashCode();
-                hash ^= 397 * WinRate.GetHashCode();
-                hash ^= 397 * AvgDamage.GetHashCode();
-                hash ^= 397 * AvgXp.GetHashCode();
-                hash ^= 397 * AvgBattleLifeTimeInMinutes.GetHashCode();
-                hash ^= 397 * DamageCoefficient.GetHashCode();
-                hash ^= 397 * SurvivalRate.GetHashCode();
+                if (PreviewImage != null)
+                {
+                    hash ^= 397 * PreviewImage.GetHashCode();
+                }
+
+                if (NormalImage != null)
+                {
+                    hash ^= 397 * NormalImage.GetHashCode();
+                }
+
                 return hash;
             }
         }

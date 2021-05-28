@@ -5,7 +5,7 @@
 
 type Query {
   "Finds Wargaming accounts by nick"
-  players("Search string." accountNick: String! "Wargaming Realm." realmType: RealmType "Language for the output data." language: RequestLanguage): [AccountsSearchResponseItem!]!
+  players("Search string." accountNick: String! "Wargaming Realm." realmType: RealmType "Language for the output data." language: RequestLanguage): [AccountsSearchResponseItem!]
   "Finds clans by search string"
   clans("Search string." searchString: String! "Wargaming Realm." realmType: RealmType "Language for the output data." language: RequestLanguage): [ClanSearchResponseItem!]
   "Gathers all account information"
@@ -279,6 +279,10 @@ type TankInfoResponse {
   tankType: String
   "Is it premium tank or not"
   isPremium: Boolean!
+  "Vehicle preview image"
+  previewImage: String
+  "Vehicle normal image"
+  normalImage: String
 }
 
 "Request for update dictionaries mutation"

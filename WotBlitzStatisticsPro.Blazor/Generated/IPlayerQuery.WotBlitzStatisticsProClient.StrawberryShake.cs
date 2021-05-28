@@ -10,32 +10,93 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     ///   accountInfo(accountId: $accountId, realmType: $realmType, requestLanguage: $requestLanguage) {
     ///     __typename
     ///     accountId
-    ///     nickname
     ///     createdAt
     ///     lastBattleTime
+    ///     nickname
+    ///     maxFragsTankId
+    ///     maxXpTankId
     ///     battles
+    ///     capturePoints
+    ///     damageDealt
+    ///     damageReceived
+    ///     droppedCapturePoints
+    ///     frags
+    ///     frags8P
+    ///     hits
+    ///     losses
+    ///     maxFrags
+    ///     maxXp
+    ///     shots
+    ///     spotted
+    ///     survivedBattles
+    ///     winAndSurvived
+    ///     wins
+    ///     xp
+    ///     wn7
     ///     winRate
     ///     avgDamage
     ///     avgXp
-    ///     avgTier
     ///     damageCoefficient
     ///     survivalRate
+    ///     avgTier
+    ///     clanInfo {
+    ///       __typename
+    ///       clanId
+    ///       joinedAt
+    ///       role
+    ///       roleLocalized
+    ///       name
+    ///       createdAt
+    ///       creatorId
+    ///       creatorName
+    ///       description
+    ///       descriptionHtml
+    ///       leaderId
+    ///       leaderName
+    ///       membersCount
+    ///       motto
+    ///       tag
+    ///       updatedAt
+    ///     }
     ///     tanks {
     ///       __typename
     ///       tankId
-    ///       name
-    ///       tankNation
-    ///       tankType
-    ///       tier
-    ///       isPremium
+    ///       battleLifeTimeInSeconds
     ///       lastBattleTime
+    ///       markOfMastery
     ///       battles
+    ///       capturePoints
+    ///       damageDealt
+    ///       damageReceived
+    ///       droppedCapturePoints
+    ///       frags
+    ///       frags8P
+    ///       hits
+    ///       losses
+    ///       maxFrags
+    ///       maxXp
+    ///       shots
+    ///       spotted
+    ///       survivedBattles
+    ///       winAndSurvived
+    ///       wins
+    ///       xp
+    ///       wn7
     ///       winRate
     ///       avgDamage
     ///       avgXp
-    ///       avgBattleLifeTimeInMinutes
     ///       damageCoefficient
     ///       survivalRate
+    ///       avgBattleLifeTimeInMinutes
+    ///       name
+    ///       tankNationId
+    ///       tankNation
+    ///       tier
+    ///       tankTypeId
+    ///       tankType
+    ///       isPremium
+    ///       previewImage
+    ///       normalImage
     ///     }
     ///   }
     /// }

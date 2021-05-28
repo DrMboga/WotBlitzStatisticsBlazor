@@ -9,6 +9,6 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         /// <summary>
         /// Finds Wargaming accounts by nick
         /// </summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayers_Players> Players { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayers_Players>? Players { get; }
     }
 }
