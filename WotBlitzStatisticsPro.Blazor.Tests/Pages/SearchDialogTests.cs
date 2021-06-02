@@ -13,6 +13,7 @@ using WotBlitzStatisticsPro.Blazor.Messages;
 using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Pages;
 using WotBlitzStatisticsPro.Blazor.Services;
+using WotBlitzStatisticsPro.Blazor.Services.Mock;
 
 namespace WotBlitzStatisticsPro.Blazor.Tests.Pages
 {

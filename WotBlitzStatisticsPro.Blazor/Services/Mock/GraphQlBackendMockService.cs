@@ -6,7 +6,7 @@ using Bogus;
 using Bogus.Extensions;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
 
-namespace WotBlitzStatisticsPro.Blazor.Services
+namespace WotBlitzStatisticsPro.Blazor.Services.Mock
 {
     public class GraphQlBackendMockService: IGraphQlBackendService
     {

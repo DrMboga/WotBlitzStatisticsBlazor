@@ -10,6 +10,7 @@ using Microsoft.JSInterop;
 using Radzen;
 using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Services;
+using WotBlitzStatisticsPro.Blazor.Services.Mock;
 
 namespace WotBlitzStatisticsPro.Blazor
 {

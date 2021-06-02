@@ -7,6 +7,7 @@ using NUnit.Framework;
 using StrawberryShake;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Services;
+using WotBlitzStatisticsPro.Blazor.Services.Mock;
 
 namespace WotBlitzStatisticsPro.Blazor.Tests.Services
 {
