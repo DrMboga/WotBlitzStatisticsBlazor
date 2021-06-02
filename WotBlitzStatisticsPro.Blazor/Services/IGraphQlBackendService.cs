@@ -14,7 +14,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             string clanNameOrTag, 
             RealmType realmType);
 
-        Task<IPlayer_AccountInfo> GetPlayerInfo(
+        Task<(IPlayer_AccountInfo accountInfo, IReadOnlyList<IPlayer_AccountMedals_Sections> achievementsBySection)> GetPlayerInfo(
             long accountId,
             RealmType realmType);
     }

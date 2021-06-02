@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Services;
@@ -20,12 +21,14 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         public IPlayer_AccountInfo AccountInfo { get; set; }
 
+        public IReadOnlyList<IPlayer_AccountMedals_Sections> AchievementsBySection { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             var settings = await LocalStorageService.ReadSettings();
             CurrentRealmType = settings.RealmType;
 
-            AccountInfo = await GraphQlBackendService.GetPlayerInfo(AccountId, CurrentRealmType);
+            (AccountInfo, AchievementsBySection) = await GraphQlBackendService.GetPlayerInfo(AccountId, CurrentRealmType);
 
             await base.OnInitializedAsync();
 

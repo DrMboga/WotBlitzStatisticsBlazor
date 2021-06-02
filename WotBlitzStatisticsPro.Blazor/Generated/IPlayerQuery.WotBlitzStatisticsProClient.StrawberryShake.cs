@@ -99,6 +99,33 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     ///       normalImage
     ///     }
     ///   }
+    ///   accountMedals(accountId: $accountId, realmType: $realmType, requestLanguage: $requestLanguage) {
+    ///     __typename
+    ///     accountId
+    ///     sections {
+    ///       __typename
+    ///       sectionId
+    ///       order
+    ///       name
+    ///       medals {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         medalType
+    ///         condition
+    ///         description
+    ///         achievementValue
+    ///         maxSeriesValue
+    ///         image
+    ///         imageBig
+    ///         order
+    ///         sectionId
+    ///         ... on Achievement {
+    ///           id
+    ///         }
+    ///       }
+    ///     }
+    ///   }
     /// }
     /// </code>
     /// </summary>

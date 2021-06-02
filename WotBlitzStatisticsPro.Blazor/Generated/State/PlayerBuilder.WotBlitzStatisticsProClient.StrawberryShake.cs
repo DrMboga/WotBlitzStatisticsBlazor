@@ -74,11 +74,13 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
         {
             var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
             global::StrawberryShake.IEntityStoreSnapshot snapshot = default !;
+            global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountAchievementsResponseData accountMedalsId = default !;
             _entityStore.Update(session =>
             {
+                accountMedalsId = DeserializeNonNullableIPlayer_AccountMedals(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "accountMedals"), entityIds);
                 snapshot = session.CurrentSnapshot;
             });
-            var resultInfo = new PlayerResultInfo(DeserializeNonNullableIPlayer_AccountInfo(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "accountInfo")), entityIds, snapshot.Version);
+            var resultInfo = new PlayerResultInfo(DeserializeNonNullableIPlayer_AccountInfo(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "accountInfo")), accountMedalsId, entityIds, snapshot.Version);
             return (_resultDataFactory.Create(resultInfo), resultInfo);
         }
 
@@ -254,6 +256,106 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
             }
 
             return _booleanParser.Parse(obj.Value.GetBoolean()!);
+        }
+
+        private global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountAchievementsResponseData DeserializeNonNullableIPlayer_AccountMedals(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            var typename = obj.Value.GetProperty("__typename").GetString();
+            if (typename?.Equals("AccountAchievementsResponse", global::System.StringComparison.Ordinal) ?? false)
+            {
+                return new global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountAchievementsResponseData(typename, accountId: DeserializeNonNullableInt64(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "accountId")), sections: DeserializeIPlayer_AccountMedals_SectionsNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "sections"), entityIds));
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementSectionData>? DeserializeIPlayer_AccountMedals_SectionsNonNullableArray(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var achievementSections = new global::System.Collections.Generic.List<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementSectionData>();
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                achievementSections.Add(DeserializeNonNullableIPlayer_AccountMedals_Sections(session, child, entityIds));
+            }
+
+            return achievementSections;
+        }
+
+        private global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementSectionData DeserializeNonNullableIPlayer_AccountMedals_Sections(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            var typename = obj.Value.GetProperty("__typename").GetString();
+            if (typename?.Equals("AchievementSection", global::System.StringComparison.Ordinal) ?? false)
+            {
+                return new global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementSectionData(typename, sectionId: DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "sectionId")), order: DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "order")), name: DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name")), medals: UpdateIPlayer_AccountMedals_Sections_MedalsEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "medals"), entityIds));
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? UpdateIPlayer_AccountMedals_Sections_MedalsEntityNonNullableArray(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var achievements = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId>();
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                achievements.Add(UpdateNonNullableIPlayer_AccountMedals_Sections_MedalsEntity(session, child, entityIds));
+            }
+
+            return achievements;
+        }
+
+        private global::StrawberryShake.EntityId UpdateNonNullableIPlayer_AccountMedals_Sections_MedalsEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("Achievement", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementEntity(DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "medalType")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "condition")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "description")), DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "achievementValue")), DeserializeInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "maxSeriesValue")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "image")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "imageBig")), DeserializeInt64(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "order")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "sectionId"))));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementEntity(DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "medalType")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "condition")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "description")), DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "achievementValue")), DeserializeInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "maxSeriesValue")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "image")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "imageBig")), DeserializeInt64(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "order")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "sectionId"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Int32? DeserializeInt32(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            return _intParser.Parse(obj.Value.GetInt32()!);
         }
     }
 }

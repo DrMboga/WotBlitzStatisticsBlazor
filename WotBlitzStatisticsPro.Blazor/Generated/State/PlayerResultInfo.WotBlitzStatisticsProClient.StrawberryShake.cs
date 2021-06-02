@@ -8,9 +8,10 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
     {
         private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
         private readonly global::System.UInt64 _version;
-        public PlayerResultInfo(global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountInfoResponseData accountInfo, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
+        public PlayerResultInfo(global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountInfoResponseData accountInfo, global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountAchievementsResponseData accountMedals, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
         {
             AccountInfo = accountInfo;
+            AccountMedals = accountMedals;
             _entityIds = entityIds ?? throw new global::System.ArgumentNullException(nameof(entityIds));
             _version = version;
         }
@@ -20,11 +21,16 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
         /// </summary>
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountInfoResponseData AccountInfo { get; }
 
+        /// <summary>
+        /// Returns information about player's achievements
+        /// </summary>
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountAchievementsResponseData AccountMedals { get; }
+
         public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
         public global::System.UInt64 Version => _version;
         public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
         {
-            return new PlayerResultInfo(AccountInfo, _entityIds, version);
+            return new PlayerResultInfo(AccountInfo, AccountMedals, _entityIds, version);
         }
     }
 }

@@ -54,6 +54,8 @@ namespace WotBlitzStatisticsPro.Logic.Mappers
                 .ForMember(d => d.Id, o => o.Ignore())
                 .ForMember(d => d.AchievementValue, o => o.Ignore())
                 .ForMember(d => d.MaxSeriesValue, s => s.Ignore())
+                .ForMember(d => d.MedalType, 
+                    o => o.MapFrom(s => s.Type))
                 ;
         }
     }

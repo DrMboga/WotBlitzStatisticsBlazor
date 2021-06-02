@@ -10,5 +10,10 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         /// Gathers all account information
         /// </summary>
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo AccountInfo { get; }
+
+        /// <summary>
+        /// Returns information about player's achievements
+        /// </summary>
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals AccountMedals { get; }
     }
 }

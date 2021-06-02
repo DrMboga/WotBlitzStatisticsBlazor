@@ -13,6 +13,8 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
 {
     public class GraphQlBackendServiceTests
     {
+        private const long CurrentAccountId = 123456789;
+
         private Mock<IFindClansQuery> _findClanQueryMock;
         private Mock<IFindPlayersQuery> _findPlayersQueryMock;
         private Mock<IPlayerQuery> _playerQueryMock;
@@ -30,6 +32,11 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
         private List<IClientError> _findClansErrors;
         private Mock<IOperationResult<IFindClansResult>> _findClansOperationResultMock;
 
+        private Mock<IPlayerResult> _playerInfoResultMock;
+        private List<IClientError> _playerInfoErrors;
+        private Mock<IOperationResult<IPlayerResult>> _playerInfoOperationResultMock;
+
+
         [SetUp]
         public async Task Init()
         {
@@ -39,6 +46,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
 
             await SetUpFindClans();
             await SetUpFindPlayers();
+            await SetUpGetPlayer();
 
             _generatedClient =
                 new WotBlitzStatisticsProClient(_findClanQueryMock.Object, _findPlayersQueryMock.Object, _playerQueryMock.Object);
@@ -110,6 +118,39 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
+        [Test]
+        public async Task ShouldCallGetPlayerInfo()
+        {
+            var expectedRealm = RealmType.Ru;
+            _playerInfoOperationResultMock.SetupGet(r => r.Data).Returns(_playerInfoResultMock.Object);
+
+            var playerInfoResponse = await _service.GetPlayerInfo(CurrentAccountId, expectedRealm);
+
+            playerInfoResponse.Should().NotBeNull();
+            playerInfoResponse.accountInfo.Should().NotBeNull();
+            playerInfoResponse.achievementsBySection.Should().NotBeNull();
+            playerInfoResponse.achievementsBySection.Should().NotBeEmpty();
+
+            _playerQueryMock.Verify(q => q.ExecuteAsync(CurrentAccountId, expectedRealm, It.IsAny<RequestLanguage>(), It.IsAny<CancellationToken>()), Times.Once);
+            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+        }
+
+        [Test]
+        public async Task ShouldNotifyAboutErrorIfGetPlayerInfoFails()
+        {
+            var expectedRealm = RealmType.Ru;
+
+            AddErrorToResult();
+
+            var playerInfoResponse = await _service.GetPlayerInfo(CurrentAccountId, expectedRealm);
+
+            playerInfoResponse.accountInfo.Should().BeNull();
+            playerInfoResponse.achievementsBySection.Should().BeNull();
+
+            _playerQueryMock.Verify(q => q.ExecuteAsync(CurrentAccountId, expectedRealm, It.IsAny<RequestLanguage>(), It.IsAny<CancellationToken>()), Times.Once);
+            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        }
+
         private async Task SetUpFindPlayers()
         {
             var players = await _mockDataService.FindPlayers("foo", RealmType.Ru);
@@ -146,6 +187,25 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
                 .ReturnsAsync(_findClansOperationResultMock.Object);
         }
 
+        private async Task SetUpGetPlayer()
+        {
+            var result = await _mockDataService.GetPlayerInfo(CurrentAccountId, RealmType.Ru);
+
+            _playerInfoErrors = new List<IClientError>();
+            _playerInfoResultMock = new();
+            _playerInfoOperationResultMock = new();
+            _playerInfoResultMock.SetupGet(r => r.AccountInfo).Returns(result.accountInfo);
+            _playerInfoResultMock.SetupGet(r => r.AccountMedals).Returns(new Player_AccountMedals_AccountAchievementsResponse(CurrentAccountId, result.achievementsBySection));
+            _playerInfoOperationResultMock.SetupGet(r => r.Errors).Returns(_findClansErrors);
+
+            _playerQueryMock.Setup(q => q.ExecuteAsync(
+                    It.IsAny<long>(),
+                    It.IsAny<RealmType>(),
+                    It.IsAny<RequestLanguage>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(_playerInfoOperationResultMock.Object);
+        }
+
         private void AddErrorToResult()
         {
             string graphQlErrorMessage = "{\"errors\": [{\"extensions\": {\"message\": \"GraphQL error message here\"}}]}";
@@ -154,6 +214,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             error.SetupGet(e => e.Extensions).Returns(errorDetails);
             _findPlayersErrors.Add(error.Object);
             _findClansErrors.Add(error.Object);
+            _playerInfoErrors.Add(error.Object);
         }
     }
 }

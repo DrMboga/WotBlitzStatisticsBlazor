@@ -94,4 +94,29 @@ query player(
         normalImage
     }
   }
+  accountMedals(
+    accountId: $accountId, 
+    realmType: $realmType, 
+    requestLanguage: $requestLanguage
+    ) {
+      accountId
+      sections {
+      sectionId
+      order
+      name
+      medals {
+          id
+          name
+          medalType
+          condition
+          description
+          achievementValue
+          maxSeriesValue
+          image
+          imageBig
+          order
+          sectionId
+      }
+    }
+  }
 }

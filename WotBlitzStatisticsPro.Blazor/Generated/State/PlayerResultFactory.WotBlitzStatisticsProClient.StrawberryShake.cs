@@ -7,9 +7,11 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
     public partial class PlayerResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::WotBlitzStatisticsPro.Blazor.GraphQl.PlayerResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        public PlayerResultFactory(global::StrawberryShake.IEntityStore entityStore)
+        private readonly global::StrawberryShake.IEntityMapper<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementEntity, Player_AccountMedals_Sections_Medals_Achievement> _player_AccountMedals_Sections_Medals_AchievementFromAchievementEntityMapper;
+        public PlayerResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementEntity, Player_AccountMedals_Sections_Medals_Achievement> player_AccountMedals_Sections_Medals_AchievementFromAchievementEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _player_AccountMedals_Sections_Medals_AchievementFromAchievementEntityMapper = player_AccountMedals_Sections_Medals_AchievementFromAchievementEntityMapper ?? throw new global::System.ArgumentNullException(nameof(player_AccountMedals_Sections_Medals_AchievementFromAchievementEntityMapper));
         }
 
         global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerResult);
@@ -22,7 +24,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 
             if (dataInfo is PlayerResultInfo info)
             {
-                return new PlayerResult(MapNonNullableIPlayer_AccountInfo(info.AccountInfo, snapshot));
+                return new PlayerResult(MapNonNullableIPlayer_AccountInfo(info.AccountInfo, snapshot), MapNonNullableIPlayer_AccountMedals(info.AccountMedals, snapshot));
             }
 
             throw new global::System.ArgumentException("PlayerResultInfo expected.");
@@ -92,6 +94,78 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
             }
 
             return returnValue;
+        }
+
+        private global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals MapNonNullableIPlayer_AccountMedals(global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountAchievementsResponseData data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            IPlayer_AccountMedals returnValue = default !;
+            if (data.__typename.Equals("AccountAchievementsResponse", global::System.StringComparison.Ordinal))
+            {
+                returnValue = new Player_AccountMedals_AccountAchievementsResponse(data.AccountId ?? throw new global::System.ArgumentNullException(), MapIPlayer_AccountMedals_SectionsNonNullableArray(data.Sections, snapshot));
+            }
+            else
+            {
+                throw new global::System.NotSupportedException();
+            }
+
+            return returnValue;
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals_Sections>? MapIPlayer_AccountMedals_SectionsNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementSectionData>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (list is null)
+            {
+                return null;
+            }
+
+            var achievementSections = new global::System.Collections.Generic.List<global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals_Sections>();
+            foreach (global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementSectionData child in list)
+            {
+                achievementSections.Add(MapNonNullableIPlayer_AccountMedals_Sections(child, snapshot));
+            }
+
+            return achievementSections;
+        }
+
+        private global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals_Sections MapNonNullableIPlayer_AccountMedals_Sections(global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementSectionData data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            IPlayer_AccountMedals_Sections returnValue = default !;
+            if (data.__typename.Equals("AchievementSection", global::System.StringComparison.Ordinal))
+            {
+                returnValue = new Player_AccountMedals_Sections_AchievementSection(data.SectionId ?? throw new global::System.ArgumentNullException(), data.Order ?? throw new global::System.ArgumentNullException(), data.Name ?? throw new global::System.ArgumentNullException(), MapIPlayer_AccountMedals_Sections_MedalsNonNullableArray(data.Medals, snapshot));
+            }
+            else
+            {
+                throw new global::System.NotSupportedException();
+            }
+
+            return returnValue;
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals_Sections_Medals>? MapIPlayer_AccountMedals_Sections_MedalsNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (list is null)
+            {
+                return null;
+            }
+
+            var achievements = new global::System.Collections.Generic.List<global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals_Sections_Medals>();
+            foreach (global::StrawberryShake.EntityId child in list)
+            {
+                achievements.Add(MapNonNullableIPlayer_AccountMedals_Sections_Medals(child, snapshot));
+            }
+
+            return achievements;
+        }
+
+        private global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals_Sections_Medals MapNonNullableIPlayer_AccountMedals_Sections_Medals(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Achievement", global::System.StringComparison.Ordinal))
+            {
+                return _player_AccountMedals_Sections_Medals_AchievementFromAchievementEntityMapper.Map(snapshot.GetEntity<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
         }
 
         global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot)

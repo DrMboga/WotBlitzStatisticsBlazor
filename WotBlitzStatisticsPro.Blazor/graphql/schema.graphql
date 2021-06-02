@@ -15,9 +15,9 @@ type Query {
   "Tank statistics history for period since \"startDate\""
   tankInfoHistory("AccountId" accountId: Long! "TankId" tankId: Long! "Date from history started" startDate: DateTime! "Account region" realmType: RealmType "Request language" requestLanguage: RequestLanguage): TankInfoHistoryResponse!
   "Returns information about player's achievements"
-  accountAchievements("AccountId" accountId: Long! "Account region" realmType: RealmType "Request language" requestLanguage: RequestLanguage): AccountAchievementsResponse!
+  accountMedals("AccountId" accountId: Long! "Account region" realmType: RealmType "Request language" requestLanguage: RequestLanguage): AccountAchievementsResponse!
   "Returns information about player's tank achievements"
-  tankAchievements("AccountId" accountId: Long! "Account tank Id" tankId: Long! "Account region" realmType: RealmType "Request language" requestLanguage: RequestLanguage): AccountAchievementsResponse!
+  tankMedals("AccountId" accountId: Long! "Account tank Id" tankId: Long! "Account region" realmType: RealmType "Request language" requestLanguage: RequestLanguage): AccountAchievementsResponse!
 }
 
 type Mutation {
@@ -131,6 +131,8 @@ type AccountInfoResponse {
   survivalRate: Decimal!
   "All player's tanks"
   tanks: [TankInfoResponse!]
+  "Account Region and request language"
+  regionAndLanguage: RealmAndLanguage!
 }
 
 "Account search result item"
@@ -285,6 +287,12 @@ type TankInfoResponse {
   normalImage: String
 }
 
+"Represents pair of realm type a nd requested language"
+type RealmAndLanguage {
+  realm: RealmType!
+  language: RequestLanguage!
+}
+
 "Request for update dictionaries mutation"
 input UpdateDictionariesRequestInput {
   "Determines what dictionaries should be updated. Usage: StaticDictionaries | Achievements | Vehicles"
@@ -304,7 +312,7 @@ type AccountAchievementsResponse {
   "Player Id"
   accountId: Long!
   "Player Achievements by sections"
-  achievementSections: [AchievementSection!]
+  sections: [AchievementSection!]
 }
 
 "Information about tank statistics history"
@@ -420,7 +428,7 @@ type AchievementSection {
   "Section Name"
   name: String!
   "Achievements in the section"
-  achievements: [Achievement!]
+  medals: [Achievement!]
 }
 
 "List of dictionaries"
@@ -460,7 +468,7 @@ type Achievement {
   "Section Id"
   sectionId: String!
   "Achievement type"
-  type: String!
+  medalType: String
 }
 
 type StatisticsDifferenceItemOfDecimal {

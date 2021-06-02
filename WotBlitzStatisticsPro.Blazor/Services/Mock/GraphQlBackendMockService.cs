@@ -74,7 +74,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
             return result;
         }
 
-        public async Task<IPlayer_AccountInfo> GetPlayerInfo(long accountId, RealmType realmType)
+        public async Task<(IPlayer_AccountInfo accountInfo, IReadOnlyList<IPlayer_AccountMedals_Sections> achievementsBySection)> GetPlayerInfo(long accountId, RealmType realmType)
         {
             var faker = new Faker(FakerLanguage(GetLanguage()));
             var tanksCount = faker.Random.Number(10, 280);
@@ -156,13 +156,13 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
                 await Task.Delay(1000);
             }
 
-            return new Player_AccountInfo_AccountInfoResponse(
+            var player = new Player_AccountInfo_AccountInfoResponse(
                 accountId,
                 faker.Date.Past(),
                 faker.Date.Past(),
                 faker.Internet.UserName(),
-                tanks[faker.Random.Number(1, tanks.Count)].TankId,
-                tanks[faker.Random.Number(1, tanks.Count)].TankId,
+                tanks[faker.Random.Number(1, tanks.Count-1)].TankId,
+                tanks[faker.Random.Number(1, tanks.Count-1)].TankId,
                 faker.Random.Long(1, 100000),
                 faker.Random.Long(1, 9999),
                 faker.Random.Long(1, 9999),
@@ -190,6 +190,10 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
                 clanInfo,
                 tanks
             );
+
+            var achievements = AchievementsMockData.GetStaticAchievements();
+
+            return (player, achievements?.Sections);
         }
 
         private string FakerLanguage(RequestLanguage language)

@@ -21,7 +21,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Query
         /// <param name="realmType">Account region</param>
         /// <param name="accountId">AccountId</param>
         /// <param name="requestLanguage">Request language</param>
-        public Task<AccountAchievementsResponse> GetAccountAchievements(
+        public Task<AccountAchievementsResponse> AccountMedals(
             long accountId,
             RealmType? realmType,
             RequestLanguage? requestLanguage)
@@ -36,7 +36,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Query
         /// <param name="realmType">Account region</param>
         /// <param name="accountId">AccountId</param>
         /// <param name="requestLanguage">Request language</param>
-        public Task<AccountAchievementsResponse> GetTankAchievements(
+        public Task<AccountAchievementsResponse> TankMedals(
             long accountId,
             long tankId,
             RealmType? realmType,

@@ -6,15 +6,21 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
     public partial class PlayerResult : global::System.IEquatable<PlayerResult>, IPlayerResult
     {
-        public PlayerResult(global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo accountInfo)
+        public PlayerResult(global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo accountInfo, global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals accountMedals)
         {
             AccountInfo = accountInfo;
+            AccountMedals = accountMedals;
         }
 
         /// <summary>
         /// Gathers all account information
         /// </summary>
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo AccountInfo { get; }
+
+        /// <summary>
+        /// Returns information about player's achievements
+        /// </summary>
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals AccountMedals { get; }
 
         public virtual global::System.Boolean Equals(PlayerResult? other)
         {
@@ -33,7 +39,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
                 return false;
             }
 
-            return (AccountInfo.Equals(other.AccountInfo));
+            return (AccountInfo.Equals(other.AccountInfo)) && AccountMedals.Equals(other.AccountMedals);
         }
 
         public override global::System.Boolean Equals(global::System.Object? obj)
@@ -62,6 +68,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
             {
                 int hash = 5;
                 hash ^= 397 * AccountInfo.GetHashCode();
+                hash ^= 397 * AccountMedals.GetHashCode();
                 return hash;
             }
         }
