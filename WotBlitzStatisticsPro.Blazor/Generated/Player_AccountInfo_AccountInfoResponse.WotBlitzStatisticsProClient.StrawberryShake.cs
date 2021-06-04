@@ -9,14 +9,15 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
     public partial class Player_AccountInfo_AccountInfoResponse : global::System.IEquatable<Player_AccountInfo_AccountInfoResponse>, IPlayer_AccountInfo_AccountInfoResponse
     {
-        public Player_AccountInfo_AccountInfoResponse(global::System.Int64 accountId, global::System.DateTimeOffset createdAt, global::System.DateTimeOffset lastBattleTime, global::System.String? nickname, global::System.Int64 maxFragsTankId, global::System.Int64 maxXpTankId, global::System.Int64 battles, global::System.Int64 capturePoints, global::System.Int64 damageDealt, global::System.Int64 damageReceived, global::System.Int64 droppedCapturePoints, global::System.Int64 frags, global::System.Int64 frags8P, global::System.Int64 hits, global::System.Int64 losses, global::System.Int64 maxFrags, global::System.Int64 maxXp, global::System.Int64 shots, global::System.Int64 spotted, global::System.Int64 survivedBattles, global::System.Int64 winAndSurvived, global::System.Int64 wins, global::System.Int64 xp, global::System.Double wn7, global::System.Decimal winRate, global::System.Decimal avgDamage, global::System.Decimal avgXp, global::System.Decimal damageCoefficient, global::System.Decimal survivalRate, global::System.Double avgTier, global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_ClanInfo? clanInfo, global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_Tanks>? tanks)
+        public Player_AccountInfo_AccountInfoResponse(global::System.Int64 accountId, global::System.DateTimeOffset createdAt, global::System.String? nickname, global::System.Int64 maxFragsTankId, global::System.Int64 maxXpTankId, global::System.Double avgTier, global::System.DateTimeOffset lastBattleTime, global::System.Int64 battles, global::System.Int64 capturePoints, global::System.Int64 damageDealt, global::System.Int64 damageReceived, global::System.Int64 droppedCapturePoints, global::System.Int64 frags, global::System.Int64 frags8P, global::System.Int64 hits, global::System.Int64 losses, global::System.Int64 maxFrags, global::System.Int64 maxXp, global::System.Int64 shots, global::System.Int64 spotted, global::System.Int64 survivedBattles, global::System.Int64 winAndSurvived, global::System.Int64 wins, global::System.Int64 xp, global::System.Double wn7, global::System.Decimal winRate, global::System.Decimal avgDamage, global::System.Decimal avgXp, global::System.Decimal damageCoefficient, global::System.Decimal survivalRate, global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_ClanInfo? clanInfo, global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_Tanks>? tanks)
         {
             AccountId = accountId;
             CreatedAt = createdAt;
-            LastBattleTime = lastBattleTime;
             Nickname = nickname;
             MaxFragsTankId = maxFragsTankId;
             MaxXpTankId = maxXpTankId;
+            AvgTier = avgTier;
+            LastBattleTime = lastBattleTime;
             Battles = battles;
             CapturePoints = capturePoints;
             DamageDealt = damageDealt;
@@ -40,7 +41,6 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
             AvgXp = avgXp;
             DamageCoefficient = damageCoefficient;
             SurvivalRate = survivalRate;
-            AvgTier = avgTier;
             ClanInfo = clanInfo;
             Tanks = tanks;
         }
@@ -56,11 +56,6 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         public global::System.DateTimeOffset CreatedAt { get; }
 
         /// <summary>
-        /// Last battle time
-        /// </summary>
-        public global::System.DateTimeOffset LastBattleTime { get; }
-
-        /// <summary>
         /// Player's nick
         /// </summary>
         public global::System.String? Nickname { get; }
@@ -74,6 +69,16 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         /// Tank Id which created max experience per battle
         /// </summary>
         public global::System.Int64 MaxXpTankId { get; }
+
+        /// <summary>
+        /// Average tier
+        /// </summary>
+        public global::System.Double AvgTier { get; }
+
+        /// <summary>
+        /// Last battle time
+        /// </summary>
+        public global::System.DateTimeOffset LastBattleTime { get; }
 
         /// <summary>
         /// Battles count
@@ -146,7 +151,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         public global::System.Int64 SurvivedBattles { get; }
 
         /// <summary>
-        /// Total count of survived and winned battles
+        /// Total count of survived and won battles
         /// </summary>
         public global::System.Int64 WinAndSurvived { get; }
 
@@ -191,11 +196,6 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         public global::System.Decimal SurvivalRate { get; }
 
         /// <summary>
-        /// Average tier
-        /// </summary>
-        public global::System.Double AvgTier { get; }
-
-        /// <summary>
         /// Clan info
         /// </summary>
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_ClanInfo? ClanInfo { get; }
@@ -222,7 +222,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
                 return false;
             }
 
-            return (AccountId == other.AccountId) && CreatedAt.Equals(other.CreatedAt) && LastBattleTime.Equals(other.LastBattleTime) && ((Nickname is null && other.Nickname is null) || Nickname != null && Nickname.Equals(other.Nickname)) && MaxFragsTankId == other.MaxFragsTankId && MaxXpTankId == other.MaxXpTankId && Battles == other.Battles && CapturePoints == other.CapturePoints && DamageDealt == other.DamageDealt && DamageReceived == other.DamageReceived && DroppedCapturePoints == other.DroppedCapturePoints && Frags == other.Frags && Frags8P == other.Frags8P && Hits == other.Hits && Losses == other.Losses && MaxFrags == other.MaxFrags && MaxXp == other.MaxXp && Shots == other.Shots && Spotted == other.Spotted && SurvivedBattles == other.SurvivedBattles && WinAndSurvived == other.WinAndSurvived && Wins == other.Wins && Xp == other.Xp && Wn7 == other.Wn7 && WinRate == other.WinRate && AvgDamage == other.AvgDamage && AvgXp == other.AvgXp && DamageCoefficient == other.DamageCoefficient && SurvivalRate == other.SurvivalRate && AvgTier == other.AvgTier && ((ClanInfo is null && other.ClanInfo is null) || ClanInfo != null && ClanInfo.Equals(other.ClanInfo)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Tanks, other.Tanks);
+            return (AccountId == other.AccountId) && CreatedAt.Equals(other.CreatedAt) && ((Nickname is null && other.Nickname is null) || Nickname != null && Nickname.Equals(other.Nickname)) && MaxFragsTankId == other.MaxFragsTankId && MaxXpTankId == other.MaxXpTankId && AvgTier == other.AvgTier && LastBattleTime.Equals(other.LastBattleTime) && Battles == other.Battles && CapturePoints == other.CapturePoints && DamageDealt == other.DamageDealt && DamageReceived == other.DamageReceived && DroppedCapturePoints == other.DroppedCapturePoints && Frags == other.Frags && Frags8P == other.Frags8P && Hits == other.Hits && Losses == other.Losses && MaxFrags == other.MaxFrags && MaxXp == other.MaxXp && Shots == other.Shots && Spotted == other.Spotted && SurvivedBattles == other.SurvivedBattles && WinAndSurvived == other.WinAndSurvived && Wins == other.Wins && Xp == other.Xp && Wn7 == other.Wn7 && WinRate == other.WinRate && AvgDamage == other.AvgDamage && AvgXp == other.AvgXp && DamageCoefficient == other.DamageCoefficient && SurvivalRate == other.SurvivalRate && ((ClanInfo is null && other.ClanInfo is null) || ClanInfo != null && ClanInfo.Equals(other.ClanInfo)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Tanks, other.Tanks);
         }
 
         public override global::System.Boolean Equals(global::System.Object? obj)
@@ -252,7 +252,6 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
                 int hash = 5;
                 hash ^= 397 * AccountId.GetHashCode();
                 hash ^= 397 * CreatedAt.GetHashCode();
-                hash ^= 397 * LastBattleTime.GetHashCode();
                 if (Nickname != null)
                 {
                     hash ^= 397 * Nickname.GetHashCode();
@@ -260,6 +259,8 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
 
                 hash ^= 397 * MaxFragsTankId.GetHashCode();
                 hash ^= 397 * MaxXpTankId.GetHashCode();
+                hash ^= 397 * AvgTier.GetHashCode();
+                hash ^= 397 * LastBattleTime.GetHashCode();
                 hash ^= 397 * Battles.GetHashCode();
                 hash ^= 397 * CapturePoints.GetHashCode();
                 hash ^= 397 * DamageDealt.GetHashCode();
@@ -283,7 +284,6 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
                 hash ^= 397 * AvgXp.GetHashCode();
                 hash ^= 397 * DamageCoefficient.GetHashCode();
                 hash ^= 397 * SurvivalRate.GetHashCode();
-                hash ^= 397 * AvgTier.GetHashCode();
                 if (ClanInfo != null)
                 {
                     hash ^= 397 * ClanInfo.GetHashCode();

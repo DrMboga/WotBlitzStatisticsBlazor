@@ -9,123 +9,124 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// query Player($accountId: Long!, $realmType: RealmType!, $requestLanguage: RequestLanguage!) {
     ///   accountInfo(accountId: $accountId, realmType: $realmType, requestLanguage: $requestLanguage) {
     ///     __typename
-    ///     accountId
-    ///     createdAt
-    ///     lastBattleTime
-    ///     nickname
-    ///     maxFragsTankId
-    ///     maxXpTankId
-    ///     battles
-    ///     capturePoints
-    ///     damageDealt
-    ///     damageReceived
-    ///     droppedCapturePoints
-    ///     frags
-    ///     frags8P
-    ///     hits
-    ///     losses
-    ///     maxFrags
-    ///     maxXp
-    ///     shots
-    ///     spotted
-    ///     survivedBattles
-    ///     winAndSurvived
-    ///     wins
-    ///     xp
-    ///     wn7
-    ///     winRate
-    ///     avgDamage
-    ///     avgXp
-    ///     damageCoefficient
-    ///     survivalRate
-    ///     avgTier
-    ///     clanInfo {
-    ///       __typename
-    ///       clanId
-    ///       joinedAt
-    ///       role
-    ///       roleLocalized
-    ///       name
-    ///       createdAt
-    ///       creatorId
-    ///       creatorName
-    ///       description
-    ///       descriptionHtml
-    ///       leaderId
-    ///       leaderName
-    ///       membersCount
-    ///       motto
-    ///       tag
-    ///       updatedAt
-    ///     }
-    ///     tanks {
-    ///       __typename
-    ///       tankId
-    ///       battleLifeTimeInSeconds
-    ///       lastBattleTime
-    ///       markOfMastery
-    ///       battles
-    ///       capturePoints
-    ///       damageDealt
-    ///       damageReceived
-    ///       droppedCapturePoints
-    ///       frags
-    ///       frags8P
-    ///       hits
-    ///       losses
-    ///       maxFrags
-    ///       maxXp
-    ///       shots
-    ///       spotted
-    ///       survivedBattles
-    ///       winAndSurvived
-    ///       wins
-    ///       xp
-    ///       wn7
-    ///       winRate
-    ///       avgDamage
-    ///       avgXp
-    ///       damageCoefficient
-    ///       survivalRate
-    ///       avgBattleLifeTimeInMinutes
-    ///       name
-    ///       tankNationId
-    ///       tankNation
-    ///       tier
-    ///       tankTypeId
-    ///       tankType
-    ///       isPremium
-    ///       previewImage
-    ///       normalImage
-    ///     }
+    ///     ... account
     ///   }
     ///   accountMedals(accountId: $accountId, realmType: $realmType, requestLanguage: $requestLanguage) {
     ///     __typename
     ///     accountId
     ///     sections {
     ///       __typename
-    ///       sectionId
-    ///       order
-    ///       name
-    ///       medals {
-    ///         __typename
-    ///         id
-    ///         name
-    ///         medalType
-    ///         condition
-    ///         description
-    ///         achievementValue
-    ///         maxSeriesValue
-    ///         image
-    ///         imageBig
-    ///         order
-    ///         sectionId
-    ///         ... on Achievement {
-    ///           id
-    ///         }
-    ///       }
+    ///       ... section
     ///     }
     ///   }
+    /// }
+    /// 
+    /// fragment account on AccountInfoResponse {
+    ///   accountId
+    ///   createdAt
+    ///   nickname
+    ///   maxFragsTankId
+    ///   maxXpTankId
+    ///   avgTier
+    ///   ... statistics
+    ///   clanInfo {
+    ///     __typename
+    ///     ... clan
+    ///   }
+    ///   tanks {
+    ///     __typename
+    ///     ... tank
+    ///   }
+    /// }
+    /// 
+    /// fragment statistics on Statistics {
+    ///   lastBattleTime
+    ///   battles
+    ///   capturePoints
+    ///   damageDealt
+    ///   damageReceived
+    ///   droppedCapturePoints
+    ///   frags
+    ///   frags8P
+    ///   hits
+    ///   losses
+    ///   maxFrags
+    ///   maxXp
+    ///   shots
+    ///   spotted
+    ///   survivedBattles
+    ///   winAndSurvived
+    ///   wins
+    ///   xp
+    ///   wn7
+    ///   winRate
+    ///   avgDamage
+    ///   avgXp
+    ///   damageCoefficient
+    ///   survivalRate
+    /// }
+    /// 
+    /// fragment clan on ClanInfoResponse {
+    ///   clanId
+    ///   joinedAt
+    ///   role
+    ///   roleLocalized
+    ///   name
+    ///   createdAt
+    ///   creatorId
+    ///   creatorName
+    ///   description
+    ///   descriptionHtml
+    ///   leaderId
+    ///   leaderName
+    ///   membersCount
+    ///   motto
+    ///   tag
+    ///   updatedAt
+    /// }
+    /// 
+    /// fragment tank on TankInfoResponse {
+    ///   tankId
+    ///   battleLifeTimeInSeconds
+    ///   markOfMastery
+    ///   avgBattleLifeTimeInMinutes
+    ///   name
+    ///   tankNationId
+    ///   tankNation
+    ///   tier
+    ///   tankTypeId
+    ///   tankType
+    ///   isPremium
+    ///   previewImage
+    ///   normalImage
+    ///   ... statistics
+    /// }
+    /// 
+    /// fragment section on AchievementSection {
+    ///   sectionId
+    ///   order
+    ///   name
+    ///   medals {
+    ///     __typename
+    ///     ... medal
+    ///     ... on Achievement {
+    ///       id
+    ///     }
+    ///   }
+    /// }
+    /// 
+    /// fragment medal on Achievement {
+    ///   id
+    ///   name
+    ///   medalType
+    ///   condition
+    ///   description
+    ///   achievementValue
+    ///   maxSeriesValue
+    ///   image
+    ///   imageBig
+    ///   order
+    ///   sectionId
     /// }
     /// </code>
     /// </summary>

@@ -34,8 +34,8 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         public List<RealmSelector> Realms { get; set; }
 
-        public List<IFindPlayers_Players> PlayersList { get; set; } = new();
-        public List<IFindClans_Clans> ClansList { get; set; } = new();
+        public List<IPlayerShortInfo> PlayersList { get; set; } = new();
+        public List<IClanShortInfo> ClansList { get; set; } = new();
 
         public RealmType CurrentRealmType { get; set; } = RealmType.Eu;
 
@@ -121,7 +121,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 await GraphQlBackendService.FindPlayers(searchString, CurrentRealmType);
             if (accounts != null)
             {
-                PlayersList = new List<IFindPlayers_Players>(accounts);
+                PlayersList = new List<IPlayerShortInfo>(accounts);
             }
 
         }
@@ -132,7 +132,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 await GraphQlBackendService.FindClans(searchString, CurrentRealmType);
             if (clans != null)
             {
-                ClansList = new List<IFindClans_Clans>(clans);
+                ClansList = new List<IClanShortInfo>(clans);
             }
         }
     }

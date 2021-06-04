@@ -6,15 +6,15 @@ namespace WotBlitzStatisticsPro.Blazor.Services
 {
     public interface IGraphQlBackendService
     {
-        Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(
+        Task<IReadOnlyList<IPlayerShortInfo>?> FindPlayers(
             string accountNick, 
             RealmType realmType);
 
-        Task<IReadOnlyList<IFindClans_Clans>?> FindClans(
+        Task<IReadOnlyList<IClanShortInfo>?> FindClans(
             string clanNameOrTag, 
             RealmType realmType);
 
-        Task<(IPlayer_AccountInfo accountInfo, IReadOnlyList<IPlayer_AccountMedals_Sections> achievementsBySection)> GetPlayerInfo(
+        Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> GetPlayerInfo(
             long accountId,
             RealmType realmType);
     }
