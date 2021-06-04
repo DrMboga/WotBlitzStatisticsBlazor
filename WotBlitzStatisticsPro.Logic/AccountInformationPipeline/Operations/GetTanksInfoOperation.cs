@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using WotBlitzStatisticsPro.DataAccess.Model.Accounts;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.OperationContext;
+using WotBlitzStatisticsPro.Logic.Model;
 using WotBlitzStatisticsPro.Logic.Pipeline;
 using WotBlitzStatisticsPro.WgApiClient;
 
@@ -16,20 +17,35 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
         private readonly IWargamingTanksApiClient _wargamingApi;
         private readonly IMapper _mapper;
         private readonly ILogger<GetTanksInfoOperation> _logger;
+        private readonly StatisticsCache _cache;
 
         public GetTanksInfoOperation(
             IWargamingTanksApiClient wargamingApi,
             IMapper mapper,
-            ILogger<GetTanksInfoOperation> logger)
+            ILogger<GetTanksInfoOperation> logger,
+            StatisticsCache cache)
         {
             _wargamingApi = wargamingApi;
             _mapper = mapper;
             _logger = logger;
+            _cache = cache;
         }
 
         public async Task Invoke(IOperationContext context, Func<IOperationContext, Task>? next)
         {
             var contextData = context.Get<AccountInformationPipelineContextData>();
+
+            var cache = _cache.GetTanksData(context.Request.AccountId);
+            if (cache != null)
+            {
+                contextData.Tanks = cache.TankInfo;
+                contextData.TanksHistory = cache.TankInfoHistory;
+                _logger.LogInformation($"Account tanks data for account {context.Request.AccountId} got from cache");
+
+                if (next != null) await next.Invoke(context);
+                return;
+            }
+
 
             var tanksInfo = await
                 _wargamingApi.GetPlayerAccountTanksInfo(context.Request.AccountId, context.Request.RealmType, context.Request.RequestLanguage);
@@ -53,6 +69,8 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
                 _mapper.Map(tank.All, stat);
                 contextData.TanksHistory[stat.TankId] = stat;
             });
+
+            _cache.SetTanksData(context.Request.AccountId, new TanksDataCache(contextData.Tanks, contextData.TanksHistory));
 
             if (next != null) await next.Invoke(context);
         }

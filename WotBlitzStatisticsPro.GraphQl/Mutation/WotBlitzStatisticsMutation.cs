@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Types;
@@ -43,7 +44,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Mutation
         /// <param name="requestLanguage">Request language</param>
         /// <param name="wgToken">Wargaming authentication token</param>
         /// <returns></returns>
-        public Task<AccountInfoResponse> GatherAccountInformation(
+        public Task<DateTime> GatherAccountInformation(
             RealmType realmType, 
             long accountId, 
             RequestLanguage requestLanguage,

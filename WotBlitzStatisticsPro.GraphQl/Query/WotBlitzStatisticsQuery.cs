@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HotChocolate.Types;
+using Microsoft.Extensions.Logging;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic;
 

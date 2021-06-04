@@ -7,6 +7,7 @@ using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations;
 using WotBlitzStatisticsPro.Logic.Dictionaries;
+using WotBlitzStatisticsPro.Logic.Model;
 using WotBlitzStatisticsPro.Logic.Pipeline;
 using WotBlitzStatisticsPro.WgApiClient;
 
@@ -19,6 +20,7 @@ namespace WotBlitzStatisticsPro.Logic
 
         public static void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<StatisticsCache>();
             ConfigureDictionariesFactory(services);
             ConfigureOperationsFactory(services);
             WotBlitzStatisticsDataAccessInstaller.ConfigureServices(services);

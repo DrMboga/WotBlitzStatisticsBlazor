@@ -9,6 +9,7 @@ using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.OperationContext;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations;
+using WotBlitzStatisticsPro.Logic.Model;
 
 namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
 {
@@ -17,16 +18,19 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
     {
         private GetAccountInfoOperation _operation;
         private AccountInformationPipelineContextData _contextData;
+        private StatisticsCache _cache;
 
         [SetUp]
         public void Init()
         {
             InitAutoMapper();
             InitWgApiClient();
+            _cache = new StatisticsCache();
             _operation = new GetAccountInfoOperation(
                 WargamingApiClient,
                 Mapper,
-                (new Mock<ILogger<GetAccountInfoOperation>>()).Object);
+                (new Mock<ILogger<GetAccountInfoOperation>>()).Object,
+                _cache);
 
             _contextData = new AccountInformationPipelineContextData();
         }
@@ -51,6 +55,21 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
             var expectedAccountInfoHistory =
                 await File.ReadAllTextAsync(GetFixturePath("MappedAccountHistory.json"));
             accountInfoHistorySerialized.Should().Be(expectedAccountInfoHistory);
+
+            // ToDo: Check cache
+            Assert.Fail("Implement test");
+        }
+
+        [Test]
+        public async Task ShouldGetAndSaveAccountInfoInformationIfCacheExpired()
+        {
+            Assert.Fail("Implement test");
+        }
+
+        [Test]
+        public async Task ShouldReadDataFromCacheIfItIsNotEmpty()
+        {
+            Assert.Fail("Implement test");
         }
     }
 }

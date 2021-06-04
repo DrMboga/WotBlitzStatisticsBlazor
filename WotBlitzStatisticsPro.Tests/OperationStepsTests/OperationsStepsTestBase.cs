@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.Protected;
 using Newtonsoft.Json;
@@ -97,7 +98,10 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(tanksInfoResponse);
 
-            var client  = new WargamingApiClient(new HttpClient(handlerMock.Object), settingsMock.Object);
+            var client  = new WargamingApiClient(
+                new HttpClient(handlerMock.Object), 
+                settingsMock.Object,
+                (new Mock<ILogger<WagramingApiClientBase>>()).Object);
             WargamingApiClient = client;
             WargamingTanksApiClient = client;
         }

@@ -8,6 +8,7 @@ using NUnit.Framework;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.OperationContext;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations;
+using WotBlitzStatisticsPro.Logic.Model;
 
 namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
 {
@@ -16,16 +17,21 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
     {
         private GetTanksInfoOperation _operation;
         private AccountInformationPipelineContextData _contextData;
+        private StatisticsCache _cache;
+
 
         [SetUp]
         public void Init()
         {
             InitAutoMapper();
             InitWgApiClient();
+            _cache = new StatisticsCache();
+
             _operation = new GetTanksInfoOperation(
                 WargamingTanksApiClient,
                 Mapper,
-                (new Mock<ILogger<GetTanksInfoOperation>>()).Object);
+                (new Mock<ILogger<GetTanksInfoOperation>>()).Object,
+                _cache);
 
             _contextData = new AccountInformationPipelineContextData();
         }
@@ -50,6 +56,21 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
             var expectedTanksHistory =
                 await File.ReadAllTextAsync(GetFixturePath("MappedTanksHistory.json"));
             tanksHistorySerialized.Should().Be(expectedTanksHistory);
+
+            // ToDo: Check cache
+            Assert.Fail("Implement test");
+        }
+
+        [Test]
+        public async Task ShouldGetAndSaveTankInfoInformationIfCacheExpired()
+        {
+            Assert.Fail("Implement test");
+        }
+
+        [Test]
+        public async Task ShouldReadDataFromCacheIfItIsNotEmpty()
+        {
+            Assert.Fail("Implement test");
         }
 
     }

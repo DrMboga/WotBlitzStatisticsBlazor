@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.WgApiClient.Model;
@@ -10,7 +11,10 @@ namespace WotBlitzStatisticsPro.WgApiClient
     public class WargamingAchievementsApiClient: WagramingApiClientBase,
         IWargamingAchievementsApiClient
     {
-        public WargamingAchievementsApiClient(HttpClient httpClient, IWargamingApiSettings wargamingApiSettings) : base(httpClient, wargamingApiSettings)
+        public WargamingAchievementsApiClient(
+            HttpClient httpClient, 
+            IWargamingApiSettings wargamingApiSettings, 
+            ILogger<WagramingApiClientBase> logger) : base(httpClient, wargamingApiSettings, logger)
         {
         }
 

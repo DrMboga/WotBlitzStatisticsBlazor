@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.Common.Model;
 
@@ -19,14 +20,17 @@ namespace WotBlitzStatisticsPro.WgApiClient
 
 		private readonly HttpClient _httpClient;
 		private readonly IWargamingApiSettings _wargamingApiSettings;
+        private readonly ILogger<WagramingApiClientBase> _logger;
 
-		public WagramingApiClientBase(
+        public WagramingApiClientBase(
 			HttpClient httpClient,
-			IWargamingApiSettings wargamingApiSettings)
+			IWargamingApiSettings wargamingApiSettings,
+            ILogger<WagramingApiClientBase> logger)
 		{
 			_httpClient = httpClient;
 			_wargamingApiSettings = wargamingApiSettings;
-			_blitzApiUrls[RealmType.Eu] = "https://api.wotblitz.eu/wotb/";
+            _logger = logger;
+            _blitzApiUrls[RealmType.Eu] = "https://api.wotblitz.eu/wotb/";
 			_blitzApiUrls[RealmType.Ru] = "https://api.wotblitz.ru/wotb/";
 			_blitzApiUrls[RealmType.Na] = "https://api.wotblitz.com/wotb/";
 			_blitzApiUrls[RealmType.Asia] = "https://api.wotblitz.asia/wotb/";
@@ -53,6 +57,9 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			var responseString = await response.Content.ReadAsStringAsync();
 
 			var responseBody = JsonConvert.DeserializeObject<ResponseBody<T>>(responseString);
+
+			_logger.LogInformation($"HTTP GET {uri} - {responseBody.Status}");
+
 			switch (responseBody.Status)
             {
                 case "ok":
