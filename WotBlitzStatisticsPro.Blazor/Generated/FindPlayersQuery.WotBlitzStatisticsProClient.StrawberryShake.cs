@@ -9,13 +9,17 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// query FindPlayers($accountNick: String!, $realmType: RealmType!, $language: RequestLanguage!) {
     ///   players(accountNick: $accountNick, realmType: $realmType, language: $language) {
     ///     __typename
-    ///     accountId
-    ///     nickname
-    ///     clanTag
-    ///     lastBattle
-    ///     battlesCount
-    ///     winRate
+    ///     ... playerShortInfo
     ///   }
+    /// }
+    /// 
+    /// fragment playerShortInfo on AccountsSearchResponseItem {
+    ///   accountId
+    ///   nickname
+    ///   clanTag
+    ///   lastBattle
+    ///   battlesCount
+    ///   winRate
     /// }
     /// </code>
     /// </summary>

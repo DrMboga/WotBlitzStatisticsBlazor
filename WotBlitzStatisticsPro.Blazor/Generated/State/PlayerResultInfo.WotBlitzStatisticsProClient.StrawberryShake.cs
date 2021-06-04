@@ -8,7 +8,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
     {
         private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
         private readonly global::System.UInt64 _version;
-        public PlayerResultInfo(global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountInfoResponseData accountInfo, global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountAchievementsResponseData accountMedals, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
+        public PlayerResultInfo(global::WotBlitzStatisticsPro.Blazor.GraphQl.State.IStatisticsData accountInfo, global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountAchievementsResponseData accountMedals, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
         {
             AccountInfo = accountInfo;
             AccountMedals = accountMedals;
@@ -19,7 +19,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
         /// <summary>
         /// Gathers all account information
         /// </summary>
-        public global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountInfoResponseData AccountInfo { get; }
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.State.IStatisticsData AccountInfo { get; }
 
         /// <summary>
         /// Returns information about player's achievements

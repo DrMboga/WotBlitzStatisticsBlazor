@@ -22,7 +22,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
             _needToWait = needToWait;
         }
 
-        public async Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(string accountNick, RealmType realmType)
+        public async Task<IReadOnlyList<IPlayerShortInfo>?> FindPlayers(string accountNick, RealmType realmType)
         {
             var result = new List<IFindPlayers_Players>();
 
@@ -48,7 +48,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
             return result;
         }
 
-        public async Task<IReadOnlyList<IFindClans_Clans>?> FindClans(string clanNameOrTag, RealmType realmType)
+        public async Task<IReadOnlyList<IClanShortInfo>?> FindClans(string clanNameOrTag, RealmType realmType)
         {
             var result = new List<IFindClans_Clans>();
 
@@ -74,7 +74,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
             return result;
         }
 
-        public async Task<(IPlayer_AccountInfo accountInfo, IReadOnlyList<IPlayer_AccountMedals_Sections> achievementsBySection)> GetPlayerInfo(long accountId, RealmType realmType)
+        public async Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> GetPlayerInfo(long accountId, RealmType realmType)
         {
             var faker = new Faker(FakerLanguage(GetLanguage()));
             var tanksCount = faker.Random.Number(10, 280);
@@ -113,8 +113,18 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
                 tanks.Add(new Player_AccountInfo_Tanks_TankInfoResponse(
                     faker.Random.Long(100000, 999999),
                     faker.Random.Number(500),
-                    faker.Date.Past(),
                     faker.PickRandom<MarkOfMastery>(),
+                    faker.Random.Decimal(0M, 7M),
+                    faker.Name.LastName(),
+                    nation.nation,
+                    nation.nationName,
+                    faker.Random.Number(10),
+                    vehicleType.vehicleType,
+                    vehicleType.vehicleTypeName,
+                    faker.Random.Bool(),
+                    GetRandomPreviewImage(faker),
+                    GetRandomLargeImage(faker),
+                    faker.Date.Past(),
                     faker.Random.Long(1, 9999),
                     faker.Random.Long(1, 9999),
                     faker.Random.Long(1, 9999),
@@ -137,17 +147,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
                     faker.Random.Decimal(300M, 4000M),
                     faker.Random.Decimal(100M, 2000M),
                     faker.Random.Decimal(0M, 3M),
-                    faker.Random.Decimal(5M, 95M),
-                    faker.Random.Decimal(0M, 7M),
-                    faker.Name.LastName(),
-                    nation.nation,
-                    nation.nationName,
-                    faker.Random.Number(10),
-                    vehicleType.vehicleType,
-                    vehicleType.vehicleTypeName,
-                    faker.Random.Bool(),
-                    GetRandomPreviewImage(faker),
-                    GetRandomLargeImage(faker)
+                    faker.Random.Decimal(5M, 95M)
                 ));
             }
 
@@ -159,10 +159,11 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
             var player = new Player_AccountInfo_AccountInfoResponse(
                 accountId,
                 faker.Date.Past(),
-                faker.Date.Past(),
                 faker.Internet.UserName(),
-                tanks[faker.Random.Number(1, tanks.Count-1)].TankId,
-                tanks[faker.Random.Number(1, tanks.Count-1)].TankId,
+                tanks[faker.Random.Number(1, tanks.Count - 1)].TankId,
+                tanks[faker.Random.Number(1, tanks.Count - 1)].TankId,
+                faker.Random.Double(2D, 9D),
+                faker.Date.Past(),
                 faker.Random.Long(1, 100000),
                 faker.Random.Long(1, 9999),
                 faker.Random.Long(1, 9999),
@@ -186,7 +187,6 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
                 faker.Random.Decimal(100M, 2000M),
                 faker.Random.Decimal(0M, 3M),
                 faker.Random.Decimal(5M, 95M),
-                faker.Random.Double(2D, 9D),
                 clanInfo,
                 tanks
             );

@@ -5,17 +5,18 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
     ///<summary>Information about player</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public partial class AccountInfoResponseData
+    public partial class AccountInfoResponseData : IStatisticsData
     {
-        public AccountInfoResponseData(global::System.String __typename, global::System.Int64? accountId = default !, global::System.DateTimeOffset? createdAt = default !, global::System.DateTimeOffset? lastBattleTime = default !, global::System.String? nickname = default !, global::System.Int64? maxFragsTankId = default !, global::System.Int64? maxXpTankId = default !, global::System.Int64? battles = default !, global::System.Int64? capturePoints = default !, global::System.Int64? damageDealt = default !, global::System.Int64? damageReceived = default !, global::System.Int64? droppedCapturePoints = default !, global::System.Int64? frags = default !, global::System.Int64? frags8P = default !, global::System.Int64? hits = default !, global::System.Int64? losses = default !, global::System.Int64? maxFrags = default !, global::System.Int64? maxXp = default !, global::System.Int64? shots = default !, global::System.Int64? spotted = default !, global::System.Int64? survivedBattles = default !, global::System.Int64? winAndSurvived = default !, global::System.Int64? wins = default !, global::System.Int64? xp = default !, global::System.Double? wn7 = default !, global::System.Decimal? winRate = default !, global::System.Decimal? avgDamage = default !, global::System.Decimal? avgXp = default !, global::System.Decimal? damageCoefficient = default !, global::System.Decimal? survivalRate = default !, global::System.Double? avgTier = default !, global::WotBlitzStatisticsPro.Blazor.GraphQl.State.ClanInfoResponseData? clanInfo = default !, global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.TankInfoResponseData>? tanks = default !)
+        public AccountInfoResponseData(global::System.String __typename, global::System.Int64? accountId = default !, global::System.DateTimeOffset? createdAt = default !, global::System.String? nickname = default !, global::System.Int64? maxFragsTankId = default !, global::System.Int64? maxXpTankId = default !, global::System.Double? avgTier = default !, global::System.DateTimeOffset? lastBattleTime = default !, global::System.Int64? battles = default !, global::System.Int64? capturePoints = default !, global::System.Int64? damageDealt = default !, global::System.Int64? damageReceived = default !, global::System.Int64? droppedCapturePoints = default !, global::System.Int64? frags = default !, global::System.Int64? frags8P = default !, global::System.Int64? hits = default !, global::System.Int64? losses = default !, global::System.Int64? maxFrags = default !, global::System.Int64? maxXp = default !, global::System.Int64? shots = default !, global::System.Int64? spotted = default !, global::System.Int64? survivedBattles = default !, global::System.Int64? winAndSurvived = default !, global::System.Int64? wins = default !, global::System.Int64? xp = default !, global::System.Double? wn7 = default !, global::System.Decimal? winRate = default !, global::System.Decimal? avgDamage = default !, global::System.Decimal? avgXp = default !, global::System.Decimal? damageCoefficient = default !, global::System.Decimal? survivalRate = default !, global::WotBlitzStatisticsPro.Blazor.GraphQl.State.ClanInfoResponseData? clanInfo = default !, global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.IStatisticsData>? tanks = default !)
         {
             this.__typename = __typename ?? throw new global::System.ArgumentNullException(nameof(__typename));
             AccountId = accountId;
             CreatedAt = createdAt;
-            LastBattleTime = lastBattleTime;
             Nickname = nickname;
             MaxFragsTankId = maxFragsTankId;
             MaxXpTankId = maxXpTankId;
+            AvgTier = avgTier;
+            LastBattleTime = lastBattleTime;
             Battles = battles;
             CapturePoints = capturePoints;
             DamageDealt = damageDealt;
@@ -39,7 +40,6 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
             AvgXp = avgXp;
             DamageCoefficient = damageCoefficient;
             SurvivalRate = survivalRate;
-            AvgTier = avgTier;
             ClanInfo = clanInfo;
             Tanks = tanks;
         }
@@ -52,9 +52,6 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
         ///<summary>Account creation date</summary>
         public global::System.DateTimeOffset? CreatedAt { get; }
 
-        ///<summary>Last battle time</summary>
-        public global::System.DateTimeOffset? LastBattleTime { get; }
-
         ///<summary>Player's nick</summary>
         public global::System.String? Nickname { get; }
 
@@ -63,6 +60,12 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 
         ///<summary>Tank Id which created max experience per battle</summary>
         public global::System.Int64? MaxXpTankId { get; }
+
+        ///<summary>Average tier</summary>
+        public global::System.Double? AvgTier { get; }
+
+        ///<summary>Last battle time</summary>
+        public global::System.DateTimeOffset? LastBattleTime { get; }
 
         ///<summary>Battles count</summary>
         public global::System.Int64? Battles { get; }
@@ -106,7 +109,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
         ///<summary>Total count of survived battles</summary>
         public global::System.Int64? SurvivedBattles { get; }
 
-        ///<summary>Total count of survived and winned battles</summary>
+        ///<summary>Total count of survived and won battles</summary>
         public global::System.Int64? WinAndSurvived { get; }
 
         ///<summary>Total wins count</summary>
@@ -133,13 +136,10 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
         ///<summary>Rate of survival</summary>
         public global::System.Decimal? SurvivalRate { get; }
 
-        ///<summary>Average tier</summary>
-        public global::System.Double? AvgTier { get; }
-
         ///<summary>Clan info</summary>
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.State.ClanInfoResponseData? ClanInfo { get; }
 
         ///<summary>All player's tanks</summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.TankInfoResponseData>? Tanks { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.IStatisticsData>? Tanks { get; }
     }
 }

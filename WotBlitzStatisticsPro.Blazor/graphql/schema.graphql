@@ -66,17 +66,27 @@ enum RequestLanguage {
 }
 
 "Information about player"
-type AccountInfoResponse {
+type AccountInfoResponse implements Statistics {
   "Clan info"
   clanInfo: ClanInfoResponse
   "Player account identifier"
   accountId: Long!
   "Account creation date"
   createdAt: DateTime!
-  "Last battle time"
-  lastBattleTime: DateTime!
   "Player's nick"
   nickname: String
+  "Tank id, which kills max frags per battle"
+  maxFragsTankId: Long!
+  "Tank Id which created max experience per battle"
+  maxXpTankId: Long!
+  "Average tier"
+  avgTier: Float!
+  "All player's tanks"
+  tanks: [TankInfoResponse!]
+  "Account Region and request language"
+  regionAndLanguage: RealmAndLanguage!
+  "Last battle time"
+  lastBattleTime: DateTime!
   "Battles count"
   battles: Long!
   "Capture points"
@@ -97,26 +107,20 @@ type AccountInfoResponse {
   losses: Long!
   "Max frags per battle"
   maxFrags: Long!
-  "Tank id, which kills max frags per battle"
-  maxFragsTankId: Long!
   "Max experience per battle"
   maxXp: Long!
-  "Tank Id which created max experience per battle"
-  maxXpTankId: Long!
   "Total shots count"
   shots: Long!
   "Total count of spotted vehicles"
   spotted: Long!
   "Total count of survived battles"
   survivedBattles: Long!
-  "Total count of survived and winned battles"
+  "Total count of survived and won battles"
   winAndSurvived: Long!
   "Total wins count"
   wins: Long!
   "Total amount of experience"
   xp: Long!
-  "Average tier"
-  avgTier: Float!
   "Wn7 coefficient"
   wn7: Float!
   "Player's win rate"
@@ -129,10 +133,88 @@ type AccountInfoResponse {
   damageCoefficient: Decimal!
   "Rate of survival"
   survivalRate: Decimal!
-  "All player's tanks"
-  tanks: [TankInfoResponse!]
-  "Account Region and request language"
-  regionAndLanguage: RealmAndLanguage!
+}
+
+"Information about player's tank"
+type TankInfoResponse implements Statistics {
+  "Player account identifier"
+  accountId: Long!
+  "Tank identifier"
+  tankId: Long!
+  "Information is tank in garage or not. Information is not provided without Auth token"
+  inGarage: Boolean
+  "Mark of Mastery"
+  markOfMastery: MarkOfMastery!
+  "Total time in battle until tank killed"
+  battleLifeTimeInSeconds: Int!
+  "Average life time in battle until tank is killed."
+  avgBattleLifeTimeInMinutes: Decimal!
+  "Tank name"
+  name: String
+  "Tank nation dictionary identifier"
+  tankNationId: String
+  "Localized tank nation name"
+  tankNation: String
+  "Tank tier"
+  tier: Int!
+  "Tank type dictionary identifier"
+  tankTypeId: String
+  "Localized tank type name"
+  tankType: String
+  "Is it premium tank or not"
+  isPremium: Boolean!
+  "Vehicle preview image"
+  previewImage: String
+  "Vehicle normal image"
+  normalImage: String
+  "Last battle time"
+  lastBattleTime: DateTime!
+  "Battles count"
+  battles: Long!
+  "Capture points"
+  capturePoints: Long!
+  "Total damage amount"
+  damageDealt: Long!
+  "Total amount of received damage"
+  damageReceived: Long!
+  "Dropped capture points"
+  droppedCapturePoints: Long!
+  "Total amount of frags"
+  frags: Long!
+  "Total amount of fras grater ten 8 lvl"
+  frags8P: Long!
+  "Total amount of hits"
+  hits: Long!
+  "Total amount of losses"
+  losses: Long!
+  "Max frags per battle"
+  maxFrags: Long!
+  "Max experience per battle"
+  maxXp: Long!
+  "Total shots count"
+  shots: Long!
+  "Total count of spotted vehicles"
+  spotted: Long!
+  "Total count of survived battles"
+  survivedBattles: Long!
+  "Total count of survived and won battles"
+  winAndSurvived: Long!
+  "Total wins count"
+  wins: Long!
+  "Total amount of experience"
+  xp: Long!
+  "Wn7 coefficient"
+  wn7: Float!
+  "Player's win rate"
+  winRate: Decimal!
+  "Player's average damage"
+  avgDamage: Decimal!
+  "Player's average XP"
+  avgXp: Decimal!
+  "Damage coefficient"
+  damageCoefficient: Decimal!
+  "Rate of survival"
+  survivalRate: Decimal!
 }
 
 "Account search result item"
@@ -149,6 +231,58 @@ type AccountsSearchResponseItem {
   battlesCount: Long!
   "Last battle time"
   lastBattle: DateTime!
+}
+
+"Represents game's statistics"
+interface Statistics {
+  "Last battle time"
+  lastBattleTime: DateTime!
+  "Battles count"
+  battles: Long!
+  "Capture points"
+  capturePoints: Long!
+  "Total damage amount"
+  damageDealt: Long!
+  "Total amount of received damage"
+  damageReceived: Long!
+  "Dropped capture points"
+  droppedCapturePoints: Long!
+  "Total amount of frags"
+  frags: Long!
+  "Total amount of frags grater ten 8 lvl"
+  frags8P: Long!
+  "Total amount of hits"
+  hits: Long!
+  "Total amount of losses"
+  losses: Long!
+  "Max frags per battle"
+  maxFrags: Long!
+  "Max experience per battle"
+  maxXp: Long!
+  "Total shots count"
+  shots: Long!
+  "Total count of spotted vehicles"
+  spotted: Long!
+  "Total count of survived battles"
+  survivedBattles: Long!
+  "Total count of survived and won battles"
+  winAndSurvived: Long!
+  "Total wins count"
+  wins: Long!
+  "Total amount of experience"
+  xp: Long!
+  "Wn7 coefficient"
+  wn7: Float!
+  "Player's win rate"
+  winRate: Decimal!
+  "Player's average damage"
+  avgDamage: Decimal!
+  "Player's average XP"
+  avgXp: Decimal!
+  "Damage coefficient"
+  damageCoefficient: Decimal!
+  "Rate of survival"
+  survivalRate: Decimal!
 }
 
 enum ApplyPolicy {
@@ -202,96 +336,14 @@ scalar Long
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime
 
-"The built-in `Decimal` scalar type."
-scalar Decimal
-
-"Information about player's tank"
-type TankInfoResponse {
-  "Player account identifier"
-  accountId: Long!
-  "Tank identifier"
-  tankId: Long!
-  "Total time in battle until tank killed"
-  battleLifeTimeInSeconds: Int!
-  "Last battle"
-  lastBattleTime: DateTime!
-  "Information is tank in garage or not. Information is not provided without Auth token"
-  inGarage: Boolean
-  "Mark of Mastery"
-  markOfMastery: MarkOfMastery!
-  "Battles count"
-  battles: Long!
-  "Base capture points"
-  capturePoints: Long!
-  "Damage dealt"
-  damageDealt: Long!
-  "Damage received"
-  damageReceived: Long!
-  "Base dropped capture points"
-  droppedCapturePoints: Long!
-  "Frags count"
-  frags: Long!
-  "Frags count after 8 tier"
-  frags8P: Long!
-  "Hits count"
-  hits: Long!
-  "Losses count"
-  losses: Long!
-  "Max frags per battle"
-  maxFrags: Long!
-  "Max XP per battle"
-  maxXp: Long!
-  "Shots count"
-  shots: Long!
-  "Spotted vehicles count"
-  spotted: Long!
-  "Amount of survived battles"
-  survivedBattles: Long!
-  "Amount of survived and wined battles"
-  winAndSurvived: Long!
-  "Wins count"
-  wins: Long!
-  "Total experience"
-  xp: Long!
-  "Wn7 coefficient"
-  wn7: Float!
-  "Average life time in battle until tank is killed."
-  avgBattleLifeTimeInMinutes: Decimal!
-  "Tank's win rate"
-  winRate: Decimal!
-  "Average tank's damage"
-  avgDamage: Decimal!
-  "Average XP"
-  avgXp: Decimal!
-  "Damage coefficient"
-  damageCoefficient: Decimal!
-  "Rate of survival"
-  survivalRate: Decimal!
-  "Tank name"
-  name: String
-  "Tank nation dictionary identifier"
-  tankNationId: String
-  "Localized tank nation name"
-  tankNation: String
-  "Tank tier"
-  tier: Int!
-  "Tank type dictionary identifier"
-  tankTypeId: String
-  "Localized tank type name"
-  tankType: String
-  "Is it premium tank or not"
-  isPremium: Boolean!
-  "Vehicle preview image"
-  previewImage: String
-  "Vehicle normal image"
-  normalImage: String
-}
-
 "Represents pair of realm type a nd requested language"
 type RealmAndLanguage {
   realm: RealmType!
   language: RequestLanguage!
 }
+
+"The built-in `Decimal` scalar type."
+scalar Decimal
 
 "Request for update dictionaries mutation"
 input UpdateDictionariesRequestInput {

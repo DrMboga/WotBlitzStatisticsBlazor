@@ -20,7 +20,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             _notificationsService = notificationsService;
         }
 
-        public async Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(string accountNick, RealmType realmType)
+        public async Task<IReadOnlyList<IPlayerShortInfo>?> FindPlayers(string accountNick, RealmType realmType)
         {
             var accounts =
                 await _client.FindPlayers.ExecuteAsync(accountNick, realmType, GetLanguage());
@@ -29,7 +29,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             return accounts.Data?.Players;
         }
 
-        public async Task<IReadOnlyList<IFindClans_Clans>?> FindClans(string clanNameOrTag, RealmType realmType)
+        public async Task<IReadOnlyList<IClanShortInfo>?> FindClans(string clanNameOrTag, RealmType realmType)
         {
             var clans =
                 await _client.FindClans.ExecuteAsync(clanNameOrTag, realmType, GetLanguage());
@@ -38,7 +38,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             return clans.Data?.Clans;
         }
 
-        public async Task<(IPlayer_AccountInfo accountInfo, IReadOnlyList<IPlayer_AccountMedals_Sections> achievementsBySection)> GetPlayerInfo(long accountId, RealmType realmType)
+        public async Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> GetPlayerInfo(long accountId, RealmType realmType)
         {
             var playerInfo = await _client.Player.ExecuteAsync(accountId, realmType, GetLanguage());
             CheckErrors(playerInfo.Errors);

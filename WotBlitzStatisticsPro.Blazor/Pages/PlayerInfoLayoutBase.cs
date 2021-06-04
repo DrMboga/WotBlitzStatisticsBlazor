@@ -19,9 +19,9 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         public RealmType CurrentRealmType { get; set; } = RealmType.Eu;
 
-        public IPlayer_AccountInfo AccountInfo { get; set; }
+        public IAccount AccountInfo { get; set; }
 
-        public IReadOnlyList<IPlayer_AccountMedals_Sections> AchievementsBySection { get; set; }
+        public IReadOnlyList<ISection> AchievementsBySection { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

@@ -1,122 +1,127 @@
-query player(
+query player 
+(
   $accountId: Long!,
   $realmType: RealmType!,
-  $requestLanguage: RequestLanguage! ) {
+  $requestLanguage: RequestLanguage!)
+  
+  {
   accountInfo(
     accountId: $accountId, 
     realmType: $realmType, 
     requestLanguage: $requestLanguage) {
-      accountId
-      createdAt
-      lastBattleTime
-      nickname
-      maxFragsTankId
-      maxXpTankId
-      battles
-      capturePoints
-      damageDealt
-      damageReceived
-      droppedCapturePoints
-      frags
-      frags8P
-      hits
-      losses
-      maxFrags
-      maxXp
-      shots
-      spotted
-      survivedBattles
-      winAndSurvived
-      wins
-      xp
-      wn7
-      winRate
-      avgDamage
-      avgXp
-      damageCoefficient
-      survivalRate
-      avgTier
-      clanInfo {
-        clanId
-        joinedAt
-        role
-        roleLocalized
-        name
-        createdAt
-        creatorId
-        creatorName
-        description
-        descriptionHtml
-        leaderId
-        leaderName
-        membersCount
-        motto
-        tag
-        updatedAt
-      }
-      tanks {
-        tankId
-        battleLifeTimeInSeconds
-        lastBattleTime
-        markOfMastery
-        battles
-        capturePoints
-        damageDealt
-        damageReceived
-        droppedCapturePoints
-        frags
-        frags8P
-        hits
-        losses
-        maxFrags
-        maxXp
-        shots
-        spotted
-        survivedBattles
-        winAndSurvived
-        wins
-        xp
-        wn7
-        winRate
-        avgDamage
-        avgXp
-        damageCoefficient
-        survivalRate
-        avgBattleLifeTimeInMinutes
-        name
-        tankNationId
-        tankNation
-        tier
-        tankTypeId
-        tankType
-        isPremium
-        previewImage
-        normalImage
-    }
+      ...account
   }
+
   accountMedals(
     accountId: $accountId, 
     realmType: $realmType, 
     requestLanguage: $requestLanguage
-    ) {
-      accountId
-      sections {
-      sectionId
-      order
-      name
-      medals {
-          id
-          name
-          medalType
-          condition
-          description
-          achievementValue
-          maxSeriesValue
-          image
-          imageBig
-          order
-          sectionId
-      }
-    }
+   ) {
+     accountId
+     sections {
+       ... section
+     }
+   }
+}
+
+fragment statistics on Statistics {
+  lastBattleTime
+  battles
+  capturePoints
+  damageDealt
+  damageReceived
+  droppedCapturePoints
+  frags
+  frags8P
+  hits
+  losses
+  maxFrags
+  maxXp
+  shots
+  spotted
+  survivedBattles
+  winAndSurvived
+  wins
+  xp
+  wn7
+  winRate
+  avgDamage
+  avgXp
+  damageCoefficient
+  survivalRate
+}
+
+fragment clan on ClanInfoResponse {
+  clanId
+  joinedAt
+  role
+  roleLocalized
+  name
+  createdAt
+  creatorId
+  creatorName
+  description
+  descriptionHtml
+  leaderId
+  leaderName
+  membersCount
+  motto
+  tag
+  updatedAt
+}
+
+fragment tank on TankInfoResponse {
+  tankId
+  battleLifeTimeInSeconds
+  markOfMastery
+  avgBattleLifeTimeInMinutes
+  name
+  tankNationId
+  tankNation
+  tier
+  tankTypeId
+  tankType
+  isPremium
+  previewImage
+  normalImage
+  ... statistics
+}
+
+fragment account on AccountInfoResponse {
+  accountId
+  createdAt
+  nickname
+  maxFragsTankId
+  maxXpTankId
+  avgTier
+  ... statistics
+  clanInfo {
+    ...clan
+  }
+  tanks {
+    ...tank
+  }
+}
+
+fragment medal on Achievement {
+  id
+  name
+  medalType
+  condition
+  description
+  achievementValue
+  maxSeriesValue
+  image
+  imageBig
+  order
+  sectionId
+}
+
+fragment section on AchievementSection {
+  sectionId
+  order
+  name
+  medals {
+    ...medal
   }
 }

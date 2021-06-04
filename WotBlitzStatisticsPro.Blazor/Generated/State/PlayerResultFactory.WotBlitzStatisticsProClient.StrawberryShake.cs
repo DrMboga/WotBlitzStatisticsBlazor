@@ -30,12 +30,157 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
             throw new global::System.ArgumentException("PlayerResultInfo expected.");
         }
 
-        private global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo MapNonNullableIPlayer_AccountInfo(global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountInfoResponseData data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo MapNonNullableIPlayer_AccountInfo(global::WotBlitzStatisticsPro.Blazor.GraphQl.State.IStatisticsData data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
-            IPlayer_AccountInfo returnValue = default !;
-            if (data.__typename.Equals("AccountInfoResponse", global::System.StringComparison.Ordinal))
+            IPlayer_AccountInfo? returnValue;
+            if (data is global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountInfoResponseData accountInfoResponse)
             {
-                returnValue = new Player_AccountInfo_AccountInfoResponse(data.AccountId ?? throw new global::System.ArgumentNullException(), data.CreatedAt ?? throw new global::System.ArgumentNullException(), data.LastBattleTime ?? throw new global::System.ArgumentNullException(), data.Nickname, data.MaxFragsTankId ?? throw new global::System.ArgumentNullException(), data.MaxXpTankId ?? throw new global::System.ArgumentNullException(), data.Battles ?? throw new global::System.ArgumentNullException(), data.CapturePoints ?? throw new global::System.ArgumentNullException(), data.DamageDealt ?? throw new global::System.ArgumentNullException(), data.DamageReceived ?? throw new global::System.ArgumentNullException(), data.DroppedCapturePoints ?? throw new global::System.ArgumentNullException(), data.Frags ?? throw new global::System.ArgumentNullException(), data.Frags8P ?? throw new global::System.ArgumentNullException(), data.Hits ?? throw new global::System.ArgumentNullException(), data.Losses ?? throw new global::System.ArgumentNullException(), data.MaxFrags ?? throw new global::System.ArgumentNullException(), data.MaxXp ?? throw new global::System.ArgumentNullException(), data.Shots ?? throw new global::System.ArgumentNullException(), data.Spotted ?? throw new global::System.ArgumentNullException(), data.SurvivedBattles ?? throw new global::System.ArgumentNullException(), data.WinAndSurvived ?? throw new global::System.ArgumentNullException(), data.Wins ?? throw new global::System.ArgumentNullException(), data.Xp ?? throw new global::System.ArgumentNullException(), data.Wn7 ?? throw new global::System.ArgumentNullException(), data.WinRate ?? throw new global::System.ArgumentNullException(), data.AvgDamage ?? throw new global::System.ArgumentNullException(), data.AvgXp ?? throw new global::System.ArgumentNullException(), data.DamageCoefficient ?? throw new global::System.ArgumentNullException(), data.SurvivalRate ?? throw new global::System.ArgumentNullException(), data.AvgTier ?? throw new global::System.ArgumentNullException(), MapIPlayer_AccountInfo_ClanInfo(data.ClanInfo, snapshot), MapIPlayer_AccountInfo_TanksNonNullableArray(data.Tanks, snapshot));
+                if (!accountInfoResponse.AccountId.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.CreatedAt.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.MaxFragsTankId.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.MaxXpTankId.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.AvgTier.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.LastBattleTime.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.Battles.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.CapturePoints.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.DamageDealt.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.DamageReceived.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.DroppedCapturePoints.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.Frags.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.Frags8P.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.Hits.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.Losses.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.MaxFrags.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.MaxXp.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.Shots.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.Spotted.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.SurvivedBattles.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.WinAndSurvived.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.Wins.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.Xp.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.Wn7.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.WinRate.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.AvgDamage.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.AvgXp.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.DamageCoefficient.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!accountInfoResponse.SurvivalRate.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                returnValue = new global::WotBlitzStatisticsPro.Blazor.GraphQl.Player_AccountInfo_AccountInfoResponse(accountInfoResponse.AccountId!.Value, accountInfoResponse.CreatedAt!.Value, accountInfoResponse.Nickname, accountInfoResponse.MaxFragsTankId!.Value, accountInfoResponse.MaxXpTankId!.Value, accountInfoResponse.AvgTier!.Value, accountInfoResponse.LastBattleTime!.Value, accountInfoResponse.Battles!.Value, accountInfoResponse.CapturePoints!.Value, accountInfoResponse.DamageDealt!.Value, accountInfoResponse.DamageReceived!.Value, accountInfoResponse.DroppedCapturePoints!.Value, accountInfoResponse.Frags!.Value, accountInfoResponse.Frags8P!.Value, accountInfoResponse.Hits!.Value, accountInfoResponse.Losses!.Value, accountInfoResponse.MaxFrags!.Value, accountInfoResponse.MaxXp!.Value, accountInfoResponse.Shots!.Value, accountInfoResponse.Spotted!.Value, accountInfoResponse.SurvivedBattles!.Value, accountInfoResponse.WinAndSurvived!.Value, accountInfoResponse.Wins!.Value, accountInfoResponse.Xp!.Value, accountInfoResponse.Wn7!.Value, accountInfoResponse.WinRate!.Value, accountInfoResponse.AvgDamage!.Value, accountInfoResponse.AvgXp!.Value, accountInfoResponse.DamageCoefficient!.Value, accountInfoResponse.SurvivalRate!.Value, MapIPlayer_AccountInfo_ClanInfo(accountInfoResponse.ClanInfo, snapshot), MapIPlayer_AccountInfo_TanksNonNullableArray(accountInfoResponse.Tanks, snapshot));
             }
             else
             {
@@ -65,7 +210,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
             return returnValue;
         }
 
-        private global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_Tanks>? MapIPlayer_AccountInfo_TanksNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.TankInfoResponseData>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_Tanks>? MapIPlayer_AccountInfo_TanksNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.IStatisticsData>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (list is null)
             {
@@ -73,7 +218,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
             }
 
             var tankInfoResponses = new global::System.Collections.Generic.List<global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_Tanks>();
-            foreach (global::WotBlitzStatisticsPro.Blazor.GraphQl.State.TankInfoResponseData child in list)
+            foreach (global::WotBlitzStatisticsPro.Blazor.GraphQl.State.IStatisticsData child in list)
             {
                 tankInfoResponses.Add(MapNonNullableIPlayer_AccountInfo_Tanks(child, snapshot));
             }
@@ -81,12 +226,162 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
             return tankInfoResponses;
         }
 
-        private global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_Tanks MapNonNullableIPlayer_AccountInfo_Tanks(global::WotBlitzStatisticsPro.Blazor.GraphQl.State.TankInfoResponseData data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_Tanks MapNonNullableIPlayer_AccountInfo_Tanks(global::WotBlitzStatisticsPro.Blazor.GraphQl.State.IStatisticsData data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
-            IPlayer_AccountInfo_Tanks returnValue = default !;
-            if (data.__typename.Equals("TankInfoResponse", global::System.StringComparison.Ordinal))
+            IPlayer_AccountInfo_Tanks? returnValue;
+            if (data is global::WotBlitzStatisticsPro.Blazor.GraphQl.State.TankInfoResponseData tankInfoResponse)
             {
-                returnValue = new Player_AccountInfo_Tanks_TankInfoResponse(data.TankId ?? throw new global::System.ArgumentNullException(), data.BattleLifeTimeInSeconds ?? throw new global::System.ArgumentNullException(), data.LastBattleTime ?? throw new global::System.ArgumentNullException(), data.MarkOfMastery ?? throw new global::System.ArgumentNullException(), data.Battles ?? throw new global::System.ArgumentNullException(), data.CapturePoints ?? throw new global::System.ArgumentNullException(), data.DamageDealt ?? throw new global::System.ArgumentNullException(), data.DamageReceived ?? throw new global::System.ArgumentNullException(), data.DroppedCapturePoints ?? throw new global::System.ArgumentNullException(), data.Frags ?? throw new global::System.ArgumentNullException(), data.Frags8P ?? throw new global::System.ArgumentNullException(), data.Hits ?? throw new global::System.ArgumentNullException(), data.Losses ?? throw new global::System.ArgumentNullException(), data.MaxFrags ?? throw new global::System.ArgumentNullException(), data.MaxXp ?? throw new global::System.ArgumentNullException(), data.Shots ?? throw new global::System.ArgumentNullException(), data.Spotted ?? throw new global::System.ArgumentNullException(), data.SurvivedBattles ?? throw new global::System.ArgumentNullException(), data.WinAndSurvived ?? throw new global::System.ArgumentNullException(), data.Wins ?? throw new global::System.ArgumentNullException(), data.Xp ?? throw new global::System.ArgumentNullException(), data.Wn7 ?? throw new global::System.ArgumentNullException(), data.WinRate ?? throw new global::System.ArgumentNullException(), data.AvgDamage ?? throw new global::System.ArgumentNullException(), data.AvgXp ?? throw new global::System.ArgumentNullException(), data.DamageCoefficient ?? throw new global::System.ArgumentNullException(), data.SurvivalRate ?? throw new global::System.ArgumentNullException(), data.AvgBattleLifeTimeInMinutes ?? throw new global::System.ArgumentNullException(), data.Name, data.TankNationId, data.TankNation, data.Tier ?? throw new global::System.ArgumentNullException(), data.TankTypeId, data.TankType, data.IsPremium ?? throw new global::System.ArgumentNullException(), data.PreviewImage, data.NormalImage);
+                if (!tankInfoResponse.TankId.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.BattleLifeTimeInSeconds.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.MarkOfMastery.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.AvgBattleLifeTimeInMinutes.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Tier.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.IsPremium.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.LastBattleTime.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Battles.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.CapturePoints.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.DamageDealt.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.DamageReceived.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.DroppedCapturePoints.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Frags.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Frags8P.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Hits.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Losses.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.MaxFrags.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.MaxXp.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Shots.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Spotted.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.SurvivedBattles.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.WinAndSurvived.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Wins.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Xp.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.Wn7.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.WinRate.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.AvgDamage.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.AvgXp.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.DamageCoefficient.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                if (!tankInfoResponse.SurvivalRate.HasValue)
+                {
+                    throw new global::System.ArgumentNullException();
+                }
+
+                returnValue = new global::WotBlitzStatisticsPro.Blazor.GraphQl.Player_AccountInfo_Tanks_TankInfoResponse(tankInfoResponse.TankId!.Value, tankInfoResponse.BattleLifeTimeInSeconds!.Value, tankInfoResponse.MarkOfMastery!.Value, tankInfoResponse.AvgBattleLifeTimeInMinutes!.Value, tankInfoResponse.Name, tankInfoResponse.TankNationId, tankInfoResponse.TankNation, tankInfoResponse.Tier!.Value, tankInfoResponse.TankTypeId, tankInfoResponse.TankType, tankInfoResponse.IsPremium!.Value, tankInfoResponse.PreviewImage, tankInfoResponse.NormalImage, tankInfoResponse.LastBattleTime!.Value, tankInfoResponse.Battles!.Value, tankInfoResponse.CapturePoints!.Value, tankInfoResponse.DamageDealt!.Value, tankInfoResponse.DamageReceived!.Value, tankInfoResponse.DroppedCapturePoints!.Value, tankInfoResponse.Frags!.Value, tankInfoResponse.Frags8P!.Value, tankInfoResponse.Hits!.Value, tankInfoResponse.Losses!.Value, tankInfoResponse.MaxFrags!.Value, tankInfoResponse.MaxXp!.Value, tankInfoResponse.Shots!.Value, tankInfoResponse.Spotted!.Value, tankInfoResponse.SurvivedBattles!.Value, tankInfoResponse.WinAndSurvived!.Value, tankInfoResponse.Wins!.Value, tankInfoResponse.Xp!.Value, tankInfoResponse.Wn7!.Value, tankInfoResponse.WinRate!.Value, tankInfoResponse.AvgDamage!.Value, tankInfoResponse.AvgXp!.Value, tankInfoResponse.DamageCoefficient!.Value, tankInfoResponse.SurvivalRate!.Value);
             }
             else
             {

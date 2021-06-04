@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -158,7 +159,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             _findPlayersErrors = new List<IClientError>();
             _findPlayersResultMock = new();
             _findPlayersOperationResultMock = new();
-            _findPlayersResultMock.SetupGet(r => r.Players).Returns(players);
+            _findPlayersResultMock.SetupGet(r => r.Players).Returns(players.Select(c => c as IFindPlayers_Players).ToList());
             _findPlayersOperationResultMock.SetupGet(r => r.Errors).Returns(_findPlayersErrors);
 
             _findPlayersQueryMock.Setup(q => q.ExecuteAsync(
@@ -176,7 +177,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             _findClansErrors = new List<IClientError>();
             _findClansResultMock = new();
             _findClansOperationResultMock = new();
-            _findClansResultMock.SetupGet(r => r.Clans).Returns(clans);
+            _findClansResultMock.SetupGet(r => r.Clans).Returns(clans.Select(c => c as IFindClans_Clans).ToList());
             _findClansOperationResultMock.SetupGet(r => r.Errors).Returns(_findClansErrors);
 
             _findClanQueryMock.Setup(q => q.ExecuteAsync(
@@ -194,8 +195,9 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             _playerInfoErrors = new List<IClientError>();
             _playerInfoResultMock = new();
             _playerInfoOperationResultMock = new();
-            _playerInfoResultMock.SetupGet(r => r.AccountInfo).Returns(result.accountInfo);
-            _playerInfoResultMock.SetupGet(r => r.AccountMedals).Returns(new Player_AccountMedals_AccountAchievementsResponse(CurrentAccountId, result.achievementsBySection));
+            _playerInfoResultMock.SetupGet(r => r.AccountInfo).Returns(result.accountInfo as IPlayer_AccountInfo);
+            _playerInfoResultMock.SetupGet(r => r.AccountMedals).Returns(new Player_AccountMedals_AccountAchievementsResponse(CurrentAccountId, 
+                result.achievementsBySection.Select(a => a as IPlayer_AccountMedals_Sections).ToList()));
             _playerInfoOperationResultMock.SetupGet(r => r.Errors).Returns(_findClansErrors);
 
             _playerQueryMock.Setup(q => q.ExecuteAsync(

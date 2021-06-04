@@ -27,7 +27,7 @@
                         Style="height: 330px; width: 100%; margin-top: 10px;"
                         Visible="@(!ComponentBusy)">
             <Template>
-                <FindPlayerListItem Player="@((IFindPlayers_Players) context)"></FindPlayerListItem>
+                <FindPlayerListItem Player="@((IPlayerShortInfo) context)"></FindPlayerListItem>
             </Template>
         </RadzenListBox>
     }
@@ -39,7 +39,7 @@
                         Style="height: 330px; width: 100%; margin-top: 10px;"
                         Visible="@(!ComponentBusy)">
             <Template>
-                <FindClanListItem Clan="((IFindClans_Clans)context)"></FindClanListItem>
+                <FindClanListItem Clan="((IClanShortInfo)context)"></FindClanListItem>
             </Template>
         </RadzenListBox>
     }
