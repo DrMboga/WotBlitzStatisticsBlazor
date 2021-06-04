@@ -6,10 +6,14 @@
                    Style="width: 100%; margin-top: 10px;" />
 @if (AccountInfo != null)
 {
+    @AccountInfo.Nickname @if (AccountInfo.ClanInfo != null)
+                          {
+                              <span style="color: @Constants.ClanTagColor;"> [<span style="font-weight: bolder;">@AccountInfo.ClanInfo.Tag</span>]</span>
+                          }
     <RadzenTabs >
         <Tabs>
             <RadzenTabsItem Icon="person_outline" >
-                <PlayerInfoOverview></PlayerInfoOverview>
+                <PlayerInfoOverview AccountInfo="@AccountInfo"></PlayerInfoOverview>
             </RadzenTabsItem>
             <RadzenTabsItem Icon="insights">
                 <PlayerInfoStatistics></PlayerInfoStatistics>
