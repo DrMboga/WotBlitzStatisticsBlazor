@@ -1,8 +1,11 @@
 ﻿using System.IO;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Moq.Protected;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline;
@@ -57,20 +60,32 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
                 await File.ReadAllTextAsync(GetFixturePath("MappedTanksHistory.json"));
             tanksHistorySerialized.Should().Be(expectedTanksHistory);
 
-            // ToDo: Check cache
-            Assert.Fail("Implement test");
-        }
-
-        [Test]
-        public async Task ShouldGetAndSaveTankInfoInformationIfCacheExpired()
-        {
-            Assert.Fail("Implement test");
+            var tanksCache = _cache.GetTanksData(AccountId);
+            tanksCache.Should().NotBeNull();
+            tanksCache?.TankInfo.Should().NotBeNull();
+            tanksCache?.TankInfoHistory.Should().NotBeNull();
         }
 
         [Test]
         public async Task ShouldReadDataFromCacheIfItIsNotEmpty()
         {
-            Assert.Fail("Implement test");
+            var tanksInfo = GetTanksInfoRomFixture();
+            var tanksInfoHistory = GetTanksInfoHistoryFromFixture();
+            _cache.SetTanksData(AccountId, new TanksDataCache(tanksInfo, tanksInfoHistory));
+
+            var context = new OperationContext(new AccountRequest(AccountId, Realm, Language));
+            context.AddOrReplace(_contextData);
+
+            await _operation.Invoke(context, null);
+
+            _contextData.Tanks.Should().NotBeNull();
+            _contextData.TanksHistory.Should().NotBeNull();
+
+            HttpHandlerMock
+                .Protected()
+                .Verify<Task<HttpResponseMessage>>("SendAsync", Times.Never(),
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>());
         }
 
     }

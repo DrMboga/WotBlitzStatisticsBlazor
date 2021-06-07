@@ -38,6 +38,8 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
         protected Mock<IDictionariesDataAccessor> DictionariesDataAccessorMock;
         protected Mock<IWargamingAccountDataAccessor> WargamingDataAccessorMock;
 
+        protected Mock<HttpMessageHandler> HttpHandlerMock;
+
         protected void InitAutoMapper()
         {
             var config = new MapperConfiguration(cfg => {
@@ -82,24 +84,26 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
                 Content = new StringContent(File.ReadAllText(tanksInfoFilePath)),
             };
 
-            var handlerMock = new Mock<HttpMessageHandler>();
-            handlerMock
+            HttpHandlerMock = new Mock<HttpMessageHandler>();
+            HttpHandlerMock
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.Is<HttpRequestMessage>(m => m.RequestUri.ToString() == playerInfoRequestUrl),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(playerInfoResponse);
-            handlerMock
+                .ReturnsAsync(playerInfoResponse)
+                .Verifiable();
+            HttpHandlerMock
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.Is<HttpRequestMessage>(m => m.RequestUri.ToString() == tanksInfoRequestUrl),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(tanksInfoResponse);
+                .ReturnsAsync(tanksInfoResponse)
+                .Verifiable();
 
             var client  = new WargamingApiClient(
-                new HttpClient(handlerMock.Object), 
+                new HttpClient(HttpHandlerMock.Object), 
                 settingsMock.Object,
                 (new Mock<ILogger<WagramingApiClientBase>>()).Object);
             WargamingApiClient = client;
@@ -125,23 +129,35 @@ namespace WotBlitzStatisticsPro.Tests.OperationStepsTests
 
         protected void FillAccountAndTanks(AccountInformationPipelineContextData contextData)
         {
-            var mappedAccountInfoHistory = File.ReadAllText(GetFixturePath("MappedAccountHistory.json"));
-            var mappedTanks = File.ReadAllText(GetFixturePath("MappedTanks.json"));
-            var mappedTanksHistory = File.ReadAllText(GetFixturePath("MappedTanksHistory.json"));
 
             contextData.AccountInfo = GetAccountInfoFromFixture();
-            contextData.AccountInfoHistory =
-                JsonConvert.DeserializeObject<AccountInfoHistory>(mappedAccountInfoHistory);
-            contextData.Tanks = JsonConvert.DeserializeObject<List<TankInfo>>(mappedTanks);
-            contextData.TanksHistory =
-                JsonConvert.DeserializeObject<Dictionary<long, TankInfoHistory>>(mappedTanksHistory);
-
+            contextData.AccountInfoHistory = GetAccountInfoHistoryFromFixture();
+            contextData.Tanks = GetTanksInfoRomFixture();
+            contextData.TanksHistory = GetTanksInfoHistoryFromFixture();
         }
 
         protected AccountInfo GetAccountInfoFromFixture()
         {
             var mappedAccountInfo = File.ReadAllText(GetFixturePath("MappedAccountInfo.json"));
             return JsonConvert.DeserializeObject<AccountInfo>(mappedAccountInfo);
+        }
+
+        protected AccountInfoHistory GetAccountInfoHistoryFromFixture()
+        {
+            var mappedAccountInfoHistory = File.ReadAllText(GetFixturePath("MappedAccountHistory.json"));
+            return JsonConvert.DeserializeObject<AccountInfoHistory>(mappedAccountInfoHistory);
+        }
+
+        protected List<TankInfo> GetTanksInfoRomFixture()
+        {
+            var mappedTanks = File.ReadAllText(GetFixturePath("MappedTanks.json"));
+            return JsonConvert.DeserializeObject<List<TankInfo>>(mappedTanks);
+        }
+
+        protected Dictionary<long, TankInfoHistory> GetTanksInfoHistoryFromFixture()
+        {
+            var mappedTanksHistory = File.ReadAllText(GetFixturePath("MappedTanksHistory.json"));
+            return JsonConvert.DeserializeObject<Dictionary<long, TankInfoHistory>>(mappedTanksHistory);
         }
 
         protected string GetFixturePath(string fixtureFileName)
