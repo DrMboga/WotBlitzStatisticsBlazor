@@ -120,6 +120,12 @@
   <data name="Battles" xml:space="preserve">
     <value>Schlachten</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Weiter</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>Erstellt</value>
   </data>
@@ -138,6 +144,9 @@
   <data name="Login with WG.net ID" xml:space="preserve">
     <value>Anmelden mit WG.net-ID</value>
   </data>
+  <data name="LoginConsent" xml:space="preserve">
+    <value>Sie werden nun auf die WG-Anmeldeseite weitergeleitet. Autorisierte Benutzer haben die Möglichkeit, ihren Statistikverlauf zu speichern, der nur Ihnen zur Verfügung steht. Diese Anwendung speichert keine persönlichen Informationen über die Spieler, ihre Benutzernamen, Passwörter, E-Mails und spielinternen Ressourcen. Außerdem können Sie sich nach dem Einloggen mit dem Speichern oder Löschen des Verlaufs Ihrer Kontostatistiken auf dem Server abmelden. Indem Sie auf Weiter klicken, erklären Sie sich mit diesen Informationen einverstanden</value>
+  </data>
   <data name="Members" xml:space="preserve">
     <value>Mitglieder</value>
   </data>
@@ -146,6 +155,9 @@
   </data>
   <data name="months ago" xml:space="preserve">
     <value>vor Monaten</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Suchen</value>
@@ -164,5 +176,8 @@
   </data>
   <data name="years ago" xml:space="preserve">
     <value>vor Jahren</value>
+  </data>
+  <data name="You're about to login" xml:space="preserve">
+    <value>Sie sind dabei, sich anzumelden</value>
   </data>
 </root>

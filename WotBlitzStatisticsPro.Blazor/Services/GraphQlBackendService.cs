@@ -95,5 +95,9 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             }
         }
 
+        public Task<string> GetWgLoginUrl(RealmType realmType)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

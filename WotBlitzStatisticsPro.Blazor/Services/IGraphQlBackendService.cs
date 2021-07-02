@@ -17,5 +17,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> GetPlayerInfo(
             long accountId,
             RealmType realmType);
+
+        Task<string> GetWgLoginUrl(RealmType realmType);
     }
 }

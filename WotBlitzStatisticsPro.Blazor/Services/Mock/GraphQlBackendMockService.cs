@@ -196,6 +196,12 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
             return (player, achievements?.Sections);
         }
 
+        public Task<string> GetWgLoginUrl(RealmType realmType)
+        {
+            return Task.FromResult(
+                "https://api.worldoftanks.eu/wot/auth/login/?application_id=adc1387489cf9fc8d9a1d85dbd27763d");
+        }
+
         private string FakerLanguage(RequestLanguage language)
         {
             switch (language)

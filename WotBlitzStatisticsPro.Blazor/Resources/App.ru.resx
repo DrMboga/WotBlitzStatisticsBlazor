@@ -120,6 +120,12 @@
   <data name="Battles" xml:space="preserve">
     <value>Количество боёв</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Далее</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>Создан</value>
   </data>
@@ -138,6 +144,9 @@
   <data name="Login with WG.net ID" xml:space="preserve">
     <value>Войти с WG.net ID</value>
   </data>
+  <data name="LoginConsent" xml:space="preserve">
+    <value>Сейчас вы будете перенаправлены на страницу авторизации WG. Авторизованные пользователи получают возможность сохранять историю своей статистики, которая будет доступна только вам. Данное приложение не хранит никакой личной информации об игроках, их логинов, паролей e-mail-ов и внутреигровых ресурсах. Так же после авторизации вы будете иметь возможность выйти с сохранением или удалением истории статистики вашего аккаунта на сервере. Нажимая кнопку Далее, вы соглашаетесь с данной информацией</value>
+  </data>
   <data name="Members" xml:space="preserve">
     <value>Участников</value>
   </data>
@@ -146,6 +155,9 @@
   </data>
   <data name="months ago" xml:space="preserve">
     <value>месяцев назад</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Регион</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
@@ -164,5 +176,8 @@
   </data>
   <data name="years ago" xml:space="preserve">
     <value>лет назад</value>
+  </data>
+  <data name="You're about to login" xml:space="preserve">
+    <value>Вы собираетесь войти в систему</value>
   </data>
 </root>
