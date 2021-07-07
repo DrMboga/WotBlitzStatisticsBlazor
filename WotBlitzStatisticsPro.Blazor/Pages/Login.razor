@@ -1,0 +1,46 @@
+﻿@page "/login/{Realm}"
+@using WotBlitzStatisticsPro.Blazor.Messages
+@using MediatR
+@using Microsoft.AspNetCore.WebUtilities
+@inject NavigationManager NavigationManager
+@inject IMediator Mediator
+<h3>Login</h3>
+
+<p>@realmValue | @accountId | @nickName | @accessToken | @expiresAt</p>
+
+
+@code {
+
+    [Parameter]
+    public string Realm { get; set; } = "Asia";
+
+    string nickName;
+    long accountId;
+    string accessToken;
+    long expiresAt;
+    RealmType realmValue = RealmType.Asia;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var query = QueryHelpers.ParseQuery(NavigationManager.Uri);
+        if (query.ContainsKey("status") &&
+            query.ContainsKey("access_token") &&
+            query.ContainsKey("nickname") &&
+            query.ContainsKey("account_id") &&
+            query.ContainsKey("expires_at"))
+        {
+            string status = query["status"].FirstOrDefault();
+            if (status == "ok")
+            {
+                nickName = query["nickname"].FirstOrDefault();
+                accountId = Convert.ToInt64(query["account_id"].FirstOrDefault());
+                accessToken = query["access_token"].FirstOrDefault();
+                expiresAt = Convert.ToInt64(query["expires_at"].FirstOrDefault());
+                Enum.TryParse(Realm, out realmValue);
+
+                await Mediator.Publish(new RedirectFromWgLoginMessage(realmValue, nickName, accountId, accessToken, expiresAt));
+            }
+        }
+    }
+
+}
