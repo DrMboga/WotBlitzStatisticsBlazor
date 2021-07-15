@@ -20,14 +20,14 @@ namespace WotBlitzStatisticsPro.Blazor.Helpers
         {
             return tankTypeId switch
             {
-                "heavyTank" when !isPremium => "/tank-type/vehicle.class.heavy.small.scale-200.png",
-                "heavyTank" when isPremium => "/tank-type/vehicle.class.heavy.premium.small.scale-200.png",
-                "AT-SPG" when !isPremium => "/tank-type/vehicle.class.atspg.small.scale-200.png",
-                "AT-SPG" when isPremium => "/tank-type/vehicle.class.atspg.premium.small.scale-200.png",
-                "mediumTank" when !isPremium => "/tank-type/vehicle.class.medium.small.scale-200.png",
-                "mediumTank" when isPremium => "/tank-type/vehicle.class.medium.premium.small.scale-200.png",
-                "lightTank" when !isPremium => "/tank-type/vehicle.class.light.small.scale-200.png",
-                "lightTank" when isPremium => "/tank-type/vehicle.class.light.premium.small.scale-200.png",
+                Constants.HeavyTank when !isPremium => "/tank-type/vehicle.class.heavy.small.scale-200.png",
+                Constants.HeavyTank when isPremium => "/tank-type/vehicle.class.heavy.premium.small.scale-200.png",
+                Constants.AtSpg when !isPremium => "/tank-type/vehicle.class.atspg.small.scale-200.png",
+                Constants.AtSpg when isPremium => "/tank-type/vehicle.class.atspg.premium.small.scale-200.png",
+                Constants.MediumTank when !isPremium => "/tank-type/vehicle.class.medium.small.scale-200.png",
+                Constants.MediumTank when isPremium => "/tank-type/vehicle.class.medium.premium.small.scale-200.png",
+                Constants.LightTank when !isPremium => "/tank-type/vehicle.class.light.small.scale-200.png",
+                Constants.LightTank when isPremium => "/tank-type/vehicle.class.light.premium.small.scale-200.png",
                 _ => ""
             };
         }
@@ -36,15 +36,15 @@ namespace WotBlitzStatisticsPro.Blazor.Helpers
         {
             return nationTypeId switch
             {
-                "usa" => "flags/usa.png",
-                "france" => "flags/france.png",
-                "ussr" => "flags/ussr.png",
-                "china" => "flags/china.png",
-                "uk" => "flags/uk.png",
-                "japan" => "flags/japan.png",
-                "germany" => "flags/germany.png",
-                "other" => "flags/other.png",
-                "european" => "flags/eu.png",
+                Constants.CountryUsa => "flags/usa.png",
+                Constants.CountryFrance => "flags/france.png",
+                Constants.CountryUssr => "flags/ussr.png",
+                Constants.CountryChina => "flags/china.png",
+                Constants.CountryUk => "flags/uk.png",
+                Constants.CountryJapan => "flags/japan.png",
+                Constants.CountryGermany => "flags/germany.png",
+                Constants.CountryOther => "flags/other.png",
+                Constants.CountryEuropean => "flags/eu.png",
                 _ => "flags/vehicle.nation.unknown.scale-200.png"
             };
         }

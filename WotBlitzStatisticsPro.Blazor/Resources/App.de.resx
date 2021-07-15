@@ -132,6 +132,18 @@
   <data name="days ago" xml:space="preserve">
     <value>vor Tagen</value>
   </data>
+  <data name="Filter mark of mastery..." xml:space="preserve">
+    <value>Meisterschaftfilter...</value>
+  </data>
+  <data name="Filter nations..." xml:space="preserve">
+    <value>Nationfilter...</value>
+  </data>
+  <data name="Filter tank types..." xml:space="preserve">
+    <value>Panzertypenfilter...</value>
+  </data>
+  <data name="Filter tier..." xml:space="preserve">
+    <value>Rangfilter...</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Startseite</value>
   </data>
@@ -150,11 +162,20 @@
   <data name="Members" xml:space="preserve">
     <value>Mitglieder</value>
   </data>
+  <data name="Min battles" xml:space="preserve">
+    <value>Min Schlachten</value>
+  </data>
   <data name="minutes ago" xml:space="preserve">
     <value>vor Minuten</value>
   </data>
   <data name="months ago" xml:space="preserve">
     <value>vor Monaten</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>von</value>
+  </data>
+  <data name="Premium tanks" xml:space="preserve">
+    <value>Prämiepanzern</value>
   </data>
   <data name="Region" xml:space="preserve">
     <value>Region</value>
@@ -170,6 +191,9 @@
   </data>
   <data name="Tank" xml:space="preserve">
     <value>Panzer</value>
+  </data>
+  <data name="Tanks" xml:space="preserve">
+    <value>Panzern</value>
   </data>
   <data name="Welcome to WOT Blitz statistics application!" xml:space="preserve">
     <value>Willkommen bei der WOT Blitz statistics!</value>

@@ -132,6 +132,18 @@
   <data name="days ago" xml:space="preserve">
     <value>дней назад</value>
   </data>
+  <data name="Filter mark of mastery..." xml:space="preserve">
+    <value>Фильтр по знаку мастер...</value>
+  </data>
+  <data name="Filter nations..." xml:space="preserve">
+    <value>Фильтр по нациям...</value>
+  </data>
+  <data name="Filter tank types..." xml:space="preserve">
+    <value>Фильтр по типу танка...</value>
+  </data>
+  <data name="Filter tier..." xml:space="preserve">
+    <value>Фильтр по уровню...</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>На главную</value>
   </data>
@@ -150,11 +162,20 @@
   <data name="Members" xml:space="preserve">
     <value>Участников</value>
   </data>
+  <data name="Min battles" xml:space="preserve">
+    <value>Мин боёв</value>
+  </data>
   <data name="minutes ago" xml:space="preserve">
     <value>минут назад</value>
   </data>
   <data name="months ago" xml:space="preserve">
     <value>месяцев назад</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>из</value>
+  </data>
+  <data name="Premium tanks" xml:space="preserve">
+    <value>Премиум танки</value>
   </data>
   <data name="Region" xml:space="preserve">
     <value>Регион</value>
@@ -170,6 +191,9 @@
   </data>
   <data name="Tank" xml:space="preserve">
     <value>Танк</value>
+  </data>
+  <data name="Tanks" xml:space="preserve">
+    <value>Танков</value>
   </data>
   <data name="Welcome to WOT Blitz statistics application!" xml:space="preserve">
     <value>Добро пожаловать в WOT Blitz statistics!</value>

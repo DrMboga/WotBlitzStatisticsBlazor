@@ -24,6 +24,20 @@
         public const string ScaleUnicumColor = "#a785bb";
         public const string ScaleSuperUnicumColor = "#8348ab";
 
+        public const string HeavyTank = "heavyTank";
+        public const string AtSpg = "AT-SPG";
+        public const string MediumTank = "mediumTank";
+        public const string LightTank = "lightTank";
+
+        public const string CountryUsa = "usa";
+        public const string CountryFrance = "france";
+        public const string CountryUssr = "ussr";
+        public const string CountryChina = "china";
+        public const string CountryUk = "uk";
+        public const string CountryJapan = "japan";
+        public const string CountryGermany = "germany";
+        public const string CountryOther = "other";
+        public const string CountryEuropean = "european";
 
     }
 }
