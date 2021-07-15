@@ -168,6 +168,9 @@
   <data name="Search player" xml:space="preserve">
     <value>Spieler suchen</value>
   </data>
+  <data name="Tank" xml:space="preserve">
+    <value>Panzer</value>
+  </data>
   <data name="Welcome to WOT Blitz statistics application!" xml:space="preserve">
     <value>Willkommen bei der WOT Blitz statistics!</value>
   </data>

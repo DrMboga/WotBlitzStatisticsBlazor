@@ -1,5 +1,107 @@
-﻿<h3>PlayerTanksList</h3>
+﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@inject TooltipService TooltipService
+@inject IStringLocalizer<App> Localize
+
+<RadzenDataGrid AllowFiltering="true"
+                AllowColumnResize="true"
+                FilterMode="FilterMode.Advanced"
+                PageSize="10"
+                AllowPaging="true"
+                AllowSorting="true"
+                Data="@TanksList"
+                TItem="ITank"
+                ColumnWidth="300px"
+                LogicalFilterOperator="LogicalFilterOperator.Or">
+    <Columns>
+        <RadzenDataGridColumn TItem="ITank" Filterable="false" Sortable="false" Title="" Frozen="true" Width="34px" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                <b>@data.Tier.RomanNumber()</b>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Filterable="false" Sortable="false" Title="" Frozen="true" Width="34px" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                <RadzenImage Path="@data.TankTypeId.TankTypeAsset(data.IsPremium)" MouseEnter="@(args => ShowTooltip(args, data.TankType) )" style="width: 24px; height: 24px;" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Filterable="false" Sortable="false" Title="" Frozen="true" Width="50px" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                <RadzenImage Path="@data.TankNationId.NationAsset()" MouseEnter="@(args => ShowTooltip(args, data.TankNation) )" style="width: 35px; height: 23px; border-radius: 4px;" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Filterable="false" Sortable="false" Title="" Frozen="true" Width="34px" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                <RadzenImage Path="@data.MarkOfMastery.IconAsset()" style="width: 24px; height: 24px;" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Title="" Sortable="false" Filterable="false" Width="55px">
+            <Template Context="data">
+                <RadzenImage Path="@data.PreviewImage" style="width: 50px; height: 40px; border-radius: 8px;" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="Name" Filterable="false" Sortable="true" Title="@Localize["Tank"]" Frozen="true" Width="100px" TextAlign="TextAlign.Left" />
+        <RadzenDataGridColumn TItem="ITank" Property="Battles" Filterable="false" Sortable="true" Title="⚔" Frozen="false" Width="70px" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn TItem="ITank" Property="WinRate" 
+                              Filterable="false" 
+                              Sortable="true" 
+                              Title="🏳" 
+                              Frozen="false" 
+                              Width="50px" 
+                              TextAlign="TextAlign.Center" 
+                              FormatString="{0:N0}%"/>
+        <RadzenDataGridColumn TItem="ITank" Property="Wn7" 
+                              Filterable="false"  
+                              Sortable="true" 
+                              Title="@Localize["Wn7"]" 
+                              Frozen="false" 
+                              Width="80px" 
+                              TextAlign="TextAlign.Center" 
+                              FormatString="{0:N0}"/>
+        <RadzenDataGridColumn TItem="ITank" Property="AvgDamage" 
+                              Filterable="false" 
+                              Sortable="true" 
+                              Title="💣" 
+                              Frozen="false" 
+                              Width="50px" 
+                              TextAlign="TextAlign.Center" 
+                              FormatString="{0:N0}"/>
+        <RadzenDataGridColumn TItem="ITank" Property="AvgXp" 
+                              Filterable="false" 
+                              Sortable="true" 
+                              Title="⭐" 
+                              Frozen="false" 
+                              Width="50px" 
+                              TextAlign="TextAlign.Center" 
+                              FormatString="{0:N0}"/>
+        <RadzenDataGridColumn TItem="ITank" Property="MaxXp" 
+                              Filterable="false" 
+                              Sortable="true" 
+                              Title="🌟" 
+                              Frozen="false" 
+                              Width="50px" 
+                              TextAlign="TextAlign.Center" 
+                              FormatString="{0:N0}"/>
+        <RadzenDataGridColumn TItem="ITank" Property="SurvivalRate" 
+                              Filterable="false" 
+                              Sortable="true" 
+                              Title="⚰" 
+                              Frozen="false" 
+                              Width="50px" 
+                              TextAlign="TextAlign.Center"
+                              FormatString="{0:N0}%"/>
+        <RadzenDataGridColumn TItem="ITank" Property="LastBattleTime" 
+                              Filterable="false" 
+                              Sortable="true" 
+                              Title="⌚" 
+                              Frozen="false" 
+                              Width="100px" 
+                              TextAlign="TextAlign.Center"
+                              FormatString="{0:d}"/>
+    </Columns>
+</RadzenDataGrid>
 
 @code {
+    [Parameter]
+    public IEnumerable<ITank> TanksList { get; set; }
 
+    void ShowTooltip(ElementReference elementReference, string message, TooltipOptions options = null) => TooltipService.Open(elementReference, message, options);
 }

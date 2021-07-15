@@ -46,6 +46,11 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             return (playerInfo.Data?.AccountInfo, playerInfo.Data?.AccountMedals?.Sections);
         }
 
+        public Task<string> GetWgLoginUrl(RealmType realmType)
+        {
+            throw new System.NotImplementedException("Request for LoginUrl will be implemented soon");
+        }
+
         private RequestLanguage GetLanguage()
         {
             var culture = CultureInfo.CurrentCulture;
@@ -93,11 +98,6 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             {
                 _notificationsService.ReportError("Backend error",string.Join(";", messages));
             }
-        }
-
-        public Task<string> GetWgLoginUrl(RealmType realmType)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
