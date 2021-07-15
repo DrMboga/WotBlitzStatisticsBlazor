@@ -118,7 +118,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
                     faker.Name.LastName(),
                     nation.nation,
                     nation.nationName,
-                    faker.Random.Number(10),
+                    faker.Random.Number(1, 10),
                     vehicleType.vehicleType,
                     vehicleType.vehicleTypeName,
                     faker.Random.Bool(),
