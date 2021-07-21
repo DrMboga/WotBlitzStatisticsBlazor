@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Services;
 
@@ -13,6 +14,10 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         [Inject]
         public ILocalStorageService LocalStorageService { get; set; }
+
+        [Inject]
+        public IStringLocalizer<App> Localize { get; set; }
+
 
         [Parameter]
         public long AccountId { get; set; }

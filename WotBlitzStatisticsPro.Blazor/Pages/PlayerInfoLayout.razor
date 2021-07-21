@@ -6,10 +6,20 @@
                    Style="width: 100%; margin-top: 10px;" />
 @if (AccountInfo != null)
 {
-    @AccountInfo.Nickname @if (AccountInfo.ClanInfo != null)
-                          {
-                              <span style="color: @Constants.ClanTagColor;"> [<span style="font-weight: bolder;">@AccountInfo.ClanInfo.Tag</span>]</span>
-                          }
+    <h1>
+        @AccountInfo.Nickname @if (AccountInfo.ClanInfo != null)
+                              {
+                                  <span style="color: @Constants.ClanTagColor;"> [<span style="font-weight: bolder;">@AccountInfo.ClanInfo.Tag</span>]</span>
+                              }
+    </h1>
+    <div style="margin-top: 10px; margin-bottom: 20px;">
+        <div>
+            <small>@Localize["Created"]: <b>@AccountInfo.CreatedAt.ToString("d") | @AccountInfo.CreatedAt.SinceTime(Localize)</b></small>
+        </div>
+        <div>
+            @Localize["Last battle"]: <b>@AccountInfo.LastBattleTime.ToString("g") | @AccountInfo.LastBattleTime.SinceTime(Localize)</b>
+        </div>
+    </div>
     <RadzenTabs >
         <Tabs>
             <RadzenTabsItem Icon="person_outline" >
