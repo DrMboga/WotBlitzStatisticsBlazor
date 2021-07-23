@@ -177,6 +177,9 @@
   <data name="months ago" xml:space="preserve">
     <value>месяцев назад</value>
   </data>
+  <data name="Most effective tank" xml:space="preserve">
+    <value>Самый эффективный танк</value>
+  </data>
   <data name="of" xml:space="preserve">
     <value>из</value>
   </data>
@@ -197,6 +200,12 @@
   </data>
   <data name="Tank" xml:space="preserve">
     <value>Танк</value>
+  </data>
+  <data name="Tank with Max frags" xml:space="preserve">
+    <value>Максимум фрагов </value>
+  </data>
+  <data name="Tank with Max XP" xml:space="preserve">
+    <value>Максимум XP</value>
   </data>
   <data name="Tanks" xml:space="preserve">
     <value>Танков</value>

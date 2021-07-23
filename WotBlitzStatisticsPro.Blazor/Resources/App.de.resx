@@ -177,6 +177,9 @@
   <data name="months ago" xml:space="preserve">
     <value>vor Monaten</value>
   </data>
+  <data name="Most effective tank" xml:space="preserve">
+    <value>Effektivster Panzer</value>
+  </data>
   <data name="of" xml:space="preserve">
     <value>von</value>
   </data>
@@ -197,6 +200,12 @@
   </data>
   <data name="Tank" xml:space="preserve">
     <value>Panzer</value>
+  </data>
+  <data name="Tank with Max frags" xml:space="preserve">
+    <value>Panzer max zerstört</value>
+  </data>
+  <data name="Tank with Max XP" xml:space="preserve">
+    <value>Panzer mit max EP</value>
   </data>
   <data name="Tanks" xml:space="preserve">
     <value>Panzern</value>

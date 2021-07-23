@@ -61,32 +61,33 @@
                 LogicalFilterOperator="LogicalFilterOperator.Or"
                 @ref="TanksGrid">
     <Columns>
-        <RadzenDataGridColumn TItem="ITank" Property="Tier" Sortable="true" Filterable="false" Title="" Frozen="true" Width="34px" TextAlign="TextAlign.Center">
+        <RadzenDataGridColumn TItem="ITank" Property="Tier" Sortable="true" Filterable="false" Title="" Frozen="false" Width="34px" TextAlign="TextAlign.Center">
             <Template Context="data">
                 <b>@data.Tier.RomanNumber()</b>
             </Template>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="ITank" Property="TankTypeId" Filterable="false" Sortable="true" Title="" Frozen="true" Width="34px" TextAlign="TextAlign.Center">
+        <RadzenDataGridColumn TItem="ITank" Property="TankTypeId" Filterable="false" Sortable="true" Title="" Frozen="false" Width="34px" TextAlign="TextAlign.Center">
             <Template Context="data">
-                <RadzenImage Path="@data.TankTypeId.TankTypeAsset(data.IsPremium)" MouseEnter="@(args => ShowTooltip(args, data.TankType) )" style="width: 24px; height: 24px;" />
+                <RadzenImage Path="@data.TankTypeId.TankTypeAsset(data.IsPremium)" MouseEnter="@(args => ShowTooltip(args, data.TankType, new TooltipOptions(){ Style = "background-color:#2F3D43" }) )" style="width: 24px; height: 24px;" />
             </Template>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="ITank" Property="TankNationId" Filterable="false" Sortable="true" Title="" Frozen="true" Width="50px" TextAlign="TextAlign.Center">
+        <RadzenDataGridColumn TItem="ITank" Property="TankNationId" Filterable="false" Sortable="true" Title="" Frozen="false" Width="50px" TextAlign="TextAlign.Center">
             <Template Context="data">
-                <RadzenImage Path="@data.TankNationId.NationAsset()" MouseEnter="@(args => ShowTooltip(args, data.TankNation) )" style="width: 35px; height: 23px; border-radius: 4px;" />
+                <RadzenImage Path="@data.TankNationId.NationAsset()" MouseEnter="@(args => ShowTooltip(args, data.TankNation, new TooltipOptions(){ Style = "background-color:#2F3D43" }) )" style="width: 35px; height: 23px; border-radius: 4px;" />
             </Template>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="ITank" Property="MarkOfMastery" Filterable="false" Sortable="true" Title="" Frozen="true" Width="34px" TextAlign="TextAlign.Center">
+        <RadzenDataGridColumn TItem="ITank" Property="MarkOfMastery" Filterable="false" Sortable="true" Title="" Frozen="false" Width="34px" TextAlign="TextAlign.Center">
             <Template Context="data">
                 <RadzenImage Path="@data.MarkOfMastery.IconAsset()" style="width: 24px; height: 24px;" />
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ITank" Title="" Sortable="false" Filterable="false" Width="55px">
             <Template Context="data">
-                <RadzenImage Path="@data.PreviewImage" style="width: 50px; height: 40px; border-radius: 8px;" />
+                <RadzenImage Path="@data.PreviewImage" style="width: 50px; height: 40px; border-radius: 8px;" 
+                             MouseEnter="@(args => ShowTankTooltip(args, data.PreviewImage, data.TankNationId, new TooltipOptions(){ Style = "background-color:#2F3D43" }) )" />
             </Template>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="ITank" Property="Name" Filterable="false" Sortable="true" Title="@Localize["Tank"]" Frozen="true" Width="100px" TextAlign="TextAlign.Left">
+        <RadzenDataGridColumn TItem="ITank" Property="Name" Filterable="false" Sortable="true" Title="@Localize["Tank"]" Frozen="false" Width="100px" TextAlign="TextAlign.Left">
             <FooterTemplate>
                 @Localize["Tanks"]: <b>@TanksGrid.View.Count()</b> @Localize["of"] <b>@TanksList.Count()</b>
             </FooterTemplate>
@@ -184,3 +185,11 @@
                               SortOrder="SortOrder.Descending"/>
     </Columns>
 </RadzenDataGrid>
+
+
+@code {
+    void ShowTankTooltip(ElementReference elementReference, string img, string nationId, TooltipOptions options = null) => TooltipService.Open(elementReference, ds =>
+        @<div style="background-image: url('@nationId.NationAsset()'); background-repeat: no-repeat;">
+            <img src=@img style="width: 360px; height: 263px; " />
+        </div>, options);
+}
