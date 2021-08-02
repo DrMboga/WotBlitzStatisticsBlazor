@@ -28,6 +28,7 @@ namespace WotBlitzStatisticsPro.Blazor
             builder.Services.AddScoped<NotificationService>();
             builder.Services.AddScoped<TooltipService>();
             builder.Services.AddScoped<ISearchDialogService, SearchDialogService>();
+            builder.Services.AddScoped<IChartsService, ChartService>();
 
             builder.Services.AddMediatR(typeof(Program));
 
