@@ -26,7 +26,7 @@
                 <PlayerInfoOverview AccountInfo="@AccountInfo"></PlayerInfoOverview>
             </RadzenTabsItem>
             <RadzenTabsItem Icon="insights">
-                <PlayerInfoStatistics></PlayerInfoStatistics>
+                <PlayerInfoStatistics TanksList="@AccountInfo.Tanks"></PlayerInfoStatistics>
             </RadzenTabsItem>
             <RadzenTabsItem Icon="agriculture">
                 <PlayerInfoTanksList TanksList="@AccountInfo.Tanks"></PlayerInfoTanksList>

@@ -123,8 +123,14 @@
   <data name="Average XP" xml:space="preserve">
     <value>Mittlere EP</value>
   </data>
+  <data name="Avg damage by tank types" xml:space="preserve">
+    <value>Mittlerer Schaden dem Panzertype</value>
+  </data>
   <data name="Battles" xml:space="preserve">
     <value>Gefechte</value>
+  </data>
+  <data name="Battles by tank types" xml:space="preserve">
+    <value>Gefechte dem Panzertype</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
@@ -215,6 +221,9 @@
   </data>
   <data name="Win rate" xml:space="preserve">
     <value>Sieg</value>
+  </data>
+  <data name="Win rate by tank types" xml:space="preserve">
+    <value>Panzertypensieg</value>
   </data>
   <data name="years ago" xml:space="preserve">
     <value>vor Jahren</value>

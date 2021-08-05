@@ -123,8 +123,14 @@
   <data name="Average XP" xml:space="preserve">
     <value>Средний опыт</value>
   </data>
+  <data name="Avg damage by tank types" xml:space="preserve">
+    <value>Средний урон по типу танка</value>
+  </data>
   <data name="Battles" xml:space="preserve">
     <value>Количество боёв</value>
+  </data>
+  <data name="Battles by tank types" xml:space="preserve">
+    <value>Количество боёв по типу танка</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
@@ -215,6 +221,9 @@
   </data>
   <data name="Win rate" xml:space="preserve">
     <value>Процент побед</value>
+  </data>
+  <data name="Win rate by tank types" xml:space="preserve">
+    <value>Процент побед по типу танка</value>
   </data>
   <data name="years ago" xml:space="preserve">
     <value>лет назад</value>
