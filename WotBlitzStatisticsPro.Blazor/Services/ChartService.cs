@@ -201,6 +201,289 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             await _jsRuntime.InvokeVoidAsync("eChartsInterop.BuildBarChartByTankType", elementId, _localize.GetString("Avg damage by tank types").Value, chartData);
         }
 
+        public async Task BuildBarChartBattlesByNation(string elementId, IEnumerable<ITank> tanks)
+        {
+            var battlesCountByNation = new Dictionary<string, long>();
+
+            foreach (var tank in tanks)
+            {
+                if (string.IsNullOrEmpty(tank.TankNationId))
+                {
+                    continue;
+                }
+                if (battlesCountByNation.ContainsKey(tank.TankNationId))
+                {
+                    battlesCountByNation[tank.TankNationId] += tank.Battles;
+                }
+                else
+                {
+                    battlesCountByNation.Add(tank.TankNationId, tank.Battles);
+                }
+            }
+
+            int chinaData = 0;
+            int euData = 0;
+            int franceData = 0;
+            int germanyData = 0;
+            int japanData = 0;
+            int otherData = 0;
+            int ukData = 0;
+            int usaData = 0;
+            int ussrData = 0;
+            if (battlesCountByNation.ContainsKey(Constants.CountryChina))
+            {
+                chinaData = Convert.ToInt32(battlesCountByNation[Constants.CountryChina]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryEuropean))
+            {
+                euData = Convert.ToInt32(battlesCountByNation[Constants.CountryEuropean]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryFrance))
+            {
+                franceData = Convert.ToInt32(battlesCountByNation[Constants.CountryFrance]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryGermany))
+            {
+                germanyData = Convert.ToInt32(battlesCountByNation[Constants.CountryGermany]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryJapan))
+            {
+                japanData = Convert.ToInt32(battlesCountByNation[Constants.CountryJapan]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryOther))
+            {
+                otherData = Convert.ToInt32(battlesCountByNation[Constants.CountryOther]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryUk))
+            {
+                ukData = Convert.ToInt32(battlesCountByNation[Constants.CountryUk]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryUsa))
+            {
+                usaData = Convert.ToInt32(battlesCountByNation[Constants.CountryUsa]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryUssr))
+            {
+                ussrData = Convert.ToInt32(battlesCountByNation[Constants.CountryUssr]);
+            }
+
+
+            var chartData = new[]
+            {
+                new {country = Constants.CountryChina, value = chinaData, color = "#9FE3CE"},
+                new {country = Constants.CountryEuropean, value = euData, color = "#9FE3CE"},
+                new {country = Constants.CountryFrance, value = franceData, color = "#9FE3CE"},
+                new {country = Constants.CountryGermany, value = germanyData, color = "#9FE3CE"},
+                new {country = Constants.CountryJapan, value = japanData, color = "#9FE3CE"},
+                new {country = Constants.CountryOther, value = otherData, color = "#9FE3CE"},
+                new {country = Constants.CountryUk, value = ukData, color = "#9FE3CE"},
+                new {country = Constants.CountryUsa, value = usaData, color = "#9FE3CE"},
+                new {country = Constants.CountryUssr, value = ussrData, color = "#9FE3CE"},
+            };
+
+            await _jsRuntime.InvokeVoidAsync("eChartsInterop.BuildBarChartByNation", elementId, _localize.GetString("Battles by nation").Value, chartData);
+        }
+
+        public async Task BuildBarChartWinRatesByNation(string elementId, IEnumerable<ITank> tanks)
+        {
+            var battlesCountByNation = new Dictionary<string, long>();
+            var winsCountByNation = new Dictionary<string, long>();
+
+            foreach (var tank in tanks)
+            {
+                if (string.IsNullOrEmpty(tank.TankNationId))
+                {
+                    continue;
+                }
+                if (battlesCountByNation.ContainsKey(tank.TankNationId))
+                {
+                    battlesCountByNation[tank.TankNationId] += tank.Battles;
+                }
+                else
+                {
+                    battlesCountByNation.Add(tank.TankNationId, tank.Battles);
+                }
+                if (winsCountByNation.ContainsKey(tank.TankNationId))
+                {
+                    winsCountByNation[tank.TankNationId] += tank.Wins;
+                }
+                else
+                {
+                    winsCountByNation.Add(tank.TankNationId, tank.Wins);
+                }
+            }
+
+            int chinaData = 0;
+            int euData = 0;
+            int franceData = 0;
+            int germanyData = 0;
+            int japanData = 0;
+            int otherData = 0;
+            int ukData = 0;
+            int usaData = 0;
+            int ussrData = 0;
+            if (battlesCountByNation.ContainsKey(Constants.CountryChina))
+            {
+                chinaData = Convert.ToInt32(100 * winsCountByNation[Constants.CountryChina] /
+                                            battlesCountByNation[Constants.CountryChina]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryEuropean))
+            {
+                euData = Convert.ToInt32(100 * winsCountByNation[Constants.CountryEuropean] /
+                                         battlesCountByNation[Constants.CountryEuropean]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryFrance))
+            {
+                franceData = Convert.ToInt32(100 * winsCountByNation[Constants.CountryFrance] /
+                                             battlesCountByNation[Constants.CountryFrance]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryGermany))
+            {
+                germanyData = Convert.ToInt32(100 * winsCountByNation[Constants.CountryGermany] /
+                                              battlesCountByNation[Constants.CountryGermany]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryJapan))
+            {
+                japanData = Convert.ToInt32(100 * winsCountByNation[Constants.CountryJapan] /
+                                            battlesCountByNation[Constants.CountryJapan]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryOther))
+            {
+                otherData = Convert.ToInt32(100 * winsCountByNation[Constants.CountryOther] /
+                                            battlesCountByNation[Constants.CountryOther]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryUk))
+            {
+                ukData = Convert.ToInt32(100 * winsCountByNation[Constants.CountryUk] /
+                                         battlesCountByNation[Constants.CountryUk]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryUsa))
+            {
+                usaData = Convert.ToInt32(100 * winsCountByNation[Constants.CountryUsa] /
+                                          battlesCountByNation[Constants.CountryUsa]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryUssr))
+            {
+                ussrData = Convert.ToInt32(100 * winsCountByNation[Constants.CountryUssr] /
+                                           battlesCountByNation[Constants.CountryUssr]);
+            }
+
+            var chartData = new[]
+            {
+                new {country = Constants.CountryChina, value = chinaData, color = chinaData.ScaleColor()},
+                new {country = Constants.CountryEuropean, value = euData, color = euData.ScaleColor()},
+                new {country = Constants.CountryFrance, value = franceData, color = franceData.ScaleColor()},
+                new {country = Constants.CountryGermany, value = germanyData, color = germanyData.ScaleColor()},
+                new {country = Constants.CountryJapan, value = japanData, color = japanData.ScaleColor()},
+                new {country = Constants.CountryOther, value = otherData, color = otherData.ScaleColor()},
+                new {country = Constants.CountryUk, value = ukData, color = ukData.ScaleColor()},
+                new {country = Constants.CountryUsa, value = usaData, color = usaData.ScaleColor()},
+                new {country = Constants.CountryUssr, value = ussrData, color = ussrData.ScaleColor()},
+            };
+
+            await _jsRuntime.InvokeVoidAsync("eChartsInterop.BuildBarChartByNation", elementId, _localize.GetString("Win rate by nation").Value, chartData);
+        }
+
+        public async Task BuildBarChartAvgDmgByNation(string elementId, IEnumerable<ITank> tanks)
+        {
+            var battlesCountByNation = new Dictionary<string, long>();
+            var dmgCountByNation = new Dictionary<string, long>();
+
+            foreach (var tank in tanks)
+            {
+                if (string.IsNullOrEmpty(tank.TankNationId))
+                {
+                    continue;
+                }
+                if (battlesCountByNation.ContainsKey(tank.TankNationId))
+                {
+                    battlesCountByNation[tank.TankNationId] += tank.Battles;
+                }
+                else
+                {
+                    battlesCountByNation.Add(tank.TankNationId, tank.Battles);
+                }
+                if (dmgCountByNation.ContainsKey(tank.TankNationId))
+                {
+                    dmgCountByNation[tank.TankNationId] += tank.DamageDealt;
+                }
+                else
+                {
+                    dmgCountByNation.Add(tank.TankNationId, tank.DamageDealt);
+                }
+            }
+
+            int chinaData = 0;
+            int euData = 0;
+            int franceData = 0;
+            int germanyData = 0;
+            int japanData = 0;
+            int otherData = 0;
+            int ukData = 0;
+            int usaData = 0;
+            int ussrData = 0;
+            if (battlesCountByNation.ContainsKey(Constants.CountryChina))
+            {
+                chinaData = Convert.ToInt32(dmgCountByNation[Constants.CountryChina] /
+                                            battlesCountByNation[Constants.CountryChina]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryEuropean))
+            {
+                euData = Convert.ToInt32(dmgCountByNation[Constants.CountryEuropean] /
+                                         battlesCountByNation[Constants.CountryEuropean]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryFrance))
+            {
+                franceData = Convert.ToInt32(dmgCountByNation[Constants.CountryFrance] /
+                                             battlesCountByNation[Constants.CountryFrance]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryGermany))
+            {
+                germanyData = Convert.ToInt32(dmgCountByNation[Constants.CountryGermany] /
+                                              battlesCountByNation[Constants.CountryGermany]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryJapan))
+            {
+                japanData = Convert.ToInt32(dmgCountByNation[Constants.CountryJapan] /
+                                            battlesCountByNation[Constants.CountryJapan]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryOther))
+            {
+                otherData = Convert.ToInt32(dmgCountByNation[Constants.CountryOther] /
+                                            battlesCountByNation[Constants.CountryOther]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryUk))
+            {
+                ukData = Convert.ToInt32(dmgCountByNation[Constants.CountryUk] /
+                                         battlesCountByNation[Constants.CountryUk]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryUsa))
+            {
+                usaData = Convert.ToInt32(dmgCountByNation[Constants.CountryUsa] /
+                                          battlesCountByNation[Constants.CountryUsa]);
+            }
+            if (battlesCountByNation.ContainsKey(Constants.CountryUssr))
+            {
+                ussrData = Convert.ToInt32(dmgCountByNation[Constants.CountryUssr] /
+                                           battlesCountByNation[Constants.CountryUssr]);
+            }
+
+            var chartData = new[]
+            {
+                new {country = Constants.CountryChina, value = chinaData, color = "#D98D8B"},
+                new {country = Constants.CountryEuropean, value = euData, color = "#D98D8B"},
+                new {country = Constants.CountryFrance, value = franceData, color = "#D98D8B"},
+                new {country = Constants.CountryGermany, value = germanyData, color = "#D98D8B"},
+                new {country = Constants.CountryJapan, value = japanData, color = "#D98D8B"},
+                new {country = Constants.CountryOther, value = otherData, color = "#D98D8B"},
+                new {country = Constants.CountryUk, value = ukData, color = "#D98D8B"},
+                new {country = Constants.CountryUsa, value = usaData, color = "#D98D8B"},
+                new {country = Constants.CountryUssr, value = ussrData, color = "#D98D8B"},
+            };
+
+            await _jsRuntime.InvokeVoidAsync("eChartsInterop.BuildBarChartByNation", elementId, _localize.GetString("Avg damage by nation").Value, chartData);
+        }
+
         public async Task BuildStackedBarChart(string elementId)
         {
             await _jsRuntime.InvokeVoidAsync("eChartsInterop.BuildStackedBarChart", elementId);

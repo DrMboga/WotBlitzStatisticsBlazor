@@ -129,6 +129,216 @@ eChartsInterop.BuildBarChartByTankType = function (elementId, chartTitle, chartD
         });
 };
 
+eChartsInterop.BuildBarChartByNation = function (elementId, chartTitle, chartData) {
+    var flags = {
+        'china': '/flags/china-round.png',
+        'european': '/flags/eu-round.png',
+        'france': '/flags/france-round.png',
+        'germany': '/flags/germany-round.png',
+        'japan': '/flags/japan-round.png',
+        'other': '/flags/other-round.png',
+        'uk': '/flags/uk-round.png',
+        'usa': '/flags/usa-round.png',
+        'ussr': '/flags/ussr-round.png',
+    };
+
+    var seriesLabel = {
+        show: true
+    }
+
+    // based on prepared DOM, initialize echarts instance
+    var myChart = echarts.init(document.getElementById(elementId), 'dark');
+
+    var chinaData = chartData.find(d => d.country === 'china');
+    var euData = chartData.find(d => d.country === 'european');
+    var franceData = chartData.find(d => d.country === 'france');
+    var germanyData = chartData.find(d => d.country === 'germany');
+    var japanData = chartData.find(d => d.country === 'japan');
+    var otherData = chartData.find(d => d.country === 'other');
+    var ukData = chartData.find(d => d.country === 'uk');
+    var usaData = chartData.find(d => d.country === 'usa');
+    var ussrData = chartData.find(d => d.country === 'ussr');
+
+    // specify chart configuration item and data
+    var option = {
+        title: {
+            text: chartTitle
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'value',
+            name: '',
+            axisLabel: {
+                formatter: '{value}'
+            }
+        },
+        yAxis: {
+            type: 'category',
+            data: ['other', 'usa', 'germany', 'ussr', 'uk', 'japan', 'china', 'france', 'european'],
+            axisTick: {
+                alignWithLabel: true
+            },
+            axisLabel: {
+                formatter: function (value) {
+                    return '{' + value + '| }';
+                },
+                rich: {
+                    value: {
+                        lineHeight: 10,
+                        align: 'center'
+                    },
+                    other: {
+                        height: 20,
+                        width: 20,
+                        align: 'center',
+                        backgroundColor: {
+                            image: flags.other
+                        }
+                    },
+                    usa: {
+                        height: 20,
+                        width: 20,
+                        align: 'center',
+                        backgroundColor: {
+                            image: flags.usa
+                        }
+                    },
+                    germany: {
+                        height: 20,
+                        width: 20,
+                        align: 'center',
+                        backgroundColor: {
+                            image: flags.germany
+                        }
+                    },
+                    ussr: {
+                        height: 20,
+                        width: 20,
+                        align: 'center',
+                        backgroundColor: {
+                            image: flags.ussr
+                        }
+                    },
+                    uk: {
+                        height: 20,
+                        width: 20,
+                        align: 'center',
+                        backgroundColor: {
+                            image: flags.uk
+                        }
+                    },
+                    japan: {
+                        height: 20,
+                        width: 20,
+                        align: 'center',
+                        backgroundColor: {
+                            image: flags.japan
+                        }
+                    },
+                    china: {
+                        height: 20,
+                        width: 20,
+                        align: 'center',
+                        backgroundColor: {
+                            image: flags.china
+                        }
+                    },
+                    france: {
+                        height: 20,
+                        width: 20,
+                        align: 'center',
+                        backgroundColor: {
+                            image: flags.france
+                        }
+                    },
+                    european: {
+                        height: 20,
+                        width: 20,
+                        align: 'center',
+                        backgroundColor: {
+                            image: flags.european
+                        }
+                    }
+                }
+            }
+        },
+        series: [
+            {
+                type: 'bar',
+                label: seriesLabel,
+                barWidth: '30px',
+                data: [
+                    {
+                        value: otherData.value,
+                        itemStyle: {
+                            color: otherData.color
+                        }
+                    },
+                    {
+                        value: usaData.value,
+                        itemStyle: {
+                            color: usaData.color
+                        }
+                    },
+                    {
+                        value: germanyData.value,
+                        itemStyle: {
+                            color: germanyData.color
+                        }
+                    },
+                    {
+                        value: ussrData.value,
+                        itemStyle: {
+                            color: ussrData.color
+                        }
+                    },
+                    {
+                        value: ukData.value,
+                        itemStyle: {
+                            color: ukData.color
+                        }
+                    },
+                    {
+                        value: japanData.value,
+                        itemStyle: {
+                            color: japanData.color
+                        }
+                    },
+                    {
+                        value: chinaData.value,
+                        itemStyle: {
+                            color: chinaData.color
+                        }
+                    },
+                    {
+                        value: franceData.value,
+                        itemStyle: {
+                            color: franceData.color
+                        }
+                    },
+                    {
+                        value: euData.value,
+                        itemStyle: {
+                            color: euData.color
+                        }
+                    }
+                    ]
+            }]
+    };
+
+    // use configuration item and data specified to show chart
+    myChart.setOption(option);
+    window.addEventListener('resize',
+        function() {
+            myChart.resize();
+        });
+};
+
 eChartsInterop.BuildStackedBarChart = function (elementId) {
     var tankTypes = {
         'HeavyTank': '/tank-type/vehicle.class.heavy.small.scale-200.png',
