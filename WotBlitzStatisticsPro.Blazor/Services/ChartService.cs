@@ -5,6 +5,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Helpers;
+using WotBlitzStatisticsPro.Blazor.Model;
 
 namespace WotBlitzStatisticsPro.Blazor.Services
 {
@@ -483,10 +484,159 @@ namespace WotBlitzStatisticsPro.Blazor.Services
 
             await _jsRuntime.InvokeVoidAsync("eChartsInterop.BuildBarChartByNation", elementId, _localize.GetString("Avg damage by nation").Value, chartData);
         }
+        public async Task BuildBarChartBattlesByTier(string elementId, IEnumerable<ITank> tanks)
+        {
+            var battlesCountByTier = new Dictionary<int, long>();
+
+            foreach (var tank in tanks)
+            {
+                if (tank.Tier == 0)
+                {
+                    continue;
+                }
+                if (battlesCountByTier.ContainsKey(tank.Tier))
+                {
+                    battlesCountByTier[tank.Tier] += tank.Battles;
+                }
+                else
+                {
+                    battlesCountByTier.Add(tank.Tier, tank.Battles);
+                }
+            }
+
+            var values = new int[10];
+            for (int i = 0; i < values.Length; i++)
+            {
+                values[i] = 0;
+            }
+
+            for (int i = 1; i < 11; i++)
+            {
+                if(battlesCountByTier.ContainsKey(i))
+                {
+                    values[i - 1] = Convert.ToInt32(battlesCountByTier[i]);
+                }
+            }
+
+            var chartData = new List<ChartByTierItem>();
+            for (int i = 0; i < values.Length; i++)
+            {
+                chartData.Add(new ((i + 1).RomanNumber(), values[i], "#9FE3CE"));
+            }
+
+            await _jsRuntime.InvokeVoidAsync("eChartsInterop.BuildBarChartByTier", elementId, _localize.GetString("Battles by tier").Value, chartData.ToArray());
+        }
+
+        public async Task BuildBarChartWinRatesByTier(string elementId, IEnumerable<ITank> tanks)
+        {
+            var battlesCountByTier = new Dictionary<int, long>();
+            var winsCountByTier = new Dictionary<int, long>();
+
+            foreach (var tank in tanks)
+            {
+                if (tank.Tier == 0)
+                {
+                    continue;
+                }
+                if (battlesCountByTier.ContainsKey(tank.Tier))
+                {
+                    battlesCountByTier[tank.Tier] += tank.Battles;
+                }
+                else
+                {
+                    battlesCountByTier.Add(tank.Tier, tank.Battles);
+                }
+                if (winsCountByTier.ContainsKey(tank.Tier))
+                {
+                    winsCountByTier[tank.Tier] += tank.Wins;
+                }
+                else
+                {
+                    winsCountByTier.Add(tank.Tier, tank.Wins);
+                }
+            }
+
+            var values = new int[10];
+            for (int i = 0; i < values.Length; i++)
+            {
+                values[i] = 0;
+            }
+
+            for (int i = 1; i < 11; i++)
+            {
+                if (battlesCountByTier.ContainsKey(i))
+                {
+                    values[i - 1] = Convert.ToInt32(100 * winsCountByTier[i] /
+                                            battlesCountByTier[i]);
+                }
+            }
+
+            var chartData = new List<ChartByTierItem>();
+            for (int i = 0; i < values.Length; i++)
+            {
+                chartData.Add(new((i + 1).RomanNumber(), values[i], values[i].ScaleColor()));
+            }
+
+            await _jsRuntime.InvokeVoidAsync("eChartsInterop.BuildBarChartByTier", elementId, _localize.GetString("Win rate by tier").Value, chartData.ToArray());
+        }
+
+        public async Task BuildBarChartAvgDmgByTier(string elementId, IEnumerable<ITank> tanks)
+        {
+            var battlesCountByTier = new Dictionary<int, long>();
+            var dmgCountByTier = new Dictionary<int, long>();
+
+            foreach (var tank in tanks)
+            {
+                if (tank.Tier == 0)
+                {
+                    continue;
+                }
+                if (battlesCountByTier.ContainsKey(tank.Tier))
+                {
+                    battlesCountByTier[tank.Tier] += tank.Battles;
+                }
+                else
+                {
+                    battlesCountByTier.Add(tank.Tier, tank.Battles);
+                }
+                if (dmgCountByTier.ContainsKey(tank.Tier))
+                {
+                    dmgCountByTier[tank.Tier] += tank.DamageDealt;
+                }
+                else
+                {
+                    dmgCountByTier.Add(tank.Tier, tank.DamageDealt);
+                }
+            }
+
+            var values = new int[10];
+            for (int i = 0; i < values.Length; i++)
+            {
+                values[i] = 0;
+            }
+
+            for (int i = 1; i < 11; i++)
+            {
+                if (battlesCountByTier.ContainsKey(i))
+                {
+                    values[i - 1] = Convert.ToInt32(dmgCountByTier[i] /
+                                            battlesCountByTier[i]);
+                }
+            }
+
+            var chartData = new List<ChartByTierItem>();
+            for (int i = 0; i < values.Length; i++)
+            {
+                chartData.Add(new((i + 1).RomanNumber(), values[i], "#D98D8B"));
+            }
+
+            await _jsRuntime.InvokeVoidAsync("eChartsInterop.BuildBarChartByTier", elementId, _localize.GetString("Avg damage by tier").Value, chartData.ToArray());
+        }
 
         public async Task BuildStackedBarChart(string elementId)
         {
             await _jsRuntime.InvokeVoidAsync("eChartsInterop.BuildStackedBarChart", elementId);
         }
+
     }
 }

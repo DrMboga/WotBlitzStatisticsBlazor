@@ -12,6 +12,9 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         Task BuildBarChartBattlesByNation(string elementId, IEnumerable<ITank> tanks);
         Task BuildBarChartWinRatesByNation(string elementId, IEnumerable<ITank> tanks);
         Task BuildBarChartAvgDmgByNation(string elementId, IEnumerable<ITank> tanks);
+        Task BuildBarChartBattlesByTier(string elementId, IEnumerable<ITank> tanks);
+        Task BuildBarChartWinRatesByTier(string elementId, IEnumerable<ITank> tanks);
+        Task BuildBarChartAvgDmgByTier(string elementId, IEnumerable<ITank> tanks);
         Task BuildStackedBarChart(string elementId);
     }
 }

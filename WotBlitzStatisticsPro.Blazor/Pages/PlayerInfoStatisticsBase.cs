@@ -28,6 +28,10 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 await ChartsService.BuildBarChartWinRatesByNation("winRateByNation", TanksList);
                 await ChartsService.BuildBarChartAvgDmgByNation("avgDmgByNation", TanksList);
 
+                await ChartsService.BuildBarChartBattlesByTier("battlesByTier", TanksList);
+                await ChartsService.BuildBarChartWinRatesByTier("winRateByTier", TanksList);
+                await ChartsService.BuildBarChartAvgDmgByTier("avgDmgByTier", TanksList);
+
                 //await ChartsService.BuildStackedBarChart("stacked");
             }
         }

@@ -339,6 +339,118 @@ eChartsInterop.BuildBarChartByNation = function (elementId, chartTitle, chartDat
         });
 };
 
+eChartsInterop.BuildBarChartByTier = function (elementId, chartTitle, chartData) {
+
+    var seriesLabel = {
+        show: true
+    }
+
+    // based on prepared DOM, initialize echarts instance
+    var myChart = echarts.init(document.getElementById(elementId), 'dark');
+
+    // specify chart configuration item and data
+    var option = {
+        title: {
+            text: chartTitle
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'value',
+            name: '',
+            axisLabel: {
+                formatter: '{value}'
+            }
+        },
+        yAxis: {
+            type: 'category',
+            data: ['X', 'IX', 'VIII', 'VII', 'VI', 'V', 'IV', 'III', 'II', 'I'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        },
+        series: [
+            {
+                type: 'bar',
+                label: seriesLabel,
+                barWidth: '30px',
+                data: [
+                    {
+                        value: chartData[9].value,
+                        itemStyle: {
+                            color: chartData[9].color
+                        }
+                    },
+                    {
+                        value: chartData[8].value,
+                        itemStyle: {
+                            color: chartData[8].color
+                        }
+                    },
+                    {
+                        value: chartData[7].value,
+                        itemStyle: {
+                            color: chartData[7].color
+                        }
+                    },
+                    {
+                        value: chartData[6].value,
+                        itemStyle: {
+                            color: chartData[6].color
+                        }
+                    },
+                    {
+                        value: chartData[5].value,
+                        itemStyle: {
+                            color: chartData[5].color
+                        }
+                    },
+                    {
+                        value: chartData[4].value,
+                        itemStyle: {
+                            color: chartData[4].color
+                        }
+                    },
+                    {
+                        value: chartData[3].value,
+                        itemStyle: {
+                            color: chartData[3].color
+                        }
+                    },
+                    {
+                        value: chartData[2].value,
+                        itemStyle: {
+                            color: chartData[2].color
+                        }
+                    },
+                    {
+                        value: chartData[1].value,
+                        itemStyle: {
+                            color: chartData[1].color
+                        }
+                    },
+                    {
+                        value: chartData[0].value,
+                        itemStyle: {
+                            color: chartData[0].color
+                        }
+                    }
+                ]
+            }]
+    };
+
+    // use configuration item and data specified to show chart
+    myChart.setOption(option);
+    window.addEventListener('resize',
+        function () {
+            myChart.resize();
+        });
+}
+
 eChartsInterop.BuildStackedBarChart = function (elementId) {
     var tankTypes = {
         'HeavyTank': '/tank-type/vehicle.class.heavy.small.scale-200.png',
@@ -480,3 +592,4 @@ eChartsInterop.BuildStackedBarChart = function (elementId) {
         myChart.resize();
     };
 };
+

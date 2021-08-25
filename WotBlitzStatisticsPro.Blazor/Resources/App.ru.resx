@@ -129,6 +129,9 @@
   <data name="Avg damage by tank types" xml:space="preserve">
     <value>Средний урон по типу танка</value>
   </data>
+  <data name="Avg damage by tier" xml:space="preserve">
+    <value>Средний урон по уровню</value>
+  </data>
   <data name="Battles" xml:space="preserve">
     <value>Количество боёв</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Battles by tank types" xml:space="preserve">
     <value>Количество боёв по типу танка</value>
+  </data>
+  <data name="Battles by tier" xml:space="preserve">
+    <value>Количество боёв по уровню</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
@@ -233,6 +239,9 @@
   </data>
   <data name="Win rate by tank types" xml:space="preserve">
     <value>Процент побед по типу танка</value>
+  </data>
+  <data name="Win rate by tier" xml:space="preserve">
+    <value>Процент побед по уровню</value>
   </data>
   <data name="years ago" xml:space="preserve">
     <value>лет назад</value>
