@@ -3,8 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bunit;
 using FluentAssertions;
-using Microsoft.AspNetCore.Components;
-using Moq;
 using NUnit.Framework;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Messages;

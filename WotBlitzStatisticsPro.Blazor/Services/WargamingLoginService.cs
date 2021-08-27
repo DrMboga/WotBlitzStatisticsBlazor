@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Radzen;
 using WotBlitzStatisticsPro.Blazor.Messages;
+using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Pages;
 
 namespace WotBlitzStatisticsPro.Blazor.Services
@@ -19,17 +19,23 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         private readonly DialogService _dialogService;
         private readonly IStringLocalizer<App> _localizer;
         private readonly NavigationManager _navigationManager;
+        private readonly ILocalStorageService _localStorage;
+        private readonly IMediator _mediator;
 
         public WargamingLoginService(
             IGraphQlBackendService graphQlBackendService,
             DialogService dialogService,
             IStringLocalizer<App> localizer,
-            NavigationManager navigationManager)
+            NavigationManager navigationManager,
+            ILocalStorageService localStorage,
+            IMediator mediator)
         {
             _graphQlBackendService = graphQlBackendService;
             _dialogService = dialogService;
             _localizer = localizer;
             _navigationManager = navigationManager;
+            _localStorage = localStorage;
+            _mediator = mediator;
         }
 
         public async Task Handle(LoginToWgMessage notification, CancellationToken cancellationToken)
@@ -49,11 +55,18 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             _navigationManager.NavigateTo(url);
         }
 
-        public Task Handle(RedirectFromWgLoginMessage notification, CancellationToken cancellationToken)
+        public async Task Handle(RedirectFromWgLoginMessage notification, CancellationToken cancellationToken)
         {
-            // ToDo: Store login info to local storage
-            // ToDo: Send OpenPlayerInfoMessage with isLoggedIn = true
-            return Task.CompletedTask;
+            // Store login info to local storage
+            await _localStorage.SetItemAsync(Constants.LoginInfoLocalStorageKey, new LoginInfo { 
+                Realm = notification.Realm, 
+                AccessToken = notification.AccessToken, 
+                AccountId = notification.AccountId, 
+                ExpiresAt = notification.ExpiresAt, 
+                NickName = notification.NickName, });
+
+            // Send OpenPlayerInfoMessage with isLoggedIn = true
+            await _mediator.Publish(new OpenPlayerInfoMessage(notification.AccountId, true));
         }
     }
 }

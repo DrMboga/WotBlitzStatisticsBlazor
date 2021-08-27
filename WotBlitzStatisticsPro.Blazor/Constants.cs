@@ -39,5 +39,7 @@
         public const string CountryOther = "other";
         public const string CountryEuropean = "european";
 
+
+        public const string LoginInfoLocalStorageKey = "login_info";
     }
 }
