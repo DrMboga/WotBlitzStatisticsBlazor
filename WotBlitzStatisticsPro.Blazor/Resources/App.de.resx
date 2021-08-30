@@ -177,6 +177,9 @@
   <data name="Last battle" xml:space="preserve">
     <value>Letzte Gefecht</value>
   </data>
+  <data name="Log out" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
   <data name="Login with WG.net ID" xml:space="preserve">
     <value>Anmelden mit WG.net-ID</value>
   </data>

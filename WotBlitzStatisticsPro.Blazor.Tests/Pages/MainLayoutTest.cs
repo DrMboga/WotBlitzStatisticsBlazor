@@ -1,22 +1,28 @@
 ﻿using System.Threading;
 using Bunit;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using NUnit.Framework;
 using Radzen;
 using WotBlitzStatisticsPro.Blazor.Messages;
 using WotBlitzStatisticsPro.Blazor.Model;
+using WotBlitzStatisticsPro.Blazor.Services;
 using WotBlitzStatisticsPro.Blazor.Shared;
 
 namespace WotBlitzStatisticsPro.Blazor.Tests.Pages
 {
     public class MainLayoutTest : TestContextBase
     {
+        private Mock<ILocalStorageService> _localStorageServiceMock;
         private IRenderedComponent<MainLayout> _component;
 
         [SetUp]
         public void Setup()
         {
+            _localStorageServiceMock = new();
+            TestContext?.Services.AddSingleton(_localStorageServiceMock.Object);
+
             _component = TestContext?.RenderComponent<MainLayout>();
         }
 

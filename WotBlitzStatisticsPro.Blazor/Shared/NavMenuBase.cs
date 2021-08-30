@@ -23,9 +23,19 @@ namespace WotBlitzStatisticsPro.Blazor.Shared
         [Inject]
         private IStringLocalizer<App> Localizer { get; set; }
 
+        [Inject]
+        public ILocalStorageService LocalStorage { get; set; }
+
 
         [Parameter]
         public EventCallback CloseSideBar { get; set; }
+
+        public LoginInfo? LoginInfo { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            LoginInfo = await LocalStorage.GetItemAsync<LoginInfo>(Constants.LoginInfoLocalStorageKey);
+        }
 
         public async Task MenuClicked(MenuItemEventArgs menuItem)
         {
@@ -38,12 +48,18 @@ namespace WotBlitzStatisticsPro.Blazor.Shared
                 case var _ when (Localizer.GetString("Login with WG.net ID")) == menuItem.Text:
                     await Mediator.Publish(new LoginToWgMessage());
                     break;
+                case var _ when (Localizer.GetString("Log out")) == menuItem.Text:
+                    await Mediator.Publish(new LogOutFromWgMessage());
+                    break;
                 case var _ when (Localizer.GetString("Search player")) == menuItem.Text:
                     await Mediator.Publish(new OpenSearchDialogMessage(DialogType.FindPlayer));
                     //await SearchDialogService.OpenSearchDialog(DialogType.FindPlayer);
                     break;
                 case var _ when (Localizer.GetString("Search clan")) == menuItem.Text:
                     await Mediator.Publish(new OpenSearchDialogMessage(DialogType.FindClan));
+                    break;
+                case var _ when (LoginInfo?.NickName) == menuItem.Text:
+                    await Mediator.Publish(new OpenPlayerInfoMessage(LoginInfo.AccountId, true));
                     break;
             }
         }
