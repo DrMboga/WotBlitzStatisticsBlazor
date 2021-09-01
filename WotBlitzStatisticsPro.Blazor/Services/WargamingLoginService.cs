@@ -13,7 +13,8 @@ namespace WotBlitzStatisticsPro.Blazor.Services
     public class WargamingLoginService: 
         INotificationHandler<LoginToWgMessage>, 
         INotificationHandler<RedirectToWgLoginMessage>,
-        INotificationHandler<RedirectFromWgLoginMessage>
+        INotificationHandler<RedirectFromWgLoginMessage>,
+        INotificationHandler<ProlongWargamingAccessToken>
     {
         private readonly IGraphQlBackendService _graphQlBackendService;
         private readonly DialogService _dialogService;
@@ -67,6 +68,15 @@ namespace WotBlitzStatisticsPro.Blazor.Services
 
             // Send OpenPlayerInfoMessage with isLoggedIn = true
             await _mediator.Publish(new OpenPlayerInfoMessage(notification.AccountId, true));
+        }
+
+        public async Task Handle(ProlongWargamingAccessToken notification, CancellationToken cancellationToken)
+        {
+            var loggedInData = await _localStorage.GetItemAsync<LoginInfo>(Constants.LoginInfoLocalStorageKey);
+            var newLoginInfo = await _graphQlBackendService.ProlongToken(loggedInData.AccountId, loggedInData.AccessToken, loggedInData.Realm);
+            loggedInData.AccessToken = newLoginInfo.AccessToken;
+            loggedInData.ExpiresAt = newLoginInfo.ExpiresAt;
+            await _localStorage.SetItemAsync(Constants.LoginInfoLocalStorageKey, loggedInData);
         }
     }
 }

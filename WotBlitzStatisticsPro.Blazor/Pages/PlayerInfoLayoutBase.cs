@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
+using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Services;
 
 namespace WotBlitzStatisticsPro.Blazor.Pages
@@ -30,13 +31,17 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            var loggedInInfo = await LocalStorageService.GetItemAsync<LoginInfo>(Constants.LoginInfoLocalStorageKey);
             var settings = await LocalStorageService.ReadSettings();
             CurrentRealmType = settings.RealmType;
-
-            (AccountInfo, AchievementsBySection) = await GraphQlBackendService.GetPlayerInfo(AccountId, CurrentRealmType);
-
-            await base.OnInitializedAsync();
-
+            if(loggedInInfo == null)
+            {
+                (AccountInfo, AchievementsBySection) = await GraphQlBackendService.GetPlayerInfo(AccountId, CurrentRealmType);
+            }
+            else
+            {
+                (AccountInfo, AchievementsBySection) = await GraphQlBackendService.CollectPlayerInfo(AccountId, CurrentRealmType, loggedInInfo.AccessToken);
+            }
         }
     }
 }

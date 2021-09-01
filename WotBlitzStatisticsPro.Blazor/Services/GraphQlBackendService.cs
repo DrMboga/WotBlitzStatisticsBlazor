@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using StrawberryShake;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
+using WotBlitzStatisticsPro.Blazor.Model;
 
 namespace WotBlitzStatisticsPro.Blazor.Services
 {
@@ -98,6 +99,17 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             {
                 _notificationsService.ReportError("Backend error",string.Join(";", messages));
             }
+        }
+
+        public Task<LoginInfo> ProlongToken(long accountId, string oldToken, RealmType realmType)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> CollectPlayerInfo(long accountId, RealmType realmType, string accessToken)
+        {
+            // ToDo: Call mutation with accessToken in the context
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -96,5 +96,30 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
                 It.Is<OpenPlayerInfoMessage>(m => m.AccountId == accountId && m.IsLoggedIn),
                 It.IsAny<CancellationToken>()), Times.Once);
         }
+
+        [Test]
+        public async Task ShouldCallAppropriateBackendMethodAndSaveNewTokenToLocalStorageWhenProlongWargamingAccessTokenMessageInvoked()
+        {
+            // Setup
+            int accountId = 42;
+            var realm = RealmType.Na;
+            string oldToken = "OldToken";
+            string newToken = "NewToken";
+            long newEvpiration = 129876543;
+
+            _localStorageMock.Setup(s => s.GetItemAsync<LoginInfo>(Constants.LoginInfoLocalStorageKey))
+                .ReturnsAsync(new LoginInfo { AccountId = accountId, AccessToken = oldToken, ExpiresAt = 12345678, Realm = realm });
+            _graphQlBackendMock.Setup(s => s.ProlongToken(accountId, oldToken, realm)).ReturnsAsync(new LoginInfo { AccountId = accountId, AccessToken = newToken, ExpiresAt = newEvpiration, Realm = realm });
+
+            // Avtion
+            await _service.Handle(new ProlongWargamingAccessToken(), CancellationToken.None);
+
+            // Assert
+            _graphQlBackendMock.Verify(s => s.ProlongToken(accountId, oldToken, realm), Times.Once);
+            _localStorageMock.Verify(s => s.SetItemAsync<LoginInfo>(
+                    Constants.LoginInfoLocalStorageKey,
+                    It.Is<LoginInfo>(l => l.Realm == realm && l.AccountId == accountId && l.AccessToken == newToken && l.ExpiresAt == newEvpiration))
+               , Times.Once);
+        }
     }
 }

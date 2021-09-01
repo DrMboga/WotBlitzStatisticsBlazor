@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bogus;
 using Bogus.Extensions;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
+using WotBlitzStatisticsPro.Blazor.Model;
 
 namespace WotBlitzStatisticsPro.Blazor.Services.Mock
 {
@@ -388,5 +389,14 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
             return images[faker.Random.Number(images.Length - 1)];
         }
 
+        public Task<LoginInfo> ProlongToken(long accountId, string oldToken, RealmType realmType)
+        {
+            return Task.FromResult(new LoginInfo { AccountId = accountId, AccessToken = oldToken, Realm = realmType, ExpiresAt = 1631182800, NickName = "Fake nick"});
+        }
+
+        public Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> CollectPlayerInfo(long accountId, RealmType realmType, string accessToken)
+        {
+            return GetPlayerInfo(accountId, realmType);
+        }
     }
 }

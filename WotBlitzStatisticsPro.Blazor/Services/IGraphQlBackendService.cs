@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
+using WotBlitzStatisticsPro.Blazor.Model;
 
 namespace WotBlitzStatisticsPro.Blazor.Services
 {
@@ -18,6 +19,16 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             long accountId,
             RealmType realmType);
 
+        Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> CollectPlayerInfo(
+            long accountId,
+            RealmType realmType,
+            string accessToken);
+
         Task<string> GetWgLoginUrl(RealmType realmType);
+
+        Task<LoginInfo> ProlongToken(
+            long accountId,
+            string oldToken,
+            RealmType realmType);
     }
 }
