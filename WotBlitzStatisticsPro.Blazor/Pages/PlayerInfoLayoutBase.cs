@@ -19,6 +19,9 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         [Inject]
         public IStringLocalizer<App> Localize { get; set; }
 
+        [Inject]
+        public INotificationsService Notifications { get; set; }
+
 
         [Parameter]
         public long AccountId { get; set; }
@@ -35,13 +38,20 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             var settings = await LocalStorageService.ReadSettings();
             CurrentRealmType = settings.RealmType;
 
-            // Maybe add refresh button instead of calling mutation each time
-            if(loggedInInfo != null && loggedInInfo.AccountId == AccountId)
+            try
             {
-                await GraphQlBackendService.CollectPlayerInfo(AccountId, CurrentRealmType, loggedInInfo.AccessToken);
-            }
+                // Maybe add refresh button instead of calling mutation each time
+                if(loggedInInfo != null && loggedInInfo.AccountId == AccountId)
+                {
+                    await GraphQlBackendService.CollectPlayerInfo(AccountId, CurrentRealmType, loggedInInfo.AccessToken);
+                }
 
-            (AccountInfo, AchievementsBySection) = await GraphQlBackendService.GetPlayerInfo(AccountId, CurrentRealmType);
+                (AccountInfo, AchievementsBySection) = await GraphQlBackendService.GetPlayerInfo(AccountId, CurrentRealmType);
+            }
+            catch (System.Exception e)
+            {
+                Notifications.ReportError("Can not get data from backend", e.Message);
+            }
         }
     }
 }

@@ -12,13 +12,16 @@ namespace WotBlitzStatisticsPro.Blazor.Services
     {
         private readonly WotBlitzStatisticsProClient _client;
         private readonly INotificationsService _notificationsService;
+        private readonly IWargamingAuthTokenHeaderHelper _wargamingAuthTokenHeaderHelper;
 
         public GraphQlBackendService(
             WotBlitzStatisticsProClient client,
-            INotificationsService notificationsService)
+            INotificationsService notificationsService, 
+            IWargamingAuthTokenHeaderHelper wargamingAuthTokenHeaderHelper)
         {
             _client = client;
             _notificationsService = notificationsService;
+            _wargamingAuthTokenHeaderHelper = wargamingAuthTokenHeaderHelper;
         }
 
         public async Task<IReadOnlyList<IPlayerShortInfo>?> FindPlayers(string accountNick, RealmType realmType)
@@ -57,11 +60,11 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             throw new System.NotImplementedException();
         }
 
-        public Task CollectPlayerInfo(long accountId, RealmType realmType, string accessToken)
+        public async Task CollectPlayerInfo(long accountId, RealmType realmType, string accessToken)
         {
-            // ToDo: Call mutation with accessToken in the context
-            
-            return _client.UpdatePlayer.ExecuteAsync(accountId, realmType, RequestLanguage.En);
+            _wargamingAuthTokenHeaderHelper.WargamingToken = accessToken;
+            var result = await _client.UpdatePlayer.ExecuteAsync(accountId, realmType, RequestLanguage.En);
+            CheckErrors(result.Errors);
         }
 
         private RequestLanguage GetLanguage()
