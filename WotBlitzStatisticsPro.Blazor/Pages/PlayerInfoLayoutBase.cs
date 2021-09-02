@@ -34,14 +34,14 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             var loggedInInfo = await LocalStorageService.GetItemAsync<LoginInfo>(Constants.LoginInfoLocalStorageKey);
             var settings = await LocalStorageService.ReadSettings();
             CurrentRealmType = settings.RealmType;
-            if(loggedInInfo == null)
+
+            // Maybe add refresh button instead of calling mutation each time
+            if(loggedInInfo != null && loggedInInfo.AccountId == AccountId)
             {
-                (AccountInfo, AchievementsBySection) = await GraphQlBackendService.GetPlayerInfo(AccountId, CurrentRealmType);
+                await GraphQlBackendService.CollectPlayerInfo(AccountId, CurrentRealmType, loggedInInfo.AccessToken);
             }
-            else
-            {
-                (AccountInfo, AchievementsBySection) = await GraphQlBackendService.CollectPlayerInfo(AccountId, CurrentRealmType, loggedInInfo.AccessToken);
-            }
+
+            (AccountInfo, AchievementsBySection) = await GraphQlBackendService.GetPlayerInfo(AccountId, CurrentRealmType);
         }
     }
 }

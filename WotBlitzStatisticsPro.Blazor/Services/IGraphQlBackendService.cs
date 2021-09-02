@@ -19,7 +19,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             long accountId,
             RealmType realmType);
 
-        Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> CollectPlayerInfo(
+        Task CollectPlayerInfo(
             long accountId,
             RealmType realmType,
             string accessToken);

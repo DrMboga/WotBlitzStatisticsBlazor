@@ -1,0 +1,10 @@
+﻿mutation updatePlayer (
+  $accountId: Long!,
+  $realmType: RealmType!,
+  $requestLanguage: RequestLanguage!)
+{
+  gatherAccountInformation(
+    accountId: $accountId,
+    realmType: $realmType,
+    requestLanguage: $requestLanguage)
+}

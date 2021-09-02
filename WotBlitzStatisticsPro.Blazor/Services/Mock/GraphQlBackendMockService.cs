@@ -394,9 +394,9 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
             return Task.FromResult(new LoginInfo { AccountId = accountId, AccessToken = oldToken, Realm = realmType, ExpiresAt = 1631182800, NickName = "Fake nick"});
         }
 
-        public Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> CollectPlayerInfo(long accountId, RealmType realmType, string accessToken)
+        public Task CollectPlayerInfo(long accountId, RealmType realmType, string accessToken)
         {
-            return GetPlayerInfo(accountId, realmType);
+            return Task.CompletedTask;
         }
     }
 }

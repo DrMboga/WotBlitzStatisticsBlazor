@@ -52,6 +52,18 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             throw new System.NotImplementedException("Request for LoginUrl will be implemented soon");
         }
 
+        public Task<LoginInfo> ProlongToken(long accountId, string oldToken, RealmType realmType)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task CollectPlayerInfo(long accountId, RealmType realmType, string accessToken)
+        {
+            // ToDo: Call mutation with accessToken in the context
+            
+            return _client.UpdatePlayer.ExecuteAsync(accountId, realmType, RequestLanguage.En);
+        }
+
         private RequestLanguage GetLanguage()
         {
             var culture = CultureInfo.CurrentCulture;
@@ -99,17 +111,6 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             {
                 _notificationsService.ReportError("Backend error",string.Join(";", messages));
             }
-        }
-
-        public Task<LoginInfo> ProlongToken(long accountId, string oldToken, RealmType realmType)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> CollectPlayerInfo(long accountId, RealmType realmType, string accessToken)
-        {
-            // ToDo: Call mutation with accessToken in the context
-            throw new System.NotImplementedException();
         }
     }
 }
