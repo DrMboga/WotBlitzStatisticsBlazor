@@ -19,6 +19,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
         private Mock<IFindClansQuery> _findClanQueryMock;
         private Mock<IFindPlayersQuery> _findPlayersQueryMock;
         private Mock<IPlayerQuery> _playerQueryMock;
+        private Mock<IUpdatePlayerMutation> _updatePlayerMutationMock;
         private WotBlitzStatisticsProClient _generatedClient;
         private Mock<INotificationsService> _notificationServiceMock;
         private GraphQlBackendService _service;
@@ -37,6 +38,8 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
         private List<IClientError> _playerInfoErrors;
         private Mock<IOperationResult<IPlayerResult>> _playerInfoOperationResultMock;
 
+        private IWargamingAuthTokenHeaderHelper _authTokenHelper = new WargamingAuthTokenHeaderHelper();
+
 
         [SetUp]
         public async Task Init()
@@ -44,17 +47,18 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             _findClanQueryMock = new();
             _findPlayersQueryMock = new();
             _playerQueryMock = new();
+            _updatePlayerMutationMock = new();
 
             await SetUpFindClans();
             await SetUpFindPlayers();
             await SetUpGetPlayer();
 
             _generatedClient =
-                new WotBlitzStatisticsProClient(_findClanQueryMock.Object, _findPlayersQueryMock.Object, _playerQueryMock.Object);
+                new WotBlitzStatisticsProClient(_findClanQueryMock.Object, _findPlayersQueryMock.Object, _playerQueryMock.Object, _updatePlayerMutationMock.Object);
 
             _notificationServiceMock = new();
 
-            _service = new GraphQlBackendService(_generatedClient, _notificationServiceMock.Object);
+            _service = new GraphQlBackendService(_generatedClient, _notificationServiceMock.Object, _authTokenHelper);
         }
 
         [Test]
