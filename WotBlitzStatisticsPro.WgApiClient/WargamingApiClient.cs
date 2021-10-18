@@ -12,7 +12,8 @@ namespace WotBlitzStatisticsPro.WgApiClient
 	public class WargamingApiClient : WagramingApiClientBase, 
         IWargamingApiClient,
         IWargamingDictionariesApiClient,
-        IWargamingTanksApiClient
+        IWargamingTanksApiClient,
+        IWargamingAuthenticationClient
     {
 		public WargamingApiClient(
 			HttpClient httpClient,
@@ -205,6 +206,13 @@ namespace WotBlitzStatisticsPro.WgApiClient
                 "tanks/stats/",
                 $"account_id={accountId}").ConfigureAwait(false);
             return tanks?[accountId.ToString()] ?? new List<WotAccountTanksStatistics>();
+        }
+        #endregion
+
+        #region Authentication
+        public string LoginUrl(RealmType realm)
+        {
+            return GetWotUri(realm, "auth/login/", null);
         }
 
         #endregion

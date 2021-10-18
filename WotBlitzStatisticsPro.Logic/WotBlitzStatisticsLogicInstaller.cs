@@ -29,6 +29,7 @@ namespace WotBlitzStatisticsPro.Logic
             services.AddHttpClient<IWargamingDictionariesApiClient, WargamingApiClient>();
             services.AddHttpClient<IWargamingTanksApiClient, WargamingApiClient>();
             services.AddHttpClient<IWargamingAchievementsApiClient, WargamingAchievementsApiClient>();
+            services.AddHttpClient<IWargamingAuthenticationClient, WargamingApiClient>();
             services.AddTransient<IWargamingSearch, WargamingSearch>();
             services.AddTransient<IWargamingDictionaries, WargamingDictionaries>();
             services.AddTransient<IWargamingAccounts, WargamingAccounts>();

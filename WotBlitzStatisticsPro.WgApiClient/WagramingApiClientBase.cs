@@ -47,7 +47,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			string method,
 			params string[] queryParameters) where T: class
 		{
-			string uri = GetUri(realmType, language, method, queryParameters);
+			string uri = GetBlitzUri(realmType, language, method, queryParameters);
 
 			_httpClient.DefaultRequestHeaders.Accept.Clear();
 			_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -75,7 +75,23 @@ namespace WotBlitzStatisticsPro.WgApiClient
             }
         }
 
-		private string GetUri(RealmType realmType, RequestLanguage language, string method, string[] queryParameters)
+		protected string GetWotUri(RealmType realmType, string method, string[]? queryParameters)
+		{
+			var uri = new StringBuilder($"{_wotApiUrls[realmType]}{method}");
+			uri.Append("?application_id=")
+				.Append(_wargamingApiSettings.ApplicationId);
+			if (queryParameters != null)
+			{
+				foreach (var param in queryParameters)
+				{
+					uri.Append("&")
+						.Append(param);
+				}
+			}
+			return uri.ToString();
+		}
+
+		private string GetBlitzUri(RealmType realmType, RequestLanguage language, string method, string[] queryParameters)
 		{
 			var uri = new StringBuilder($"{_blitzApiUrls[realmType]}{method}");
 			uri.Append("?application_id=")
