@@ -215,6 +215,23 @@ namespace WotBlitzStatisticsPro.WgApiClient
             return GetWotUri(realm, "auth/login/", null);
         }
 
+        public async Task<WargamingProlongInfo> ProlongAuthToken(RealmType realm, string oldToken)
+        {
+            // https://api.worldoftanks.ru/wot/auth/prolongate/?application_id=98805e6ac535e88491ae64d37b764370&access_token=1234566
+            string prolongUri = GetWotUri(
+                realm,
+                "auth/prolongate/",
+                new string[] { $"access_token={oldToken}" });
+            var prolongResult = await CallWgApi<WotAuthProlongateResponse>(prolongUri, true);
+
+            return new WargamingProlongInfo
+            {
+                AccessToken = prolongResult!.AccessToken,
+                AccountId = prolongResult.AccountId,
+                ExpirationTimeStamp = prolongResult.ExpirationTimeStamp
+            };
+        }
+
         #endregion
     }
 }

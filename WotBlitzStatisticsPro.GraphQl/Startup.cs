@@ -94,6 +94,7 @@ namespace WotBlitzStatisticsPro.GraphQl
                 .AddMutationType(d => d.Name("Mutation"))
                     .AddType<WotBlitzStatisticsMutation>()
                     .AddType<AuthenticationMutation>()
+                    .AddType<WargamingAuthMutation>()
                 .AddType<AccountsSearchItemObjectType>()
                 .AddEnumType<MarkOfMastery>()
                 .AddEnumType<RealmType>()

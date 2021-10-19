@@ -41,7 +41,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			_wotApiUrls[RealmType.Asia] = "https://api.worldoftanks.asia/wot/";
 		}
 
-		protected async Task<T?> GetFromBlitzApi<T>(
+		protected Task<T?> GetFromBlitzApi<T>(
 			RealmType realmType,
 			RequestLanguage language,
 			string method,
@@ -49,10 +49,27 @@ namespace WotBlitzStatisticsPro.WgApiClient
 		{
 			string uri = GetBlitzUri(realmType, language, method, queryParameters);
 
+			return CallWgApi<T>(uri);
+        }
+
+		protected async Task<T?> CallWgApi<T>(string uri, bool postMethod = false) where T : class
+		{
 			_httpClient.DefaultRequestHeaders.Accept.Clear();
 			_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-			var response = await _httpClient.GetAsync(uri);
+			HttpResponseMessage? response;
+			if(postMethod)
+            {
+				// Create httpContent
+				var requestBody = TransformUriToRequestBody(uri);
+				var httpContent = new StringContent(requestBody, Encoding.UTF8, "application/x-www-form-urlencoded");
+
+				response = await _httpClient.PostAsync(uri, httpContent);
+            }
+            else
+            {
+				response = await _httpClient.GetAsync(uri);
+			}
 			response.EnsureSuccessStatusCode();
 			var responseString = await response.Content.ReadAsStringAsync();
 
@@ -61,19 +78,20 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			_logger.LogInformation($"HTTP GET {uri} - {responseBody.Status}");
 
 			switch (responseBody.Status)
-            {
-                case "ok":
-                    return responseBody.Data;
-                case "error":
-                {
-                    var error = responseBody.Error;
-                    var message = $"Field:{(error?.Field ?? "undefined")}  Message:{(error?.Message ?? "undefined")}  Value:{(error?.Value ?? "undefined")}  Code:{(error?.Code ?? "undefined")}";
-                    throw new ArgumentException(message);
-                }
-                default:
-                    throw new ArgumentException($"Unexpected response body status '{responseBody.Status}'");
-            }
-        }
+			{
+				case "ok":
+					return responseBody.Data;
+				case "error":
+					{
+						var error = responseBody.Error;
+						var message = $"Field:{(error?.Field ?? "undefined")}  Message:{(error?.Message ?? "undefined")}  Value:{(error?.Value ?? "undefined")}  Code:{(error?.Code ?? "undefined")}";
+						throw new ArgumentException(message);
+					}
+				default:
+					throw new ArgumentException($"Unexpected response body status '{responseBody.Status}'");
+			}
+		}
+
 
 		protected string GetWotUri(RealmType realmType, string method, string[]? queryParameters)
 		{
@@ -107,6 +125,11 @@ namespace WotBlitzStatisticsPro.WgApiClient
 				}
 			}
 			return uri.ToString();
+		}
+
+		private string TransformUriToRequestBody(string request)
+		{
+			return request.Substring(request.IndexOf('?') + 1);
 		}
 	}
 }
