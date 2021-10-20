@@ -75,7 +75,7 @@ namespace WotBlitzStatisticsPro.WgApiClient
 
 			var responseBody = JsonConvert.DeserializeObject<ResponseBody<T>>(responseString);
 
-			_logger.LogInformation($"HTTP GET {uri} - {responseBody.Status}");
+			_logger.LogInformation($"HTTP {(postMethod ? "POST": "GET")} {uri} - {responseBody.Status}");
 
 			switch (responseBody.Status)
 			{

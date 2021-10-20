@@ -232,6 +232,17 @@ namespace WotBlitzStatisticsPro.WgApiClient
             };
         }
 
+        public async Task Logout(RealmType realm, string token)
+        {
+            // https://api.worldoftanks.ru/wot/auth/logout/?application_id=adc1387489cf9fc8d9a1d85dbd27763d
+            string prolongUri = GetWotUri(
+                realm,
+                "auth/logout/",
+                new string[] { $"access_token={token}" });
+            await CallWgApi<WotAuthProlongateResponse>(prolongUri, true);
+        }
+
+
         #endregion
     }
 }

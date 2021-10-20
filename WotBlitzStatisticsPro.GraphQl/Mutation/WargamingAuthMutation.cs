@@ -25,5 +25,17 @@ namespace WotBlitzStatisticsPro.GraphQl.Mutation
         {
             return _wargamingAuthenticationClient.ProlongAuthToken(realm, oldToken);
         }
+
+        /// <summary>
+        /// Removes player's access token
+        /// </summary>
+        /// <param name="realm">Wargaming realm</param>
+        /// <param name="token">Token to logout</param>
+        /// <returns></returns>
+        public async Task<string> Logout(RealmType realm, string token)
+        {
+            await _wargamingAuthenticationClient.Logout(realm, token);
+            return "OK";
+        }
     }
 }

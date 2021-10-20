@@ -8,5 +8,8 @@ namespace WotBlitzStatisticsPro.WgApiClient
         string LoginUrl(RealmType realm);
 
         Task<WargamingProlongInfo> ProlongAuthToken(RealmType realm, string oldToken);
+
+        Task Logout(RealmType realm, string token);
+
     }
 }
