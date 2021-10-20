@@ -31,11 +31,22 @@ namespace WotBlitzStatisticsPro.GraphQl.Mutation
         /// </summary>
         /// <param name="realm">Wargaming realm</param>
         /// <param name="token">Token to logout</param>
-        /// <returns></returns>
+        /// <returns>Operation result</returns>
         public async Task<string> Logout(RealmType realm, string token)
         {
             await _wargamingAuthenticationClient.Logout(realm, token);
             return "OK";
+        }
+
+        /// <summary>
+        /// Removes player's acoount history from database
+        /// </summary>
+        /// <param name="realm">Wargaming realm</param>
+        /// <param name="accountId">Player Id</param>
+        /// <returns>Operation result</returns>
+        public Task<string> RemovePlayerHistory(RealmType realm, long accountId)
+        {
+            return Task.FromResult("Metod it not implemented yet.");
         }
     }
 }
