@@ -8,7 +8,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
     {
         private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
         private readonly global::System.UInt64 _version;
-        public FindPlayersResultInfo(global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountsSearchResponseItemData> players, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
+        public FindPlayersResultInfo(global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountsSearchResponseItemData>? players, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
         {
             Players = players;
             _entityIds = entityIds ?? throw new global::System.ArgumentNullException(nameof(entityIds));
@@ -18,7 +18,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
         /// <summary>
         /// Finds Wargaming accounts by nick
         /// </summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountsSearchResponseItemData> Players { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountsSearchResponseItemData>? Players { get; }
 
         public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
         public global::System.UInt64 Version => _version;

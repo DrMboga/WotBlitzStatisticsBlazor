@@ -1,0 +1,56 @@
+﻿.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 120px;
+    height: 200px;
+    font-size: 14px;
+}
+
+.header-area {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.middle-alligned {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card-flag-area {
+    background-repeat: no-repeat;
+    width: 120px;
+    height: 70px;
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: row;
+}
+
+.mastery-image {
+    width: 32px;
+    height: 32px;
+}
+
+.tank-preview {
+    width: 95px;
+    height: 70px;
+}
+
+.tank-type-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.icon-scale {
+    width: 20px;
+    height: 20px;
+}
+
+.statistics-row {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}

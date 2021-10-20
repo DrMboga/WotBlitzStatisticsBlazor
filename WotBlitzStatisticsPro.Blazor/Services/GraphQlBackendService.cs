@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using StrawberryShake;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
+using WotBlitzStatisticsPro.Blazor.Model;
 
 namespace WotBlitzStatisticsPro.Blazor.Services
 {
@@ -11,16 +12,19 @@ namespace WotBlitzStatisticsPro.Blazor.Services
     {
         private readonly WotBlitzStatisticsProClient _client;
         private readonly INotificationsService _notificationsService;
+        private readonly IWargamingAuthTokenHeaderHelper _wargamingAuthTokenHeaderHelper;
 
         public GraphQlBackendService(
             WotBlitzStatisticsProClient client,
-            INotificationsService notificationsService)
+            INotificationsService notificationsService, 
+            IWargamingAuthTokenHeaderHelper wargamingAuthTokenHeaderHelper)
         {
             _client = client;
             _notificationsService = notificationsService;
+            _wargamingAuthTokenHeaderHelper = wargamingAuthTokenHeaderHelper;
         }
 
-        public async Task<IReadOnlyList<IFindPlayers_Players>?> FindPlayers(string accountNick, RealmType realmType)
+        public async Task<IReadOnlyList<IPlayerShortInfo>?> FindPlayers(string accountNick, RealmType realmType)
         {
             var accounts =
                 await _client.FindPlayers.ExecuteAsync(accountNick, realmType, GetLanguage());
@@ -29,13 +33,59 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             return accounts.Data?.Players;
         }
 
-        public async Task<IReadOnlyList<IFindClans_Clans>?> FindClans(string clanNameOrTag, RealmType realmType)
+        public async Task<IReadOnlyList<IClanShortInfo>?> FindClans(string clanNameOrTag, RealmType realmType)
         {
             var clans =
                 await _client.FindClans.ExecuteAsync(clanNameOrTag, realmType, GetLanguage());
 
             CheckErrors(clans.Errors);
             return clans.Data?.Clans;
+        }
+
+        public async Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> GetPlayerInfo(long accountId, RealmType realmType)
+        {
+            var playerInfo = await _client.Player.ExecuteAsync(accountId, realmType, GetLanguage());
+            CheckErrors(playerInfo.Errors);
+
+            return (playerInfo.Data?.AccountInfo, playerInfo.Data?.AccountMedals?.Sections);
+        }
+
+        public async Task<string> GetWgLoginUrl(RealmType realmType)
+        {
+            var loginUrl = await _client.WargamingAuthenticationQuery.ExecuteAsync(realmType);
+            CheckErrors(loginUrl.Errors);
+
+            return loginUrl.Data?.LoginUrl;
+        }
+
+        public async Task<LoginInfo> ProlongToken(string oldToken, RealmType realmType)
+        {
+            var prolongMutation = await _client.WargamingOpenIdAuthentication.ExecuteAsync(oldToken, realmType);
+            CheckErrors(prolongMutation.Errors);
+
+            var backendProlongToken = prolongMutation.Data?.ProlongAuthToken;
+
+            return new LoginInfo
+            {
+                AccountId = backendProlongToken?.AccountId ?? 0,
+                AccessToken = backendProlongToken?.AccessToken ?? string.Empty,
+                ExpiresAt = backendProlongToken?.ExpirationTimeStamp ?? 0,
+            };
+        }
+
+        public async Task<string> Logout(string token, RealmType realmType)
+        {
+            var logoutMutation = await _client.WargamingOpenId.ExecuteAsync(token, realmType);
+            CheckErrors(logoutMutation.Errors);
+
+            return logoutMutation.Data?.Logout;
+        }
+
+        public async Task CollectPlayerInfo(long accountId, RealmType realmType, string accessToken)
+        {
+            _wargamingAuthTokenHeaderHelper.WargamingToken = accessToken;
+            var result = await _client.UpdatePlayer.ExecuteAsync(accountId, realmType, RequestLanguage.En);
+            CheckErrors(result.Errors);
         }
 
         private RequestLanguage GetLanguage()
@@ -86,6 +136,5 @@ namespace WotBlitzStatisticsPro.Blazor.Services
                 _notificationsService.ReportError("Backend error",string.Join(";", messages));
             }
         }
-
     }
 }

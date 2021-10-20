@@ -1,0 +1,68 @@
+﻿@using MediatR
+@using WotBlitzStatisticsPro.Blazor.Messages
+@using WotBlitzStatisticsPro.Blazor.Model
+@using WotBlitzStatisticsPro.Blazor.Services
+@inject DialogService DialogService
+@inject IMediator Mediator
+@inject ILocalStorageService LocalStorageService
+@inject IStringLocalizer<App> Localize
+
+<div class="row">
+    <p><small> @Localize["LoginConsent"]</small></p>
+</div>
+<div class="row">
+    <div class="col-md-5 align-items-center d-flex">
+        <RadzenLabel Text=@Localize["Region"] />
+    </div>
+    <div class="col-md-4">
+        <RadzenDropDown @bind-Value=@CurrentRealmType
+                        Data=@_realms
+                        ValueProperty="RealmType"
+                        Style="margin-bottom: 10px; width: 87px"
+                        Change="@OnRealmChanged">
+            <Template>
+                <img src="@(((RealmSelector) context).RealmImage)" style="height: 27px" />
+            </Template>
+        </RadzenDropDown>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <RadzenButton Text=@Localize["Cancel"] Click="() => DialogService.Close(false)" ButtonStyle="ButtonStyle.Secondary" Style="margin-bottom: 10px; width: 130px" />
+        <RadzenButton Text=@Localize["Continue"] Click="RedirectToWg" Style="margin-bottom: 10px; width: 130px" />
+    </div>
+</div>
+
+@code {
+    public RealmType CurrentRealmType { get; set; } = RealmType.Eu;
+
+    readonly List<RealmSelector> _realms = new()
+    {
+            new(RealmType.Eu, "/realm/region.eu.scale-200.png"),
+            new(RealmType.Ru, "/realm/region.ru.scale-200.png"),
+            new(RealmType.Na, "/realm/region.na.scale-200.png"),
+            new(RealmType.Asia, "/realm/region.asia.scale-200.png"),
+        };
+
+    protected override async Task OnInitializedAsync()
+    {
+        var settings = await LocalStorageService.ReadSettings();
+        CurrentRealmType = settings.RealmType;
+    }
+
+    public async Task OnRealmChanged(object value)
+    {
+        if (value is RealmType realm)
+        {
+            await Mediator.Publish(new ChangeCurrentRealmTypeMessage(realm));
+        }
+    }
+
+    public async Task RedirectToWg()
+    {
+        await Mediator.Publish(new RedirectToWgLoginMessage(CurrentRealmType));
+
+        DialogService.Close(true);
+    }
+
+}

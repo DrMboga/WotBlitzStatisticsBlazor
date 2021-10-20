@@ -5,14 +5,15 @@
         <RadzenDropDown @bind-Value=@CurrentRealmType
                          Data=@Realms
                          ValueProperty="RealmType"
-                         Style="width: 87px">
+                         Style="width: 87px"
+                         Change="@OnRealmChanged">
             <Template>
                 <img src="@(((RealmSelector) context).RealmImage)" style="height: 27px"/>
             </Template>
         </RadzenDropDown>
     </div>
     <div class="col-md-8 col-8">
-        <RadzenTextBox Placeholder=@($"{Localizer["Search"]}...") Change=@OnSearchTextChange Disabled="@ComponentBusy" Style="width: 150px;"/>
+        <RadzenTextBox Placeholder=@($"{Localizer["Search"]}...") Change=@OnSearchTextChange Disabled="@ComponentBusy" Style="width: 100%;"/>
     </div>
 </div>
     <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate"
@@ -26,7 +27,7 @@
                         Style="height: 330px; width: 100%; margin-top: 10px;"
                         Visible="@(!ComponentBusy)">
             <Template>
-                <FindPlayerListItem Player="@((IFindPlayers_Players) context)"></FindPlayerListItem>
+                <FindPlayerListItem Player="@((IPlayerShortInfo) context)"></FindPlayerListItem>
             </Template>
         </RadzenListBox>
     }
@@ -38,7 +39,7 @@
                         Style="height: 330px; width: 100%; margin-top: 10px;"
                         Visible="@(!ComponentBusy)">
             <Template>
-                <FindClanListItem Clan="((IFindClans_Clans)context)"></FindClanListItem>
+                <FindClanListItem Clan="((IClanShortInfo)context)"></FindClanListItem>
             </Template>
         </RadzenListBox>
     }

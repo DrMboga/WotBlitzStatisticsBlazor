@@ -58,7 +58,7 @@
         /// <summary>
         /// Achievement type
         /// </summary>
-        public string Type { get; set; } = string.Empty;
+        public string? MedalType { get; set; }
 
     }
 }

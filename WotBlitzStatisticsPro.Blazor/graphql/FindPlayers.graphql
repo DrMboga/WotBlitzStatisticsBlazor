@@ -6,11 +6,15 @@
     accountNick: $accountNick, 
     realmType: $realmType, 
     language: $language) {
-      accountId
-      nickname
-      clanTag
-      lastBattle
-      battlesCount
-      winRate
+      ... playerShortInfo
   }
+}
+
+fragment playerShortInfo on AccountsSearchResponseItem {
+  accountId
+  nickname
+  clanTag
+  lastBattle
+  battlesCount
+  winRate
 }

@@ -1,7 +1,27 @@
-﻿@Clan.Tag
+﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@inject IStringLocalizer<App> Localize
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-4">
+            <span style="color: @Constants.ClanTagColor;">[<span style="font-weight: bolder;">@Clan.Tag</span>]</span>
+        </div>
+        <div class="col-sm-8 col-8">
+            @Clan.Name
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-3" title="@Localize["Members"]">
+            <span style="font-size: 11px"><img src="/clan/clan.sortby.role.scale-200.png" style="height: 20px" /> @Clan.MembersCount</span>
+        </div>
+        <div class="col-sm-9 col-9" title="@Localize["Created"]">
+            <span style="font-size: 11px"><img src="/icons/calendar.scale-200.png" style="height: 20px" /> @Clan.CreatedAt.SinceTime(Localize)</span>
+        </div>
+    </div>
+</div>
+<hr>
 
 @code {
     [Parameter]
-    public IFindClans_Clans Clan { get; set; }
+    public IClanShortInfo Clan { get; set; }
 
 }

@@ -26,13 +26,16 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         [Inject]
         public IGraphQlBackendService GraphQlBackendService { get; set; }
 
+        [Inject]
+        public ILocalStorageService LocalStorageService { get; set; }
+
         [Parameter]
         public DialogType DialogType { get; set; }
 
         public List<RealmSelector> Realms { get; set; }
 
-        public List<IFindPlayers_Players> PlayersList { get; set; } = new();
-        public List<IFindClans_Clans> ClansList { get; set; } = new();
+        public List<IPlayerShortInfo> PlayersList { get; set; } = new();
+        public List<IClanShortInfo> ClansList { get; set; } = new();
 
         public RealmType CurrentRealmType { get; set; } = RealmType.Eu;
 
@@ -51,6 +54,23 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             };
 
         }
+
+        protected override async Task OnInitializedAsync()
+        {
+            var settings = await LocalStorageService.ReadSettings();
+            CurrentRealmType = settings.RealmType;
+
+            await base.OnInitializedAsync();
+        }
+
+        public async Task OnRealmChanged(object value)
+        {
+            if (value is RealmType realm)
+            {
+                await Mediator.Publish(new ChangeCurrentRealmTypeMessage(realm));
+            }
+        }
+
 
         public async Task OnSearchTextChange(string value)
         {
@@ -88,7 +108,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
                 if (DialogType == DialogType.FindClan)
                 {
-                    //await Mediator.Publish(new OpenClanInfoMessage(CurrentValue, false));
+                    await Mediator.Publish(new OpenClanInfoMessage(CurrentValue));
                 }
             }
 
@@ -101,7 +121,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 await GraphQlBackendService.FindPlayers(searchString, CurrentRealmType);
             if (accounts != null)
             {
-                PlayersList = new List<IFindPlayers_Players>(accounts);
+                PlayersList = new List<IPlayerShortInfo>(accounts);
             }
 
         }
@@ -112,7 +132,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 await GraphQlBackendService.FindClans(searchString, CurrentRealmType);
             if (clans != null)
             {
-                ClansList = new List<IFindClans_Clans>(clans);
+                ClansList = new List<IClanShortInfo>(clans);
             }
         }
     }

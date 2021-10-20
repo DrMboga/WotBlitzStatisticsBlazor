@@ -6,7 +6,7 @@ namespace WotBlitzStatisticsPro.Common.Model
     /// <summary>
     /// Information about player
     /// </summary>
-    public class AccountInfoResponse
+    public class AccountInfoResponse: IStatisticsResponse
     {
         ///<summary>
         /// Player account identifier
@@ -18,15 +18,47 @@ namespace WotBlitzStatisticsPro.Common.Model
         ///</summary>
         public DateTime CreatedAt { get; set; } = new DateTime(1970, 1, 1);
 
-        ///<summary>
-        /// Last battle time
-        ///</summary>
-        public DateTime LastBattleTime { get; set; } = new DateTime(1970, 1, 1);
-
 		///<summary>
 		/// Player's nick
 		///</summary>
 		public string? Nickname { get; set; }
+
+        ///<summary>
+        /// Tank id, which kills max frags per battle
+        ///</summary>
+        public long MaxFragsTankId { get; set; }
+
+        ///<summary>
+        /// Tank Id which created max experience per battle
+        ///</summary>
+        public long MaxXpTankId { get; set; }
+
+        /// <summary>
+        /// Average tier
+        /// </summary>
+        public double AvgTier { get; set; }
+
+		/// <summary>
+		/// All player's tanks
+		/// </summary>
+		public List<TankInfoResponse>? Tanks { get; set; }
+
+		/// <summary>
+		/// Clan info
+		/// </summary>
+        public ClanInfoResponse? ClanInfo { get; set; }
+
+        /// <summary>
+        /// Account Region and request language
+        /// </summary>
+        public RealmAndLanguage RegionAndLanguage { get; set; } = new(RealmType.Eu, RequestLanguage.En);
+
+		#region statistics
+
+		///<summary>
+		/// Last battle time
+		///</summary>
+		public DateTime LastBattleTime { get; set; } = new DateTime(1970, 1, 1);
 
 		///<summary>
 		/// Battles count
@@ -79,19 +111,9 @@ namespace WotBlitzStatisticsPro.Common.Model
 		public long MaxFrags { get; set; }
 
 		///<summary>
-		/// Tank id, which kills max frags per battle
-		///</summary>
-		public long MaxFragsTankId { get; set; }
-
-		///<summary>
 		/// Max experience per battle
 		///</summary>
 		public long MaxXp { get; set; }
-
-		///<summary>
-		/// Tank Id which created max experience per battle
-		///</summary>
-		public long MaxXpTankId { get; set; }
 
 		///<summary>
 		/// Total shots count
@@ -109,7 +131,7 @@ namespace WotBlitzStatisticsPro.Common.Model
 		public long SurvivedBattles { get; set; }
 
 		///<summary>
-		/// Total count of survived and winned battles
+		/// Total count of survived and won battles
 		///</summary>
 		public long WinAndSurvived { get; set; }
 
@@ -124,49 +146,36 @@ namespace WotBlitzStatisticsPro.Common.Model
 		public long Xp { get; set; }
 
 		/// <summary>
-		/// Average tier
-		/// </summary>
-		public double AvgTier { get; set; }
-
-		/// <summary>
 		/// Wn7 coefficient
 		/// </summary>
 		public double Wn7 { get; set; }
 
-        /// <summary>
-        /// Player's win rate
-        /// </summary>
-        public decimal WinRate => Battles == 0 ? 0m : (decimal) 100 * Wins / Battles;
+		/// <summary>
+		/// Player's win rate
+		/// </summary>
+		public decimal WinRate => Battles == 0 ? 0m : (decimal)100 * Wins / Battles;
 
 		/// <summary>
 		/// Player's average damage
 		/// </summary>
-        public decimal AvgDamage => Battles == 0 ? 0m : (decimal)DamageDealt / Battles;
+		public decimal AvgDamage => Battles == 0 ? 0m : (decimal)DamageDealt / Battles;
 
 		/// <summary>
 		/// Player's average XP
 		/// </summary>
-        public decimal AvgXp => Battles == 0 ? 0m : (decimal)Xp / Battles;
-
-        /// <summary>
-        /// Damage coefficient
-        /// </summary>
-        public decimal DamageCoefficient => DamageReceived == 0 ? 0m : (decimal) DamageDealt / DamageReceived;
-
-        /// <summary>
-        /// Rate of survival
-        /// </summary>
-        public decimal SurvivalRate => Battles == 0 ? 0m : (decimal) 100 * SurvivedBattles / Battles;
+		public decimal AvgXp => Battles == 0 ? 0m : (decimal)Xp / Battles;
 
 		/// <summary>
-		/// All player's tanks
+		/// Damage coefficient
 		/// </summary>
-		public List<TankInfoResponse>? Tanks { get; set; }
+		public decimal DamageCoefficient => DamageReceived == 0 ? 0m : (decimal)DamageDealt / DamageReceived;
 
 		/// <summary>
-		/// Clan info
+		/// Rate of survival
 		/// </summary>
-        public ClanInfoResponse? ClanInfo { get; set; }
+		public decimal SurvivalRate => Battles == 0 ? 0m : (decimal)100 * SurvivedBattles / Battles;
 
+
+		#endregion
 	}
 }

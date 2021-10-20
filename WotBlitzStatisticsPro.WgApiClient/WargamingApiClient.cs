@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.WgApiClient.Model;
@@ -11,11 +12,13 @@ namespace WotBlitzStatisticsPro.WgApiClient
 	public class WargamingApiClient : WagramingApiClientBase, 
         IWargamingApiClient,
         IWargamingDictionariesApiClient,
-        IWargamingTanksApiClient
+        IWargamingTanksApiClient,
+        IWargamingAuthenticationClient
     {
 		public WargamingApiClient(
 			HttpClient httpClient,
-			IWargamingApiSettings wargamingApiSettings) : base(httpClient, wargamingApiSettings)
+			IWargamingApiSettings wargamingApiSettings,
+            ILogger<WagramingApiClientBase> logger) : base(httpClient, wargamingApiSettings, logger)
 		{
 		}
 
@@ -204,6 +207,41 @@ namespace WotBlitzStatisticsPro.WgApiClient
                 $"account_id={accountId}").ConfigureAwait(false);
             return tanks?[accountId.ToString()] ?? new List<WotAccountTanksStatistics>();
         }
+        #endregion
+
+        #region Authentication
+        public string LoginUrl(RealmType realm)
+        {
+            return GetWotUri(realm, "auth/login/", null);
+        }
+
+        public async Task<WargamingProlongInfo> ProlongAuthToken(RealmType realm, string oldToken)
+        {
+            // https://api.worldoftanks.ru/wot/auth/prolongate/?application_id=98805e6ac535e88491ae64d37b764370&access_token=1234566
+            string prolongUri = GetWotUri(
+                realm,
+                "auth/prolongate/",
+                new string[] { $"access_token={oldToken}" });
+            var prolongResult = await CallWgApi<WotAuthProlongateResponse>(prolongUri, true);
+
+            return new WargamingProlongInfo
+            {
+                AccessToken = prolongResult!.AccessToken,
+                AccountId = prolongResult.AccountId,
+                ExpirationTimeStamp = prolongResult.ExpirationTimeStamp
+            };
+        }
+
+        public async Task Logout(RealmType realm, string token)
+        {
+            // https://api.worldoftanks.ru/wot/auth/logout/?application_id=adc1387489cf9fc8d9a1d85dbd27763d
+            string prolongUri = GetWotUri(
+                realm,
+                "auth/logout/",
+                new string[] { $"access_token={token}" });
+            await CallWgApi<WotAuthProlongateResponse>(prolongUri, true);
+        }
+
 
         #endregion
     }

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.Common.Model;
 
@@ -19,14 +20,17 @@ namespace WotBlitzStatisticsPro.WgApiClient
 
 		private readonly HttpClient _httpClient;
 		private readonly IWargamingApiSettings _wargamingApiSettings;
+        private readonly ILogger<WagramingApiClientBase> _logger;
 
-		public WagramingApiClientBase(
+        public WagramingApiClientBase(
 			HttpClient httpClient,
-			IWargamingApiSettings wargamingApiSettings)
+			IWargamingApiSettings wargamingApiSettings,
+            ILogger<WagramingApiClientBase> logger)
 		{
 			_httpClient = httpClient;
 			_wargamingApiSettings = wargamingApiSettings;
-			_blitzApiUrls[RealmType.Eu] = "https://api.wotblitz.eu/wotb/";
+            _logger = logger;
+            _blitzApiUrls[RealmType.Eu] = "https://api.wotblitz.eu/wotb/";
 			_blitzApiUrls[RealmType.Ru] = "https://api.wotblitz.ru/wotb/";
 			_blitzApiUrls[RealmType.Na] = "https://api.wotblitz.com/wotb/";
 			_blitzApiUrls[RealmType.Asia] = "https://api.wotblitz.asia/wotb/";
@@ -37,38 +41,75 @@ namespace WotBlitzStatisticsPro.WgApiClient
 			_wotApiUrls[RealmType.Asia] = "https://api.worldoftanks.asia/wot/";
 		}
 
-		protected async Task<T?> GetFromBlitzApi<T>(
+		protected Task<T?> GetFromBlitzApi<T>(
 			RealmType realmType,
 			RequestLanguage language,
 			string method,
 			params string[] queryParameters) where T: class
 		{
-			string uri = GetUri(realmType, language, method, queryParameters);
+			string uri = GetBlitzUri(realmType, language, method, queryParameters);
 
+			return CallWgApi<T>(uri);
+        }
+
+		protected async Task<T?> CallWgApi<T>(string uri, bool postMethod = false) where T : class
+		{
 			_httpClient.DefaultRequestHeaders.Accept.Clear();
 			_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-			var response = await _httpClient.GetAsync(uri);
+			HttpResponseMessage? response;
+			if(postMethod)
+            {
+				// Create httpContent
+				var requestBody = TransformUriToRequestBody(uri);
+				var httpContent = new StringContent(requestBody, Encoding.UTF8, "application/x-www-form-urlencoded");
+
+				response = await _httpClient.PostAsync(uri, httpContent);
+            }
+            else
+            {
+				response = await _httpClient.GetAsync(uri);
+			}
 			response.EnsureSuccessStatusCode();
 			var responseString = await response.Content.ReadAsStringAsync();
 
 			var responseBody = JsonConvert.DeserializeObject<ResponseBody<T>>(responseString);
-			switch (responseBody.Status)
-            {
-                case "ok":
-                    return responseBody.Data;
-                case "error":
-                {
-                    var error = responseBody.Error;
-                    var message = $"Field:{(error?.Field ?? "undefined")}  Message:{(error?.Message ?? "undefined")}  Value:{(error?.Value ?? "undefined")}  Code:{(error?.Code ?? "undefined")}";
-                    throw new ArgumentException(message);
-                }
-                default:
-                    throw new ArgumentException($"Unexpected response body status '{responseBody.Status}'");
-            }
-        }
 
-		private string GetUri(RealmType realmType, RequestLanguage language, string method, string[] queryParameters)
+			_logger.LogInformation($"HTTP {(postMethod ? "POST": "GET")} {uri} - {responseBody.Status}");
+
+			switch (responseBody.Status)
+			{
+				case "ok":
+					return responseBody.Data;
+				case "error":
+					{
+						var error = responseBody.Error;
+						var message = $"Field:{(error?.Field ?? "undefined")}  Message:{(error?.Message ?? "undefined")}  Value:{(error?.Value ?? "undefined")}  Code:{(error?.Code ?? "undefined")}";
+						throw new ArgumentException(message);
+					}
+				default:
+					throw new ArgumentException($"Unexpected response body status '{responseBody.Status}'");
+			}
+		}
+
+
+		protected string GetWotUri(RealmType realmType, string method, string[]? queryParameters)
+		{
+			var uri = new StringBuilder($"{_wotApiUrls[realmType]}{method}");
+			uri.Append("?application_id=")
+				.Append(_wargamingApiSettings.ApplicationId);
+			if (queryParameters != null)
+			{
+				foreach (var param in queryParameters)
+				{
+					uri.Append("&")
+						.Append(param);
+				}
+			}
+			return uri.ToString();
+		}
+
+		private string GetBlitzUri(RealmType realmType, RequestLanguage language, string method, string[] queryParameters)
 		{
 			var uri = new StringBuilder($"{_blitzApiUrls[realmType]}{method}");
 			uri.Append("?application_id=")
@@ -84,6 +125,11 @@ namespace WotBlitzStatisticsPro.WgApiClient
 				}
 			}
 			return uri.ToString();
+		}
+
+		private string TransformUriToRequestBody(string request)
+		{
+			return request.Substring(request.IndexOf('?') + 1);
 		}
 	}
 }

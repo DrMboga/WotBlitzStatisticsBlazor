@@ -9,12 +9,16 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// query FindClans($searchString: String!, $realmType: RealmType!, $language: RequestLanguage!) {
     ///   clans(searchString: $searchString, realmType: $realmType, language: $language) {
     ///     __typename
-    ///     clanId
-    ///     createdAt
-    ///     membersCount
-    ///     name
-    ///     tag
+    ///     ... clanShortInfo
     ///   }
+    /// }
+    /// 
+    /// fragment clanShortInfo on ClanSearchResponseItem {
+    ///   clanId
+    ///   createdAt
+    ///   membersCount
+    ///   name
+    ///   tag
     /// }
     /// </code>
     /// </summary>

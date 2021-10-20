@@ -7,36 +7,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// Account search result item
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public interface IFindPlayers_Players
+    public interface IFindPlayers_Players : IPlayerShortInfo
     {
-        /// <summary>
-        /// Player accountId
-        /// </summary>
-        public global::System.Int64 AccountId { get; }
-
-        /// <summary>
-        /// Player nick
-        /// </summary>
-        public global::System.String? Nickname { get; }
-
-        /// <summary>
-        /// Clan tag. Null if player doesn't have clan membership
-        /// </summary>
-        public global::System.String? ClanTag { get; }
-
-        /// <summary>
-        /// Last battle time
-        /// </summary>
-        public global::System.DateTimeOffset LastBattle { get; }
-
-        /// <summary>
-        /// Player's battles count
-        /// </summary>
-        public global::System.Int64 BattlesCount { get; }
-
-        /// <summary>
-        /// Win rate from 0 to 100
-        /// </summary>
-        public global::System.Int32 WinRate { get; }
     }
 }

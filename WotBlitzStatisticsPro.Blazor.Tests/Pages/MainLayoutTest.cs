@@ -1,20 +1,28 @@
 ﻿using System.Threading;
 using Bunit;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using NUnit.Framework;
+using Radzen;
 using WotBlitzStatisticsPro.Blazor.Messages;
+using WotBlitzStatisticsPro.Blazor.Model;
+using WotBlitzStatisticsPro.Blazor.Services;
 using WotBlitzStatisticsPro.Blazor.Shared;
 
 namespace WotBlitzStatisticsPro.Blazor.Tests.Pages
 {
-    public class MainLayoutTest: TestContextBase
+    public class MainLayoutTest : TestContextBase
     {
+        private Mock<ILocalStorageService> _localStorageServiceMock;
         private IRenderedComponent<MainLayout> _component;
 
         [SetUp]
         public void Setup()
         {
+            _localStorageServiceMock = new();
+            TestContext?.Services.AddSingleton(_localStorageServiceMock.Object);
+
             _component = TestContext?.RenderComponent<MainLayout>();
         }
 
@@ -45,9 +53,34 @@ By.css('.parent .child')      // get child who has a parent
             {
                 elements[i].Click();
                 MediatorMock.Verify(m => m.Publish(
-                    It.Is<ChangeCurrentCultureMessage>(m => m.CultureName == expectedLanguages[0]), 
+                    It.Is<ChangeCurrentCultureMessage>(m => m.CultureName == expectedLanguages[0]),
                     It.IsAny<CancellationToken>()), Times.Once);
             }
+        }
+
+        [TestCase(NotificationType.Info, NotificationSeverity.Info)]
+        [TestCase(NotificationType.Warning, NotificationSeverity.Warning)]
+        [TestCase(NotificationType.Error, NotificationSeverity.Error)]
+        public void ShouldEmitRadzenMessageWhenNotificationsServiceHasMessage(NotificationType notificationType, NotificationSeverity expectedSeverity)
+        {
+            string expectedSummary = "Foo";
+            string expectedMessage = "Bar";
+
+            NotificationsServiceMock.SetupGet(n => n.Type).Returns(notificationType);
+            NotificationsServiceMock.SetupGet(n => n.Summary).Returns(expectedSummary);
+            NotificationsServiceMock.SetupGet(n => n.Message).Returns(expectedMessage);
+
+            // Action
+            NotificationsServiceMock.Raise(n => n.MessageArrived += null);
+
+            var radzenNotification = TestContext?.Services.GetService<NotificationService>();
+            var msg = radzenNotification?.Messages;
+            msg.Should().NotBeNull();
+            msg?.Count.Should().Be(1);
+
+            msg?[0].Summary.Should().Be(expectedSummary);
+            msg?[0].Detail.Should().Be(expectedMessage);
+            msg?[0].Severity.Should().Be(expectedSeverity);
         }
     }
 }

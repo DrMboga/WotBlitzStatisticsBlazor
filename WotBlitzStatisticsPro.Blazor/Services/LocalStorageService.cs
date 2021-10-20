@@ -9,7 +9,7 @@ using WotBlitzStatisticsPro.Blazor.Model;
 
 namespace WotBlitzStatisticsPro.Blazor.Services
 {
-    public class LocalStorageService: ILocalStorageService, INotificationHandler<ChangeCurrentCultureMessage>
+    public class LocalStorageService: ILocalStorageService, INotificationHandler<ChangeCurrentCultureMessage>, INotificationHandler<ChangeCurrentRealmTypeMessage>
     {
         private readonly IJSRuntime _jsRuntime;
         private readonly NavigationManager _navigationManager;
@@ -36,12 +36,29 @@ namespace WotBlitzStatisticsPro.Blazor.Services
                 : JsonSerializer.Deserialize<T>(json);
         }
 
+        public async Task<UserSettings> ReadSettings()
+        {
+            return await GetItemAsync<UserSettings>(UserSettings.UserSettingsLocalStorageKey) ?? new UserSettings();
+        }
+
         public async Task Handle(ChangeCurrentCultureMessage notification, CancellationToken cancellationToken)
         {
-            var currentSettings = await GetItemAsync<UserSettings>(UserSettings.UserSettingsLocalStorageKey) ?? new UserSettings();
+            var currentSettings = await ReadSettings();
             currentSettings.Culture = notification.CultureName;
             await SetItemAsync(UserSettings.UserSettingsLocalStorageKey, currentSettings);
             _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
+        }
+
+        public async Task Handle(ChangeCurrentRealmTypeMessage notification, CancellationToken cancellationToken)
+        {
+            var currentSettings = await ReadSettings();
+            currentSettings.RealmType = notification.RealmType;
+            await SetItemAsync(UserSettings.UserSettingsLocalStorageKey, currentSettings);
+        }
+
+        public ValueTask DeleteItemAsync(string key)
+        {
+            return _jsRuntime.InvokeVoidAsync("localStorage.removeItem", key);
         }
     }
 }

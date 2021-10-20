@@ -25,6 +25,6 @@ namespace WotBlitzStatisticsPro.Common.Model.Achievements
         /// <summary>
         /// Achievements in the section
         /// </summary>
-        public List<Achievement>? Achievements { get; set; }
+        public List<Achievement>? Medals { get; set; }
     }
 }

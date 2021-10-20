@@ -46,6 +46,9 @@ namespace WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations
             contextData.Response = _mapper.Map<AccountInfo, AccountInfoResponse>(contextData.AccountInfo);
             contextData.Response = _mapper.Map(contextData.AccountInfoHistory, contextData.Response);
 
+            contextData.Response.RegionAndLanguage =
+                new RealmAndLanguage(context.Request.RealmType, context.Request.RequestLanguage);
+
             var tankIds = contextData.Tanks.Select(t => t.TankId).ToArray();
             var vehicles = await _dictionariesDataAccessor.GetVehicles(tankIds);
 

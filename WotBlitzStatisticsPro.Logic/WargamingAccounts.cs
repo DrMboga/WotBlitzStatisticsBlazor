@@ -5,6 +5,7 @@ using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.OperationContext;
 using WotBlitzStatisticsPro.Logic.AccountInformationPipeline.Operations;
+using WotBlitzStatisticsPro.Logic.Calculations;
 using WotBlitzStatisticsPro.Logic.Pipeline;
 
 namespace WotBlitzStatisticsPro.Logic
@@ -58,7 +59,7 @@ namespace WotBlitzStatisticsPro.Logic
             return contextData?.Response ?? new AccountInfoResponse();
         }
 
-        public async Task<AccountInfoResponse> GatherAndSaveAccountInformation(
+        public async Task<DateTime> GatherAndSaveAccountInformation(
             RealmType realm, 
             long accountId, 
             RequestLanguage requestLanguage,
@@ -78,7 +79,6 @@ namespace WotBlitzStatisticsPro.Logic
                     .AddOperation<GetTanksInfoOperation>()
                     .AddOperation<CalculateStatisticsOperation>()
                     .AddOperation<SaveAccountAndTanksOperation>()
-                    .AddOperation<BuildAccountInfoResponseOperation>()
                     ;
 
                 var firstOperation = pipeline.Build();
@@ -95,7 +95,7 @@ namespace WotBlitzStatisticsPro.Logic
 
                 throw;
             }
-            return contextData?.Response ?? new AccountInfoResponse();
+            return contextData?.AccountInfo?.LastBattleTime.ToDateTime() ?? new DateTime(1970,1,1);
         }
 
         public async Task<AccountInfoHistoryResponse> GetAccountInfoHistory(RealmType realm, long accountId, DateTime startDate, RequestLanguage requestLanguage)

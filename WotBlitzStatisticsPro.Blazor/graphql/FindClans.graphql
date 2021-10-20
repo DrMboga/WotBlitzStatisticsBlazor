@@ -6,10 +6,14 @@ query findClans (
     searchString: $searchString, 
     realmType: $realmType, 
     language: $language) {
-      clanId
-      createdAt
-      membersCount
-      name
-      tag
+      ... clanShortInfo
   }
+}
+
+fragment clanShortInfo on ClanSearchResponseItem {
+  clanId
+  createdAt
+  membersCount
+  name
+  tag
 }

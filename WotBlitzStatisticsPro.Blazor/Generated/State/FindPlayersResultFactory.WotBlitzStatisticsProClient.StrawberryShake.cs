@@ -22,17 +22,17 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 
             if (dataInfo is FindPlayersResultInfo info)
             {
-                return new FindPlayersResult(MapNonNullableIFindPlayers_PlayersNonNullableArray(info.Players, snapshot));
+                return new FindPlayersResult(MapIFindPlayers_PlayersNonNullableArray(info.Players, snapshot));
             }
 
             throw new global::System.ArgumentException("FindPlayersResultInfo expected.");
         }
 
-        private global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayers_Players> MapNonNullableIFindPlayers_PlayersNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountsSearchResponseItemData>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayers_Players>? MapIFindPlayers_PlayersNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountsSearchResponseItemData>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (list is null)
             {
-                throw new global::System.ArgumentNullException();
+                return null;
             }
 
             var accountsSearchResponseItems = new global::System.Collections.Generic.List<global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayers_Players>();

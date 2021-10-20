@@ -1,0 +1,84 @@
+﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@inject IStringLocalizer<App> Localize;
+
+<RadzenCard>
+    <div class="row">
+        <div class="col-md-3 col-lg-3">
+            <table class="table" width="230px">
+                <tbody>
+                <tr>
+                    <td>@Localize["Battles"]:</td>
+                    <td><b>@AccountInfo.Battles.ToString("N0")</b></td>
+                </tr>
+                <tr>
+                    <td>@Localize["Win rate"]:</td>
+                    <td>
+                        <b>@AccountInfo.WinRate.ToString("N2")%</b>
+                        <div style="background-color: @AccountInfo.WinRate.ScaleColor(); width: 100%; height: 5px; margin-left: 2px; margin-right: 2px;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Localize["Wn7"]:</td>
+                    <td>
+                        <b>@AccountInfo.Wn7.ToString("N2")</b>
+                        <div style="background-color: @AccountInfo.Wn7.Wn7ScaleColor(); width: 100%; height: 5px; margin-left: 2px; margin-right: 2px;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Localize["Average Damage"]:</td>
+                    <td><b>@AccountInfo.AvgDamage.ToString("N0")</b></td>
+                </tr>
+                <tr>
+                    <td>@Localize["Average XP"]:</td>
+                    <td><b>@AccountInfo.AvgXp.ToString("N0")</b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3 col-lg-3 align-items-center d-flex">
+            <div style="width: 120px; margin: 3px;">
+                @Localize["Most effective tank"]:
+            </div>
+            @if (MostRelevantTank != null)
+            {
+                <TankCard Tank=@MostRelevantTank></TankCard>
+            }
+        </div>
+        <div class="col-md-3 col-lg-3 align-items-center d-flex">
+            <div style="width: 100px; margin: 3px;">
+                @Localize["Tank with Max XP"] (@AccountInfo.MaxXp.ToString("N0")):
+            </div>
+            @if (MaxXpTank != null)
+            {
+                <TankCard Tank=@MaxXpTank></TankCard>
+            }
+        </div>
+            <div class="col-md-3 col-lg-3 align-items-center d-flex">
+            <div style="width: 100px; margin: 3px;">
+                @Localize["Tank with Max frags"] (@AccountInfo.MaxFrags):
+            </div>
+
+            @if (MaxFragsTank != null)
+            {
+                <TankCard Tank=@MaxFragsTank></TankCard>
+            }
+        </div>
+    </div>
+</RadzenCard>
+
+@code {
+    [Parameter]
+    public IAccount AccountInfo { get; set; }
+
+    public ITank? MostRelevantTank;
+    public ITank? MaxXpTank;
+    public ITank? MaxFragsTank;
+
+    protected override void OnInitialized()
+    {
+        MostRelevantTank = AccountInfo?.Tanks?.Where(t => t.Battles > 50).OrderByDescending(t => t.Wn7).FirstOrDefault();
+        MaxXpTank = AccountInfo?.Tanks?.FirstOrDefault(t => t.TankId == AccountInfo.MaxXpTankId);
+        MaxFragsTank = AccountInfo?.Tanks?.FirstOrDefault(t => t.TankId == AccountInfo.MaxFragsTankId);
+    }
+
+}

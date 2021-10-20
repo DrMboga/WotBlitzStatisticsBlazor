@@ -117,11 +117,98 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Average Damage" xml:space="preserve">
+    <value>Средний урон</value>
+  </data>
+  <data name="Average XP" xml:space="preserve">
+    <value>Средний опыт</value>
+  </data>
+  <data name="Avg damage by nation" xml:space="preserve">
+    <value>Средний урон по нациям</value>
+  </data>
+  <data name="Avg damage by tank types" xml:space="preserve">
+    <value>Средний урон по типу танка</value>
+  </data>
+  <data name="Avg damage by tier" xml:space="preserve">
+    <value>Средний урон по уровню</value>
+  </data>
+  <data name="Battles" xml:space="preserve">
+    <value>Количество боёв</value>
+  </data>
+  <data name="Battles by nation" xml:space="preserve">
+    <value>Количество боёв по нациям</value>
+  </data>
+  <data name="Battles by tank types" xml:space="preserve">
+    <value>Количество боёв по типу танка</value>
+  </data>
+  <data name="Battles by tier" xml:space="preserve">
+    <value>Количество боёв по уровню</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="days ago" xml:space="preserve">
+    <value>дней назад</value>
+  </data>
+  <data name="Filter mark of mastery..." xml:space="preserve">
+    <value>Фильтр по знаку мастер...</value>
+  </data>
+  <data name="Filter nations..." xml:space="preserve">
+    <value>Фильтр по нациям...</value>
+  </data>
+  <data name="Filter tank types..." xml:space="preserve">
+    <value>Фильтр по типу танка...</value>
+  </data>
+  <data name="Filter tier..." xml:space="preserve">
+    <value>Фильтр по уровню...</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>На главную</value>
   </data>
+  <data name="hours ago" xml:space="preserve">
+    <value>часов назад</value>
+  </data>
+  <data name="Last battle" xml:space="preserve">
+    <value>Последний бой</value>
+  </data>
+  <data name="Log out" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
   <data name="Login with WG.net ID" xml:space="preserve">
     <value>Войти с WG.net ID</value>
+  </data>
+  <data name="LoginConsent" xml:space="preserve">
+    <value>Сейчас вы будете перенаправлены на страницу авторизации WG. Авторизованные пользователи получают возможность сохранять историю своей статистики, которая будет доступна только вам. Данное приложение не хранит никакой личной информации об игроках, их логинов, паролей e-mail-ов и внутреигровых ресурсах. Так же после авторизации вы будете иметь возможность выйти с сохранением или удалением истории статистики вашего аккаунта на сервере. Нажимая кнопку Далее, вы соглашаетесь с данной информацией</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Участников</value>
+  </data>
+  <data name="Min battles" xml:space="preserve">
+    <value>Мин боёв</value>
+  </data>
+  <data name="minutes ago" xml:space="preserve">
+    <value>минут назад</value>
+  </data>
+  <data name="months ago" xml:space="preserve">
+    <value>месяцев назад</value>
+  </data>
+  <data name="Most effective tank" xml:space="preserve">
+    <value>Самый эффективный танк</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>из</value>
+  </data>
+  <data name="Premium tanks" xml:space="preserve">
+    <value>Премиум танки</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Регион</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
@@ -132,7 +219,37 @@
   <data name="Search player" xml:space="preserve">
     <value>Поиск игрока</value>
   </data>
+  <data name="Tank" xml:space="preserve">
+    <value>Танк</value>
+  </data>
+  <data name="Tank with Max frags" xml:space="preserve">
+    <value>Максимум фрагов </value>
+  </data>
+  <data name="Tank with Max XP" xml:space="preserve">
+    <value>Максимум XP</value>
+  </data>
+  <data name="Tanks" xml:space="preserve">
+    <value>Танков</value>
+  </data>
   <data name="Welcome to WOT Blitz statistics application!" xml:space="preserve">
     <value>Добро пожаловать в WOT Blitz statistics!</value>
+  </data>
+  <data name="Win rate" xml:space="preserve">
+    <value>Процент побед</value>
+  </data>
+  <data name="Win rate by nation" xml:space="preserve">
+    <value>Процент побед по нациям</value>
+  </data>
+  <data name="Win rate by tank types" xml:space="preserve">
+    <value>Процент побед по типу танка</value>
+  </data>
+  <data name="Win rate by tier" xml:space="preserve">
+    <value>Процент побед по уровню</value>
+  </data>
+  <data name="years ago" xml:space="preserve">
+    <value>лет назад</value>
+  </data>
+  <data name="You're about to login" xml:space="preserve">
+    <value>Вы собираетесь войти в систему</value>
   </data>
 </root>

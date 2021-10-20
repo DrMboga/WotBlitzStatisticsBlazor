@@ -14,6 +14,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using WotBlitzStatisticsPro.Common;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.GraphQl.GitHubOauth;
@@ -37,7 +38,10 @@ namespace WotBlitzStatisticsPro.GraphQl
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			var wgApiConfig = new WargamingApiSettings();
+            //services.AddLogging(loggingBuilder =>
+            //    loggingBuilder.AddSerilog(dispose: true));
+
+            var wgApiConfig = new WargamingApiSettings();
 			Configuration.GetSection("WargamingApi").Bind(wgApiConfig);
 
 			var mongoConfig = new MongoSettings();
@@ -85,9 +89,12 @@ namespace WotBlitzStatisticsPro.GraphQl
                     .AddType<WotBlitzStatisticsQuery>()
                     .AddType<AccountInfoResolver>()
                     .AddType<WotBlitzAchievementsQuery>()
+                    .AddType<TankInfoResponseType>()
+                    .AddType<WargamingAuthQuery>()
                 .AddMutationType(d => d.Name("Mutation"))
                     .AddType<WotBlitzStatisticsMutation>()
                     .AddType<AuthenticationMutation>()
+                    .AddType<WargamingAuthMutation>()
                 .AddType<AccountsSearchItemObjectType>()
                 .AddEnumType<MarkOfMastery>()
                 .AddEnumType<RealmType>()

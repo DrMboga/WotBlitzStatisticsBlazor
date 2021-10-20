@@ -6,7 +6,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
     public partial class FindPlayersResult : global::System.IEquatable<FindPlayersResult>, IFindPlayersResult
     {
-        public FindPlayersResult(global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayers_Players> players)
+        public FindPlayersResult(global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayers_Players>? players)
         {
             Players = players;
         }
@@ -14,7 +14,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         /// <summary>
         /// Finds Wargaming accounts by nick
         /// </summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayers_Players> Players { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayers_Players>? Players { get; }
 
         public virtual global::System.Boolean Equals(FindPlayersResult? other)
         {
@@ -61,9 +61,12 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
             unchecked
             {
                 int hash = 5;
-                foreach (var Players_elm in Players)
+                if (Players != null)
                 {
-                    hash ^= 397 * Players_elm.GetHashCode();
+                    foreach (var Players_elm in Players)
+                    {
+                        hash ^= 397 * Players_elm.GetHashCode();
+                    }
                 }
 
                 return hash;

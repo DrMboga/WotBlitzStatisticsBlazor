@@ -30,6 +30,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests
 
             TestContext.Services.AddSingleton<DialogService>();
             TestContext.Services.AddSingleton<NotificationService>();
+            TestContext.Services.AddSingleton<TooltipService>();
             TestContext.Services.AddSingleton(SearchServiceMock.Object);
             TestContext.Services.AddSingleton(NotificationsServiceMock.Object);
 

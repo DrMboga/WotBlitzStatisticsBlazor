@@ -1,0 +1,195 @@
+﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@inherits PlayerInfoTanksListBase;
+
+<div class="row">
+    <div class="col-lg-2 col-md-2">
+        <RadzenDropDown @bind-Value="@FilteredTiers" Multiple="true" TextProperty="ItemName" ValueProperty="ItemId" Style="width: 100%"
+                         AllowClear="false"
+                         Change=@OnFilterChange
+                         Placeholder="@Localize["Filter tier..."]"
+                         Data="@TierFilter"/>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <RadzenDropDown @bind-Value="@FilteredTankTypes" Multiple="true" TextProperty="ItemName" ValueProperty="ItemId" Style="width: 100%"
+                         AllowClear="false"
+                         Change=@OnFilterChange
+                         Placeholder="@Localize["Filter tank types..."]"
+                         Data="@TankTypesFilter">
+            <Template Context="data">
+                <RadzenImage Path="@data.ItemName" style="width: 24px; height: 24px;" />
+            </Template>
+        </RadzenDropDown>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <RadzenCheckBox @bind-Value=@FilterIsPremium TriState="true" TValue="bool?" Change=@(args => OnFilterChange(args)) /><RadzenLabel Text="@Localize["Premium tanks"]" Style="margin-left: 5px" Component="CheckBox" />
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <RadzenDropDown @bind-Value="@FilteredNations" Multiple="true" TextProperty="ItemName" ValueProperty="ItemId" Style="width: 100%"
+                         AllowClear="false"
+                         Change=@OnFilterChange
+                         Placeholder="@Localize["Filter nations..."]"
+                         Data="@NationsFilter">
+            <Template Context="data">
+                <RadzenImage Path="@data.ItemName" style="width: 35px; height: 23px; border-radius: 4px;" />
+            </Template>
+        </RadzenDropDown>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <RadzenDropDown @bind-Value="@FilteredMastery" Multiple="true" TextProperty="ItemName" ValueProperty="ItemId" Style="width: 100%"
+                         AllowClear="false"
+                         Change=@OnFilterChange
+                         Placeholder="@Localize["Filter mark of mastery..."]"
+                         Data="@MasteryFilter">
+            <Template Context="data">
+                <RadzenImage Path="@data.ItemName" style="width: 24px; height: 24px;" />
+            </Template>
+        </RadzenDropDown>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <RadzenNumeric TValue="int?" @bind-Value=@MinBattles Placeholder="@Localize["Min battles"]" Change=@(args => OnFilterChange(args)) />
+    </div>
+</div>
+<RadzenDataGrid AllowFiltering="true"
+                AllowColumnResize="true"
+                FilterMode="FilterMode.Simple"
+                PageSize="10"
+                AllowPaging="true"
+                AllowSorting="true"
+                Data="@FilteredTankList"
+                TItem="ITank"
+                ColumnWidth="300px"
+                LogicalFilterOperator="LogicalFilterOperator.Or"
+                @ref="TanksGrid">
+    <Columns>
+        <RadzenDataGridColumn TItem="ITank" Property="Tier" Sortable="true" Filterable="false" Title="" Frozen="false" Width="34px" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                <b>@data.Tier.RomanNumber()</b>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="TankTypeId" Filterable="false" Sortable="true" Title="" Frozen="false" Width="34px" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                <RadzenImage Path="@data.TankTypeId.TankTypeAsset(data.IsPremium)" MouseEnter="@(args => ShowTooltip(args, data.TankType, new TooltipOptions(){ Style = "background-color:#2F3D43" }) )" style="width: 24px; height: 24px;" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="TankNationId" Filterable="false" Sortable="true" Title="" Frozen="false" Width="50px" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                <RadzenImage Path="@data.TankNationId.NationAsset()" MouseEnter="@(args => ShowTooltip(args, data.TankNation, new TooltipOptions(){ Style = "background-color:#2F3D43" }) )" style="width: 35px; height: 23px; border-radius: 4px;" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="MarkOfMastery" Filterable="false" Sortable="true" Title="" Frozen="false" Width="34px" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                <RadzenImage Path="@data.MarkOfMastery.IconAsset()" style="width: 24px; height: 24px;" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Title="" Sortable="false" Filterable="false" Width="55px">
+            <Template Context="data">
+                <RadzenImage Path="@data.PreviewImage" style="width: 50px; height: 40px; border-radius: 8px;" 
+                             MouseEnter="@(args => ShowTankTooltip(args, data.PreviewImage, data.TankNationId, new TooltipOptions(){ Style = "background-color:#2F3D43" }) )" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="Name" Filterable="false" Sortable="true" Title="@Localize["Tank"]" Frozen="false" Width="100px" TextAlign="TextAlign.Left">
+            <FooterTemplate>
+                @Localize["Tanks"]: <b>@TanksGrid.View.Count()</b> @Localize["of"] <b>@TanksList.Count()</b>
+            </FooterTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="Battles" Filterable="false" Sortable="true" Title="⚔" Frozen="false" Width="70px" TextAlign="TextAlign.Center">
+            <FooterTemplate>
+               <b>@TotalBattles.ToString("N0")</b>
+            </FooterTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="WinRate"
+                              Filterable="false"
+                              Sortable="true"
+                              Title="🏳"
+                              Frozen="false"
+                              Width="50px"
+                              TextAlign="TextAlign.Center">
+            <Template Context="data">
+                @data.WinRate.ToString("N0")%
+                <div style="background-color: @data.WinRate.ScaleColor(); width: 100%; height: 5px; margin-left: 2px; margin-right: 2px;"></div>
+            </Template>
+            <FooterTemplate>
+                <b>∼@AvgWinRate%</b>
+                <div style="background-color: @AvgWinRate.ScaleColor(); width: 100%; height: 5px; margin-left: 2px; margin-right: 2px;"></div>
+            </FooterTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="Wn7"
+                              Filterable="false"
+                              Sortable="true"
+                              Title="@Localize["Wn7"]"
+                              Frozen="false"
+                              Width="80px"
+                              TextAlign="TextAlign.Center"
+                              >
+            <Template Context="data">
+                @data.Wn7.ToString("N0")
+                <div style="background-color: @data.Wn7.Wn7ScaleColor(); width: 100%; height: 5px; margin-left: 2px; margin-right: 2px;"></div>
+            </Template>
+            <FooterTemplate>
+                <b>∼@AvgWn7.ToString("N0")%</b>
+                <div style="background-color: @AvgWn7.Wn7ScaleColor(); width: 100%; height: 5px; margin-left: 2px; margin-right: 2px;"></div>
+            </FooterTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="AvgDamage"
+                              Filterable="false"
+                              Sortable="true"
+                              Title="💣"
+                              Frozen="false"
+                              Width="80px"
+                              TextAlign="TextAlign.Center"
+                              FormatString="{0:N0}">
+            <FooterTemplate>
+                <b>∼@AvgTotalDamage.ToString("N0")</b>
+            </FooterTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="AvgXp"
+                              Filterable="false"
+                              Sortable="true"
+                              Title="⭐"
+                              Frozen="false"
+                              Width="80px"
+                              TextAlign="TextAlign.Center"
+                              FormatString="{0:N0}">
+            <FooterTemplate>
+                <b>∼@AvgTotalXp.ToString("N0")</b>
+            </FooterTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="MaxXp" 
+                              Filterable="false" 
+                              Sortable="true" 
+                              Title="🌟" 
+                              Frozen="false" 
+                              Width="80px" 
+                              TextAlign="TextAlign.Center" 
+                              FormatString="{0:N0}"/>
+        <RadzenDataGridColumn TItem="ITank" Property="SurvivalRate"
+                              Filterable="false"
+                              Sortable="true"
+                              Title="⚰"
+                              Frozen="false"
+                              Width="50px"
+                              TextAlign="TextAlign.Center"
+                              FormatString="{0:N0}%">
+            <FooterTemplate>
+                <b>∼@AvgSurvivalRate.ToString("N0")%</b>
+            </FooterTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ITank" Property="LastBattleTime" 
+                              Filterable="false" 
+                              Sortable="true" 
+                              Title="⌚" 
+                              Frozen="false" 
+                              Width="100px" 
+                              TextAlign="TextAlign.Center"
+                              FormatString="{0:d}"
+                              SortOrder="SortOrder.Descending"/>
+    </Columns>
+</RadzenDataGrid>
+
+
+@code {
+    void ShowTankTooltip(ElementReference elementReference, string img, string nationId, TooltipOptions options = null) => TooltipService.Open(elementReference, ds =>
+        @<div style="background-image: url('@nationId.NationAsset()'); background-repeat: no-repeat;">
+            <img src=@img style="width: 360px; height: 263px; " />
+        </div>, options);
+}

@@ -70,15 +70,15 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
             {
                 snapshot = session.CurrentSnapshot;
             });
-            var resultInfo = new FindPlayersResultInfo(DeserializeNonNullableIFindPlayers_PlayersNonNullableArray(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "players")), entityIds, snapshot.Version);
+            var resultInfo = new FindPlayersResultInfo(DeserializeIFindPlayers_PlayersNonNullableArray(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "players")), entityIds, snapshot.Version);
             return (_resultDataFactory.Create(resultInfo), resultInfo);
         }
 
-        private global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountsSearchResponseItemData> DeserializeNonNullableIFindPlayers_PlayersNonNullableArray(global::System.Text.Json.JsonElement? obj)
+        private global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountsSearchResponseItemData>? DeserializeIFindPlayers_PlayersNonNullableArray(global::System.Text.Json.JsonElement? obj)
         {
             if (!obj.HasValue)
             {
-                throw new global::System.ArgumentNullException();
+                return null;
             }
 
             var accountsSearchResponseItems = new global::System.Collections.Generic.List<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AccountsSearchResponseItemData>();

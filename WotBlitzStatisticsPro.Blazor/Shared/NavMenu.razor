@@ -4,7 +4,15 @@
 <div>
     <RadzenPanelMenu Click="@(MenuClicked)">
         <RadzenPanelMenuItem Text="@Localize["Home"]" Icon="home"></RadzenPanelMenuItem>
-        <RadzenPanelMenuItem Text="@Localize["Login with WG.net ID"]" Icon="vpn_key"></RadzenPanelMenuItem>
+        @if(LoginInfo != null)
+        {
+            <RadzenPanelMenuItem Text="@LoginInfo.NickName" Icon="person"></RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="@Localize["Log out"]" Icon="logout"></RadzenPanelMenuItem>
+        }
+        else
+        {
+            <RadzenPanelMenuItem Text="@Localize["Login with WG.net ID"]" Icon="vpn_key"></RadzenPanelMenuItem>
+        }
         <RadzenPanelMenuItem Text="@Localize["Search player"]" Icon="person_search"></RadzenPanelMenuItem>
         <RadzenPanelMenuItem Text="@Localize["Search clan"]" Icon="screen_search_desktop"></RadzenPanelMenuItem>
     </RadzenPanelMenu>

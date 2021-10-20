@@ -1,8 +1,28 @@
-﻿@Player.AccountId
+﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@inject IStringLocalizer<App> Localize
+<div class="container">
+    <div class="row">
+        @Player.Nickname
+        @if (Player.ClanTag != null)
+        {
+            <span style="color: @Constants.ClanTagColor;"> [<span style="font-weight: bolder;">@Player.ClanTag</span>]</span>
+        }
+    </div>
+    <div class="row" title="@Localize["Win rate"]">
+        <span style="font-size: 12px; color: @Player.WinRate.ScaleColor()"> <RadzenIcon Icon="flag" Style="height: 15px;" /> @Player.WinRate%</span>
+    </div>
+    <div class="row" title="@Localize["Battles"]">
+        <span style="font-size: 12px"><RadzenIcon Icon="videogame_asset" /> @Player.BattlesCount</span>
+    </div>        
+    <div class="row" title="@Localize["Last battle"]">
+        <span style="font-size: 12px"><RadzenIcon Icon="schedule" /> @Player.LastBattle.SinceTime(Localize)</span>
+    </div>
+</div>
+<hr>
 
 @code {
     [Parameter]
-    public IFindPlayers_Players Player { get; set; }
+    public IPlayerShortInfo Player { get; set; }
 
 
 }

@@ -117,11 +117,98 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Average Damage" xml:space="preserve">
+    <value>Mittlerer Schaden</value>
+  </data>
+  <data name="Average XP" xml:space="preserve">
+    <value>Mittlere EP</value>
+  </data>
+  <data name="Avg damage by nation" xml:space="preserve">
+    <value>Mittlerer Schaden dem Nation</value>
+  </data>
+  <data name="Avg damage by tank types" xml:space="preserve">
+    <value>Mittlerer Schaden dem Panzertype</value>
+  </data>
+  <data name="Avg damage by tier" xml:space="preserve">
+    <value>Mittlerer Schaden dem Rang</value>
+  </data>
+  <data name="Battles" xml:space="preserve">
+    <value>Gefechte</value>
+  </data>
+  <data name="Battles by nation" xml:space="preserve">
+    <value>Gefechte dem Nation</value>
+  </data>
+  <data name="Battles by tank types" xml:space="preserve">
+    <value>Gefechte dem Panzertype</value>
+  </data>
+  <data name="Battles by tier" xml:space="preserve">
+    <value>Gefechte dem Rang</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Weiter</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Erstellt</value>
+  </data>
+  <data name="days ago" xml:space="preserve">
+    <value>vor Tagen</value>
+  </data>
+  <data name="Filter mark of mastery..." xml:space="preserve">
+    <value>Meisterschaftfilter...</value>
+  </data>
+  <data name="Filter nations..." xml:space="preserve">
+    <value>Nationfilter...</value>
+  </data>
+  <data name="Filter tank types..." xml:space="preserve">
+    <value>Panzertypenfilter...</value>
+  </data>
+  <data name="Filter tier..." xml:space="preserve">
+    <value>Rangfilter...</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Startseite</value>
   </data>
+  <data name="hours ago" xml:space="preserve">
+    <value>vor Stunden</value>
+  </data>
+  <data name="Last battle" xml:space="preserve">
+    <value>Letzte Gefecht</value>
+  </data>
+  <data name="Log out" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
   <data name="Login with WG.net ID" xml:space="preserve">
     <value>Anmelden mit WG.net-ID</value>
+  </data>
+  <data name="LoginConsent" xml:space="preserve">
+    <value>Sie werden nun auf die WG-Anmeldeseite weitergeleitet. Autorisierte Benutzer haben die Möglichkeit, ihren Statistikverlauf zu speichern, der nur Ihnen zur Verfügung steht. Diese Anwendung speichert keine persönlichen Informationen über die Spieler, ihre Benutzernamen, Passwörter, E-Mails und spielinternen Ressourcen. Außerdem können Sie sich nach dem Einloggen mit dem Speichern oder Löschen des Verlaufs Ihrer Kontostatistiken auf dem Server abmelden. Indem Sie auf Weiter klicken, erklären Sie sich mit diesen Informationen einverstanden</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Mitglieder</value>
+  </data>
+  <data name="Min battles" xml:space="preserve">
+    <value>Min Schlachten</value>
+  </data>
+  <data name="minutes ago" xml:space="preserve">
+    <value>vor Minuten</value>
+  </data>
+  <data name="months ago" xml:space="preserve">
+    <value>vor Monaten</value>
+  </data>
+  <data name="Most effective tank" xml:space="preserve">
+    <value>Effektivster Panzer</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>von</value>
+  </data>
+  <data name="Premium tanks" xml:space="preserve">
+    <value>Prämiepanzern</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Suchen</value>
@@ -132,7 +219,37 @@
   <data name="Search player" xml:space="preserve">
     <value>Spieler suchen</value>
   </data>
+  <data name="Tank" xml:space="preserve">
+    <value>Panzer</value>
+  </data>
+  <data name="Tank with Max frags" xml:space="preserve">
+    <value>Panzer max zerstört</value>
+  </data>
+  <data name="Tank with Max XP" xml:space="preserve">
+    <value>Panzer mit max EP</value>
+  </data>
+  <data name="Tanks" xml:space="preserve">
+    <value>Panzern</value>
+  </data>
   <data name="Welcome to WOT Blitz statistics application!" xml:space="preserve">
     <value>Willkommen bei der WOT Blitz statistics!</value>
+  </data>
+  <data name="Win rate" xml:space="preserve">
+    <value>Sieg</value>
+  </data>
+  <data name="Win rate by nation" xml:space="preserve">
+    <value>Sieg dem Nation</value>
+  </data>
+  <data name="Win rate by tank types" xml:space="preserve">
+    <value>Panzertypensieg</value>
+  </data>
+  <data name="Win rate by tier" xml:space="preserve">
+    <value>Sieg dem Rang</value>
+  </data>
+  <data name="years ago" xml:space="preserve">
+    <value>vor Jahren</value>
+  </data>
+  <data name="You're about to login" xml:space="preserve">
+    <value>Sie sind dabei, sich anzumelden</value>
   </data>
 </root>

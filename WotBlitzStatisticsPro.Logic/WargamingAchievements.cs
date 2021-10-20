@@ -81,7 +81,7 @@ namespace WotBlitzStatisticsPro.Logic
             var response = new AccountAchievementsResponse
             {
                 AccountId = accountId,
-                AchievementSections = sections
+                Sections = sections
             };
 
             if (wgAchievements?.Achievements == null)
@@ -138,9 +138,9 @@ namespace WotBlitzStatisticsPro.Logic
             }
 
             // Sort achievements by sections
-            foreach (var section in response.AchievementSections)
+            foreach (var section in response.Sections)
             {
-                section.Achievements = achievements.Where(a => a.SectionId == section.SectionId).ToList();
+                section.Medals = achievements.Where(a => a.SectionId == section.SectionId).ToList();
             }
 
             return response;

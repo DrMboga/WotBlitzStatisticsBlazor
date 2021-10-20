@@ -10,6 +10,8 @@ using Microsoft.JSInterop;
 using Radzen;
 using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Services;
+using WotBlitzStatisticsPro.Blazor.Services.Mock;
+using WotBlitzStatisticsPro.Blazor.GraphQl;
 
 namespace WotBlitzStatisticsPro.Blazor
 {
@@ -25,7 +27,9 @@ namespace WotBlitzStatisticsPro.Blazor
 
             builder.Services.AddScoped<DialogService>();
             builder.Services.AddScoped<NotificationService>();
+            builder.Services.AddScoped<TooltipService>();
             builder.Services.AddScoped<ISearchDialogService, SearchDialogService>();
+            builder.Services.AddScoped<IChartsService, ChartService>();
 
             builder.Services.AddMediatR(typeof(Program));
 
@@ -33,20 +37,25 @@ namespace WotBlitzStatisticsPro.Blazor
             builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
             builder.Services.AddSingleton<INotificationsService, NotificationsService>();
 
+            builder.Services.AddSingleton<IWargamingAuthTokenHeaderHelper, WargamingAuthTokenHeaderHelper>();
+            builder.Services.AddTransient<WargamingAuthTokenHeaderHandler>();
+
             // StrawberryShake GraphQL Client
-            builder.Services
-                .AddWotBlitzStatisticsProClient()
-                .ConfigureHttpClient(client => client.BaseAddress = new Uri($"{builder.HostEnvironment.BaseAddress}graphql/"));
+            builder.Services.AddHttpClient(
+                WotBlitzStatisticsProClient.ClientName,
+                client => client.BaseAddress = new Uri($"{builder.HostEnvironment.BaseAddress}graphql/"))
+                .AddHttpMessageHandler<WargamingAuthTokenHeaderHandler>();
+            builder.Services.AddWotBlitzStatisticsProClient();
 
             // ToDo: Asp Net hosting environment variables don't work here. I don't know why
             //var useMock = Environment.GetEnvironmentVariable("USE_GRAPH_QL_MOCK");
             //if (useMock != null && useMock == "true")
             //{
-            builder.Services.AddTransient<IGraphQlBackendService, GraphQlBackendMockService>();
+            //builder.Services.AddTransient<IGraphQlBackendService, GraphQlBackendMockService>();
             //}
             //else
             //{
-            //builder.Services.AddTransient<IGraphQlBackendService, GraphQlBackendService>();
+            builder.Services.AddTransient<IGraphQlBackendService, GraphQlBackendService>();
             //}
 
             var host = builder.Build();

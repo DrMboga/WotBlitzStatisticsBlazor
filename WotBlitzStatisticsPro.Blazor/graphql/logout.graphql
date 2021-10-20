@@ -1,0 +1,6 @@
+mutation WargamingOpenId(
+  $token: String!,
+  $realmType: RealmType!){
+  logout (realm: $realmType, 
+  token: $token)
+}
