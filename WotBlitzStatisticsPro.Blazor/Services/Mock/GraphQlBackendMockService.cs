@@ -398,5 +398,15 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
         {
             return Task.CompletedTask;
         }
+
+        public Task<LoginInfo> ProlongToken(string oldToken, RealmType realmType)
+        {
+            return Task.FromResult(new LoginInfo { AccessToken = oldToken, Realm = realmType, ExpiresAt = 1631182800, NickName = "Fake nick" });
+        }
+
+        public Task<string> Logout(string token, RealmType realmType)
+        {
+            return Task.FromResult("Fake logout");
+        }
     }
 }

@@ -20,6 +20,11 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
         private Mock<IFindPlayersQuery> _findPlayersQueryMock;
         private Mock<IPlayerQuery> _playerQueryMock;
         private Mock<IUpdatePlayerMutation> _updatePlayerMutationMock;
+        private Mock<IWargamingAuthenticationQueryQuery> _wargamingAuthenticationQueryMock;
+        private Mock<IWargamingOpenIdMutation> _wagamingOpenIdMutation;
+        private Mock<IWargamingOpenIdAuthenticationMutation> _wargamingOpenIdAuthenticationMutationMock;
+        private Mock<IWargamingPlayersMutation> _wargamingPlayersMutation;
+
         private WotBlitzStatisticsProClient _generatedClient;
         private Mock<INotificationsService> _notificationServiceMock;
         private GraphQlBackendService _service;
@@ -48,13 +53,25 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             _findPlayersQueryMock = new();
             _playerQueryMock = new();
             _updatePlayerMutationMock = new();
+            _wargamingAuthenticationQueryMock = new();
+            _wagamingOpenIdMutation = new();
+            _wargamingOpenIdAuthenticationMutationMock = new();
+            _wargamingPlayersMutation = new();
 
             await SetUpFindClans();
             await SetUpFindPlayers();
             await SetUpGetPlayer();
 
             _generatedClient =
-                new WotBlitzStatisticsProClient(_findClanQueryMock.Object, _findPlayersQueryMock.Object, _playerQueryMock.Object, _updatePlayerMutationMock.Object);
+                new WotBlitzStatisticsProClient(
+                    _findClanQueryMock.Object, 
+                    _findPlayersQueryMock.Object,
+                    _wargamingAuthenticationQueryMock.Object,
+                    _wagamingOpenIdMutation.Object,
+                    _playerQueryMock.Object,
+                    _wargamingOpenIdAuthenticationMutationMock.Object,
+                    _wargamingPlayersMutation.Object,
+                    _updatePlayerMutationMock.Object);
 
             _notificationServiceMock = new();
 

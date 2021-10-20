@@ -11,20 +11,32 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     {
         private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery _findClans;
         private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery _findPlayers;
+        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingAuthenticationQueryQuery _wargamingAuthenticationQuery;
+        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdMutation _wargamingOpenId;
         private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerQuery _player;
+        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation _wargamingOpenIdAuthentication;
+        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation _wargamingPlayers;
         private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation _updatePlayer;
-        public WotBlitzStatisticsProClient(global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery findClans, global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery findPlayers, global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerQuery player, global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation updatePlayer)
+        public WotBlitzStatisticsProClient(global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery findClans, global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery findPlayers, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingAuthenticationQueryQuery wargamingAuthenticationQuery, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdMutation wargamingOpenId, global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerQuery player, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation wargamingOpenIdAuthentication, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation wargamingPlayers, global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation updatePlayer)
         {
             _findClans = findClans ?? throw new global::System.ArgumentNullException(nameof(findClans));
             _findPlayers = findPlayers ?? throw new global::System.ArgumentNullException(nameof(findPlayers));
+            _wargamingAuthenticationQuery = wargamingAuthenticationQuery ?? throw new global::System.ArgumentNullException(nameof(wargamingAuthenticationQuery));
+            _wargamingOpenId = wargamingOpenId ?? throw new global::System.ArgumentNullException(nameof(wargamingOpenId));
             _player = player ?? throw new global::System.ArgumentNullException(nameof(player));
+            _wargamingOpenIdAuthentication = wargamingOpenIdAuthentication ?? throw new global::System.ArgumentNullException(nameof(wargamingOpenIdAuthentication));
+            _wargamingPlayers = wargamingPlayers ?? throw new global::System.ArgumentNullException(nameof(wargamingPlayers));
             _updatePlayer = updatePlayer ?? throw new global::System.ArgumentNullException(nameof(updatePlayer));
         }
 
         public static global::System.String ClientName => "WotBlitzStatisticsProClient";
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery FindClans => _findClans;
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery FindPlayers => _findPlayers;
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingAuthenticationQueryQuery WargamingAuthenticationQuery => _wargamingAuthenticationQuery;
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdMutation WargamingOpenId => _wargamingOpenId;
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerQuery Player => _player;
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation WargamingOpenIdAuthentication => _wargamingOpenIdAuthentication;
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation WargamingPlayers => _wargamingPlayers;
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation UpdatePlayer => _updatePlayer;
     }
 }

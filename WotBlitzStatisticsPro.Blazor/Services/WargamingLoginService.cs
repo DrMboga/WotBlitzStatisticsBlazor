@@ -14,7 +14,8 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         INotificationHandler<LoginToWgMessage>, 
         INotificationHandler<RedirectToWgLoginMessage>,
         INotificationHandler<RedirectFromWgLoginMessage>,
-        INotificationHandler<ProlongWargamingAccessToken>
+        INotificationHandler<ProlongWargamingAccessToken>,
+        INotificationHandler<LogOutFromWgMessage>
     {
         private readonly IGraphQlBackendService _graphQlBackendService;
         private readonly DialogService _dialogService;
@@ -73,10 +74,20 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         public async Task Handle(ProlongWargamingAccessToken notification, CancellationToken cancellationToken)
         {
             var loggedInData = await _localStorage.GetItemAsync<LoginInfo>(Constants.LoginInfoLocalStorageKey);
-            var newLoginInfo = await _graphQlBackendService.ProlongToken(loggedInData.AccountId, loggedInData.AccessToken, loggedInData.Realm);
+            var newLoginInfo = await _graphQlBackendService.ProlongToken(loggedInData.AccessToken, loggedInData.Realm);
             loggedInData.AccessToken = newLoginInfo.AccessToken;
             loggedInData.ExpiresAt = newLoginInfo.ExpiresAt;
             await _localStorage.SetItemAsync(Constants.LoginInfoLocalStorageKey, loggedInData);
+        }
+
+        public async Task Handle(LogOutFromWgMessage notification, CancellationToken cancellationToken)
+        {
+            var loggedInData = await _localStorage.GetItemAsync<LoginInfo>(Constants.LoginInfoLocalStorageKey);
+            var logoutInfo = await _graphQlBackendService.Logout(loggedInData.AccessToken, loggedInData.Realm);
+
+            await _localStorage.DeleteItemAsync(Constants.LoginInfoLocalStorageKey);
+                                    
+            _navigationManager.NavigateTo("/", forceLoad: true);
         }
     }
 }

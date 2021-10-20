@@ -29,7 +29,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             {
                 await CheckExpirationDateAndProlongIfNeeded();
             }
-            _navigationManager.NavigateTo($"/player/{notification.AccountId}");
+            _navigationManager.NavigateTo($"/player/{notification.AccountId}", forceLoad: true);
         }
 
         private async Task CheckExpirationDateAndProlongIfNeeded()

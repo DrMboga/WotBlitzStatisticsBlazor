@@ -55,5 +55,10 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             currentSettings.RealmType = notification.RealmType;
             await SetItemAsync(UserSettings.UserSettingsLocalStorageKey, currentSettings);
         }
+
+        public ValueTask DeleteItemAsync(string key)
+        {
+            return _jsRuntime.InvokeVoidAsync("localStorage.removeItem", key);
+        }
     }
 }

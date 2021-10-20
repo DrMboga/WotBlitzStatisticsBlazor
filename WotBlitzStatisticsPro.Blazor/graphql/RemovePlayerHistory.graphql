@@ -1,0 +1,3 @@
+mutation WargamingPlayers {
+  removePlayerHistory(realm: RU, accountId: 12345)
+}

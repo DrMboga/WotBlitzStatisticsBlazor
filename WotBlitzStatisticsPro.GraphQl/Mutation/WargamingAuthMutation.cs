@@ -46,7 +46,7 @@ namespace WotBlitzStatisticsPro.GraphQl.Mutation
         /// <returns>Operation result</returns>
         public Task<string> RemovePlayerHistory(RealmType realm, long accountId)
         {
-            return Task.FromResult("Metod it not implemented yet.");
+            return Task.FromResult("Metod is not implemented yet.");
         }
     }
 }

@@ -1,0 +1,11 @@
+mutation WargamingOpenIdAuthentication(
+  $oldToken: String!,
+  $realmType: RealmType!) {
+  prolongAuthToken(
+    oldToken: $oldToken, 
+    realm: $realmType) {
+    accessToken
+    accountId
+    expirationTimeStamp
+  }
+}

@@ -50,14 +50,35 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             return (playerInfo.Data?.AccountInfo, playerInfo.Data?.AccountMedals?.Sections);
         }
 
-        public Task<string> GetWgLoginUrl(RealmType realmType)
+        public async Task<string> GetWgLoginUrl(RealmType realmType)
         {
-            throw new System.NotImplementedException("Request for LoginUrl will be implemented soon");
+            var loginUrl = await _client.WargamingAuthenticationQuery.ExecuteAsync(realmType);
+            CheckErrors(loginUrl.Errors);
+
+            return loginUrl.Data?.LoginUrl;
         }
 
-        public Task<LoginInfo> ProlongToken(long accountId, string oldToken, RealmType realmType)
+        public async Task<LoginInfo> ProlongToken(string oldToken, RealmType realmType)
         {
-            throw new System.NotImplementedException();
+            var prolongMutation = await _client.WargamingOpenIdAuthentication.ExecuteAsync(oldToken, realmType);
+            CheckErrors(prolongMutation.Errors);
+
+            var backendProlongToken = prolongMutation.Data?.ProlongAuthToken;
+
+            return new LoginInfo
+            {
+                AccountId = backendProlongToken?.AccountId ?? 0,
+                AccessToken = backendProlongToken?.AccessToken ?? string.Empty,
+                ExpiresAt = backendProlongToken?.ExpirationTimeStamp ?? 0,
+            };
+        }
+
+        public async Task<string> Logout(string token, RealmType realmType)
+        {
+            var logoutMutation = await _client.WargamingOpenId.ExecuteAsync(token, realmType);
+            CheckErrors(logoutMutation.Errors);
+
+            return logoutMutation.Data?.Logout;
         }
 
         public async Task CollectPlayerInfo(long accountId, RealmType realmType, string accessToken)

@@ -1,0 +1,3 @@
+query WargamingAuthenticationQuery($realmType: RealmType!) {
+  loginUrl(realmType: $realmType,)
+}

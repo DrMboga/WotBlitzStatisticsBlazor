@@ -10,5 +10,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         Task<T> GetItemAsync<T>(string key);
 
         Task<UserSettings> ReadSettings();
+
+        ValueTask DeleteItemAsync(string key);
     }
 }

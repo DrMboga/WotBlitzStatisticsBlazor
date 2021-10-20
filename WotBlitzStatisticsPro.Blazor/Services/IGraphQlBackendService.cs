@@ -27,8 +27,11 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         Task<string> GetWgLoginUrl(RealmType realmType);
 
         Task<LoginInfo> ProlongToken(
-            long accountId,
             string oldToken,
+            RealmType realmType);
+
+        Task<string> Logout(
+            string token,
             RealmType realmType);
     }
 }

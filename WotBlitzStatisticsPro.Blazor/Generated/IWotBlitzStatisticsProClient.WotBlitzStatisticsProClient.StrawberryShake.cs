@@ -13,7 +13,15 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
 
         global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery FindPlayers { get; }
 
+        global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingAuthenticationQueryQuery WargamingAuthenticationQuery { get; }
+
+        global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdMutation WargamingOpenId { get; }
+
         global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerQuery Player { get; }
+
+        global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation WargamingOpenIdAuthentication { get; }
+
+        global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation WargamingPlayers { get; }
 
         global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation UpdatePlayer { get; }
     }
