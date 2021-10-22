@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    image: "mike/wot-blitz-statistics-pro:v1"
+    image: "mike/wot-blitz-statistics-pro:latest"
     ports:
       - "8000:80"
     container_name: "wot-blitz-statististics-web"
@@ -9,6 +9,8 @@ services:
       - WargamingApi:ApplicationId=${WARGAMING_APPLICATION_ID}
       - Mongo:ConnectionString=${MONGO_CONNECTION_STRING}
       - Mongo:DatabaseName=${MONGO_DATABASE_NAME}
+      - GitHubOAuth:ClientId=${GITHUB_OAUTH_CLENT_ID}
+      - GitHubOAuth:ClientSecret=${GITHUB_OAUTH_CLENT_SECRET}
     depends_on:
       - mongo
     restart: always
