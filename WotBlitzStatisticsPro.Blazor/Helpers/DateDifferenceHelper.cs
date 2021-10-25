@@ -6,6 +6,12 @@ namespace WotBlitzStatisticsPro.Blazor.Helpers
 {
     public static class DateDifferenceHelper
     {
+        public static DateTime ConvertToLocalTime(this DateTimeOffset dateToConvert)
+        {
+            var specifiedTimeConvert = DateTime.SpecifyKind(dateToConvert.DateTime, DateTimeKind.Utc);
+            return specifiedTimeConvert.ToLocalTime();
+        }
+
         public static string SinceTime(this int timeInLinuxTimeStamp, IStringLocalizer<App> localizer)
         {
             var currentDate = DateTime.Now;
@@ -26,6 +32,11 @@ namespace WotBlitzStatisticsPro.Blazor.Helpers
 
         public static string SinceTime(this DateTimeOffset time, IStringLocalizer<App> localizer)
         {
+            return time.DateTime.SinceTime(localizer);
+        }
+
+        public static string SinceTime(this DateTime time, IStringLocalizer<App> localizer)
+        {
             var currentDate = DateTime.Now;
 
             var difference = ParseTheDifference(currentDate - time);
@@ -40,6 +51,7 @@ namespace WotBlitzStatisticsPro.Blazor.Helpers
 
             return $"{difference.value} {ago}";
         }
+
 
         public static (int value, TimeInterval interval) ParseTheDifference(TimeSpan difference)
         {

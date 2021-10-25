@@ -17,7 +17,7 @@
             <small>@Localize["Created"]: <b>@AccountInfo.CreatedAt.ToString("d") | @AccountInfo.CreatedAt.SinceTime(Localize)</b></small>
         </div>
         <div>
-            @Localize["Last battle"]: <b>@AccountInfo.LastBattleTime.ToString("g") | @AccountInfo.LastBattleTime.SinceTime(Localize)</b>
+            @Localize["Last battle"]: <b>@AccountInfo.LastBattleTime.ConvertToLocalTime().ToString("g") | @AccountInfo.LastBattleTime.ConvertToLocalTime().SinceTime(Localize)</b>
         </div>
     </div>
     <RadzenTabs >
