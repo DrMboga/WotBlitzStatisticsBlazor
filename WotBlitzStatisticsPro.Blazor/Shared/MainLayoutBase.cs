@@ -8,6 +8,7 @@ using Radzen.Blazor;
 using WotBlitzStatisticsPro.Blazor.Messages;
 using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Services;
+using System.Reflection;
 
 namespace WotBlitzStatisticsPro.Blazor.Shared
 {
@@ -26,6 +27,8 @@ namespace WotBlitzStatisticsPro.Blazor.Shared
         public RadzenBody Body0;
         public bool SidebarExpanded { get; set; } = false;
         public bool BodyExpanded { get; set; } = true;
+
+        public string Version { get; set; }
 
         public Dictionary<string, CultureInfo> CultureInfos { get; set; } = new()
         {
@@ -63,6 +66,7 @@ namespace WotBlitzStatisticsPro.Blazor.Shared
             //}
 
             NotificationsService.MessageArrived += NotificationsService_MessageArrived;
+            Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         private void NotificationsService_MessageArrived()
