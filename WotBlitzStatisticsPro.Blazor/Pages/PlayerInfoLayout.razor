@@ -29,8 +29,14 @@
                 <PlayerInfoStatistics TanksList="@AccountInfo.Tanks"></PlayerInfoStatistics>
             </RadzenTabsItem>
             <RadzenTabsItem Icon="agriculture">
-                @*TODO: In case of @SmallScreen == true, then show new tanks list component - mobile version *@
-                <PlayerInfoTanksList TanksList="@AccountInfo.Tanks"></PlayerInfoTanksList>
+                @if (SmallScreen)
+                {
+                    <PlayerInfoTanksListSmall TanksList="@AccountInfo.Tanks"></PlayerInfoTanksListSmall>
+                }
+                else
+                {
+                    <PlayerInfoTanksList TanksList="@AccountInfo.Tanks"></PlayerInfoTanksList>
+                }
             </RadzenTabsItem>
             <RadzenTabsItem Icon="military_tech">
                 <PlayerInfoAchievements></PlayerInfoAchievements>
