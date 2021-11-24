@@ -105,7 +105,7 @@
                               Width="50px"
                               TextAlign="TextAlign.Center">
             <Template Context="data">
-                <span title="@($"{data.Wins:N0} / {data.Battles:N0}")">@data.WinRate.ToString("N0")%</span>
+                <span title="@($"{data.Wins:N0} / {data.Losses:N0}")">@data.WinRate.ToString("N0")%</span>
                 <div style="background-color: @data.WinRate.ScaleColor(); width: 100%; height: 5px; margin-left: 2px; margin-right: 2px;"></div>
             </Template>
             <FooterTemplate>
