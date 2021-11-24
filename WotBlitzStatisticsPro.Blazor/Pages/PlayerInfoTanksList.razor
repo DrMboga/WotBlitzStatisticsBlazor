@@ -83,7 +83,7 @@
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ITank" Title="" Sortable="false" Filterable="false" Width="55px">
             <Template Context="data">
-                <RadzenImage Path="@data.PreviewImage" style="width: 50px; height: 40px; border-radius: 8px;" 
+                <RadzenImage Path="@data.PreviewImage" style="width: 50px; height: 40px; border-radius: 8px;"
                              MouseEnter="@(args => ShowTankTooltip(args, data.PreviewImage, data.TankNationId, new TooltipOptions(){ Style = "background-color:#2F3D43" }) )" />
             </Template>
         </RadzenDataGridColumn>
@@ -94,7 +94,7 @@
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ITank" Property="Battles" Filterable="false" Sortable="true" Title="⚔" Frozen="false" Width="70px" TextAlign="TextAlign.Center">
             <FooterTemplate>
-               <b>@TotalBattles.ToString("N0")</b>
+                <b>@TotalBattles.ToString("N0")</b>
             </FooterTemplate>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ITank" Property="WinRate"
@@ -105,7 +105,7 @@
                               Width="50px"
                               TextAlign="TextAlign.Center">
             <Template Context="data">
-                @data.WinRate.ToString("N0")%
+                <span title="@($"{data.Wins:N0} / {data.Battles:N0}")">@data.WinRate.ToString("N0")%</span>
                 <div style="background-color: @data.WinRate.ScaleColor(); width: 100%; height: 5px; margin-left: 2px; margin-right: 2px;"></div>
             </Template>
             <FooterTemplate>
@@ -119,8 +119,7 @@
                               Title="@Localize["Wn7"]"
                               Frozen="false"
                               Width="80px"
-                              TextAlign="TextAlign.Center"
-                              >
+                              TextAlign="TextAlign.Center">
             <Template Context="data">
                 @data.Wn7.ToString("N0")
                 <div style="background-color: @data.Wn7.Wn7ScaleColor(); width: 100%; height: 5px; margin-left: 2px; margin-right: 2px;"></div>
@@ -154,14 +153,14 @@
                 <b>∼@AvgTotalXp.ToString("N0")</b>
             </FooterTemplate>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="ITank" Property="MaxXp" 
-                              Filterable="false" 
-                              Sortable="true" 
-                              Title="🌟" 
-                              Frozen="false" 
-                              Width="80px" 
-                              TextAlign="TextAlign.Center" 
-                              FormatString="{0:N0}"/>
+        <RadzenDataGridColumn TItem="ITank" Property="MaxXp"
+                              Filterable="false"
+                              Sortable="true"
+                              Title="🌟"
+                              Frozen="false"
+                              Width="80px"
+                              TextAlign="TextAlign.Center"
+                              FormatString="{0:N0}" />
         <RadzenDataGridColumn TItem="ITank" Property="SurvivalRate"
                               Filterable="false"
                               Sortable="true"
@@ -174,15 +173,19 @@
                 <b>∼@AvgSurvivalRate.ToString("N0")%</b>
             </FooterTemplate>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="ITank" Property="LastBattleTime" 
-                              Filterable="false" 
-                              Sortable="true" 
-                              Title="⌚" 
-                              Frozen="false" 
-                              Width="100px" 
+        <RadzenDataGridColumn TItem="ITank" Property="LastBattleTime"
+                              Filterable="false"
+                              Sortable="true"
+                              Title="⌚"
+                              Frozen="false"
+                              Width="100px"
                               TextAlign="TextAlign.Center"
                               FormatString="{0:d}"
-                              SortOrder="SortOrder.Descending"/>
+                              SortOrder="SortOrder.Descending">
+            <Template Context="data">
+                @data.LastBattleTime.ConvertToLocalTime().ToString("g")
+            </Template>
+        </RadzenDataGridColumn>
     </Columns>
 </RadzenDataGrid>
 

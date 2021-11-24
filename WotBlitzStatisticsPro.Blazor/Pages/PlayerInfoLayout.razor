@@ -4,7 +4,6 @@
 <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate"
                    Visible="@(AccountInfo == null)"
                    Style="width: 100%; margin-top: 10px;" />
-SmallScreen = @SmallScreen
 @if (AccountInfo != null)
 {
     <h1>
@@ -30,6 +29,7 @@ SmallScreen = @SmallScreen
                 <PlayerInfoStatistics TanksList="@AccountInfo.Tanks"></PlayerInfoStatistics>
             </RadzenTabsItem>
             <RadzenTabsItem Icon="agriculture">
+                @*TODO: In case of @SmallScreen == true, then show new tanks list component - mobile version *@
                 <PlayerInfoTanksList TanksList="@AccountInfo.Tanks"></PlayerInfoTanksList>
             </RadzenTabsItem>
             <RadzenTabsItem Icon="military_tech">
