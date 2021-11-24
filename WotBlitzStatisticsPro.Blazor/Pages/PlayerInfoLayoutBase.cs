@@ -22,6 +22,9 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         [Inject]
         public INotificationsService Notifications { get; set; }
 
+        [Inject]
+        public IMediaQueriesService MediaQueriesService { get; set; }
+
 
         [Parameter]
         public long AccountId { get; set; }
@@ -32,11 +35,15 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         public IReadOnlyList<ISection> AchievementsBySection { get; set; }
 
+        public bool SmallScreen { get; set; }   
+
         protected override async Task OnInitializedAsync()
         {
             var loggedInInfo = await LocalStorageService.GetItemAsync<LoginInfo>(Constants.LoginInfoLocalStorageKey);
             var settings = await LocalStorageService.ReadSettings();
             CurrentRealmType = settings.RealmType;
+
+            SmallScreen = await MediaQueriesService.IsScreenWidthLessThen(1000);
 
             try
             {

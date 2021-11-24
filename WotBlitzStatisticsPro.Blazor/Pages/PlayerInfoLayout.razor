@@ -17,7 +17,7 @@
             <small>@Localize["Created"]: <b>@AccountInfo.CreatedAt.ToString("d") | @AccountInfo.CreatedAt.SinceTime(Localize)</b></small>
         </div>
         <div>
-            @Localize["Last battle"]: <b>@AccountInfo.LastBattleTime.ToString("g") | @AccountInfo.LastBattleTime.SinceTime(Localize)</b>
+            @Localize["Last battle"]: <b>@AccountInfo.LastBattleTime.ConvertToLocalTime().ToString("g") | @AccountInfo.LastBattleTime.ConvertToLocalTime().SinceTime(Localize)</b>
         </div>
     </div>
     <RadzenTabs >
@@ -29,6 +29,7 @@
                 <PlayerInfoStatistics TanksList="@AccountInfo.Tanks"></PlayerInfoStatistics>
             </RadzenTabsItem>
             <RadzenTabsItem Icon="agriculture">
+                @*TODO: In case of @SmallScreen == true, then show new tanks list component - mobile version *@
                 <PlayerInfoTanksList TanksList="@AccountInfo.Tanks"></PlayerInfoTanksList>
             </RadzenTabsItem>
             <RadzenTabsItem Icon="military_tech">

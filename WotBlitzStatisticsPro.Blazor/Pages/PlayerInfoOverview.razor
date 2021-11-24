@@ -53,7 +53,7 @@
                 <TankCard Tank=@MaxXpTank></TankCard>
             }
         </div>
-            <div class="col-md-3 col-lg-3 align-items-center d-flex">
+        <div class="col-md-3 col-lg-3 align-items-center d-flex">
             <div style="width: 100px; margin: 3px;">
                 @Localize["Tank with Max frags"] (@AccountInfo.MaxFrags):
             </div>
@@ -76,7 +76,7 @@
 
     protected override void OnInitialized()
     {
-        MostRelevantTank = AccountInfo?.Tanks?.Where(t => t.Battles > 50).OrderByDescending(t => t.Wn7).FirstOrDefault();
+        MostRelevantTank = AccountInfo?.Tanks?.FindMostRelevantTank();
         MaxXpTank = AccountInfo?.Tanks?.FirstOrDefault(t => t.TankId == AccountInfo.MaxXpTankId);
         MaxFragsTank = AccountInfo?.Tanks?.FirstOrDefault(t => t.TankId == AccountInfo.MaxFragsTankId);
     }
