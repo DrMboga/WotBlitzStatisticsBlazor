@@ -4,9 +4,10 @@
     justify-content: flex-start;
     width: 100%;
     background-color: #3a474d;
-    margin-top: 2px;
+    margin-top: 5px;
     font-size: 12px;
 }
+
 
 .tank-image {
     position: relative;
@@ -16,6 +17,15 @@
     justify-content: flex-end;
     display: flex;
     flex-direction: row;
+}
+
+.tank-flag-background {
+    /*filter: grayscale(60%);*/
+    filter: blur(1.5px);
+    position: absolute;
+    width: 120px;
+    min-width: 120px;
+    height: 70px;
 }
 
 .tank-tier {

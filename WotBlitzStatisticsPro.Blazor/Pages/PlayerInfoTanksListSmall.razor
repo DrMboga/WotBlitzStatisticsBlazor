@@ -1,9 +1,33 @@
 ﻿@inherits PlayerInfoTanksListBase;
-Tanks Count: @TanksList.Count()
-<TankCard Tank=@TanksList.First() ></TankCard>
-<TankListItem Tank=@TanksList.First()></TankListItem>
-<TankListItem Tank=@TanksList.Last()></TankListItem>
+@if (TanksList != null && TanksList.Count() > 0)
+{
+    <div class="filters">
+        <div @onclick="@(e => OnFilterClick(e, "last battle"))">
+            <img class="filter-button" src="/icons/calendar.scale-200.png" />
+        </div>
+        <div @onclick="@(e => OnFilterClick(e, "winrate"))">
+            <img class="filter-button" src="/icons/details.wins.scale-200.png" />
+        </div>
+        <div @onclick="@(e => OnFilterClick(e, "battles"))">
+            <img class="filter-button" src="/icons/details.battles.scale-200.png" />
+        </div>
+    </div>
+    @filter
+    <div class="tanks-list">
+        @foreach (var tank in TanksList)
+        {
+        <TankListItem Tank=@tank></TankListItem>
+        }
+    </div>
+}
+
 
 @code {
 
+    private string filter;
+
+    private void OnFilterClick(MouseEventArgs e, string filterToApply)
+    {
+        filter = filterToApply;
+    }
 }
