@@ -2,17 +2,18 @@
 @if (TanksList != null && TanksList.Count() > 0)
 {
     <div class="filters">
-        <div @onclick="@(e => OnFilterClick(e, "last battle"))">
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.LastBattle))">
             <img class="filter-button" src="/icons/calendar.scale-200.png" />
         </div>
-        <div @onclick="@(e => OnFilterClick(e, "winrate"))">
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.Winrate))">
             <img class="filter-button" src="/icons/details.wins.scale-200.png" />
         </div>
-        <div @onclick="@(e => OnFilterClick(e, "battles"))">
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.Battles))">
             <img class="filter-button" src="/icons/details.battles.scale-200.png" />
         </div>
     </div>
-    @filter
+    @sorting <span>ascending: @isSortAscending</span>
+    
     <div class="tanks-list">
         @foreach (var tank in TanksList)
         {
@@ -24,10 +25,30 @@
 
 @code {
 
-    private string filter;
-
-    private void OnFilterClick(MouseEventArgs e, string filterToApply)
+    private enum TanksSorting
     {
-        filter = filterToApply;
+        LastBattle,
+        Winrate,
+        Battles,
+        Damage,
+        Wn7,
+        Tier
+    }
+
+    private TanksSorting sorting = TanksSorting.LastBattle;
+
+    private bool isSortAscending = false;
+
+    private void OnFilterClick(MouseEventArgs e, TanksSorting sortingToApply)
+    {
+        if (sortingToApply != sorting)
+        {
+            sorting = sortingToApply;
+            isSortAscending = false;
+        }
+        else
+        {
+            isSortAscending = !isSortAscending;
+        }
     }
 }
