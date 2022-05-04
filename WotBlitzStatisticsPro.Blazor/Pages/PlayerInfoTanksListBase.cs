@@ -50,7 +50,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         protected override void OnInitialized()
         {
-            FilteredTankList = TanksList;
+            FilteredTankList = TanksList.OrderByDescending(t => t.LastBattleTime);
             CountTotalParams();
             for (int i = 1; i < 11; i++)
             {

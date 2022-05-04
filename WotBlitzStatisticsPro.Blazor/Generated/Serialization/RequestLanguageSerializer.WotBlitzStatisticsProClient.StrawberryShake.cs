@@ -11,18 +11,20 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         {
             return serializedValue switch
             {
-            "RU" => RequestLanguage.Ru, "EN" => RequestLanguage.En, "DE" => RequestLanguage.De, _ => throw new global::StrawberryShake.GraphQLClientException()}
-
-            ;
+                "RU" => RequestLanguage.Ru,
+                "EN" => RequestLanguage.En,
+                "DE" => RequestLanguage.De,
+                _ => throw new global::StrawberryShake.GraphQLClientException()};
         }
 
         public global::System.Object Format(global::System.Object? runtimeValue)
         {
             return runtimeValue switch
             {
-            RequestLanguage.Ru => "RU", RequestLanguage.En => "EN", RequestLanguage.De => "DE", _ => throw new global::StrawberryShake.GraphQLClientException()}
-
-            ;
+                RequestLanguage.Ru => "RU",
+                RequestLanguage.En => "EN",
+                RequestLanguage.De => "DE",
+                _ => throw new global::StrawberryShake.GraphQLClientException()};
         }
     }
 }

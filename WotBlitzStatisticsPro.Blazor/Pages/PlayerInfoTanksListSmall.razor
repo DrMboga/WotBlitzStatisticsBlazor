@@ -1,21 +1,53 @@
 ﻿@inherits PlayerInfoTanksListBase;
-@if (TanksList != null && TanksList.Count() > 0)
+@if (TanksList != null && FilteredTankList.Count() > 0)
 {
     <div class="filters">
         <div @onclick="@(e => OnFilterClick(e, TanksSorting.LastBattle))">
             <img class="filter-button" src="/icons/calendar.scale-200.png" />
+            @if(sorting == TanksSorting.LastBattle && isSortAscending)
+                {<img class="filter-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.LastBattle && !isSortAscending)
+                {<img class="filter-arrow" src="/icons/Descending.png" />}
         </div>
         <div @onclick="@(e => OnFilterClick(e, TanksSorting.Winrate))">
-            <img class="filter-button" src="/icons/details.wins.scale-200.png" />
+            <img class="filter-button" src="/icons/sortby.wins.scale-200.png" />
+            @if(sorting == TanksSorting.Winrate && isSortAscending)
+                {<img class="filter-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.Winrate && !isSortAscending)
+                {<img class="filter-arrow" src="/icons/Descending.png" />}
         </div>
         <div @onclick="@(e => OnFilterClick(e, TanksSorting.Battles))">
-            <img class="filter-button" src="/icons/details.battles.scale-200.png" />
+            <img class="filter-button" src="/icons/sortby.battle.scale-200.png" />
+            @if(sorting == TanksSorting.Battles && isSortAscending)
+                {<img class="filter-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.Battles && !isSortAscending)
+                {<img class="filter-arrow" src="/icons/Descending.png" />}
+        </div>
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.Damage))">
+            <img class="filter-button" src="/icons/sortby.damage.scale-200.png" />
+            @if(sorting == TanksSorting.Damage && isSortAscending)
+                {<img class="filter-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.Damage && !isSortAscending)
+                {<img class="filter-arrow" src="/icons/Descending.png" />}
+        </div>
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.Tier))">
+            <img class="filter-button" src="/icons/sortby.vehicle.level.scale-200.png" />
+            @if(sorting == TanksSorting.Tier && isSortAscending)
+                {<img class="filter-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.Tier && !isSortAscending)
+                {<img class="filter-arrow" src="/icons/Descending.png" />}
+        </div>
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.Wn7))">
+            Wn7
+            @if(sorting == TanksSorting.Wn7 && isSortAscending)
+                {<img class="filter-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.Wn7 && !isSortAscending)
+                {<img class="filter-arrow" src="/icons/Descending.png" />}
         </div>
     </div>
-    @sorting <span>ascending: @isSortAscending</span>
     
     <div class="tanks-list">
-        @foreach (var tank in TanksList)
+        @foreach (var tank in FilteredTankList)
         {
         <TankListItem Tank=@tank></TankListItem>
         }
@@ -49,6 +81,32 @@
         else
         {
             isSortAscending = !isSortAscending;
+        }
+        FilterTanksList();
+    }
+
+    private void FilterTanksList()
+    {
+        switch (sorting) 
+        {
+            case TanksSorting.LastBattle:
+                FilteredTankList = isSortAscending ? TanksList.OrderBy(t => t.LastBattleTime) : TanksList.OrderByDescending(t => t.LastBattleTime);
+                break;
+            case TanksSorting.Winrate:
+                FilteredTankList = isSortAscending ? TanksList.OrderBy(t => t.WinRate) : TanksList.OrderByDescending(t => t.WinRate);
+                break;
+            case TanksSorting.Battles:
+                FilteredTankList = isSortAscending ? TanksList.OrderBy(t => t.Battles) : TanksList.OrderByDescending(t => t.Battles);
+                break;
+            case TanksSorting.Damage:
+                FilteredTankList = isSortAscending ? TanksList.OrderBy(t => t.AvgDamage) : TanksList.OrderByDescending(t => t.AvgDamage);
+                break;
+            case TanksSorting.Wn7:
+                FilteredTankList = isSortAscending ? TanksList.OrderBy(t => t.Wn7) : TanksList.OrderByDescending(t => t.Wn7);
+                break;
+            case TanksSorting.Tier:
+                FilteredTankList = isSortAscending ? TanksList.OrderBy(t => t.Tier) : TanksList.OrderByDescending(t => t.Tier);
+                break;
         }
     }
 }

@@ -47,6 +47,23 @@ namespace WotBlitzStatisticsPro.Blazor.Helpers
                 Constants.CountryEuropean => "flags/eu.png",
                 _ => "flags/vehicle.nation.unknown.scale-200.png"
             };
+        }        
+        
+        public static string NationAssetFaded(this string nationTypeId)
+        {
+            return nationTypeId switch
+            {
+                Constants.CountryUsa => "flags/usa-faded.png",
+                Constants.CountryFrance => "flags/france-faded.png",
+                Constants.CountryUssr => "flags/ussr-faded.png",
+                Constants.CountryChina => "flags/china-faded.png",
+                Constants.CountryUk => "flags/uk-faded.png",
+                Constants.CountryJapan => "flags/japan-faded.png",
+                Constants.CountryGermany => "flags/germany-faded.png",
+                Constants.CountryOther => "flags/other-faded.png",
+                Constants.CountryEuropean => "flags/eu-faded.png",
+                _ => "flags/vehicle.nation.unknown.scale-200.png"
+            };
         }
     }
 }

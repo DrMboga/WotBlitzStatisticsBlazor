@@ -1,17 +1,22 @@
 ﻿.tanks-list {
-    height: 350px;
-    overflow-y: scroll;
+  height: 350px;
+  overflow-y: scroll;
 }
 
 .filters {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .filter-button {
-    min-height: 24px;
-    min-width: 24px;
-    width: 24px;
-    height: 24px;
+  min-height: 24px;
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.filter-arrow {
+  min-height: 24px;
+  height: 24px;
 }
