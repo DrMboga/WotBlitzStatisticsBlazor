@@ -1,8 +1,8 @@
 @using WotBlitzStatisticsPro.Blazor.Model
 
-<p>
-    @Tank.Name
-</p>
+<TankListItem Tank=@Tank></TankListItem>
+<OverallStatisticsCard Statistics="@Tank"></OverallStatisticsCard>
+
 
 @code {
     [Parameter]

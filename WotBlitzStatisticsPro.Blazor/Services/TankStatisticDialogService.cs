@@ -21,7 +21,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         {
             await _dialogService.OpenAsync<TankInfoDialog>(tank.Name,
                 new Dictionary<string, object>() { { "Tank", tank } },
-                new DialogOptions() { Width = "300px", Height = "800px" });
+                new DialogOptions() { Width = "300px", Height = "850px" });
 
         }
 
