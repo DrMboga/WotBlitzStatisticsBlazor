@@ -1,5 +1,8 @@
 ﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@using MediatR
+@using WotBlitzStatisticsPro.Blazor.Messages
 @inject IStringLocalizer<App> Localize;
+@inject IMediator Mediator
 
     <div class="row">
         <RadzenCard class="m-3" style="width: 350px;">
@@ -51,7 +54,7 @@
             <div class="row">
                 <div class="col col-sm col-md col-lg col-xl">
                 </div>
-                <div class="col col-sm col-md col-lg col-xl">
+                <div class="col col-sm col-md col-lg col-xl" @onclick="@(async (e) => { await Mediator.Publish(new OpenTankDialogMessage(MostRelevantTank)); })">
                     @if (MostRelevantTank != null)
                     {
                         <TankCard Tank=@MostRelevantTank></TankCard>
@@ -67,7 +70,7 @@
             <div class="row">
                 <div class="col col-sm col-md col-lg col-xl">
                 </div>
-                <div class="col col-sm col-md col-lg col-xl">
+                <div class="col col-sm col-md col-lg col-xl" @onclick="@(async (e) => { await Mediator.Publish(new OpenTankDialogMessage(MaxXpTank)); })">
                     @if (MaxXpTank != null)
                     {
                         <TankCard Tank=@MaxXpTank></TankCard>
@@ -83,7 +86,7 @@
             <div class="row">
                 <div class="col col-sm col-md col-lg col-xl">
                 </div>
-                <div class="col col-sm col-md col-lg col-xl">
+                <div class="col col-sm col-md col-lg col-xl" @onclick="@(async (e) => { await Mediator.Publish(new OpenTankDialogMessage(MaxFragsTank)); })">
                     @if (MaxFragsTank != null)
                     {
                         <TankCard Tank=@MaxFragsTank></TankCard>

@@ -1,4 +1,5 @@
-﻿@inherits PlayerInfoTanksListBase;
+﻿@using WotBlitzStatisticsPro.Blazor.Messages
+@inherits PlayerInfoTanksListBase;
 @if (TanksList != null && FilteredTankList.Count() > 0)
 {
     <div class="sorting">
@@ -49,7 +50,9 @@
     <div class="tanks-list">
         @foreach (var tank in FilteredTankList)
         {
-        <TankListItem Tank=@tank></TankListItem>
+            <div @onclick="@(async (e) => { await Mediator.Publish(new OpenTankDialogMessage(tank)); })">
+                <TankListItem Tank=@tank></TankListItem>
+            </div>
         }
     </div>
 
