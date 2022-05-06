@@ -32,6 +32,7 @@ namespace WotBlitzStatisticsPro.Blazor
             builder.Services.AddScoped<IChartsService, ChartService>();
             builder.Services.AddScoped<IMediaQueriesService, MediaQueriesService>();
             builder.Services.AddScoped<ITankStatisticDialogService, TankStatisticDialogService>();
+            builder.Services.AddScoped<IMedalDialogService, MedalDialogService>();
 
             builder.Services.AddMediatR(typeof(Program));
 
@@ -53,11 +54,11 @@ namespace WotBlitzStatisticsPro.Blazor
             //var useMock = Environment.GetEnvironmentVariable("USE_GRAPH_QL_MOCK");
             //if (useMock != null && useMock == "true")
             //{
-            builder.Services.AddTransient<IGraphQlBackendService, GraphQlBackendMockService>();
+            // builder.Services.AddTransient<IGraphQlBackendService, GraphQlBackendMockService>();
             //}
             //else
             //{
-            //builder.Services.AddTransient<IGraphQlBackendService, GraphQlBackendService>();
+            builder.Services.AddTransient<IGraphQlBackendService, GraphQlBackendService>();
             //}
 
             var host = builder.Build();

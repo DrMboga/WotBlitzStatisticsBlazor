@@ -1,5 +1,30 @@
-﻿<h3>PlayerInfoAchievements</h3>
+﻿@using MediatR
+@using WotBlitzStatisticsPro.Blazor.Messages
+@using WotBlitzStatisticsPro.Blazor.Helpers
+@inject IMediator Mediator
+<RadzenAccordion>
+    <Items>
+        @foreach (var section in AchievementsBySection.OrderBy(s => s.Order))
+        {
+            <RadzenAccordionItem Text="@section.Name">
+                <div class="medals-section">
+                    @foreach (var medal in section.Medals.OrderBy(m => m.Order))
+                    {
+                        <div class="medal-box" @onclick="@(async (e) => { await Mediator.Publish(new OpenMedalDescriptionMessage(medal)); })">
+                            <img class="achievement-image" src="@medal.Image" />
+                            <div class="achievement-badge translate-middle badge rounded-pill bg-secondary text-dark"> 
+                                @((section.SectionId =="step" || (medal.MaxSeriesValue != null && section.SectionId != "title")) ? medal.AchievementValue.RomanNumber() : medal.AchievementValue)
+                            </div>
+                        </div>
+                    }
+                </div>
+            </RadzenAccordionItem>
+        }
+    </Items>
+</RadzenAccordion>
 
 @code {
+    [Parameter]
+    public IReadOnlyList<ISection> AchievementsBySection { get; set; }
 
 }
