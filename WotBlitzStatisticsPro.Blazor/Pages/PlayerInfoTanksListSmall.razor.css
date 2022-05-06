@@ -1,0 +1,61 @@
+﻿.tanks-list {
+  height: 332px;
+  overflow-y: scroll;
+}
+
+.sorting {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.sort-button {
+  min-height: 24px;
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.sort-arrow {
+  min-height: 24px;
+  height: 24px;
+}
+
+.filter-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.filter-row-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.nation-filter-flag {
+  width: 35px;
+  height: 23px;
+  border-radius: 4px;
+}
+
+.tier-filter {
+  width: 23px;
+  height: 23px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.filter-selected {
+  border-width: 1px;
+  border-color: #f5aa3b;
+  border-style: solid;
+}
+
+.filter-non-premium-selected {
+  border-width: 1px;
+  border-color: #7c807c;
+  border-style: solid;
+}

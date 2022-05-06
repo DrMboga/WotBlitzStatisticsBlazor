@@ -1,0 +1,280 @@
+﻿@using WotBlitzStatisticsPro.Blazor.Messages
+@inherits PlayerInfoTanksListBase;
+@if (TanksList != null && FilteredTankList.Count() > 0)
+{
+    <div class="sorting">
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.LastBattle))">
+            <img class="sort-button" src="/icons/calendar.scale-200.png" />
+            @if(sorting == TanksSorting.LastBattle && isSortAscending)
+                {<img class="sort-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.LastBattle && !isSortAscending)
+                {<img class="sort-arrow" src="/icons/Descending.png" />}
+        </div>
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.Winrate))">
+            <img class="sort-button" src="/icons/sortby.wins.scale-200.png" />
+            @if(sorting == TanksSorting.Winrate && isSortAscending)
+                {<img class="sort-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.Winrate && !isSortAscending)
+                {<img class="sort-arrow" src="/icons/Descending.png" />}
+        </div>
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.Battles))">
+            <img class="sort-button" src="/icons/sortby.battle.scale-200.png" />
+            @if(sorting == TanksSorting.Battles && isSortAscending)
+                {<img class="sort-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.Battles && !isSortAscending)
+                {<img class="sort-arrow" src="/icons/Descending.png" />}
+        </div>
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.Damage))">
+            <img class="sort-button" src="/icons/sortby.damage.scale-200.png" />
+            @if(sorting == TanksSorting.Damage && isSortAscending)
+                {<img class="sort-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.Damage && !isSortAscending)
+                {<img class="sort-arrow" src="/icons/Descending.png" />}
+        </div>
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.Tier))">
+            <img class="sort-button" src="/icons/sortby.vehicle.level.scale-200.png" />
+            @if(sorting == TanksSorting.Tier && isSortAscending)
+                {<img class="sort-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.Tier && !isSortAscending)
+                {<img class="sort-arrow" src="/icons/Descending.png" />}
+        </div>
+        <div @onclick="@(e => OnFilterClick(e, TanksSorting.Wn7))">
+            Wn7
+            @if(sorting == TanksSorting.Wn7 && isSortAscending)
+                {<img class="sort-arrow" src="/icons/Ascending.png" />}
+            @if(sorting == TanksSorting.Wn7 && !isSortAscending)
+                {<img class="sort-arrow" src="/icons/Descending.png" />}
+        </div>
+    </div>
+    
+    <div class="tanks-list">
+        @foreach (var tank in FilteredTankList)
+        {
+            <div @onclick="@(async (e) => { await Mediator.Publish(new OpenTankDialogMessage(tank)); })">
+                <TankListItem Tank=@tank></TankListItem>
+            </div>
+        }
+    </div>
+
+    <div class="filter-area">
+        <div>
+            @Localize["Tanks"]: @FilteredTankList.Count()
+        </div>
+        <div class="filter-row-area">
+            @foreach(var nationForFilter in NationsFilter) {
+                <img src="@nationForFilter.ItemName" class="@NationFilterStyle(nationForFilter.ItemId)" @onclick="@(e => ApplyNationFilter(e, nationForFilter.ItemId))" />
+            }
+        </div>
+        <div class="filter-row-area">
+            @foreach(var tier in TierFilter) {
+                <div class="@TierFilterStyle(tier.ItemId)" @onclick="@(e => ApplyTierFilter(e, tier.ItemId))">
+                    @tier.ItemName
+                </div>
+            }
+        </div>
+        <div class="filter-row-area">
+            @foreach(var typeFor in TankTypesFilter) {
+                <img src="@typeFor.ItemName" class="@TankTypeFilterStyle(typeFor.ItemId)" @onclick="@(e => ApplyTankTypeFilter(e, typeFor.ItemId))" />
+            }
+            <img src="/icons/vehicle.filter.class.premium.scale-200.png" class="@PremiumStyle()" @onclick="@(e => ApplyPremiumFilter(e))" />
+        </div>
+        <div class="filter-row-area">
+            @foreach(var mastery in MasteryFilter) {
+                <img src="@mastery.ItemName" class="@MasteryFilterStyle(mastery.ItemId)" @onclick="@(e => ApplyMasteryFilter(e, mastery.ItemId))" />
+            }
+        </div>
+    </div>
+}
+
+
+@code {
+
+    private enum TanksSorting
+    {
+        LastBattle,
+        Winrate,
+        Battles,
+        Damage,
+        Wn7,
+        Tier
+    }
+
+    private TanksSorting sorting = TanksSorting.LastBattle;
+
+    private bool isSortAscending = false;
+
+    private void OnFilterClick(MouseEventArgs e, TanksSorting sortingToApply)
+    {
+        if (sortingToApply != sorting)
+        {
+            sorting = sortingToApply;
+            isSortAscending = false;
+        }
+        else
+        {
+            isSortAscending = !isSortAscending;
+        }
+        FilterTanksList();
+    }
+
+    private void FilterTanksList()
+    {
+        switch (sorting) 
+        {
+            case TanksSorting.LastBattle:
+                FilteredTankList = isSortAscending ? FilteredTankList.OrderBy(t => t.LastBattleTime) : FilteredTankList.OrderByDescending(t => t.LastBattleTime);
+                break;
+            case TanksSorting.Winrate:
+                FilteredTankList = isSortAscending ? FilteredTankList.OrderBy(t => t.WinRate) : FilteredTankList.OrderByDescending(t => t.WinRate);
+                break;
+            case TanksSorting.Battles:
+                FilteredTankList = isSortAscending ? FilteredTankList.OrderBy(t => t.Battles) : FilteredTankList.OrderByDescending(t => t.Battles);
+                break;
+            case TanksSorting.Damage:
+                FilteredTankList = isSortAscending ? FilteredTankList.OrderBy(t => t.AvgDamage) : FilteredTankList.OrderByDescending(t => t.AvgDamage);
+                break;
+            case TanksSorting.Wn7:
+                FilteredTankList = isSortAscending ? FilteredTankList.OrderBy(t => t.Wn7) : FilteredTankList.OrderByDescending(t => t.Wn7);
+                break;
+            case TanksSorting.Tier:
+                FilteredTankList = isSortAscending ? FilteredTankList.OrderBy(t => t.Tier) : FilteredTankList.OrderByDescending(t => t.Tier);
+                break;
+        }
+    }
+
+    private void ApplyNationFilter(MouseEventArgs e, string nationToApply)
+    {
+        if(FilteredNations.Contains(nationToApply))
+        {
+            FilteredNations = FilteredNations.Where(n => n != nationToApply).ToArray();
+        }
+        else
+        {
+            var nations = FilteredNations.ToList();
+            nations.Add(nationToApply);
+            FilteredNations = nations.ToArray();
+        }
+
+        OnFilterChange(null);
+    }
+
+    private string NationFilterStyle(string nation)
+    {
+        string basic = "nation-filter-flag";
+        if(FilteredNations.Contains(nation))
+        {
+            return $"{basic} filter-selected";
+        }
+        return basic;
+    }
+
+    private void ApplyTierFilter(MouseEventArgs e, int tierToApply)
+    {
+        if(FilteredTiers.Contains(tierToApply))
+        {
+            FilteredTiers = FilteredTiers.Where(n => n != tierToApply).ToArray();
+        }
+        else
+        {
+            var tiers = FilteredTiers.ToList();
+            tiers.Add(tierToApply);
+            FilteredTiers = tiers.ToArray();
+        }
+
+        OnFilterChange(null);
+    }
+
+    private string TierFilterStyle(int tier)
+    {
+        string basic = "tier-filter";
+        if(FilteredTiers.Contains(tier))
+        {
+            return $"{basic} filter-selected";
+        }
+        return basic;
+    }
+
+    private void ApplyTankTypeFilter(MouseEventArgs e, string typeToApply)
+    {
+        if(FilteredTankTypes.Contains(typeToApply))
+        {
+            FilteredTankTypes = FilteredTankTypes.Where(n => n != typeToApply).ToArray();
+        }
+        else
+        {
+            var types = FilteredTankTypes.ToList();
+            types.Add(typeToApply);
+            FilteredTankTypes = types.ToArray();
+        }
+
+        OnFilterChange(null);
+    }
+
+    private string TankTypeFilterStyle(string typeToApply)
+    {
+        string basic = "tier-filter";
+        if(FilteredTankTypes.Contains(typeToApply))
+        {
+            return $"{basic} filter-selected";
+        }
+        return basic;
+    }
+
+    private void ApplyPremiumFilter(MouseEventArgs e)
+    {
+        if(FilterIsPremium.HasValue && FilterIsPremium.Value == true)
+        {
+            FilterIsPremium = false;
+        }
+        else if(FilterIsPremium.HasValue && FilterIsPremium.Value == false)
+        {
+            FilterIsPremium = null;
+        }
+        else if(!FilterIsPremium.HasValue)
+        {
+            FilterIsPremium = true;
+        }
+        OnFilterChange(null);
+    }
+
+    private string PremiumStyle()
+    {
+        string basic = "tier-filter";
+        if(FilterIsPremium.HasValue && FilterIsPremium.Value == true)
+        {
+            return $"{basic} filter-selected";
+        }
+        if(FilterIsPremium.HasValue && FilterIsPremium.Value == false)
+        {
+            return $"{basic} filter-non-premium-selected";
+        }
+        return basic;
+    }
+
+    private void ApplyMasteryFilter(MouseEventArgs e, MarkOfMastery mastery)
+    {
+        if(FilteredMastery.Contains(mastery))
+        {
+            FilteredMastery = FilteredMastery.Where(n => n != mastery).ToArray();
+        }
+        else
+        {
+            var masteries = FilteredMastery.ToList();
+            masteries.Add(mastery);
+            FilteredMastery = masteries.ToArray();
+        }
+
+        OnFilterChange(null);
+    }
+
+    private string MasteryFilterStyle(MarkOfMastery mastery)
+    {
+        string basic = "tier-filter";
+        if(FilteredMastery.Contains(mastery))
+        {
+            return $"{basic} filter-selected";
+        }
+        return basic;
+    }
+
+}

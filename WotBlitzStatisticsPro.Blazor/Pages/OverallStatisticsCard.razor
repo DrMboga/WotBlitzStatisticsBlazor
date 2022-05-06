@@ -1,0 +1,95 @@
+@using WotBlitzStatisticsPro.Blazor.Helpers
+@inject IStringLocalizer<App> Localize;
+<RadzenCard class="m-3" style="width: 340px;">
+    <h3 class="h5">@Localize["Ower all statistics"]</h3>
+    <table class="table" width="100%">
+        <tbody>
+            <tr>
+                <td>@Localize["Last battle"]:</td>
+                <td align="right"><b>@Statistics.LastBattleTime.ConvertToLocalTime().ToString("g")</b></td>
+            </tr>
+            <tr>
+                <td>@Localize["Battles"]:</td>
+                <td align="right"><b>@Statistics.Battles.ToString("N0")</b></td>
+            </tr>
+            <tr>
+                <td>@Localize["Wins"]:</td>
+                <td align="right"><b>@Statistics.Wins.ToString("N0")</b> (@Statistics.WinRate.ToString("N2")%)</td>
+            </tr>
+            <tr>
+                <td>@Localize["Losses"]:</td>
+                <td align="right"><b>@Statistics.Losses.ToString("N0")</b> (@Persentage(Statistics.Losses, Statistics.Battles)%)</td>
+            </tr>
+            <tr>
+                <td>@Localize["Survived"]:</td>
+                <td align="right"><b>@Statistics.SurvivedBattles.ToString("N0")</b> (@Persentage(Statistics.SurvivedBattles, Statistics.Battles)%)</td>
+            </tr>
+            <tr>
+                <td>@Localize["Win and survived"]:</td>
+                <td align="right"><b>@Statistics.WinAndSurvived.ToString("N0")</b> (@Persentage(Statistics.WinAndSurvived, Statistics.Battles)%)</td>
+            </tr>
+            <tr>
+                <td>@Localize["Average XP"]:</td>
+                <td align="right"><b>@Statistics.AvgXp.ToString("N0")</b></td>
+            </tr>
+            <tr>
+                <td>@Localize["Average Damage"]:</td>
+                <td align="right"><b>@Statistics.AvgDamage.ToString("N0")</b></td>
+            </tr>
+            <tr>
+                <td>@Localize["Average Damage received"]:</td>
+                <td align="right"><b>@Average(@Statistics.DamageReceived, @Statistics.Battles)</b></td>
+            </tr>
+            <tr>
+                <td>@Localize["Damage coefficient"]:</td>
+                <td align="right"><b>@Statistics.DamageCoefficient.ToString("N2")</b></td>
+            </tr>
+            <tr>
+                <td>@Localize["Frags"]:</td>
+                <td align="right"><b>@Statistics.Frags.ToString("N0")</b> (@Average(Statistics.Frags, Statistics.Battles))</td>
+            </tr>
+            <tr>
+                <td>@Localize["Frags over 8 tier"]:</td>
+                <td align="right"><b>@Statistics.Frags8P.ToString("N0")</b> (@Average(Statistics.Frags8P, Statistics.Battles))</td>
+            </tr>
+            <tr>
+                <td>@Localize["Shots"]:</td>
+                <td align="right"><b>@Statistics.Shots.ToString("N0")</b> (@Average(Statistics.Shots, Statistics.Battles))</td>
+            </tr>
+            <tr>
+                <td>@Localize["Hits"]:</td>
+                <td align="right"><b>@Statistics.Hits.ToString("N0")</b> (@Average(Statistics.Hits, Statistics.Battles))</td>
+            </tr>
+            <tr>
+                <td>@Localize["Accuracy"]:</td>
+                <td align="right"><b>@Persentage(Statistics.Hits, Statistics.Shots)%</b></td>
+            </tr>
+            <tr>
+                <td>@Localize["Spotted tanks"]:</td>
+                <td align="right"><b>@Statistics.Spotted.ToString("N0")</b> (@Average(Statistics.Spotted, Statistics.Battles))</td>
+            </tr>
+            <tr>
+                <td>@Localize["Base captured"]:</td>
+                <td align="right"><b>@Statistics.CapturePoints.ToString("N0")</b> (@Average(Statistics.CapturePoints, Statistics.Battles))</td>
+            </tr>
+            <tr>
+                <td>@Localize["Dropped base capture"]:</td>
+                <td align="right"><b>@Statistics.DroppedCapturePoints.ToString("N0")</b> (@Average(Statistics.DroppedCapturePoints, Statistics.Battles))</td>
+            </tr>
+        </tbody>
+    </table>
+</RadzenCard>
+
+@code {
+    [Parameter]
+    public IStatistics Statistics { get; set; }
+
+    private string Persentage(long firstNumber, long secondNuber)
+    {
+        return (((decimal)(100*firstNumber))/((decimal)secondNuber)).ToString("N2");
+    }
+    private string Average(long firstNumber, long secondNuber)
+    {
+        return (((decimal)(firstNumber))/((decimal)secondNuber)).ToString("N2");
+    }
+}

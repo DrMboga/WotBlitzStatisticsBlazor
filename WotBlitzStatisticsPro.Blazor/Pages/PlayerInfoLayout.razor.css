@@ -1,4 +1,21 @@
 ﻿dates-section {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.data-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.data-label {
+  color: #b3b1ad;
+  font-size: small;
+}
+
+.data-value {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

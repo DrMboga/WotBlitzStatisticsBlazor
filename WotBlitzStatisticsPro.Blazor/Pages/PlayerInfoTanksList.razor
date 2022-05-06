@@ -1,4 +1,5 @@
 ﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@using WotBlitzStatisticsPro.Blazor.Messages
 @inherits PlayerInfoTanksListBase;
 
 <div class="row">
@@ -52,7 +53,7 @@
 <RadzenDataGrid AllowFiltering="true"
                 AllowColumnResize="true"
                 FilterMode="FilterMode.Simple"
-                PageSize="10"
+                PageSize="20"
                 AllowPaging="true"
                 AllowSorting="true"
                 Data="@FilteredTankList"
@@ -84,7 +85,8 @@
         <RadzenDataGridColumn TItem="ITank" Title="" Sortable="false" Filterable="false" Width="55px">
             <Template Context="data">
                 <RadzenImage Path="@data.PreviewImage" style="width: 50px; height: 40px; border-radius: 8px;"
-                             MouseEnter="@(args => ShowTankTooltip(args, data.PreviewImage, data.TankNationId, new TooltipOptions(){ Style = "background-color:#2F3D43" }) )" />
+                             MouseEnter="@(args => ShowTankTooltip(args, data.PreviewImage, data.TankNationId, new TooltipOptions(){ Style = "background-color:#2F3D43" }) )"
+                             Click="@(async (args) => { await Mediator.Publish(new OpenTankDialogMessage(data)); })" />
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ITank" Property="Name" Filterable="false" Sortable="true" Title="@Localize["Tank"]" Frozen="false" Width="100px" TextAlign="TextAlign.Left">

@@ -13,11 +13,19 @@
                               }
     </h1>
     <div style="margin-top: 10px; margin-bottom: 20px;">
-        <div>
-            <small>@Localize["Created"]: <b>@AccountInfo.CreatedAt.ToString("d") | @AccountInfo.CreatedAt.SinceTime(Localize)</b></small>
+        <div class="data-field">
+            <div class="data-label">@Localize["Created"]:</div>
+            <div class="data-value">
+                <div> <b>@AccountInfo.CreatedAt.ToString("d")</b></div>
+                <div class="data-label">@AccountInfo.CreatedAt.SinceTime(Localize)</div>
+            </div>
         </div>
-        <div>
-            @Localize["Last battle"]: <b>@AccountInfo.LastBattleTime.ConvertToLocalTime().ToString("g") | @AccountInfo.LastBattleTime.ConvertToLocalTime().SinceTime(Localize)</b>
+        <div class="data-field">
+            <div class="data-label">@Localize["Last battle"]:</div>
+            <div class="data-value">
+                <div> <b>@AccountInfo.LastBattleTime.ConvertToLocalTime().ToString("g")</b></div>
+                <div class="data-label">@AccountInfo.LastBattleTime.ConvertToLocalTime().SinceTime(Localize)</div>
+            </div>
         </div>
     </div>
     <RadzenTabs >
@@ -29,11 +37,17 @@
                 <PlayerInfoStatistics TanksList="@AccountInfo.Tanks"></PlayerInfoStatistics>
             </RadzenTabsItem>
             <RadzenTabsItem Icon="agriculture">
-                @*TODO: In case of @SmallScreen == true, then show new tanks list component - mobile version *@
-                <PlayerInfoTanksList TanksList="@AccountInfo.Tanks"></PlayerInfoTanksList>
+                @if (SmallScreen)
+                {
+                    <PlayerInfoTanksListSmall TanksList="@AccountInfo.Tanks"></PlayerInfoTanksListSmall>
+                }
+                else
+                {
+                    <PlayerInfoTanksList TanksList="@AccountInfo.Tanks"></PlayerInfoTanksList>
+                }
             </RadzenTabsItem>
             <RadzenTabsItem Icon="military_tech">
-                <PlayerInfoAchievements></PlayerInfoAchievements>
+                <PlayerInfoAchievements AchievementsBySection = "@AchievementsBySection"></PlayerInfoAchievements>
             </RadzenTabsItem>
         </Tabs>
     </RadzenTabs>

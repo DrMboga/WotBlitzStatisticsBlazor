@@ -1,0 +1,88 @@
+﻿.tank-list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  background-color: #3a474d;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.tank-image {
+  position: relative;
+  width: 120px;
+  min-width: 120px;
+  height: 70px;
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+}
+
+.tank-flag-background {
+  /*filter: grayscale(60%);*/
+  /*    filter: blur(1.5px);*/
+  position: absolute;
+  width: 120px;
+  min-width: 120px;
+  height: 70px;
+}
+
+.tank-tier {
+  position: absolute;
+  left: 5px;
+  top: 0px;
+  width: 24px;
+  height: 24px;
+}
+
+.tank-preview {
+  position: absolute;
+  left: 25px;
+  top: 0px;
+  width: 95px;
+  height: 70px;
+}
+
+.tank-type {
+  position: absolute;
+  left: 0px;
+  top: 46px;
+  width: 24px;
+  height: 24px;
+}
+
+.mastery-image {
+  position: absolute;
+  left: 96px;
+  top: 46px;
+  width: 24px;
+  height: 24px;
+}
+
+.tank-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.tank-info-first-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.tank-info-second-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.icon-scale {
+  width: 20px;
+  height: 20px;
+}

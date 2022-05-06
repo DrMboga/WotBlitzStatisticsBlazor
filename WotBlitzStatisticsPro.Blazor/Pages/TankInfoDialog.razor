@@ -1,0 +1,10 @@
+@using WotBlitzStatisticsPro.Blazor.Model
+
+<TankListItem Tank=@Tank></TankListItem>
+<OverallStatisticsCard Statistics="@Tank"></OverallStatisticsCard>
+
+
+@code {
+    [Parameter]
+    public ITank Tank { get; set; }
+}

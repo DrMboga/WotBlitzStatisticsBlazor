@@ -1,0 +1,41 @@
+@using WotBlitzStatisticsPro.Blazor.Model
+
+<RadzenCard class="m-3">
+    <div class="d-flex flex-column align-items-center">
+        <RadzenImage Path="@MedalInfo.Image" Class="mr-3" Style="width: 100px; height: 100px;" />
+        <div>
+            <div>
+                <b>@MedalInfo.Description</b> 
+                @if(MedalInfo.MaxSeriesValue != null)
+                {
+                    @($" ({MedalInfo.MaxSeriesValue})")
+                }
+            </div>
+            <div class="mt-3" style="margin-top: 20px;">
+                @if(conditions != null)
+                {
+                    @foreach (var conditionRow in conditions)
+                    {
+                        <p>@conditionRow</p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</RadzenCard>
+
+@code {
+    [Parameter]
+    public IMedal MedalInfo { get; set; }
+
+    string[] conditions;
+
+    protected override void OnInitialized()
+    {
+        if(MedalInfo.Condition != null)
+        {
+            conditions = MedalInfo.Condition.Split(Environment.NewLine);
+        }
+    }
+
+}

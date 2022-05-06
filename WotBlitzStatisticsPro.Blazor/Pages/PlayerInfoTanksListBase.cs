@@ -8,7 +8,8 @@ using Radzen.Blazor;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Helpers;
 using WotBlitzStatisticsPro.Blazor.Model;
-
+using MediatR;
+using WotBlitzStatisticsPro.Blazor.Messages;
 namespace WotBlitzStatisticsPro.Blazor.Pages
 {
     public class PlayerInfoTanksListBase: ComponentBase
@@ -21,6 +22,9 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         [Inject]
         public IStringLocalizer<App> Localize { get; set; }
+
+        [Inject]
+        public IMediator Mediator { get; set; }
 
         public RadzenDataGrid<ITank> TanksGrid { get; set; }
 
@@ -50,7 +54,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         protected override void OnInitialized()
         {
-            FilteredTankList = TanksList;
+            FilteredTankList = TanksList.OrderByDescending(t => t.LastBattleTime);
             CountTotalParams();
             for (int i = 1; i < 11; i++)
             {
