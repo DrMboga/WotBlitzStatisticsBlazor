@@ -1,32 +1,48 @@
-﻿@inherits PlayerInfoTanksTreeBase;
+﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@inherits PlayerInfoTanksTreeBase;
 <div style="overflow-y: auto; overflow-x: auto;">
     <svg 
         xmlns="http://www.w3.org/2000/svg" 
-        xmlns:xlink="http://www.w3.org/1999/xlink"
         width="1400" 
         height="@FrameHeigth" 
         style="background-color: darkcyan; ">
     @for (int i = 0; i < 3; i++)
         {
-            <svg x="20"
-                y="@(i * (120 + 20) + 20)"
-                width="200"
-                height="120">
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                x="20"
+                y="@(i * (CardWidth + 20) + 20)"
+                width="@CardWidth"
+                height="@CardHeigth">
                 <g>
+                    <!--Rect fill = #275950 - researched, #2E353B - unresearched, #66502b - prem--> 
                     <rect
                         x="0"
                         y="0"
-                        width="200"
-                        height="120"
+                        width="@CardWidth"
+                        height="@CardHeigth"
                         rx="10"
                         ry="10"
-                        fill="#275950"
+                        fill="@(i == 0 ? "#275950" : (i == 1 ? "#2E353B" : "#66502b"))"
                         stroke="#4a8777">
                     </rect>
-                    <text x="5" y="5" fill="white" text-anchor="start" alignment-baseline="before-edge">
+
+                    <!--Tank type-->
+                    <image x="7" y="7" width="25" height="25" href="@TanksList.ToArray()[i].TankTypeId.TankTypeAsset(i == 2)"/>
+                    <!--Tank tier-->
+                    <text x="33" y="7" fill="@(i == 2 ? @Constants.ClanTagColor : "white")" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="19">
+                        @TanksList.ToArray()[i].Tier.RomanNumber()
+                    </text>
+                    <!--TankImage-->
+                    <image x="@((CardWidth - 95) / 2)" y="@((CardHeigth - 70) / 2)" width="95" height="70" href="@TanksList.ToArray()[i].PreviewImage"/>
+                    <!--TankName-->
+                    <text x="33" y="@(CardHeigth - 25)" fill="@(i == 2 ? @Constants.ClanTagColor : "white")" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
                         @TanksList.ToArray()[i].Name
                     </text>
-                    <image x="20" y="20" width="95" height="70" xlink:href="@TanksList.ToArray()[i].PreviewImage"/>
+
+                    <!--TODO: Split for researched and unresearched info-->
+                    <!--Researched: Mastery, Winrate, Wn7, Battles, LastBattle-->
+                    <!--Unresearched: XP, Credits-->
                 </g>
             </svg>
         }

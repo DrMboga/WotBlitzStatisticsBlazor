@@ -23,8 +23,10 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         [Inject]
         public IMediaQueriesService MediaQueriesService { get; set; }
 
-        public int FrameWidth { get; set; }
         public int FrameHeigth { get; set; }
+
+        public int CardWidth { get; } = 200;
+        public int CardHeigth { get; } = 120;
 
         public string FrameStyle
         {
@@ -36,10 +38,10 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         protected async override Task OnInitializedAsync()
         {
-            var screenWidth = await MediaQueriesService.WindowWidth();
+            //var screenWidth = await MediaQueriesService.WindowWidth();
             var screenHeight = await MediaQueriesService.WindowHeight();
 
-            FrameWidth = Convert.ToInt32(((decimal)screenWidth) * 0.94m);
+            //FrameWidth = Convert.ToInt32(((decimal)screenWidth) * 0.94m);
             FrameHeigth = screenHeight - 390;
         }
 
