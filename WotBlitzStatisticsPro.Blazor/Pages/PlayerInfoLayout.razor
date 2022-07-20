@@ -49,6 +49,16 @@
             <RadzenTabsItem Icon="military_tech">
                 <PlayerInfoAchievements AchievementsBySection = "@AchievementsBySection"></PlayerInfoAchievements>
             </RadzenTabsItem>
+            <RadzenTabsItem Icon="account_tree">
+                @if (SmallScreen)
+                {
+                    <PlayerInfoTanksTreeSmall TanksList="@AccountInfo.Tanks"></PlayerInfoTanksTreeSmall>
+                }
+                else
+                {
+                    <PlayerInfoTanksTree TanksList="@AccountInfo.Tanks"></PlayerInfoTanksTree>
+                }            
+            </RadzenTabsItem>
         </Tabs>
     </RadzenTabs>
 }
