@@ -24,5 +24,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation WargamingPlayers { get; }
 
         global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation UpdatePlayer { get; }
+
+        global::WotBlitzStatisticsPro.Blazor.GraphQl.IDictionaryQuery Dictionary { get; }
     }
 }

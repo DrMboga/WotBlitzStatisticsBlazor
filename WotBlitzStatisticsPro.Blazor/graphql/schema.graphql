@@ -20,6 +20,8 @@ type Query {
   tankMedals("AccountId" accountId: Long! "Account tank Id" tankId: Long! "Account region" realmType: RealmType "Request language" requestLanguage: RequestLanguage): AccountAchievementsResponse!
   "Returns authentication URL accourding Realm"
   loginUrl("Wargaming Realm." realmType: RealmType!): String!
+  "Returns a list of all vehicles of one nation\n\n\n**Returns:**\nA list of vehicles"
+  vehicles("Nation" nationId: String! "Request language" language: RequestLanguage): [VehicleResponse!]!
 }
 
 type Mutation {
@@ -375,6 +377,34 @@ type UpdateDictionariesResponseItem {
   dictionaryType: DictionaryType!
   "A bit summary about what have been updated"
   description: String
+}
+
+"Response for vehicle dictionary query"
+type VehicleResponse {
+  "VehicleId"
+  tankId: Long!
+  "Vehicle name"
+  name: String!
+  "Vehicle description"
+  description: String!
+  "Is vehicle premium"
+  isPremium: Boolean!
+  "Vehicle type id"
+  typeId: String!
+  "Vehicle nationId"
+  nationId: String!
+  "Vehicle tier"
+  tier: Int!
+  "Vehicle preview image"
+  previewImage: String!
+  "Vehicle normal image"
+  normalImage: String!
+  "Vehicle price in credits"
+  priceCredit: Decimal!
+  "Vehicle price in gold"
+  priceGold: Decimal!
+  "Ids of nex tanks and their cost in XP"
+  nexTanksInTree: [Long!]
 }
 
 "Represents information about player's achievements"
