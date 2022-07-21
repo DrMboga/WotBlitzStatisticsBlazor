@@ -30,7 +30,7 @@
                     <!--Tank type-->
                     <image x="7" y="7" width="25" height="25" href="@TanksList.ToArray()[i].TankTypeId.TankTypeAsset(i == 2)"/>
                     <!--Tank tier-->
-                    <text x="33" y="7" fill="@(i == 2 ? @Constants.ClanTagColor : "white")" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="19">
+                    <text x="33" y="4" fill="@(i == 2 ? @Constants.ClanTagColor : "white")" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="19">
                         @TanksList.ToArray()[i].Tier.RomanNumber()
                     </text>
                     <!--TankImage-->
@@ -40,9 +40,51 @@
                         @TanksList.ToArray()[i].Name
                     </text>
 
-                    <!--TODO: Split for researched and unresearched info-->
-                    <!--Researched: Mastery, Winrate, Wn7, Battles, LastBattle-->
+                    <!--Researched: Mastery, Winrate, AvgDmg, Battles, LastBattle-->
+                    @if(i == 0 || i == 2)
+                    {
+                        <g>
+                            <!--Mastery-->
+                            <image x="7" y="@(CardHeigth - 26)" width="20" height="20" href="@TanksList.ToArray()[i].MarkOfMastery.IconAsset()"/>
+                            <!--Winrate-->
+                            <image x="7" y="40" width="20" height="20" href="icons/details.wins.scale-200.png"/>
+                            <text x="32" y="40" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                @(TanksList.ToArray()[i].WinRate.ToString("N0"))%
+                            </text>
+                            <line x1="8" y1="60" x2="58" y2="60" style="@($"stroke:{TanksList.ToArray()[i].WinRate.ScaleColor()};stroke-width:3")" />
+                            <!--AvgDmg-->
+                            <image x="@(CardWidth - 62)" y="40" width="20" height="20" href="icons/damage.scale-200.png"/>
+                            <text x="@(CardWidth - 37)" y="40" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                @TanksList.ToArray()[i].AvgDamage.ToString("N0")
+                            </text>
+                            <!--Battles-->
+                            <image x="@(CardWidth - 62)" y="9" width="20" height="20" href="icons/details.battles.scale-200.png"/>
+                            <text x="@(CardWidth - 37)" y="9" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                @TanksList.ToArray()[i].Battles.ToString("N0")
+                            </text>
+                            <!--Last battle-->
+                            <image x="@(CardWidth - 83)" y="@(CardHeigth - 23)" width="16" height="16" href="icons/calendar.scale-200.png"/>
+                            <text x="@(CardWidth - 60)" y="@(CardHeigth - 23)" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                @TanksList.ToArray()[i].LastBattleTime.ToString("d")
+                            </text>
+                        </g>
+                    }
                     <!--Unresearched: XP, Credits-->
+                    @if(i == 1)
+                    {
+                        <g>
+                            <!--XP-->
+                            <image x="@(CardWidth - 84)" y="9" width="20" height="20" href="icons/xp.avg.scale-200.png"/>
+                            <text x="@(CardWidth - 60)" y="9" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                203.5 K
+                            </text>
+                            <!--Credits-->
+                            <image x="@(CardWidth - 84)" y="@(CardHeigth - 23)" width="20" height="20" href="icons/encyclopedia.vehicle.credits.scale-200.png"/>
+                            <text x="@(CardWidth - 60)" y="@(CardHeigth - 23)" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                8 500 K
+                            </text>
+                        </g>
+                    }
                 </g>
             </svg>
         }

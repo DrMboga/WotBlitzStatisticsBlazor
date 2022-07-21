@@ -33,6 +33,7 @@ namespace WotBlitzStatisticsPro.Blazor
             builder.Services.AddScoped<IMediaQueriesService, MediaQueriesService>();
             builder.Services.AddScoped<ITankStatisticDialogService, TankStatisticDialogService>();
             builder.Services.AddScoped<IMedalDialogService, MedalDialogService>();
+            builder.Services.AddScoped<ISvgHelper, SvgHelper>();
 
             builder.Services.AddMediatR(typeof(Program));
 
