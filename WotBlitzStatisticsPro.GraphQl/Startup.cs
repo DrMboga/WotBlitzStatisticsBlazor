@@ -91,6 +91,7 @@ namespace WotBlitzStatisticsPro.GraphQl
                     .AddType<WotBlitzAchievementsQuery>()
                     .AddType<TankInfoResponseType>()
                     .AddType<WargamingAuthQuery>()
+                    .AddType<VehiclesQuery>()
                 .AddMutationType(d => d.Name("Mutation"))
                     .AddType<WotBlitzStatisticsMutation>()
                     .AddType<AuthenticationMutation>()
