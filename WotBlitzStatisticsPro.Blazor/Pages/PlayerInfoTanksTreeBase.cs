@@ -9,9 +9,6 @@ using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Services;
 
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace WotBlitzStatisticsPro.Blazor.Pages
 {
     public class PlayerInfoTanksTreeBase: ComponentBase
@@ -62,11 +59,11 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 string nationId = "germany";
                 VehiclesLibrary = await GraphQlBackendService.GetVehiclesByNation(nationId);
 
-                string vehiclesLog = JsonSerializer.Serialize(VehiclesLibrary);
-                Console.WriteLine(vehiclesLog);
+                // string vehiclesLog = JsonSerializer.Serialize(VehiclesLibrary);
+                // Console.WriteLine(vehiclesLog);
 
-                string tanksLog = JsonSerializer.Serialize(TanksList);
-                Console.WriteLine(tanksLog);
+                // string tanksLog = JsonSerializer.Serialize(TanksList);
+                // Console.WriteLine(tanksLog);
             }
             catch (System.Exception e)
             {

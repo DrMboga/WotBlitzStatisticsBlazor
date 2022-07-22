@@ -6,6 +6,8 @@ using Bogus;
 using Bogus.Extensions;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Model;
+using Newtonsoft.Json.Linq;
+using System.Collections.ObjectModel;
 
 namespace WotBlitzStatisticsPro.Blazor.Services.Mock
 {
@@ -106,6 +108,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
                 );
             }
 
+            var jObject = JObject.Parse(VehiclesMockData.TanksList);
             var tanks = new List<IPlayer_AccountInfo_Tanks>();
             for (int i = 0; i < tanksCount; i++)
             {
@@ -151,6 +154,50 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
                     faker.Random.Decimal(5M, 95M)
                 ));
             }
+            // for (int i = 0; i < tanksCount; i++)
+            // {
+            //     var nation = GetRandomNation(faker, GetLanguage());
+            //     var vehicleType = GetRandomVehicleType(faker, GetLanguage());
+            //     tanks.Add(new Player_AccountInfo_Tanks_TankInfoResponse(
+            //         faker.Random.Long(100000, 999999),
+            //         faker.Random.Number(500),
+            //         faker.PickRandom<MarkOfMastery>(),
+            //         faker.Random.Decimal(0M, 7M),
+            //         faker.Name.LastName(),
+            //         nation.nation,
+            //         nation.nationName,
+            //         faker.Random.Number(1, 10),
+            //         vehicleType.vehicleType,
+            //         vehicleType.vehicleTypeName,
+            //         faker.Random.Bool(),
+            //         GetRandomPreviewImage(faker),
+            //         GetRandomLargeImage(faker),
+            //         faker.Date.Past(),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Long(1, 9999),
+            //         faker.Random.Double(500D, 2000D),
+            //         faker.Random.Decimal(20M, 95M),
+            //         faker.Random.Decimal(300M, 4000M),
+            //         faker.Random.Decimal(100M, 2000M),
+            //         faker.Random.Decimal(0M, 3M),
+            //         faker.Random.Decimal(5M, 95M)
+            //     ));
+            // }
 
             if (_needToWait)
             {
@@ -408,9 +455,28 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
         {
             return Task.FromResult("Fake logout");
         }
-        public async Task<IReadOnlyList<IDictionary_Vehicles>> GetVehiclesByNation(string nationId) 
+        public Task<IReadOnlyList<IDictionary_Vehicles>> GetVehiclesByNation(string nationId) 
         {
-            throw new NotImplementedException();
+            var jObject = JObject.Parse(VehiclesMockData.VehiclesDictionary);
+            var result = new List<IDictionary_Vehicles>();
+            // foreach (var vehicleObject in jObject)
+            // {
+            //     result.Add(new Dictionary_Vehicles_VehicleResponse(
+            //         vehicleObject["tankid"].Value<long>(),
+            //         vehicleObject["name"].Value<string>(),
+            //         vehicleObject["description"].Value<string>(),
+            //         vehicleObject["isPremium"].Value<bool>(),
+            //         vehicleObject["typeId"].Value<string>(),
+            //         vehicleObject["nationId"].Value<string>(),
+            //         vehicleObject["tier"].Value<int>(),
+            //         vehicleObject["previewImage"].Value<string>(),
+            //         vehicleObject["normalImage"].Value<string>(),
+            //         vehicleObject["priceCredit"].Value<decimal>(),
+            //         vehicleObject["priceGold"].Value<decimal>(),
+            //         vehicleObject["nexTanksInTree"].Value<List<long>>()
+            //     ));
+            // }
+            return Task.FromResult((IReadOnlyList<IDictionary_Vehicles>)result.AsReadOnly());
         }
     }
 }
