@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Common.Model;
 
 namespace WotBlitzStatisticsPro.Logic
@@ -7,5 +8,7 @@ namespace WotBlitzStatisticsPro.Logic
     {
         Task<UpdateDictionariesResponseItem[]> UpdateDictionaries(
             UpdateDictionariesRequest updateDictionariesRequest);
+
+        Task<List<VehicleResponse>?> GetVehiclesByNation(string nationId, RequestLanguage? language);
     }
 }

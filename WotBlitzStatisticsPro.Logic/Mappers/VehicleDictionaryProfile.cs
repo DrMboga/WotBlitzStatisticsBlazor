@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using WotBlitzStatisticsPro.Common.Dictionaries;
+using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.DataAccess.Model;
 using WotBlitzStatisticsPro.WgApiClient.Model;
 
@@ -36,6 +38,18 @@ namespace WotBlitzStatisticsPro.Logic.Mappers
                 .ForMember(d => d.PriceXp,
                     o =>
                         o.MapFrom(s => s.PricesXp));
+
+            CreateMap<IVehiclesDictionary, VehicleResponse>()
+                .ForMember(v => v.Name,
+                    o => o.MapFrom((src, dest, destMember, context) =>
+                            src.Name.FirstOrDefault(l => l.Language == (RequestLanguage) context.Items["language"])?.Value))
+                .ForMember(v => v.Description,
+                    o => o.MapFrom((src, dest, destMember, context) =>
+                            src.Description.FirstOrDefault(l => l.Language == (RequestLanguage) context.Items["language"])?.Value))
+                .ForMember(v => v.NexTanksInTree,
+                    o => o.MapFrom(src => src.NexTanksInTree.Select(t => t.TankId).ToList()))
+            ;
+
         }
     }
 }
