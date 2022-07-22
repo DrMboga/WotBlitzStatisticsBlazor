@@ -24,6 +24,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
         private Mock<IWargamingOpenIdMutation> _wagamingOpenIdMutation;
         private Mock<IWargamingOpenIdAuthenticationMutation> _wargamingOpenIdAuthenticationMutationMock;
         private Mock<IWargamingPlayersMutation> _wargamingPlayersMutation;
+        private Mock<IDictionaryQuery> _dictionaryQuery;
 
         private WotBlitzStatisticsProClient _generatedClient;
         private Mock<INotificationsService> _notificationServiceMock;
@@ -71,7 +72,8 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
                     _playerQueryMock.Object,
                     _wargamingOpenIdAuthenticationMutationMock.Object,
                     _wargamingPlayersMutation.Object,
-                    _updatePlayerMutationMock.Object);
+                    _updatePlayerMutationMock.Object,
+                    _dictionaryQuery.Object);
 
             _notificationServiceMock = new();
 

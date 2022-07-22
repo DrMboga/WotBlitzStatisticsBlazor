@@ -33,5 +33,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         Task<string> Logout(
             string token,
             RealmType realmType);
+
+        Task<IReadOnlyList<IDictionary_Vehicles>> GetVehiclesByNation(string nationId);
     }
 }

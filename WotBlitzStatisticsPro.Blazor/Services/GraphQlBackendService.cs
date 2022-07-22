@@ -88,6 +88,13 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             CheckErrors(result.Errors);
         }
 
+        public async Task<IReadOnlyList<IDictionary_Vehicles>> GetVehiclesByNation(string nationId)
+        {
+            var result = await _client.Dictionary.ExecuteAsync(nationId, GetLanguage());
+            CheckErrors(result.Errors);
+            return result.Data?.Vehicles;
+        }
+
         private RequestLanguage GetLanguage()
         {
             var culture = CultureInfo.CurrentCulture;

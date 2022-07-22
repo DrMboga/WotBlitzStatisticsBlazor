@@ -408,5 +408,9 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
         {
             return Task.FromResult("Fake logout");
         }
+        public async Task<IReadOnlyList<IDictionary_Vehicles>> GetVehiclesByNation(string nationId) 
+        {
+            throw new NotImplementedException();
+        }
     }
 }

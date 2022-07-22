@@ -9,6 +9,9 @@ using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Services;
 
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 namespace WotBlitzStatisticsPro.Blazor.Pages
 {
     public class PlayerInfoTanksTreeBase: ComponentBase
@@ -28,13 +31,18 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         [Inject]
         public ISvgHelper SvgHelper { get; set; }
 
+        [Inject]
+        public IGraphQlBackendService GraphQlBackendService { get; set; }
+
+        [Inject]
+        public INotificationsService Notifications { get; set; }
+
+        public IReadOnlyList<IDictionary_Vehicles> VehiclesLibrary { get; set; }
+
         public int FrameHeigth { get; set; }
 
         public int CardWidth { get; } = 200;
         public int CardHeigth { get; } = 120;
-
-        //[Obsolete("Just temporary. In the future, add this into tankTree DTO")]
-        //public ElementDimensions[] BattlesTextSize { get; set; }
 
         public string FrameStyle
         {
@@ -46,22 +54,26 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         protected async override Task OnInitializedAsync()
         {
-            //var screenWidth = await MediaQueriesService.WindowWidth();
             var screenHeight = await MediaQueriesService.WindowHeight();
 
-            //FrameWidth = Convert.ToInt32(((decimal)screenWidth) * 0.94m);
-            FrameHeigth = screenHeight - 390;
-            // TODO: This is temporary
-            //var dd = new List<ElementDimensions>();
-            //var tt = TanksList.ToArray();
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    var d = await SvgHelper.CalculateTextBlockSizeAsync(tt[i].Battles.ToString("N0"), "Segoe UI", 12);
-            //    dd.Add(d);
-            //}
-            //BattlesTextSize = dd.ToArray();
-            //---
+            // TODO: Move it to the Nation selector handler
+            try
+            {
+                string nationId = "germany";
+                VehiclesLibrary = await GraphQlBackendService.GetVehiclesByNation(nationId);
 
+                string vehiclesLog = JsonSerializer.Serialize(VehiclesLibrary);
+                Console.WriteLine(vehiclesLog);
+
+                string tanksLog = JsonSerializer.Serialize(TanksList);
+                Console.WriteLine(tanksLog);
+            }
+            catch (System.Exception e)
+            {
+                Notifications.ReportError("Can not get data from backend", e.Message);
+            }
+
+            FrameHeigth = screenHeight - 390;
         }
 
         public int GetTextWidth(string text, string fontFace, int fontSize)
