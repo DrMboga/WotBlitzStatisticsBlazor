@@ -127,7 +127,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
                     tankToken["IsPremium"].IsNullOrEmpty() ? false : tankToken["IsPremium"].Value<bool>(),
                     tankToken["PreviewImage"].IsNullOrEmpty() ? string.Empty : tankToken["PreviewImage"].Value<string>(),
                     tankToken["NormalImage"].IsNullOrEmpty() ? string.Empty : tankToken["NormalImage"].Value<string>(),
-                    tankToken["LastBattleTime"].IsNullOrEmpty() ? DateTimeOffset.MinValue : tankToken["LastBattleTime"].Value<DateTimeOffset>(),
+                    tankToken["LastBattleTime"].IsNullOrEmpty() ? DateTime.MinValue : tankToken["LastBattleTime"].Value<DateTime>(),
                     tankToken["Battles"].IsNullOrEmpty() ? 0 : tankToken["Battles"].Value<long>(),
                     tankToken["CapturePoints"].IsNullOrEmpty() ? 0 : tankToken["CapturePoints"].Value<long>(),
                     tankToken["DamageDealt"].IsNullOrEmpty() ? 0 : tankToken["DamageDealt"].Value<long>(),

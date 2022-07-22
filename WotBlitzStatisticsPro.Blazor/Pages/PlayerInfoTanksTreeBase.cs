@@ -58,12 +58,6 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             {
                 string nationId = "germany";
                 VehiclesLibrary = await GraphQlBackendService.GetVehiclesByNation(nationId);
-
-                // string vehiclesLog = JsonSerializer.Serialize(VehiclesLibrary);
-                // Console.WriteLine(vehiclesLog);
-
-                // string tanksLog = JsonSerializer.Serialize(TanksList);
-                // Console.WriteLine(tanksLog);
             }
             catch (System.Exception e)
             {
