@@ -9,37 +9,37 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
     public partial class WotBlitzStatisticsProClient : global::WotBlitzStatisticsPro.Blazor.GraphQl.IWotBlitzStatisticsProClient
     {
-        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingAuthenticationQueryQuery _wargamingAuthenticationQuery;
-        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery _findPlayers;
         private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery _findClans;
-        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation _updatePlayer;
-        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation _wargamingOpenIdAuthentication;
+        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery _findPlayers;
+        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingAuthenticationQueryQuery _wargamingAuthenticationQuery;
         private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdMutation _wargamingOpenId;
-        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation _wargamingPlayers;
         private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerQuery _player;
+        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation _wargamingOpenIdAuthentication;
+        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation _wargamingPlayers;
+        private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation _updatePlayer;
         private readonly global::WotBlitzStatisticsPro.Blazor.GraphQl.IDictionaryQuery _dictionary;
-        public WotBlitzStatisticsProClient(global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingAuthenticationQueryQuery wargamingAuthenticationQuery, global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery findPlayers, global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery findClans, global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation updatePlayer, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation wargamingOpenIdAuthentication, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdMutation wargamingOpenId, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation wargamingPlayers, global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerQuery player, global::WotBlitzStatisticsPro.Blazor.GraphQl.IDictionaryQuery dictionary)
+        public WotBlitzStatisticsProClient(global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery findClans, global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery findPlayers, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingAuthenticationQueryQuery wargamingAuthenticationQuery, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdMutation wargamingOpenId, global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerQuery player, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation wargamingOpenIdAuthentication, global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation wargamingPlayers, global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation updatePlayer, global::WotBlitzStatisticsPro.Blazor.GraphQl.IDictionaryQuery dictionary)
         {
-            _wargamingAuthenticationQuery = wargamingAuthenticationQuery ?? throw new global::System.ArgumentNullException(nameof(wargamingAuthenticationQuery));
-            _findPlayers = findPlayers ?? throw new global::System.ArgumentNullException(nameof(findPlayers));
             _findClans = findClans ?? throw new global::System.ArgumentNullException(nameof(findClans));
-            _updatePlayer = updatePlayer ?? throw new global::System.ArgumentNullException(nameof(updatePlayer));
-            _wargamingOpenIdAuthentication = wargamingOpenIdAuthentication ?? throw new global::System.ArgumentNullException(nameof(wargamingOpenIdAuthentication));
+            _findPlayers = findPlayers ?? throw new global::System.ArgumentNullException(nameof(findPlayers));
+            _wargamingAuthenticationQuery = wargamingAuthenticationQuery ?? throw new global::System.ArgumentNullException(nameof(wargamingAuthenticationQuery));
             _wargamingOpenId = wargamingOpenId ?? throw new global::System.ArgumentNullException(nameof(wargamingOpenId));
-            _wargamingPlayers = wargamingPlayers ?? throw new global::System.ArgumentNullException(nameof(wargamingPlayers));
             _player = player ?? throw new global::System.ArgumentNullException(nameof(player));
+            _wargamingOpenIdAuthentication = wargamingOpenIdAuthentication ?? throw new global::System.ArgumentNullException(nameof(wargamingOpenIdAuthentication));
+            _wargamingPlayers = wargamingPlayers ?? throw new global::System.ArgumentNullException(nameof(wargamingPlayers));
+            _updatePlayer = updatePlayer ?? throw new global::System.ArgumentNullException(nameof(updatePlayer));
             _dictionary = dictionary ?? throw new global::System.ArgumentNullException(nameof(dictionary));
         }
 
         public static global::System.String ClientName => "WotBlitzStatisticsProClient";
-        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingAuthenticationQueryQuery WargamingAuthenticationQuery => _wargamingAuthenticationQuery;
-        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery FindPlayers => _findPlayers;
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindClansQuery FindClans => _findClans;
-        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation UpdatePlayer => _updatePlayer;
-        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation WargamingOpenIdAuthentication => _wargamingOpenIdAuthentication;
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IFindPlayersQuery FindPlayers => _findPlayers;
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingAuthenticationQueryQuery WargamingAuthenticationQuery => _wargamingAuthenticationQuery;
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdMutation WargamingOpenId => _wargamingOpenId;
-        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation WargamingPlayers => _wargamingPlayers;
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayerQuery Player => _player;
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation WargamingOpenIdAuthentication => _wargamingOpenIdAuthentication;
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingPlayersMutation WargamingPlayers => _wargamingPlayers;
+        public global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation UpdatePlayer => _updatePlayer;
         public global::WotBlitzStatisticsPro.Blazor.GraphQl.IDictionaryQuery Dictionary => _dictionary;
     }
 }

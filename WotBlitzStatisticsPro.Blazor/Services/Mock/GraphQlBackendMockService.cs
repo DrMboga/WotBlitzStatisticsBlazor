@@ -8,6 +8,7 @@ using WotBlitzStatisticsPro.Blazor.GraphQl;
 using WotBlitzStatisticsPro.Blazor.Model;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
+using WotBlitzStatisticsPro.Blazor.Helpers;
 
 namespace WotBlitzStatisticsPro.Blazor.Services.Mock
 {
@@ -80,7 +81,6 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
         public async Task<(IAccount accountInfo, IReadOnlyList<ISection> achievementsBySection)> GetPlayerInfo(long accountId, RealmType realmType)
         {
             var faker = new Faker(FakerLanguage(GetLanguage()));
-            var tanksCount = faker.Random.Number(10, 280);
             var isClanInfo = faker.Random.Bool();
 
             IPlayer_AccountInfo_ClanInfo clanInfo = null;
@@ -109,49 +109,48 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
             }
 
             var jObject = JObject.Parse(VehiclesMockData.TanksList);
+            var tankTokens = jObject["tanks"];
             var tanks = new List<IPlayer_AccountInfo_Tanks>();
-            for (int i = 0; i < tanksCount; i++)
+            foreach (var tankToken in tankTokens)
             {
-                var nation = GetRandomNation(faker, GetLanguage());
-                var vehicleType = GetRandomVehicleType(faker, GetLanguage());
                 tanks.Add(new Player_AccountInfo_Tanks_TankInfoResponse(
-                    faker.Random.Long(100000, 999999),
-                    faker.Random.Number(500),
-                    faker.PickRandom<MarkOfMastery>(),
-                    faker.Random.Decimal(0M, 7M),
-                    faker.Name.LastName(),
-                    nation.nation,
-                    nation.nationName,
-                    faker.Random.Number(1, 10),
-                    vehicleType.vehicleType,
-                    vehicleType.vehicleTypeName,
-                    faker.Random.Bool(),
-                    GetRandomPreviewImage(faker),
-                    GetRandomLargeImage(faker),
-                    faker.Date.Past(),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Long(1, 9999),
-                    faker.Random.Double(500D, 2000D),
-                    faker.Random.Decimal(20M, 95M),
-                    faker.Random.Decimal(300M, 4000M),
-                    faker.Random.Decimal(100M, 2000M),
-                    faker.Random.Decimal(0M, 3M),
-                    faker.Random.Decimal(5M, 95M)
+                    tankToken["TankId"].Value<long>(),
+                    tankToken["BattleLifeTimeInSeconds"].IsNullOrEmpty() ? 0 : tankToken["BattleLifeTimeInSeconds"].Value<int>(),
+                    tankToken["MarkOfMastery"].IsNullOrEmpty() ? MarkOfMastery.None : (MarkOfMastery)tankToken["MarkOfMastery"].Value<int>(),
+                    tankToken["AvgBattleLifeTimeInMinutes"].IsNullOrEmpty() ? 0M : tankToken["AvgBattleLifeTimeInMinutes"].Value<decimal>(),
+                    tankToken["Name"].IsNullOrEmpty() ? string.Empty : tankToken["Name"].Value<string>(),
+                    tankToken["TankNationId"].IsNullOrEmpty() ? string.Empty : tankToken["TankNationId"].Value<string>(),
+                    tankToken["TankNation"].IsNullOrEmpty() ? string.Empty : tankToken["TankNation"].Value<string>(),
+                    tankToken["Tier"].IsNullOrEmpty() ? 0 : tankToken["Tier"].Value<int>(),
+                    tankToken["TankTypeId"].IsNullOrEmpty() ? string.Empty : tankToken["TankTypeId"].Value<string>(),
+                    tankToken["TankType"].IsNullOrEmpty() ? string.Empty : tankToken["TankType"].Value<string>(),
+                    tankToken["IsPremium"].IsNullOrEmpty() ? false : tankToken["IsPremium"].Value<bool>(),
+                    tankToken["PreviewImage"].IsNullOrEmpty() ? string.Empty : tankToken["PreviewImage"].Value<string>(),
+                    tankToken["NormalImage"].IsNullOrEmpty() ? string.Empty : tankToken["NormalImage"].Value<string>(),
+                    tankToken["LastBattleTime"].IsNullOrEmpty() ? DateTimeOffset.MinValue : tankToken["LastBattleTime"].Value<DateTimeOffset>(),
+                    tankToken["Battles"].IsNullOrEmpty() ? 0 : tankToken["Battles"].Value<long>(),
+                    tankToken["CapturePoints"].IsNullOrEmpty() ? 0 : tankToken["CapturePoints"].Value<long>(),
+                    tankToken["DamageDealt"].IsNullOrEmpty() ? 0 : tankToken["DamageDealt"].Value<long>(),
+                    tankToken["DamageReceived"].IsNullOrEmpty() ? 0 : tankToken["DamageReceived"].Value<long>(),
+                    tankToken["DroppedCapturePoints"].IsNullOrEmpty() ? 0 : tankToken["DroppedCapturePoints"].Value<long>(),
+                    tankToken["Frags"].IsNullOrEmpty() ? 0 : tankToken["Frags"].Value<long>(),
+                    tankToken["Frags8P"].IsNullOrEmpty() ? 0 : tankToken["Frags8P"].Value<long>(),
+                    tankToken["Hits"].IsNullOrEmpty() ? 0 : tankToken["Hits"].Value<long>(),
+                    tankToken["Losses"].IsNullOrEmpty() ? 0 : tankToken["Losses"].Value<long>(),
+                    tankToken["MaxFrags"].IsNullOrEmpty() ? 0 : tankToken["MaxFrags"].Value<long>(),
+                    tankToken["MaxXp"].IsNullOrEmpty() ? 0 : tankToken["MaxXp"].Value<long>(),
+                    tankToken["Shots"].IsNullOrEmpty() ? 0 : tankToken["Shots"].Value<long>(),
+                    tankToken["Spotted"].IsNullOrEmpty() ? 0 : tankToken["Spotted"].Value<long>(),
+                    tankToken["SurvivedBattles"].IsNullOrEmpty() ? 0 : tankToken["SurvivedBattles"].Value<long>(),
+                    tankToken["WinAndSurvived"].IsNullOrEmpty() ? 0 : tankToken["WinAndSurvived"].Value<long>(),
+                    tankToken["Wins"].IsNullOrEmpty() ? 0 : tankToken["Wins"].Value<long>(),
+                    tankToken["Xp"].IsNullOrEmpty() ? 0 : tankToken["Xp"].Value<long>(),
+                    tankToken["Wn7"].IsNullOrEmpty() ? 0 : tankToken["Wn7"].Value<double>(),
+                    tankToken["WinRate"].IsNullOrEmpty() ? 0M : tankToken["WinRate"].Value<decimal>(),
+                    tankToken["AvgDamage"].IsNullOrEmpty() ? 0M : tankToken["AvgDamage"].Value<decimal>(),
+                    tankToken["AvgXp"].IsNullOrEmpty() ? 0M : tankToken["AvgXp"].Value<decimal>(),
+                    tankToken["DamageCoefficient"].IsNullOrEmpty() ? 0M : tankToken["DamageCoefficient"].Value<decimal>(),
+                    tankToken["SurvivalRate"].IsNullOrEmpty() ? 0M : tankToken["SurvivalRate"].Value<decimal>()
                 ));
             }
             // for (int i = 0; i < tanksCount; i++)
@@ -458,24 +457,30 @@ namespace WotBlitzStatisticsPro.Blazor.Services.Mock
         public Task<IReadOnlyList<IDictionary_Vehicles>> GetVehiclesByNation(string nationId) 
         {
             var jObject = JObject.Parse(VehiclesMockData.VehiclesDictionary);
+            var vehicleTokens = jObject["vehicles"];
             var result = new List<IDictionary_Vehicles>();
-            // foreach (var vehicleObject in jObject)
-            // {
-            //     result.Add(new Dictionary_Vehicles_VehicleResponse(
-            //         vehicleObject["tankid"].Value<long>(),
-            //         vehicleObject["name"].Value<string>(),
-            //         vehicleObject["description"].Value<string>(),
-            //         vehicleObject["isPremium"].Value<bool>(),
-            //         vehicleObject["typeId"].Value<string>(),
-            //         vehicleObject["nationId"].Value<string>(),
-            //         vehicleObject["tier"].Value<int>(),
-            //         vehicleObject["previewImage"].Value<string>(),
-            //         vehicleObject["normalImage"].Value<string>(),
-            //         vehicleObject["priceCredit"].Value<decimal>(),
-            //         vehicleObject["priceGold"].Value<decimal>(),
-            //         vehicleObject["nexTanksInTree"].Value<List<long>>()
-            //     ));
-            // }
+            foreach (var vehicleObject in vehicleTokens)
+            {
+                var nextTanks = new List<long>();
+                foreach (var next in vehicleObject["NexTanksInTree"])
+                {
+                    nextTanks.Add(next.Value<long>());
+                }
+                result.Add(new Dictionary_Vehicles_VehicleResponse(
+                    vehicleObject["TankId"].Value<long>(),
+                    vehicleObject["Name"].Value<string>(),
+                    vehicleObject["Description"].Value<string>(),
+                    vehicleObject["IsPremium"].Value<bool>(),
+                    vehicleObject["TypeId"].Value<string>(),
+                    vehicleObject["NationId"].Value<string>(),
+                    vehicleObject["Tier"].Value<int>(),
+                    vehicleObject["PreviewImage"].Value<string>(),
+                    vehicleObject["NormalImage"].Value<string>(),
+                    vehicleObject["PriceCredit"].Value<decimal>(),
+                    vehicleObject["PriceGold"].Value<decimal>(),
+                    nextTanks.AsReadOnly()
+                ));
+            }
             return Task.FromResult((IReadOnlyList<IDictionary_Vehicles>)result.AsReadOnly());
         }
     }
