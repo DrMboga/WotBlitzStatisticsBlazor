@@ -41,6 +41,10 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         public int CardWidth { get; } = 200;
         public int CardHeigth { get; } = 120;
 
+        public List<TankTreeItem> TreeItems { get; set; } = new();
+
+        public string SelectedNation { get; set; } = "germany";
+        
         public string FrameStyle
         {
             get
@@ -56,8 +60,8 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             // TODO: Move it to the Nation selector handler
             try
             {
-                string nationId = "germany";
-                VehiclesLibrary = await GraphQlBackendService.GetVehiclesByNation(nationId);
+                VehiclesLibrary = await GraphQlBackendService.GetVehiclesByNation(SelectedNation);
+                BuildTree();
             }
             catch (System.Exception e)
             {
@@ -70,6 +74,67 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         public int GetTextWidth(string text, string fontFace, int fontSize)
         {
             return SvgHelper.CalculateTextBlockSize(text, fontFace, fontSize).Width;
+        }
+
+        private void BuildTree()
+        {
+            TreeItems.Clear();
+            var vehiclesTree = VehiclesLibrary.Where(v => v.IsPremium == false).ToList();
+            for (int tier = 1; tier < 11; tier++)
+            {
+                var vehiclesByTier = vehiclesTree.Where(v => v.Tier == tier).ToList();
+                int row = 0;
+                foreach (var vehicleFromDictionary in vehiclesByTier)
+                {
+                    var treeItem = new TankTreeItem
+                    {
+                        Tier = tier,
+                        TankId = vehicleFromDictionary.TankId,
+                        Name = vehicleFromDictionary.Name,
+                        PriceCredit = vehicleFromDictionary.PriceCredit,
+                        PreviewImage = vehicleFromDictionary.PreviewImage,
+                        TankTypeId = vehicleFromDictionary.TypeId,
+                        IsPremium = false,
+                        Row = row
+                    };
+                    var researched = TanksList.FirstOrDefault(t => t.TankId == treeItem.TankId);
+                    treeItem.IsResearched = researched != null;
+                    if (researched != null)
+                    {
+                        treeItem.MarkOfMastery = researched.MarkOfMastery;
+                        treeItem.WinRate = researched.WinRate;
+                        treeItem.AvgDamage = researched.AvgDamage;
+                        treeItem.Battles = researched.Battles;
+                        treeItem.LastBattleTime = researched.LastBattleTime;
+                    }
+
+                    TreeItems.Add(treeItem);
+                    row++;
+                }
+            }
+            // TODO: build matrix and connections
+            
+            // Adding prem tanks
+            foreach (var prem in TanksList.Where(t => t.IsPremium && t.TankNationId == SelectedNation))
+            {
+                int row = TreeItems.Count(i => i.Tier == prem.Tier) + 1;
+                TreeItems.Add(new TankTreeItem
+                {
+                    Tier = prem.Tier,
+                    TankId = prem.TankId,
+                    Name = prem.Name,
+                    PreviewImage = prem.PreviewImage,
+                    TankTypeId = prem.TankTypeId,
+                    IsPremium = true,
+                    MarkOfMastery = prem.MarkOfMastery,
+                    WinRate = prem.WinRate,
+                    AvgDamage = prem.AvgDamage,
+                    Battles = prem.Battles,
+                    LastBattleTime = prem.LastBattleTime,
+                    IsResearched = true,
+                    Row = row
+                });
+            }
         }
     }
 }
