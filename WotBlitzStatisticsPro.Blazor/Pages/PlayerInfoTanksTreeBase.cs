@@ -64,7 +64,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 Notifications.ReportError("Can not get data from backend", e.Message);
             }
 
-            FrameHeigth = screenHeight - 390;
+            FrameHeigth = screenHeight + 390;
         }
 
         public int GetTextWidth(string text, string fontFace, int fontSize)
