@@ -86,28 +86,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 int row = 0;
                 foreach (var vehicleFromDictionary in vehiclesByTier)
                 {
-                    var treeItem = new TankTreeItem
-                    {
-                        Tier = tier,
-                        TankId = vehicleFromDictionary.TankId,
-                        Name = vehicleFromDictionary.Name,
-                        PriceCredit = vehicleFromDictionary.PriceCredit,
-                        PreviewImage = vehicleFromDictionary.PreviewImage,
-                        TankTypeId = vehicleFromDictionary.TypeId,
-                        IsPremium = false,
-                        Row = row
-                    };
-                    var researched = TanksList.FirstOrDefault(t => t.TankId == treeItem.TankId);
-                    treeItem.IsResearched = researched != null;
-                    if (researched != null)
-                    {
-                        treeItem.MarkOfMastery = researched.MarkOfMastery;
-                        treeItem.WinRate = researched.WinRate;
-                        treeItem.AvgDamage = researched.AvgDamage;
-                        treeItem.Battles = researched.Battles;
-                        treeItem.LastBattleTime = researched.LastBattleTime;
-                    }
-
+                    var treeItem = BuildNonPremTreeItem(tier, vehicleFromDictionary, row);
                     TreeItems.Add(treeItem);
                     row++;
                 }
@@ -135,6 +114,33 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                     Row = row
                 });
             }
+        }
+
+        private TankTreeItem BuildNonPremTreeItem(int tier, IDictionary_Vehicles vehicleFromDictionary, int row)
+        {
+            var treeItem = new TankTreeItem
+            {
+                Tier = tier,
+                TankId = vehicleFromDictionary.TankId,
+                Name = vehicleFromDictionary.Name,
+                PriceCredit = vehicleFromDictionary.PriceCredit,
+                PreviewImage = vehicleFromDictionary.PreviewImage,
+                TankTypeId = vehicleFromDictionary.TypeId,
+                IsPremium = false,
+                Row = row
+            };
+            var researched = TanksList.FirstOrDefault(t => t.TankId == treeItem.TankId);
+            treeItem.IsResearched = researched != null;
+            if (researched != null)
+            {
+                treeItem.MarkOfMastery = researched.MarkOfMastery;
+                treeItem.WinRate = researched.WinRate;
+                treeItem.AvgDamage = researched.AvgDamage;
+                treeItem.Battles = researched.Battles;
+                treeItem.LastBattleTime = researched.LastBattleTime;
+            }
+
+            return treeItem;
         }
     }
 }

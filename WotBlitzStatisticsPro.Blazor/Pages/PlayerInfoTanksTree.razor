@@ -53,7 +53,7 @@
                             <!--TankImage-->
                             <image x="@((CardWidth - 95) / 2)" y="@((CardHeigth - 70) / 2)" width="95" height="70" href="@tank.PreviewImage"/>
                             <!--TankName-->
-                            <text x="33" y="@(CardHeigth - 25)" fill="@(tank.IsPremium ? Constants.ClanTagColor : "white")" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                            <text x="33" y="@(CardHeigth - 25)" fill="@(tank.IsPremium ? Constants.ClanTagColor : "white")" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="14">
                                 @tank.Name
                             </text>
 
@@ -80,8 +80,8 @@
                                         @tank.Battles.Value.ToString("N0")
                                     </text>
                                     <!--Last battle-->
-                                    <image x="@(CardWidth - 83)" y="@(CardHeigth - 23)" width="16" height="16" href="icons/calendar.scale-200.png"/>
-                                    <text x="@(CardWidth - 60)" y="@(CardHeigth - 23)" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                    <image x="8" y="@(CardHeigth - 50)" width="16" height="16" href="icons/calendar.scale-200.png"/>
+                                    <text x="32" y="@(CardHeigth - 50)" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
                                         @tank.LastBattleTime.Value.ToString("d")
                                     </text>
                                 </g>
@@ -91,8 +91,8 @@
                             {
                                 <g>
                                     <!--Credits-->
-                                    <image x="@(CardWidth - 84)" y="@(CardHeigth - 23)" width="20" height="20" href="icons/encyclopedia.vehicle.credits.scale-200.png"/>
-                                    <text x="@(CardWidth - 60)" y="@(CardHeigth - 23)" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                    <image x="8" y="@(CardHeigth - 50)" width="20" height="20" href="icons/encyclopedia.vehicle.credits.scale-200.png"/>
+                                    <text x="32" y="@(CardHeigth - 50)" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
                                         @((tank.PriceCredit / 1000).ToString("N0")) K
                                     </text>
                                 </g>
