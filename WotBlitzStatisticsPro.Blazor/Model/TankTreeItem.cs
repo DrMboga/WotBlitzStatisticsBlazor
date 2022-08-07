@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
 
 namespace WotBlitzStatisticsPro.Blazor.Model
@@ -32,6 +33,8 @@ namespace WotBlitzStatisticsPro.Blazor.Model
         public DateTimeOffset? LastBattleTime { get; set; }
 
         public Decimal PriceCredit { get; set; }
+
+        public List<TankTreeRowMap>? NextRows { get; set; }
         
     }
 }
