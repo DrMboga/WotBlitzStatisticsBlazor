@@ -68,7 +68,6 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 Notifications.ReportError("Can not get data from backend", e.Message);
             }
 
-            FrameHeigth = screenHeight + 390;
         }
 
         public int GetTextWidth(string text, string fontFace, int fontSize)
@@ -80,47 +79,94 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         {
             TreeItems.Clear();
             var vehiclesTree = VehiclesLibrary.Where(v => v.IsPremium == false).ToList();
-            for (int tier = 1; tier < 11; tier++)
-            {
-                var vehiclesByTier = vehiclesTree.Where(v => v.Tier == tier).ToList();
-                int row = 0;
-                foreach (var vehicleFromDictionary in vehiclesByTier)
-                {
-                    var treeItem = BuildNonPremTreeItem(tier, vehicleFromDictionary, row);
-                    TreeItems.Add(treeItem);
-                    row++;
-                }
-            }
+            // for (int tier = 1; tier < 11; tier++)
+            // {
+            //     var vehiclesByTier = vehiclesTree.Where(v => v.Tier == tier).ToList();
+            //     int row = 0;
+            //     foreach (var vehicleFromDictionary in vehiclesByTier)
+            //     {
+            //         var treeItem = BuildNonPremTreeItem(vehicleFromDictionary, row);
+            //         TreeItems.Add(treeItem);
+            //         row++;
+            //     }
+            // }
+
+            var firstTank = vehiclesTree.First(v => v.Tier == 1);
+            TreeItems.AddRange(BuildTree(firstTank, 0, vehiclesTree));
+            int maxNonPremTreeRow = GetMaxRowNumber(TreeItems);
+            
             // TODO: build matrix and connections
             
             // Adding prem tanks
-            foreach (var prem in TanksList.Where(t => t.IsPremium && t.TankNationId == SelectedNation))
+            var premTanks = TanksList.Where(t => t.IsPremium && t.TankNationId == SelectedNation).ToList();
+            int maxPremsCount = maxNonPremTreeRow;
+            foreach (var premTier in premTanks.Select(b => b.Tier).Distinct())
             {
-                int row = TreeItems.Count(i => i.Tier == prem.Tier) + 1;
-                TreeItems.Add(new TankTreeItem
+                int row = maxNonPremTreeRow + 1;
+                foreach (var prem in premTanks.Where(t => t.Tier == premTier))
                 {
-                    Tier = prem.Tier,
-                    TankId = prem.TankId,
-                    Name = prem.Name,
-                    PreviewImage = prem.PreviewImage,
-                    TankTypeId = prem.TankTypeId,
-                    IsPremium = true,
-                    MarkOfMastery = prem.MarkOfMastery,
-                    WinRate = prem.WinRate,
-                    AvgDamage = prem.AvgDamage,
-                    Battles = prem.Battles,
-                    LastBattleTime = prem.LastBattleTime,
-                    IsResearched = true,
-                    Row = row
-                });
+                    TreeItems.Add(new TankTreeItem
+                    {
+                        Tier = prem.Tier,
+                        TankId = prem.TankId,
+                        Name = prem.Name,
+                        PreviewImage = prem.PreviewImage,
+                        TankTypeId = prem.TankTypeId,
+                        IsPremium = true,
+                        MarkOfMastery = prem.MarkOfMastery,
+                        WinRate = prem.WinRate,
+                        AvgDamage = prem.AvgDamage,
+                        Battles = prem.Battles,
+                        LastBattleTime = prem.LastBattleTime,
+                        IsResearched = true,
+                        Row = row
+                    });
+                    row++;
+                    if (row > maxPremsCount)
+                    {
+                        maxPremsCount = row;
+                    }
+                }
             }
+
+            FrameHeigth = maxPremsCount * (CardHeigth + 20) + 20;
         }
 
-        private TankTreeItem BuildNonPremTreeItem(int tier, IDictionary_Vehicles vehicleFromDictionary, int row)
+        private List<TankTreeItem> BuildTree(IDictionary_Vehicles firstTank, int rowNumber, List<IDictionary_Vehicles> vehiclesTree)
+        {
+            var result = new List<TankTreeItem>();
+            result.Add(BuildNonPremTreeItem(firstTank, rowNumber));
+
+            var nextTierTanks = vehiclesTree.Where(
+                v => firstTank.NexTanksInTree != null && firstTank.NexTanksInTree.Contains(v.TankId)).ToList();
+
+            if (nextTierTanks.Count == 1)
+            {
+                result.AddRange(BuildTree(nextTierTanks[0], rowNumber, vehiclesTree));
+                return result;
+            }
+
+            // If more than one, sort them AT first, Heavy, Middle and light
+            int nextRow = rowNumber;
+            string[] tankTypes = { "AT-SPG", "heavyTank", "mediumTank", "lightTank" };
+            foreach (var tankType in tankTypes)
+            {
+                foreach (var nextTierTank in nextTierTanks.Where(t => t.TypeId == tankType))
+                {
+                    var branch = BuildTree(nextTierTank, nextRow, vehiclesTree);
+                    result.AddRange(branch);
+                    nextRow += GetMaxRowNumber(branch);
+                }
+            }
+            
+            return result;
+        }
+
+        private TankTreeItem BuildNonPremTreeItem(IDictionary_Vehicles vehicleFromDictionary, int row)
         {
             var treeItem = new TankTreeItem
             {
-                Tier = tier,
+                Tier = vehicleFromDictionary.Tier,
                 TankId = vehicleFromDictionary.TankId,
                 Name = vehicleFromDictionary.Name,
                 PriceCredit = vehicleFromDictionary.PriceCredit,
@@ -141,6 +187,21 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             }
 
             return treeItem;
+        }
+
+        private int GetMaxRowNumber(List<TankTreeItem> branch)
+        {
+            int maxRowsCount = 0;
+            foreach (var tier in branch.Select(b => b.Tier).Distinct())
+            {
+                int tierTanksCount = branch.Count(t => t.Tier == tier);
+                if (tierTanksCount > maxRowsCount)
+                {
+                    maxRowsCount = tierTanksCount;
+                }
+            }
+
+            return maxRowsCount;
         }
     }
 }
