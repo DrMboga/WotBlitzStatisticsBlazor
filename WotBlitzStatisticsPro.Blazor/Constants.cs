@@ -1,6 +1,8 @@
-﻿namespace WotBlitzStatisticsPro.Blazor
+﻿using WotBlitzStatisticsPro.Blazor.Model;
+
+namespace WotBlitzStatisticsPro.Blazor
 {
-    public class Constants
+    public static class Constants
     {
         public const string ClanTagColor = "#d4d481";
 
@@ -41,5 +43,10 @@
 
 
         public const string LoginInfoLocalStorageKey = "login_info";
+
+        public static TankTreeRowMap[] TanksTreeHelper = new TankTreeRowMap[]
+        {
+            new TankTreeRowMap(2065,2)
+        };
     }
 }

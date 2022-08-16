@@ -82,20 +82,28 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             for (int tier = 1; tier < 11; tier++)
             {
                 var vehiclesByTier = vehiclesTree.Where(v => v.Tier == tier).ToList();
-                int row = 0;
-                // TODO: Order
                 foreach (var vehicleFromDictionary in vehiclesByTier)
                 {
-                    // Find previous map to figure out the row
-                    int currentRow = FindRowFromPreviousTierMapping(vehicleFromDictionary, row);
+                    int currentRow = 0;
+                    if (tier == 1)
+                    {
+                        var rowMap = Constants.TanksTreeHelper.FirstOrDefault(v => v.TankId == vehicleFromDictionary.TankId);
+                        if(rowMap != null)
+                        {
+                            currentRow = rowMap.Row;
+                        }
+                    }
+                    else
+                    {
+                        currentRow = FindRowFromPreviousTierMapping(vehicleFromDictionary);
+                    }
 
                     var treeItem = BuildNonPremTreeItem(vehicleFromDictionary, currentRow);
-                    
+
                     // Map next tier tanks by rows
                     treeItem.NextRows = BuildNextTanksRowMapping(vehicleFromDictionary, currentRow);
                     
                     TreeItems.Add(treeItem);
-                    row++;
                 }
             }
 
@@ -154,29 +162,25 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 }
                 else
                 {
-                    // If more than one, sort them AT first, Heavy, Middle and light
-                    int nextRow = currentRow;
-                    string[] tankTypes = { "AT-SPG", "heavyTank", "mediumTank", "lightTank" };
-                    var nextTanksTypes = VehiclesLibrary
-                        .Where(v => vehicleFromDictionary.NexTanksInTree.Contains(v.TankId))
-                        .Select(v => new { v.TankId, TankType = v.TypeId })
-                        .ToList();
-                    foreach (var tankType in tankTypes)
+                    foreach (var nextTankInTree in vehicleFromDictionary.NexTanksInTree)
                     {
-                        foreach (var nextTierTank in nextTanksTypes.Where(t => t.TankType == tankType))
+                        // If more than one, get tank row from special mappings array
+                        var rowMap = Constants.TanksTreeHelper.FirstOrDefault(v => v.TankId == nextTankInTree);
+                        if (rowMap != null)
                         {
-                            nextRowsMap.Add(new TankTreeRowMap(nextTierTank.TankId, nextRow));
-                            nextRow++;
+                            nextRowsMap.Add(rowMap);
                         }
                     }
+
                 }
             }
 
             return nextRowsMap;
         }
 
-        private int FindRowFromPreviousTierMapping(IDictionary_Vehicles vehicleFromDictionary, int currentRow)
+        private int FindRowFromPreviousTierMapping(IDictionary_Vehicles vehicleFromDictionary)
         {
+            int currentRow = 0;
             var previousTierTanks = TreeItems.Where(t => t.Tier == vehicleFromDictionary.Tier - 1).ToList();
             foreach (var previousTierTank in previousTierTanks)
             {
