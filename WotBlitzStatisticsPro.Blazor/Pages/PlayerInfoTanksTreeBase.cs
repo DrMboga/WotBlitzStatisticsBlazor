@@ -107,9 +107,6 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                 }
             }
 
-            // var firstTank = vehiclesTree.First(v => v.Tier == 1);
-            // TreeItems.AddRange(BuildTree(firstTank, 0, vehiclesTree));
-            
             int maxNonPremTreeRow = GetMaxRowNumber(TreeItems);
             
             // TODO: build matrix and connections
@@ -197,37 +194,6 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             }
 
             return currentRow;
-        }
-
-        [Obsolete]
-        private List<TankTreeItem> BuildTree(IDictionary_Vehicles firstTank, int rowNumber, List<IDictionary_Vehicles> vehiclesTree)
-        {
-            var result = new List<TankTreeItem>();
-            result.Add(BuildNonPremTreeItem(firstTank, rowNumber));
-
-            var nextTierTanks = vehiclesTree.Where(
-                v => firstTank.NexTanksInTree != null && firstTank.NexTanksInTree.Contains(v.TankId)).ToList();
-
-            if (nextTierTanks.Count == 1)
-            {
-                result.AddRange(BuildTree(nextTierTanks[0], rowNumber, vehiclesTree));
-                return result;
-            }
-
-            // If more than one, sort them AT first, Heavy, Middle and light
-            int nextRow = rowNumber;
-            string[] tankTypes = { "AT-SPG", "heavyTank", "mediumTank", "lightTank" };
-            foreach (var tankType in tankTypes)
-            {
-                foreach (var nextTierTank in nextTierTanks.Where(t => t.TypeId == tankType))
-                {
-                    var branch = BuildTree(nextTierTank, nextRow, vehiclesTree);
-                    result.AddRange(branch);
-                    nextRow += GetMaxRowNumber(branch);
-                }
-            }
-            
-            return result;
         }
 
         private TankTreeItem BuildNonPremTreeItem(IDictionary_Vehicles vehicleFromDictionary, int row)

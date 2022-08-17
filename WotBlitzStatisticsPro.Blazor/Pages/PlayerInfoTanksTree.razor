@@ -65,7 +65,7 @@
                                     <image x="7" y="@(CardHeigth - 26)" width="20" height="20" href="@tank.MarkOfMastery.Value.IconAsset()"/>
                                     <!--Winrate-->
                                     <image x="7" y="40" width="20" height="20" href="icons/details.wins.scale-200.png"/>
-                                    <text x="32" y="40" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                    <text x="32" y="40" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-weight="bold" font-size="12">
                                         @(tank.WinRate.Value.ToString("N0"))%
                                     </text>
                                     <line x1="8" y1="60" x2="58" y2="60" style="@($"stroke:{tank.WinRate.Value.ScaleColor()};stroke-width:3")"/>

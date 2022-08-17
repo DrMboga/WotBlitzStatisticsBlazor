@@ -1,4 +1,5 @@
-﻿using WotBlitzStatisticsPro.Blazor.Model;
+﻿using System;
+using WotBlitzStatisticsPro.Blazor.Model;
 
 namespace WotBlitzStatisticsPro.Blazor
 {
@@ -44,9 +45,48 @@ namespace WotBlitzStatisticsPro.Blazor
 
         public const string LoginInfoLocalStorageKey = "login_info";
 
+        /*
+         * Mongo express filter:
+         * {"NationId": "germany", "IsPremium": false, "Tier": 9}
+         * Projection:
+         * {"Tier" : true,"Name": { $slice: 1 }}
+         */
+        [Obsolete("Do this as the dictionary in the DB, to make possibility to change it in the future")]
         public static TankTreeRowMap[] TanksTreeHelper = new TankTreeRowMap[]
         {
-            new TankTreeRowMap(2065,2)
+            // Germany
+            new TankTreeRowMap(2065, 2), // First tank in a tree
+            new TankTreeRowMap(1809, 1), // Hetzer (4)
+            new TankTreeRowMap(17425, 3), // Pz.Kpfw. IV Ausf. D (4)
+
+            new TankTreeRowMap(17, 3), // Pz.Kpfw. IV Ausf. G (5)
+            new TankTreeRowMap(5393, 7), // VK 16.02 Leopard (5)
+
+            new TankTreeRowMap(1553, 1), // Jagdpanzer IV (6)
+            new TankTreeRowMap(2321, 5), // VK 36.01 (H) (6)
+            new TankTreeRowMap(7185, 3), // VK 30.01 (P) 6)
+            new TankTreeRowMap(10001, 8), // VK 28.01 (6)
+            new TankTreeRowMap(11793, 0), // Nashorn (6)
+            new TankTreeRowMap(14097, 6), // VK 30.01 (D) (6)
+
+            new TankTreeRowMap(1297, 6), // Panther I  (7)
+            new TankTreeRowMap(3857, 1), // Jagdpanther (7)
+            new TankTreeRowMap(4113, 7), // VK 30.02 (D) 7)
+            new TankTreeRowMap(11025, 0), // Sturer Emil (7)
+
+            new TankTreeRowMap(5137, 5), // Tiger II (8)
+            new TankTreeRowMap(7697, 2), // Ferdinand (8)
+            new TankTreeRowMap(8465, 6), // Panther II (8)
+            new TankTreeRowMap(10513, 3), // VK 45.02 (P) Ausf. A (8)
+            new TankTreeRowMap(11537, 1), // Jagdpanther II (8)
+            new TankTreeRowMap(13841, 7), // Indien-Panzer (8)
+            new TankTreeRowMap(18449, 8), // Ru 251 (8)
+            new TankTreeRowMap(20497, 4), // VK 100.01 (P) (8)
+
+            new TankTreeRowMap(7953, 1), // Jagdtiger (9)
+            new TankTreeRowMap(14865, 7), // Leopard Prototyp A (9)
+
+
         };
     }
 }
