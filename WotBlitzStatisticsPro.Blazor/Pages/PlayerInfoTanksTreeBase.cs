@@ -1,11 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WotBlitzStatisticsPro.Blazor.GraphQl;
+using WotBlitzStatisticsPro.Blazor.Helpers;
 using WotBlitzStatisticsPro.Blazor.Model;
 using WotBlitzStatisticsPro.Blazor.Services;
 
@@ -43,9 +45,11 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         public List<TankTreeItem> TreeItems { get; set; } = new();
 
-        public string SelectedNation { get; set; } = "germany";
+        public string SelectedNation { get; set; }
 
         public List<string> Connections { get; set; } = new List<string>();
+
+        public List<FilterItem<string>> NationsFilter { get; set; } = new();
 
         public string FrameStyle
         {
@@ -57,19 +61,10 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
         protected async override Task OnInitializedAsync()
         {
+            FillNationsFilter();
             var screenHeight = await MediaQueriesService.WindowHeight();
 
-            // TODO: Move it to the Nation selector handler
-            try
-            {
-                VehiclesLibrary = await GraphQlBackendService.GetVehiclesByNation(SelectedNation);
-                BuildTree();
-            }
-            catch (System.Exception e)
-            {
-                Notifications.ReportError("Can not get data from backend", e.Message);
-            }
-
+            await LoadTree();
         }
 
         public int GetTextWidth(string text, string fontFace, int fontSize)
@@ -241,6 +236,52 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             }
 
             return maxRowsCount;
+        }
+
+        private void FillNationsFilter()
+        {
+            // ToDo: Should get values from Dictionary here instead of hard code
+            NationsFilter.Add(new FilterItem<string>(Constants.CountryUsa, Constants.CountryUsa.NationAsset()));
+            NationsFilter.Add(new FilterItem<string>(Constants.CountryFrance, Constants.CountryFrance.NationAsset()));
+            NationsFilter.Add(new FilterItem<string>(Constants.CountryUssr, Constants.CountryUssr.NationAsset()));
+            NationsFilter.Add(new FilterItem<string>(Constants.CountryChina, Constants.CountryChina.NationAsset()));
+            NationsFilter.Add(new FilterItem<string>(Constants.CountryUk, Constants.CountryUk.NationAsset()));
+            NationsFilter.Add(new FilterItem<string>(Constants.CountryJapan, Constants.CountryJapan.NationAsset()));
+            NationsFilter.Add(new FilterItem<string>(Constants.CountryGermany, Constants.CountryGermany.NationAsset()));
+            NationsFilter.Add(new FilterItem<string>(Constants.CountryOther, Constants.CountryOther.NationAsset()));
+            NationsFilter.Add(new FilterItem<string>(Constants.CountryEuropean, Constants.CountryEuropean.NationAsset()));
+
+            SelectedNation = NationsFilter[0].ItemId;
+        }
+
+        public string NationFilterStyle(string nation)
+        {
+            string basic = "nation-filter-flag";
+            if (SelectedNation == nation)
+            {
+                return $"{basic} filter-selected";
+            }
+            return basic;
+        }
+
+        public async Task ApplyNationFilter(MouseEventArgs e, string nationToApply)
+        {
+            SelectedNation = nationToApply;
+            await LoadTree();
+        }
+
+        private async Task LoadTree()
+        {
+            try
+            {
+                VehiclesLibrary = await GraphQlBackendService.GetVehiclesByNation(SelectedNation);
+                BuildTree();
+            }
+            catch (System.Exception e)
+            {
+                Notifications.ReportError("Can not get data from backend", e.Message);
+            }
+
         }
     }
 }
