@@ -44,7 +44,9 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         public List<TankTreeItem> TreeItems { get; set; } = new();
 
         public string SelectedNation { get; set; } = "germany";
-        
+
+        public List<string> Connections { get; set; } = new List<string>();
+
         public string FrameStyle
         {
             get
@@ -78,6 +80,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         private void BuildTree()
         {
             TreeItems.Clear();
+            Connections.Clear();
             var vehiclesTree = VehiclesLibrary.Where(v => v.IsPremium == false).ToList();
             for (int tier = 1; tier < 11; tier++)
             {
@@ -102,6 +105,13 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
 
                     // Map next tier tanks by rows
                     treeItem.NextRows = BuildNextTanksRowMapping(vehicleFromDictionary, currentRow);
+                    if(treeItem.NextRows != null)
+                    {
+                        foreach (var nextRow in treeItem.NextRows)
+                        {
+                            Connections.Add(SvgHelper.TankTreeConnectionPath(treeItem.Row, nextRow.Row, tier, CardWidth, CardHeigth));
+                        }
+                    }
                     
                     TreeItems.Add(treeItem);
                 }
@@ -153,22 +163,17 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             if (vehicleFromDictionary.NexTanksInTree != null && vehicleFromDictionary.NexTanksInTree.Count > 0)
             {
                 nextRowsMap = new List<TankTreeRowMap>();
-                if (vehicleFromDictionary.NexTanksInTree.Count == 1)
+                foreach (var nextTankInTree in vehicleFromDictionary.NexTanksInTree)
                 {
-                    nextRowsMap.Add(new TankTreeRowMap(vehicleFromDictionary.NexTanksInTree[0], currentRow));
-                }
-                else
-                {
-                    foreach (var nextTankInTree in vehicleFromDictionary.NexTanksInTree)
+                    var rowMap = Constants.TanksTreeHelper.FirstOrDefault(v => v.TankId == nextTankInTree);
+                    if (rowMap != null)
                     {
-                        // If more than one, get tank row from special mappings array
-                        var rowMap = Constants.TanksTreeHelper.FirstOrDefault(v => v.TankId == nextTankInTree);
-                        if (rowMap != null)
-                        {
-                            nextRowsMap.Add(rowMap);
-                        }
+                        nextRowsMap.Add(rowMap);
                     }
-
+                    else
+                    {
+                        nextRowsMap.Add(new TankTreeRowMap(vehicleFromDictionary.NexTanksInTree[0], currentRow));
+                    }
                 }
             }
 
