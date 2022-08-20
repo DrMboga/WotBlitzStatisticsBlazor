@@ -92,7 +92,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             players.Should().NotBeNull();
             players.Should().NotBeEmpty();
             _findPlayersQueryMock.Verify(q => q.ExecuteAsync(expectedSearch, expectedRealm, It.IsAny<RequestLanguage>(), It.IsAny<CancellationToken>()), Times.Once);
-            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
         [Test]
@@ -107,7 +107,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
 
             players.Should().BeNull();
             _findPlayersQueryMock.Verify(q => q.ExecuteAsync(expectedSearch, expectedRealm, It.IsAny<RequestLanguage>(), It.IsAny<CancellationToken>()), Times.Once);
-            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
 
@@ -123,7 +123,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             clans.Should().NotBeNull();
             clans.Should().NotBeEmpty();
             _findClanQueryMock.Verify(q => q.ExecuteAsync(expectedSearch, expectedRealm, It.IsAny<RequestLanguage>(), It.IsAny<CancellationToken>()), Times.Once);
-            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
 
         }
 
@@ -139,7 +139,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
 
             players.Should().BeNull();
             _findClanQueryMock.Verify(q => q.ExecuteAsync(expectedSearch, expectedRealm, It.IsAny<RequestLanguage>(), It.IsAny<CancellationToken>()), Times.Once);
-            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
@@ -156,7 +156,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             playerInfoResponse.achievementsBySection.Should().NotBeEmpty();
 
             _playerQueryMock.Verify(q => q.ExecuteAsync(CurrentAccountId, expectedRealm, It.IsAny<RequestLanguage>(), It.IsAny<CancellationToken>()), Times.Once);
-            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
         [Test]
@@ -172,7 +172,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             playerInfoResponse.achievementsBySection.Should().BeNull();
 
             _playerQueryMock.Verify(q => q.ExecuteAsync(CurrentAccountId, expectedRealm, It.IsAny<RequestLanguage>(), It.IsAny<CancellationToken>()), Times.Once);
-            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            _notificationServiceMock.Verify(n => n.ReportError(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         private async Task SetUpFindPlayers()

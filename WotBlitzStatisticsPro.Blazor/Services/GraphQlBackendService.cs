@@ -132,6 +132,10 @@ namespace WotBlitzStatisticsPro.Blazor.Services
                                 {
                                     messages.Add(message.ToString());
                                 }
+                                else
+                                {
+                                    messages.Add(realError);
+                                }
                             }
                         }
                     }   
@@ -140,7 +144,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
 
             if (messages.Count > 0)
             {
-                _notificationsService.ReportError("Backend error",string.Join(";", messages));
+                _notificationsService.ReportError("Backend error",string.Join(";", messages), null);
             }
         }
     }

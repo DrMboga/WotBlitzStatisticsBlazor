@@ -42,10 +42,10 @@ namespace WotBlitzStatisticsPro.Logic.Mappers
             CreateMap<IVehiclesDictionary, VehicleResponse>()
                 .ForMember(v => v.Name,
                     o => o.MapFrom((src, dest, destMember, context) =>
-                            src.Name.FirstOrDefault(l => l.Language == (RequestLanguage) context.Items["language"])?.Value))
+                            src.Name.FirstOrDefault(l => l.Language == (RequestLanguage) context.Items["language"])?.Value ?? string.Empty))
                 .ForMember(v => v.Description,
                     o => o.MapFrom((src, dest, destMember, context) =>
-                            src.Description.FirstOrDefault(l => l.Language == (RequestLanguage) context.Items["language"])?.Value))
+                            src.Description.FirstOrDefault(l => l.Language == (RequestLanguage) context.Items["language"])?.Value ?? string.Empty))
                 .ForMember(v => v.NexTanksInTree,
                     o => o.MapFrom(src => src.NexTanksInTree.Select(t => t.TankId).ToList()))
             ;

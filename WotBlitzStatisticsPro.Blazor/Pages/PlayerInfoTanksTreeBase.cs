@@ -76,7 +76,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         {
             TreeItems.Clear();
             Connections.Clear();
-            var vehiclesTree = VehiclesLibrary.Where(v => v.IsPremium == false).ToList();
+            var vehiclesTree = VehiclesLibrary?.Where(v => v != null && v.IsPremium == false).ToList();
             for (int tier = 1; tier < 11; tier++)
             {
                 var vehiclesByTier = vehiclesTree.Where(v => v.Tier == tier).ToList();
@@ -279,7 +279,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             }
             catch (System.Exception e)
             {
-                Notifications.ReportError("Can not get data from backend", e.Message);
+                Notifications.ReportError("Can not get data from backend", e.Message, e.StackTrace);
             }
 
         }

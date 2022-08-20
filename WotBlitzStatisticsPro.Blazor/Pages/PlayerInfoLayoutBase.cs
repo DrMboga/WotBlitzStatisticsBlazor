@@ -57,7 +57,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
             }
             catch (System.Exception e)
             {
-                Notifications.ReportError("Can not get data from backend", e.Message);
+                Notifications.ReportError("Can not get data from backend", e.Message, e.StackTrace);
             }
         }
     }
