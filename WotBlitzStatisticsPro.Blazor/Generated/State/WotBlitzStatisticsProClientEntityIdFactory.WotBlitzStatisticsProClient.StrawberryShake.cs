@@ -13,18 +13,16 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
             global::System.String __typename = obj.GetProperty("__typename").GetString()!;
             return __typename switch
             {
-            "Achievement" => ParseAchievementEntityId(obj, __typename), _ => throw new global::System.NotSupportedException()}
-
-            ;
+                "Achievement" => ParseAchievementEntityId(obj, __typename),
+                _ => throw new global::System.NotSupportedException()};
         }
 
         public global::System.String Format(global::StrawberryShake.EntityId entityId)
         {
             return entityId.Name switch
             {
-            "Achievement" => FormatAchievementEntityId(entityId), _ => throw new global::System.NotSupportedException()}
-
-            ;
+                "Achievement" => FormatAchievementEntityId(entityId),
+                _ => throw new global::System.NotSupportedException()};
         }
 
         private global::StrawberryShake.EntityId ParseAchievementEntityId(global::System.Text.Json.JsonElement obj, global::System.String type)

@@ -1,3 +1,70 @@
-﻿@inherits PlayerInfoTanksTreeBase;
+﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@using System.Linq
+@inherits PlayerInfoTanksTreeBase;
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row mb-3">
+        @foreach (var nationForFilter in NationsFilter)
+        {
+            <img src="@nationForFilter.ItemName" class="@NationFilterStyle(nationForFilter.ItemId)" @onclick="@(async (e) => { await ApplyNationFilter(e, nationForFilter.ItemId); })" />
+        }
+    </div>
+    <div style="overflow-y: auto; overflow-x: auto;">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             height="@((CardWidth + 40) * 10)"
+             width="@FrameHeigth">
 
-<TankListItem Tank=@TanksList.FirstOrDefault()></TankListItem>
+            <!-- Background -->
+            @for (int i = 0; i < 10; i++)
+            {
+                <rect x="0"
+                      y="@(i * (CardWidth + 40))"
+                      width="@FrameHeigth"
+                      height="@(CardWidth + 40)"
+                      fill="@(i % 2 == 0 ? "#464A5D" : "#3A3D4B")">
+                </rect>
+            }
+
+            @if (TreeItems != null)
+            {
+                @for (int tier = 1; tier < 11; tier++)
+                {
+                    @foreach (var tank in TreeItems.Where(t => t.Tier == tier).OrderBy(t => t.Row).ToList())
+                    {
+                        <!-- Tank card svg-->
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             x="@(tank.Row * (CardHeigth + 20) + 20)"
+                             y="@(((10 - tier)) * (CardWidth + 40) + 20)"
+                             height="@CardWidth"
+                             width="@CardHeigth">
+                            <g>
+                                <!--Rect fill = #275950 - researched, #2E353B - unresearched, #66502b - prem-->
+                                <rect x="0"
+                                      y="0"
+                                      height="@CardWidth"
+                                      width="@CardHeigth"
+                                      rx="10"
+                                      ry="10"
+                                      fill="@(tank.IsResearched ? (tank.IsPremium ? "#66502b" : "#275950") : "#2E353B")">
+                                </rect>
+
+                                <!--Tank type-->
+                                <image x="5" y="7" width="25" height="25" href="@tank.TankTypeId.TankTypeAsset(tank.IsPremium)" />
+                                <!--Tank tier-->
+                                <text x="30" y="4" fill="@(tank.IsPremium ? Constants.ClanTagColor : "white")" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="19">
+                                    @tank.Tier.RomanNumber()
+                                </text>
+                                <!--TankImage-->
+                                <image x="@((CardHeigth - 95) / 2)" y="5" width="95" height="70" href="@tank.PreviewImage" />
+                                <!--TankName-->
+                                <text x="5" y="80" fill="@(tank.IsPremium ? Constants.ClanTagColor : "white")" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="14">
+                                    @tank.Name
+                                </text>
+
+                            </g>
+                        </svg>
+                    }
+                }
+            }
+        </svg>
+    </div>
+</div>

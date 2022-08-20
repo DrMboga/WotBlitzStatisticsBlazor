@@ -6,7 +6,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
     public partial class WotBlitzStatisticsProClientStoreAccessor : global::StrawberryShake.StoreAccessor
     {
-        public WotBlitzStatisticsProClientStoreAccessor(global::StrawberryShake.IOperationStore operationStore, global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer entityIdSerializer, global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory> requestFactories, global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory> resultDataFactories): base(operationStore, entityStore, entityIdSerializer, requestFactories, resultDataFactories)
+        public WotBlitzStatisticsProClientStoreAccessor(global::StrawberryShake.IOperationStore operationStore, global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer entityIdSerializer, global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory> requestFactories, global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory> resultDataFactories) : base(operationStore, entityStore, entityIdSerializer, requestFactories, resultDataFactories)
         {
         }
     }
