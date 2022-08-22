@@ -43,11 +43,15 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         public int CardWidth { get; } = 200;
         public int CardHeigth { get; } = 120;
 
+        public int LeftMargin { get; } = 30;
+
         public List<TankTreeItem> TreeItems { get; set; } = new();
 
         public string SelectedNation { get; set; }
 
         public List<string> Connections { get; set; } = new List<string>();
+
+        public List<string> ConnectionsInVerticalView { get; set; } = new List<string>();
 
         public List<FilterItem<string>> NationsFilter { get; set; } = new();
 
@@ -76,6 +80,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
         {
             TreeItems.Clear();
             Connections.Clear();
+            ConnectionsInVerticalView.Clear();
             var vehiclesTree = VehiclesLibrary?.Where(v => v != null && v.IsPremium == false).ToList();
             for (int tier = 1; tier < 11; tier++)
             {
@@ -105,6 +110,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                         foreach (var nextRow in treeItem.NextRows)
                         {
                             Connections.Add(SvgHelper.TankTreeConnectionPath(treeItem.Row, nextRow.Row, tier, CardWidth, CardHeigth));
+                            // TODO: Calc ConnectionsInVerticalView
                         }
                     }
                     
