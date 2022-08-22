@@ -110,7 +110,7 @@ namespace WotBlitzStatisticsPro.Blazor.Pages
                         foreach (var nextRow in treeItem.NextRows)
                         {
                             Connections.Add(SvgHelper.TankTreeConnectionPath(treeItem.Row, nextRow.Row, tier, CardWidth, CardHeigth));
-                            // TODO: Calc ConnectionsInVerticalView
+                            ConnectionsInVerticalView.Add(SvgHelper.TankTreeConnectionVerticalPath(treeItem.Row, nextRow.Row, tier, CardWidth, CardHeigth, LeftMargin));
                         }
                     }
                     

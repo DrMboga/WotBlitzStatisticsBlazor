@@ -8,5 +8,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         ElementDimensions CalculateTextBlockSize(string text, string fontFace, int fontSize);
 
         string TankTreeConnectionPath(int rowStart, int rowEnd, int tierStart, int cardWidth, int cardHeight);
+
+        string TankTreeConnectionVerticalPath(int rowStart, int rowEnd, int tierStart, int cardWidth, int cardHeight, int leftMargin);
     }
 }
