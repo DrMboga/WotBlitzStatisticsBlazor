@@ -23,8 +23,8 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public interface IFindPlayersQuery : global::StrawberryShake.IOperationRequestFactory
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
+    public partial interface IFindPlayersQuery : global::StrawberryShake.IOperationRequestFactory
     {
         global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IFindPlayersResult>> ExecuteAsync(global::System.String accountNick, global::WotBlitzStatisticsPro.Blazor.GraphQl.RealmType realmType, global::WotBlitzStatisticsPro.Blazor.GraphQl.RequestLanguage language, global::System.Threading.CancellationToken cancellationToken = default);
         global::System.IObservable<global::StrawberryShake.IOperationResult<IFindPlayersResult>> Watch(global::System.String accountNick, global::WotBlitzStatisticsPro.Blazor.GraphQl.RealmType realmType, global::WotBlitzStatisticsPro.Blazor.GraphQl.RequestLanguage language, global::StrawberryShake.ExecutionStrategy? strategy = null);

@@ -6,7 +6,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// <summary>
     /// Information about player
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class Player_AccountInfo_AccountInfoResponse : global::System.IEquatable<Player_AccountInfo_AccountInfoResponse>, IPlayer_AccountInfo_AccountInfoResponse
     {
         public Player_AccountInfo_AccountInfoResponse(global::System.Int64 accountId, global::System.DateTimeOffset createdAt, global::System.String? nickname, global::System.Int64 maxFragsTankId, global::System.Int64 maxXpTankId, global::System.Double avgTier, global::System.DateTimeOffset lastBattleTime, global::System.Int64 battles, global::System.Int64 capturePoints, global::System.Int64 damageDealt, global::System.Int64 damageReceived, global::System.Int64 droppedCapturePoints, global::System.Int64 frags, global::System.Int64 frags8P, global::System.Int64 hits, global::System.Int64 losses, global::System.Int64 maxFrags, global::System.Int64 maxXp, global::System.Int64 shots, global::System.Int64 spotted, global::System.Int64 survivedBattles, global::System.Int64 winAndSurvived, global::System.Int64 wins, global::System.Int64 xp, global::System.Double wn7, global::System.Decimal winRate, global::System.Decimal avgDamage, global::System.Decimal avgXp, global::System.Decimal damageCoefficient, global::System.Decimal survivalRate, global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_ClanInfo? clanInfo, global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo_Tanks>? tanks)

@@ -14,6 +14,6 @@ namespace WotBlitzStatisticsPro.Blazor.Services
 
         void ReportInfo(string summary, string message);
         void ReportWarning(string summary, string message);
-        void ReportError(string summary, string message);
+        void ReportError(string summary, string message, string? stacktrace);
     }
 }

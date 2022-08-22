@@ -6,7 +6,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// <summary>
     /// Clan information
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class Player_AccountInfo_ClanInfo_ClanInfoResponse : global::System.IEquatable<Player_AccountInfo_ClanInfo_ClanInfoResponse>, IPlayer_AccountInfo_ClanInfo_ClanInfoResponse
     {
         public Player_AccountInfo_ClanInfo_ClanInfoResponse(global::System.Int64 clanId, global::System.DateTimeOffset joinedAt, global::System.String? role, global::System.String roleLocalized, global::System.String? name, global::System.DateTimeOffset createdAt, global::System.Int64? creatorId, global::System.String? creatorName, global::System.String? description, global::System.String? descriptionHtml, global::System.Int64? leaderId, global::System.String? leaderName, global::System.Int64? membersCount, global::System.String? motto, global::System.String? tag, global::System.DateTimeOffset? updatedAt)

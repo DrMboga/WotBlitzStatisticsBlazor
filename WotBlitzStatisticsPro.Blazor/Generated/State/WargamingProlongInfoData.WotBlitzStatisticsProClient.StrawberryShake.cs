@@ -4,7 +4,7 @@
 namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
     ///<summary>Prolong Wargaming Auth token response</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class WargamingProlongInfoData
     {
         public WargamingProlongInfoData(global::System.String __typename, global::System.String? accessToken = default !, global::System.Int64? accountId = default !, global::System.Int32? expirationTimeStamp = default !)

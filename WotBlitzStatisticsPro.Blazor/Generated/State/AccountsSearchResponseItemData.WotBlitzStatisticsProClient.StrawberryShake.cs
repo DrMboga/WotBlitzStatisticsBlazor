@@ -4,7 +4,7 @@
 namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
     ///<summary>Account search result item</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class AccountsSearchResponseItemData
     {
         public AccountsSearchResponseItemData(global::System.String __typename, global::System.Int64? accountId = default !, global::System.String? nickname = default !, global::System.String? clanTag = default !, global::System.DateTimeOffset? lastBattle = default !, global::System.Int64? battlesCount = default !, global::System.Int32? winRate = default !)

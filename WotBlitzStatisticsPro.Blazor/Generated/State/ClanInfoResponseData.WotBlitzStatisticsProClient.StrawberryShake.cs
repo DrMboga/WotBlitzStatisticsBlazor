@@ -4,7 +4,7 @@
 namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
     ///<summary>Clan information</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class ClanInfoResponseData
     {
         public ClanInfoResponseData(global::System.String __typename, global::System.Int64? clanId = default !, global::System.DateTimeOffset? joinedAt = default !, global::System.String? role = default !, global::System.String? roleLocalized = default !, global::System.String? name = default !, global::System.DateTimeOffset? createdAt = default !, global::System.Int64? creatorId = default !, global::System.String? creatorName = default !, global::System.String? description = default !, global::System.String? descriptionHtml = default !, global::System.Int64? leaderId = default !, global::System.String? leaderName = default !, global::System.Int64? membersCount = default !, global::System.String? motto = default !, global::System.String? tag = default !, global::System.DateTimeOffset? updatedAt = default !)

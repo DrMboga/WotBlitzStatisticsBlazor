@@ -16,7 +16,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class WargamingOpenIdAuthenticationMutation : global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthenticationMutation
     {
         private readonly global::StrawberryShake.IOperationExecutor<IWargamingOpenIdAuthenticationResult> _operationExecutor;

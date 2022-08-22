@@ -4,7 +4,7 @@
 namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
     ///<summary>Player's achievement information</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class AchievementEntity
     {
         public AchievementEntity(global::System.String id = default !, global::System.String? name = default !, global::System.String? medalType = default !, global::System.String? condition = default !, global::System.String? description = default !, global::System.Int32 achievementValue = default !, global::System.Int32? maxSeriesValue = default !, global::System.String? image = default !, global::System.String? imageBig = default !, global::System.Int64? order = default !, global::System.String sectionId = default !)

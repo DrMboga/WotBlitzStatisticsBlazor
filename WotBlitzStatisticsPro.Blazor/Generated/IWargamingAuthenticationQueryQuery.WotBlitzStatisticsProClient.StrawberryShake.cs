@@ -11,8 +11,8 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public interface IWargamingAuthenticationQueryQuery : global::StrawberryShake.IOperationRequestFactory
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
+    public partial interface IWargamingAuthenticationQueryQuery : global::StrawberryShake.IOperationRequestFactory
     {
         global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IWargamingAuthenticationQueryResult>> ExecuteAsync(global::WotBlitzStatisticsPro.Blazor.GraphQl.RealmType realmType, global::System.Threading.CancellationToken cancellationToken = default);
         global::System.IObservable<global::StrawberryShake.IOperationResult<IWargamingAuthenticationQueryResult>> Watch(global::WotBlitzStatisticsPro.Blazor.GraphQl.RealmType realmType, global::StrawberryShake.ExecutionStrategy? strategy = null);

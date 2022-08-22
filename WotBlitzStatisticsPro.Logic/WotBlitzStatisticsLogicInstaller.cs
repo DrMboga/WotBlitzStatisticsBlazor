@@ -80,7 +80,7 @@ namespace WotBlitzStatisticsPro.Logic
             services.AddTransient<ReadTankHistoryFromDbOperation>();
             services.AddTransient<FillTankHistoryResponseOperation>();
 
-            services.AddTransient<IOperationFactory>(serviceProvider =>
+            services.AddSingleton<IOperationFactory>(serviceProvider =>
                 new ServiceProviderOperationFactory(serviceProvider));
         }
     }

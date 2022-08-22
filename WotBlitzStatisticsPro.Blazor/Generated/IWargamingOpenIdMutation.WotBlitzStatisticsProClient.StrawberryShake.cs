@@ -11,8 +11,8 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public interface IWargamingOpenIdMutation : global::StrawberryShake.IOperationRequestFactory
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
+    public partial interface IWargamingOpenIdMutation : global::StrawberryShake.IOperationRequestFactory
     {
         global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IWargamingOpenIdResult>> ExecuteAsync(global::System.String token, global::WotBlitzStatisticsPro.Blazor.GraphQl.RealmType realmType, global::System.Threading.CancellationToken cancellationToken = default);
         global::System.IObservable<global::StrawberryShake.IOperationResult<IWargamingOpenIdResult>> Watch(global::System.String token, global::WotBlitzStatisticsPro.Blazor.GraphQl.RealmType realmType, global::StrawberryShake.ExecutionStrategy? strategy = null);

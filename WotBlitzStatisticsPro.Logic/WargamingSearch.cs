@@ -54,7 +54,7 @@ namespace WotBlitzStatisticsPro.Logic
             for (int i = 0; i < accounts.Count; i++)
             {
                 var accountResponse = accounts.ToArray()[i];
-                var shortAccountInfo = shortAccountInfos?.FirstOrDefault(a => a.AccountId == accountResponse.AccountId);
+                var shortAccountInfo = shortAccountInfos?.FirstOrDefault(a => a != null && a.AccountId == accountResponse.AccountId);
                 if (shortAccountInfo != null)
                 {
                     _mapper.Map(shortAccountInfo, accountResponse);

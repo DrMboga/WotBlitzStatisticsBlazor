@@ -1,0 +1,116 @@
+﻿@using WotBlitzStatisticsPro.Blazor.Helpers
+@using System.Linq
+@inherits PlayerInfoTanksTreeBase;
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row mb-3">
+        @foreach (var nationForFilter in NationsFilter)
+        {
+            <img src="@nationForFilter.ItemName" class="@NationFilterStyle(nationForFilter.ItemId)" @onclick="@(async (e) => { await ApplyNationFilter(e, nationForFilter.ItemId); })" />
+        }
+    </div>
+    <div style="overflow-y: auto; overflow-x: auto;">
+        <svg xmlns="http://www.w3.org/2000/svg"
+                width="@((CardWidth + 40) * 10)"
+                height="@FrameHeigth">
+            <!-- Background -->
+            @for (int i = 0; i < 10; i++)
+            {
+                <rect x="@(i * (CardWidth + 40))"
+                        y="0"
+                        width="@(CardWidth + 40)"
+                        height="@FrameHeigth"
+                        fill="@(i % 2 == 0 ? "#464A5D" : "#3A3D4B")">
+                </rect>
+            }
+
+            <!-- Connections -->
+            <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths -->
+            @foreach (var pathConnection in Connections)
+            {
+                <path fill="none" stroke="white" stroke-width="1" d="@pathConnection" />
+            }
+
+            @if (TreeItems != null)
+            {
+                @for (int tier = 1; tier < 11; tier++)
+                {
+                    @foreach (var tank in TreeItems.Where(t => t.Tier == tier).OrderBy(t => t.Row).ToList())
+                    {
+                        <!-- Tank card svg-->
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                                x="@((tier - 1) * (CardWidth + 40) + 20)"
+                                y="@(tank.Row * (CardHeigth + 20) + 20)"
+                                width="@CardWidth"
+                                height="@CardHeigth">
+                            <g>
+                                <!--Rect fill = #275950 - researched, #2E353B - unresearched, #66502b - prem-->
+                                <rect x="0"
+                                        y="0"
+                                        width="@CardWidth"
+                                        height="@CardHeigth"
+                                        rx="10"
+                                        ry="10"
+                                        fill="@(tank.IsResearched ? (tank.IsPremium ? "#66502b" : "#275950") : "#2E353B")">
+                                </rect>
+
+                                <!--Tank type-->
+                                <image x="7" y="7" width="25" height="25" href="@tank.TankTypeId.TankTypeAsset(tank.IsPremium)" />
+                                <!--Tank tier-->
+                                <text x="33" y="4" fill="@(tank.IsPremium ? Constants.ClanTagColor : "white")" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="19">
+                                    @tank.Tier.RomanNumber()
+                                </text>
+                                <!--TankImage-->
+                                <image x="@((CardWidth - 95) / 2)" y="@((CardHeigth - 70) / 2)" width="95" height="70" href="@tank.PreviewImage" />
+                                <!--TankName-->
+                                <text x="33" y="@(CardHeigth - 25)" fill="@(tank.IsPremium ? Constants.ClanTagColor : "white")" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="14">
+                                    @tank.Name
+                                </text>
+
+                                <!--Researched: Mastery, Winrate, AvgDmg, Battles, LastBattle-->
+                                @if (tank.IsResearched && tank.MarkOfMastery.HasValue && tank.WinRate.HasValue && tank.AvgDamage.HasValue && tank.Battles.HasValue && tank.LastBattleTime.HasValue)
+                                {
+                                    <g>
+                                        <!--Mastery-->
+                                        <image x="7" y="@(CardHeigth - 26)" width="20" height="20" href="@tank.MarkOfMastery.Value.IconAsset()" />
+                                        <!--Winrate-->
+                                        <image x="7" y="40" width="20" height="20" href="icons/details.wins.scale-200.png" />
+                                        <text x="32" y="40" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-weight="bold" font-size="12">
+                                            @(tank.WinRate.Value.ToString("N0"))%
+                                        </text>
+                                        <line x1="8" y1="60" x2="58" y2="60" style="@($"stroke:{tank.WinRate.Value.ScaleColor()};stroke-width:3")" />
+                                        <!--AvgDmg-->
+                                        <image x="@(CardWidth - 62)" y="40" width="20" height="20" href="icons/damage.scale-200.png" />
+                                        <text x="@(CardWidth - 37)" y="40" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                            @tank.AvgDamage.Value.ToString("N0")
+                                        </text>
+                                        <!--Battles-->
+                                        <image x="@(CardWidth - 62)" y="9" width="20" height="20" href="icons/details.battles.scale-200.png" />
+                                        <text x="@(CardWidth - 37)" y="9" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                            @tank.Battles.Value.ToString("N0")
+                                        </text>
+                                        <!--Last battle-->
+                                        <image x="8" y="@(CardHeigth - 50)" width="16" height="16" href="icons/calendar.scale-200.png" />
+                                        <text x="32" y="@(CardHeigth - 50)" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                            @tank.LastBattleTime.Value.ToString("d")
+                                        </text>
+                                    </g>
+                                }
+                                <!--Unresearched: XP, Credits-->
+                                @if (!tank.IsResearched)
+                                {
+                                    <g>
+                                        <!--Credits-->
+                                        <image x="8" y="@(CardHeigth - 50)" width="20" height="20" href="icons/encyclopedia.vehicle.credits.scale-200.png" />
+                                        <text x="32" y="@(CardHeigth - 50)" fill="white" text-anchor="start" alignment-baseline="before-edge" font-family="Segoe UI" font-size="12">
+                                            @((tank.PriceCredit / 1000).ToString("N0")) K
+                                        </text>
+                                    </g>
+                                }
+                            </g>
+                        </svg>
+                    }
+                }
+            }
+        </svg>
+    </div>
+</div>

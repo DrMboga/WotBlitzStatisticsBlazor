@@ -6,8 +6,8 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// <summary>
     /// Information about player
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public interface IAccount : IStatistics
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
+    public partial interface IAccount : IStatistics
     {
         /// <summary>
         /// Player account identifier

@@ -88,6 +88,13 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             CheckErrors(result.Errors);
         }
 
+        public async Task<IReadOnlyList<IDictionary_Vehicles>> GetVehiclesByNation(string nationId)
+        {
+            var result = await _client.Dictionary.ExecuteAsync(nationId, GetLanguage());
+            CheckErrors(result.Errors);
+            return result.Data?.Vehicles;
+        }
+
         private RequestLanguage GetLanguage()
         {
             var culture = CultureInfo.CurrentCulture;
@@ -125,6 +132,10 @@ namespace WotBlitzStatisticsPro.Blazor.Services
                                 {
                                     messages.Add(message.ToString());
                                 }
+                                else
+                                {
+                                    messages.Add(realError);
+                                }
                             }
                         }
                     }   
@@ -133,7 +144,7 @@ namespace WotBlitzStatisticsPro.Blazor.Services
 
             if (messages.Count > 0)
             {
-                _notificationsService.ReportError("Backend error",string.Join(";", messages));
+                _notificationsService.ReportError("Backend error",string.Join(";", messages), null);
             }
         }
     }

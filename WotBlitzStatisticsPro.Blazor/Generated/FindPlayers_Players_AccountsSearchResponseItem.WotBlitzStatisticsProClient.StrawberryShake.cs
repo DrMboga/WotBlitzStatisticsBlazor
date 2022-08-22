@@ -6,7 +6,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// <summary>
     /// Account search result item
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class FindPlayers_Players_AccountsSearchResponseItem : global::System.IEquatable<FindPlayers_Players_AccountsSearchResponseItem>, IFindPlayers_Players_AccountsSearchResponseItem
     {
         public FindPlayers_Players_AccountsSearchResponseItem(global::System.Int64 accountId, global::System.String? nickname, global::System.String? clanTag, global::System.DateTimeOffset lastBattle, global::System.Int64 battlesCount, global::System.Int32 winRate)

@@ -169,5 +169,13 @@ namespace WotBlitzStatisticsPro.DataAccess
 
             return collection.ToDictionary(a => a.AchievementId, a => a);
         }
+
+        public async Task<List<IVehiclesDictionary>> GetVehiclesByNation(string nationId)
+        {
+            var collection = await _database.GetCollection<VehiclesDictionary>(VehiclesCollectionName)
+                .Find(Builders<VehiclesDictionary>.Filter.Eq(v => v.NationId, nationId))
+                .ToListAsync();
+            return collection.Cast<IVehiclesDictionary>().ToList();
+        }
     }
 }

@@ -3,7 +3,7 @@
 
 namespace WotBlitzStatisticsPro.Blazor.GraphQl
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class WargamingOpenIdAuthenticationResult : global::System.IEquatable<WargamingOpenIdAuthenticationResult>, IWargamingOpenIdAuthenticationResult
     {
         public WargamingOpenIdAuthenticationResult(global::WotBlitzStatisticsPro.Blazor.GraphQl.IWargamingOpenIdAuthentication_ProlongAuthToken prolongAuthToken)

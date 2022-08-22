@@ -1,0 +1,13 @@
+﻿
+.nation-filter-flag {
+    width: 70px;
+    height: 46px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.filter-selected {
+    border-width: 1px;
+    border-color: #f5aa3b;
+    border-style: solid;
+}

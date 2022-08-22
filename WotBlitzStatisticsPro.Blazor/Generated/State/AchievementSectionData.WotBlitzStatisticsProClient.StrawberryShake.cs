@@ -4,7 +4,7 @@
 namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
     ///<summary>Represents achievement section info and it's achievements list</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class AchievementSectionData
     {
         public AchievementSectionData(global::System.String __typename, global::System.String? sectionId = default !, global::System.Int32? order = default !, global::System.String? name = default !, global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? medals = default !)

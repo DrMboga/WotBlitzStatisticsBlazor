@@ -6,7 +6,8 @@ using NUnit.Framework;
 using WotBlitzStatisticsPro.Common.Model;
 using WotBlitzStatisticsPro.Logic;
 using WotBlitzStatisticsPro.Logic.Dictionaries;
-
+using AutoMapper;
+using WotBlitzStatisticsPro.DataAccess;
 namespace WotBlitzStatisticsPro.Tests.DictionariesTests
 {
     [TestFixture]
@@ -42,7 +43,9 @@ namespace WotBlitzStatisticsPro.Tests.DictionariesTests
             var services = serviceProvider.BuildServiceProvider();
 
             _wargamingDictionaries = new WargamingDictionaries(services.GetService<DictionariesUpdaterResolver>(),
-                (new Mock<ILogger<WargamingDictionaries>>()).Object);
+                (new Mock<IDictionariesDataAccessor>()).Object,
+                (new Mock<ILogger<WargamingDictionaries>>()).Object,
+                (new Mock<IMapper>()).Object);
         }
 
         [Test]

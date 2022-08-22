@@ -1,0 +1,16 @@
+query dictionary($nationId: String!, $requestLanguage: RequestLanguage!) {
+  vehicles(nationId: $nationId, language: $requestLanguage) {
+    tankId
+    name
+    description
+    isPremium
+    typeId
+    nationId
+    tier
+    previewImage
+    normalImage
+    priceCredit
+    priceGold
+    nexTanksInTree
+  }
+}

@@ -6,7 +6,7 @@
     <Items>
         @foreach (var section in AchievementsBySection.OrderBy(s => s.Order))
         {
-            <RadzenAccordionItem Text="@section.Name">
+            <RadzenAccordionItem Text="@(section.Name)">
                 <div class="medals-section">
                     @foreach (var medal in section.Medals.OrderBy(m => m.Order))
                     {

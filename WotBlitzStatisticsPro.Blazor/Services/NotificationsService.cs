@@ -39,13 +39,14 @@ namespace WotBlitzStatisticsPro.Blazor.Services
             _jsRuntime.InvokeVoidAsync("console.warn", summary, message);
         }
 
-        public void ReportError(string summary, string message)
+        public void ReportError(string summary, string message, string? stacktrace)
         {
             Type = NotificationType.Error;
             Message = message;
             Summary = summary;
             MessageArrived?.Invoke();
-            _jsRuntime.InvokeVoidAsync("console.error", summary, message);
+            Console.WriteLine(message);
+            _jsRuntime.InvokeVoidAsync("console.error", summary, string.IsNullOrEmpty(stacktrace) ? message : $"{message}; {stacktrace}");
         }
     }
 }

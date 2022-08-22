@@ -16,5 +16,15 @@ namespace WotBlitzStatisticsPro.Blazor.Services
         {
             return _jsRuntime.InvokeAsync<bool>("mediaQueries.IsScreenWidthLessThen", widthInPx);
         }
+
+        public ValueTask<int> WindowHeight()
+        {
+            return _jsRuntime.InvokeAsync<int>("mediaQueries.ScreenHeight");
+        }
+
+        public ValueTask<int> WindowWidth()
+        {
+            return _jsRuntime.InvokeAsync<int>("mediaQueries.ScreenWidth");
+        }
     }
 }

@@ -37,5 +37,8 @@ namespace WotBlitzStatisticsPro.DataAccess
         Task<List<AchievementSectionDictionary>> GetAchievementSections();
 
         Task<Dictionary<string, AchievementDictionary>> GetAchievements(string[] achievementIds);
+
+        Task<List<IVehiclesDictionary>> GetVehiclesByNation(string nationId);
+
     }
 }

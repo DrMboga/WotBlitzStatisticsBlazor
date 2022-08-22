@@ -3,28 +3,28 @@
   "documents": "**/*.graphql",
   "extensions": {
     "strawberryShake": {
-        "name": "WotBlitzStatisticsProClient",
-        "namespace": "WotBlitzStatisticsPro.Blazor.GraphQl",
-        "url": "https://localhost:5001/graphql/",
-        "dependencyInjection": true,
-        "strictSchemaValidation": true,
-        "hashAlgorithm": "md5",
-        "useSingleFile": false,
-        "requestStrategy": "Default",
-        "outputDirectoryName": "Generated",
-        "noStore": false,
-        "emitGeneratedCode": true,
-        "razorComponents": false,
-        "records": {
-            "inputs": false,
-            "entities": false
-        },
-        "transportProfiles": [
-            {
-                "default": "Http",
-                "subscription": "WebSocket"
-            }
-        ]
+      "name": "WotBlitzStatisticsProClient",
+      "namespace": "WotBlitzStatisticsPro.Blazor.GraphQl",
+      "url": "https://localhost:6001/graphql/",
+      "dependencyInjection": true,
+      "strictSchemaValidation": true,
+      "hashAlgorithm": "md5",
+      "useSingleFile": false,
+      "requestStrategy": "Default",
+      "outputDirectoryName": "Generated",
+      "noStore": false,
+      "emitGeneratedCode": true,
+      "razorComponents": false,
+      "records": {
+        "inputs": false,
+        "entities": false
+      },
+      "transportProfiles": [
+        {
+          "default": "Http",
+          "subscription": "WebSocket"
+        }
+      ]
     }
   }
 }
