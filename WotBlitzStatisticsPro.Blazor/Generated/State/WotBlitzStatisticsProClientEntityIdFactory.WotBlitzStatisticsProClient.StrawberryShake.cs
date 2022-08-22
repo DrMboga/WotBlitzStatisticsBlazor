@@ -3,7 +3,7 @@
 
 namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class WotBlitzStatisticsProClientEntityIdFactory : global::StrawberryShake.IEntityIdSerializer
     {
         private static readonly global::System.Text.Json.JsonWriterOptions _options = new global::System.Text.Json.JsonWriterOptions()
@@ -13,18 +13,16 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
             global::System.String __typename = obj.GetProperty("__typename").GetString()!;
             return __typename switch
             {
-            "Achievement" => ParseAchievementEntityId(obj, __typename), _ => throw new global::System.NotSupportedException()}
-
-            ;
+                "Achievement" => ParseAchievementEntityId(obj, __typename),
+                _ => throw new global::System.NotSupportedException()};
         }
 
         public global::System.String Format(global::StrawberryShake.EntityId entityId)
         {
             return entityId.Name switch
             {
-            "Achievement" => FormatAchievementEntityId(entityId), _ => throw new global::System.NotSupportedException()}
-
-            ;
+                "Achievement" => FormatAchievementEntityId(entityId),
+                _ => throw new global::System.NotSupportedException()};
         }
 
         private global::StrawberryShake.EntityId ParseAchievementEntityId(global::System.Text.Json.JsonElement obj, global::System.String type)

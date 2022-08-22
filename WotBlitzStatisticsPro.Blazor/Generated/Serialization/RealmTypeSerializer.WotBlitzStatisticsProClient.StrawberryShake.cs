@@ -3,7 +3,7 @@
 
 namespace WotBlitzStatisticsPro.Blazor.GraphQl
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class RealmTypeSerializer : global::StrawberryShake.Serialization.IInputValueFormatter, global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, RealmType>
     {
         public global::System.String TypeName => "RealmType";
@@ -11,18 +11,22 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         {
             return serializedValue switch
             {
-            "RU" => RealmType.Ru, "EU" => RealmType.Eu, "NA" => RealmType.Na, "ASIA" => RealmType.Asia, _ => throw new global::StrawberryShake.GraphQLClientException()}
-
-            ;
+                "RU" => RealmType.Ru,
+                "EU" => RealmType.Eu,
+                "NA" => RealmType.Na,
+                "ASIA" => RealmType.Asia,
+                _ => throw new global::StrawberryShake.GraphQLClientException()};
         }
 
         public global::System.Object Format(global::System.Object? runtimeValue)
         {
             return runtimeValue switch
             {
-            RealmType.Ru => "RU", RealmType.Eu => "EU", RealmType.Na => "NA", RealmType.Asia => "ASIA", _ => throw new global::StrawberryShake.GraphQLClientException()}
-
-            ;
+                RealmType.Ru => "RU",
+                RealmType.Eu => "EU",
+                RealmType.Na => "NA",
+                RealmType.Asia => "ASIA",
+                _ => throw new global::StrawberryShake.GraphQLClientException()};
         }
     }
 }

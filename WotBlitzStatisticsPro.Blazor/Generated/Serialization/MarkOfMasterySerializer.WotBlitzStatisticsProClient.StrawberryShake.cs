@@ -3,7 +3,7 @@
 
 namespace WotBlitzStatisticsPro.Blazor.GraphQl
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class MarkOfMasterySerializer : global::StrawberryShake.Serialization.IInputValueFormatter, global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, MarkOfMastery>
     {
         public global::System.String TypeName => "MarkOfMastery";
@@ -11,18 +11,24 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         {
             return serializedValue switch
             {
-            "NONE" => MarkOfMastery.None, "RANK3" => MarkOfMastery.Rank3, "RANK2" => MarkOfMastery.Rank2, "RANK1" => MarkOfMastery.Rank1, "MASTER" => MarkOfMastery.Master, _ => throw new global::StrawberryShake.GraphQLClientException()}
-
-            ;
+                "NONE" => MarkOfMastery.None,
+                "RANK3" => MarkOfMastery.Rank3,
+                "RANK2" => MarkOfMastery.Rank2,
+                "RANK1" => MarkOfMastery.Rank1,
+                "MASTER" => MarkOfMastery.Master,
+                _ => throw new global::StrawberryShake.GraphQLClientException()};
         }
 
         public global::System.Object Format(global::System.Object? runtimeValue)
         {
             return runtimeValue switch
             {
-            MarkOfMastery.None => "NONE", MarkOfMastery.Rank3 => "RANK3", MarkOfMastery.Rank2 => "RANK2", MarkOfMastery.Rank1 => "RANK1", MarkOfMastery.Master => "MASTER", _ => throw new global::StrawberryShake.GraphQLClientException()}
-
-            ;
+                MarkOfMastery.None => "NONE",
+                MarkOfMastery.Rank3 => "RANK3",
+                MarkOfMastery.Rank2 => "RANK2",
+                MarkOfMastery.Rank1 => "RANK1",
+                MarkOfMastery.Master => "MASTER",
+                _ => throw new global::StrawberryShake.GraphQLClientException()};
         }
     }
 }

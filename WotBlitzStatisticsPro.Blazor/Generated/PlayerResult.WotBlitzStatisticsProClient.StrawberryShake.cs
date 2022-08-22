@@ -3,7 +3,7 @@
 
 namespace WotBlitzStatisticsPro.Blazor.GraphQl
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class PlayerResult : global::System.IEquatable<PlayerResult>, IPlayerResult
     {
         public PlayerResult(global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountInfo accountInfo, global::WotBlitzStatisticsPro.Blazor.GraphQl.IPlayer_AccountMedals accountMedals)

@@ -6,8 +6,8 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// <summary>
     /// Information about player's tank
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public interface ITank : IStatistics
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
+    public partial interface ITank : IStatistics
     {
         /// <summary>
         /// Tank identifier

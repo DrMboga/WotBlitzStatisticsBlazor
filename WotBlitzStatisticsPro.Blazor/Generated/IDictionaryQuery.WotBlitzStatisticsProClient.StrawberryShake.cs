@@ -25,8 +25,8 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public interface IDictionaryQuery : global::StrawberryShake.IOperationRequestFactory
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
+    public partial interface IDictionaryQuery : global::StrawberryShake.IOperationRequestFactory
     {
         global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IDictionaryResult>> ExecuteAsync(global::System.String nationId, global::WotBlitzStatisticsPro.Blazor.GraphQl.RequestLanguage requestLanguage, global::System.Threading.CancellationToken cancellationToken = default);
         global::System.IObservable<global::StrawberryShake.IOperationResult<IDictionaryResult>> Watch(global::System.String nationId, global::WotBlitzStatisticsPro.Blazor.GraphQl.RequestLanguage requestLanguage, global::StrawberryShake.ExecutionStrategy? strategy = null);

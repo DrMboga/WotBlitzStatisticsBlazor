@@ -6,8 +6,8 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// <summary>
     /// Player's achievement information
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public interface IPlayer_AccountMedals_Sections_Medals_Achievement : IPlayer_AccountMedals_Sections_Medals
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
+    public partial interface IPlayer_AccountMedals_Sections_Medals_Achievement : IPlayer_AccountMedals_Sections_Medals
     {
     }
 }

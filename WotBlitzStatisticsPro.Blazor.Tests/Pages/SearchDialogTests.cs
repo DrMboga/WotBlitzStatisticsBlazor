@@ -39,6 +39,9 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Pages
             TestContext?.Services.AddSingleton(_graphQlBackendMock.Object);
             TestContext?.Services.AddSingleton(_localStorageServiceMock.Object);
 
+            TestContext?.JSInterop.SetupVoid("Radzen.togglePopup", _ => true).SetVoidResult();
+            TestContext?.JSInterop.SetupVoid("Radzen.focusElement", _ => true).SetVoidResult();
+            TestContext?.JSInterop.SetupVoid("Radzen.selectListItem", _ => true).SetVoidResult();
             TestContext?.JSInterop.SetupVoid("Radzen.preventArrows", _ => true).SetVoidResult();
             TestContext?.JSInterop.SetupVoid("Radzen.closePopup", _ => true).SetVoidResult();
 

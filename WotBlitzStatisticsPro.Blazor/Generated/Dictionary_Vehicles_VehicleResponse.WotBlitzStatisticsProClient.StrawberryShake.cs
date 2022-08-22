@@ -6,7 +6,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// <summary>
     /// Response for vehicle dictionary query
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class Dictionary_Vehicles_VehicleResponse : global::System.IEquatable<Dictionary_Vehicles_VehicleResponse>, IDictionary_Vehicles_VehicleResponse
     {
         public Dictionary_Vehicles_VehicleResponse(global::System.Int64 tankId, global::System.String name, global::System.String description, global::System.Boolean isPremium, global::System.String typeId, global::System.String nationId, global::System.Int32 tier, global::System.String previewImage, global::System.String normalImage, global::System.Decimal priceCredit, global::System.Decimal priceGold, global::System.Collections.Generic.IReadOnlyList<global::System.Int64>? nexTanksInTree)

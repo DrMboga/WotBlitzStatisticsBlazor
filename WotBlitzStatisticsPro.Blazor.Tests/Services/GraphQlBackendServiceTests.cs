@@ -58,6 +58,7 @@ namespace WotBlitzStatisticsPro.Blazor.Tests.Services
             _wagamingOpenIdMutation = new();
             _wargamingOpenIdAuthenticationMutationMock = new();
             _wargamingPlayersMutation = new();
+            _dictionaryQuery = new();
 
             await SetUpFindClans();
             await SetUpFindPlayers();

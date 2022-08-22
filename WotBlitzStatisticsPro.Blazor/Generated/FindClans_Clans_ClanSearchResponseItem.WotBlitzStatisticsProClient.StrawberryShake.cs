@@ -6,7 +6,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// <summary>
     /// Found clans list item
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class FindClans_Clans_ClanSearchResponseItem : global::System.IEquatable<FindClans_Clans_ClanSearchResponseItem>, IFindClans_Clans_ClanSearchResponseItem
     {
         public FindClans_Clans_ClanSearchResponseItem(global::System.Int64 clanId, global::System.Int32 createdAt, global::System.Int32 membersCount, global::System.String? name, global::System.String? tag)

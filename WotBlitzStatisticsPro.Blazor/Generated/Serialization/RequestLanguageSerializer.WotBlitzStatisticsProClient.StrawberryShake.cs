@@ -3,7 +3,7 @@
 
 namespace WotBlitzStatisticsPro.Blazor.GraphQl
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class RequestLanguageSerializer : global::StrawberryShake.Serialization.IInputValueFormatter, global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, RequestLanguage>
     {
         public global::System.String TypeName => "RequestLanguage";
@@ -11,18 +11,20 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
         {
             return serializedValue switch
             {
-            "RU" => RequestLanguage.Ru, "EN" => RequestLanguage.En, "DE" => RequestLanguage.De, _ => throw new global::StrawberryShake.GraphQLClientException()}
-
-            ;
+                "RU" => RequestLanguage.Ru,
+                "EN" => RequestLanguage.En,
+                "DE" => RequestLanguage.De,
+                _ => throw new global::StrawberryShake.GraphQLClientException()};
         }
 
         public global::System.Object Format(global::System.Object? runtimeValue)
         {
             return runtimeValue switch
             {
-            RequestLanguage.Ru => "RU", RequestLanguage.En => "EN", RequestLanguage.De => "DE", _ => throw new global::StrawberryShake.GraphQLClientException()}
-
-            ;
+                RequestLanguage.Ru => "RU",
+                RequestLanguage.En => "EN",
+                RequestLanguage.De => "DE",
+                _ => throw new global::StrawberryShake.GraphQLClientException()};
         }
     }
 }

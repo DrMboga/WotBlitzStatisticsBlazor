@@ -6,8 +6,8 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// <summary>
     /// Account search result item
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public interface IPlayerShortInfo
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
+    public partial interface IPlayerShortInfo
     {
         /// <summary>
         /// Player accountId

@@ -11,7 +11,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class UpdatePlayerMutation : global::WotBlitzStatisticsPro.Blazor.GraphQl.IUpdatePlayerMutation
     {
         private readonly global::StrawberryShake.IOperationExecutor<IUpdatePlayerResult> _operationExecutor;

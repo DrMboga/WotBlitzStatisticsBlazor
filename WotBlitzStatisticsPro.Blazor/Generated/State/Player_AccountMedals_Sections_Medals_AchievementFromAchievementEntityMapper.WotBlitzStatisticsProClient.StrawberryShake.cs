@@ -3,7 +3,7 @@
 
 namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class Player_AccountMedals_Sections_Medals_AchievementFromAchievementEntityMapper : global::StrawberryShake.IEntityMapper<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementEntity, Player_AccountMedals_Sections_Medals_Achievement>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;

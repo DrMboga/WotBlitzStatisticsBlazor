@@ -4,7 +4,7 @@
 namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
     ///<summary>Response for vehicle dictionary query</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class VehicleResponseData
     {
         public VehicleResponseData(global::System.String __typename, global::System.Int64? tankId = default !, global::System.String? name = default !, global::System.String? description = default !, global::System.Boolean? isPremium = default !, global::System.String? typeId = default !, global::System.String? nationId = default !, global::System.Int32? tier = default !, global::System.String? previewImage = default !, global::System.String? normalImage = default !, global::System.Decimal? priceCredit = default !, global::System.Decimal? priceGold = default !, global::System.Collections.Generic.IReadOnlyList<global::System.Int64>? nexTanksInTree = default !)

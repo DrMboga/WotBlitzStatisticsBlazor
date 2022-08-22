@@ -6,7 +6,7 @@ namespace WotBlitzStatisticsPro.Blazor.GraphQl
     /// <summary>
     /// Player's achievement information
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class Player_AccountMedals_Sections_Medals_Achievement : global::System.IEquatable<Player_AccountMedals_Sections_Medals_Achievement>, IPlayer_AccountMedals_Sections_Medals_Achievement
     {
         public Player_AccountMedals_Sections_Medals_Achievement(global::System.String id, global::System.String? name, global::System.String? medalType, global::System.String? condition, global::System.String? description, global::System.Int32 achievementValue, global::System.Int32? maxSeriesValue, global::System.String? image, global::System.String? imageBig, global::System.Int64? order, global::System.String sectionId)

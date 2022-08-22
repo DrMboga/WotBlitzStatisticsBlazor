@@ -3,8 +3,8 @@
 
 namespace WotBlitzStatisticsPro.Blazor.GraphQl
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
-    public interface IWargamingAuthenticationQueryResult
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
+    public partial interface IWargamingAuthenticationQueryResult
     {
         /// <summary>
         /// Returns authentication URL accourding Realm

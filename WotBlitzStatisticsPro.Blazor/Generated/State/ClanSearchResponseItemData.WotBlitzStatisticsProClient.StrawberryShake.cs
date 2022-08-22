@@ -4,7 +4,7 @@
 namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
     ///<summary>Found clans list item</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class ClanSearchResponseItemData
     {
         public ClanSearchResponseItemData(global::System.String __typename, global::System.Int64? clanId = default !, global::System.Int32? createdAt = default !, global::System.Int32? membersCount = default !, global::System.String? name = default !, global::System.String? tag = default !)

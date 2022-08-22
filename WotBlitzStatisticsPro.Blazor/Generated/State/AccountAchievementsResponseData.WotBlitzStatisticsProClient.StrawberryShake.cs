@@ -4,7 +4,7 @@
 namespace WotBlitzStatisticsPro.Blazor.GraphQl.State
 {
     ///<summary>Represents information about player's achievements</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.2.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.12.1.0")]
     public partial class AccountAchievementsResponseData
     {
         public AccountAchievementsResponseData(global::System.String __typename, global::System.Int64? accountId = default !, global::System.Collections.Generic.IReadOnlyList<global::WotBlitzStatisticsPro.Blazor.GraphQl.State.AchievementSectionData>? sections = default !)
